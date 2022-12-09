@@ -8,6 +8,7 @@ Player::Player()
 	,m_Rot{0.0f, -90.0f, 0.0f}
 	,m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
+	, m_Info{{2.0f, -1.0f, -0.0f}, {1.0f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
 {
 	//モデル読み込み
 	m_pModel = new Model;
@@ -81,11 +82,19 @@ void Player::Update()
 
 	if (IsKeyPress('D'))	m_Move.x -= 0.1f;
 	if (IsKeyPress('A'))	m_Move.x += 0.1f;
+
+	// 自動移動
+	m_Move.x -= 0.02f;
+	// Rキーで停止 (デバッグ用
+	if (IsKeyPress('R')) m_Move.x = 0.0f;
+
 /*
+	
 	m_Move.x += move.x;
 	m_Move.y += move.y;
 	m_Move.z += move.z;
 */
+
 	
 	//ジャンプ
 	if (IsKeyTrigger(VK_SPACE))
@@ -99,13 +108,13 @@ void Player::Update()
 		m_Move.y -= 0.03f;
 	}
 
-	m_Pos.x += m_Move.x;
-	m_Pos.y += m_Move.y;
-	m_Pos.z += m_Move.z;
+	m_Info.pos.x += m_Move.x;
+	m_Info.pos.y += m_Move.y;
+	m_Info.pos.z += m_Move.z;
 
-	if (m_Pos.y < -50.0f)
+	if (m_Info.pos.y < -50.0f)
 	{
-		m_Pos.y = 5.0f;
+		m_Info.pos.y = 5.0f;
 		m_Move.y = 0.0f;
 	}
 }
@@ -115,7 +124,8 @@ void Player::Draw()
 	if (!m_pCamera)	return;		//カメラが設定されてなければ処理しない
 	XMFLOAT3 ConvertRot = { XMConvertToRadians(m_Rot.x), XMConvertToRadians(m_Rot.y), XMConvertToRadians(m_Rot.z) };
 	XMFLOAT4X4 mat[3];
-	XMMATRIX temp =	XMMatrixRotationX(ConvertRot.x) * XMMatrixRotationY(ConvertRot.y) * XMMatrixRotationZ(ConvertRot.z) * XMMatrixTranslation(m_Pos.x, m_Pos.y, m_Pos.z);
+	XMMATRIX temp =	XMMatrixRotationX(ConvertRot.x) * XMMatrixRotationY(ConvertRot.y) * XMMatrixRotationZ(ConvertRot.z) 
+		* XMMatrixTranslation(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
 	XMStoreFloat4x4(&mat[0], XMMatrixTranspose(temp));	//ワールド行列
 	mat[1] = m_pCamera->GetViewMatrix();		//ビュー行列
 	mat[2] = m_pCamera->GetProjectionMatrix(CameraBase::CameraAngle::E_CAM_ANGLE_PERSPECTIVEFOV);	//プロジェクション行列
@@ -131,5 +141,5 @@ void Player::SetCamera(CameraBase* pCamera)
 
 XMFLOAT3 Player::GetPos()
 {
-	return m_Pos;
+	return m_Info.pos;
 }

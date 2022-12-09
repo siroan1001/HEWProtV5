@@ -89,10 +89,8 @@ Stage::~Stage()
 
 void Stage::Draw()
 {
-	//if (IsKeyPress('D'))	m_pBlocks[1].pos.x -= 0.1f;
-	//if (IsKeyPress('A'))	m_pBlocks[1].pos.x += 0.1f;
-
 	for (int i = 0; i < 1/*m_blockNum*/; ++i)
+
 	{
 		SetGeometoryTranslate(m_pBlocks[i].pos.x, m_pBlocks[i].pos.y, m_pBlocks[i].pos.z);
 		SetGeometoryScaling(m_pBlocks[i].size.x, m_pBlocks[i].size.y, m_pBlocks[i].size.z);

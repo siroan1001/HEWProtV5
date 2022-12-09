@@ -19,6 +19,8 @@ public:
 		bool use;
 	};
 
+	//struct 
+
 public:
 	ShadowBlock();
 	~ShadowBlock();
@@ -36,7 +38,7 @@ private:
 	
 
 	BlockBase m_Block;		//全体の情報
-	std::vector<BlockBase> m_BlockInfo;		//並び順や場所の情報を動的に確保
+	std::vector<std::vector<BlockBase>> m_BlockInfo;		//並び順や場所の情報を動的に確保
 
 };
 
