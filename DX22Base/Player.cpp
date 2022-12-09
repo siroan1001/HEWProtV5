@@ -69,20 +69,23 @@ void Player::Update()
 
 	//移動処理
 	XMVECTOR vMove = XMVectorZero();	//初期化
-	if (IsKeyPress('W'))	vMove += vFroat;	//前
-	if (IsKeyPress('S'))	vMove -= vFroat;	//後ろ
-	if (IsKeyPress('A'))	
-		vMove -= vSide;		//左
-	if (IsKeyPress('D'))	vMove += vSide;		//右
+	//if (IsKeyPress('W'))	vMove += vFroat;	//前
+	//if (IsKeyPress('S'))	vMove -= vFroat;	//後ろ
+	//if (IsKeyPress('A'))	
+	//	vMove -= vSide;		//左
+	//if (IsKeyPress('D'))	vMove += vSide;		//右
 	vMove = XMVectorScale(vMove, 0.2f);		//定数倍かけて移動の大きさを適切にする
 
 	XMFLOAT3 move;	//Posに反映させるための変数
 	XMStoreFloat3(&move, vMove);	//XMVECTORをXMFLOAT3に置き換える
 
+	if (IsKeyPress('D'))	m_Move.x -= 0.1f;
+	if (IsKeyPress('A'))	m_Move.x += 0.1f;
+/*
 	m_Move.x += move.x;
 	m_Move.y += move.y;
 	m_Move.z += move.z;
-
+*/
 	//ジャンプ
 	if (IsKeyTrigger(VK_SPACE))
 	{
@@ -111,8 +114,7 @@ void Player::Draw()
 	if (!m_pCamera)	return;		//カメラが設定されてなければ処理しない
 	XMFLOAT3 ConvertRot = { XMConvertToRadians(m_Rot.x), XMConvertToRadians(m_Rot.y), XMConvertToRadians(m_Rot.z) };
 	XMFLOAT4X4 mat[3];
-	XMMATRIX temp = XMMatrixTranslation(m_Pos.x, m_Pos.y, m_Pos.z) * 
-					XMMatrixRotationX(ConvertRot.x) * XMMatrixRotationY(ConvertRot.y) * XMMatrixRotationZ(ConvertRot.z);
+	XMMATRIX temp =	XMMatrixRotationX(ConvertRot.x) * XMMatrixRotationY(ConvertRot.y) * XMMatrixRotationZ(ConvertRot.z) * XMMatrixTranslation(m_Pos.x, m_Pos.y, m_Pos.z);
 	XMStoreFloat4x4(&mat[0], XMMatrixTranspose(temp));	//ワールド行列
 	mat[1] = m_pCamera->GetViewMatrix();		//ビュー行列
 	mat[2] = m_pCamera->GetProjectionMatrix(CameraBase::CameraAngle::E_CAM_ANGLE_PERSPECTIVEFOV);	//プロジェクション行列

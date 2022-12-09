@@ -80,7 +80,7 @@ void Game3D::Update()
 
 	//プレイヤーの更新
 	//カメラがPlayerCameraの場合のみ処理する
-	//if(m_mainCamera == E_CAM_MAIN)	m_pPlayer->Update();
+	if(m_mainCamera == E_CAM_MAIN)	m_pPlayer->Update();
 
 	//カメラの切り替え
 	CameraKind camera = m_mainCamera;
