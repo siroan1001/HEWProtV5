@@ -4,7 +4,7 @@
 //using namespace DirectX;
 
 Player::Player()
-	:m_Pos{0.0f, -1.0f, -2.0f}
+	:m_Pos{2.0f, -1.0f, 0.0f}
 	,m_Rot{0.0f, -90.0f, 0.0f}
 	,m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
@@ -86,6 +86,7 @@ void Player::Update()
 	m_Move.y += move.y;
 	m_Move.z += move.z;
 */
+	
 	//ƒWƒƒƒ“ƒv
 	if (IsKeyTrigger(VK_SPACE))
 	{

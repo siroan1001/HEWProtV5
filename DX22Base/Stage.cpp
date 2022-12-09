@@ -1,4 +1,5 @@
 #include "Stage.h"
+#include <vector>
 #include "Input.h"
 
 Stage::Stage()
@@ -65,7 +66,7 @@ Stage::Stage()
 	m_pBlocks[0].size = { 9.0f, 1.0f, 0.5f };
 	m_pBlocks[0].rot = { 0.0f, 0.0f, 0.0f };
 
-	m_pBlocks[1].pos = { 0.0f, -1.0f, -2.0f };
+	m_pBlocks[1].pos = { 0.0f, -1.0f, 0.0f };
 	m_pBlocks[1].size = { 2.0f, 1.0f, 1.0f };
 	m_pBlocks[1].rot = { 0.0f, 0.0f, 0.0f };
 
@@ -73,7 +74,12 @@ Stage::Stage()
 	m_pBlocks[2].size = { 2.0f, 2.0f, 2.0f };
 	m_pBlocks[2].rot = { 0.0f, 0.0f, 0.0f };
 
-
+	//std::vector<std::vector<int>> hoge;
+	//std::vector<int> fuga;
+	//fuga.push_back(1);
+	//fuga.push_back(12);
+	//fuga.push_back(123);
+	//hoge.push_back(fuga);
 }
 
 Stage::~Stage()
@@ -83,10 +89,10 @@ Stage::~Stage()
 
 void Stage::Draw()
 {
-	if (IsKeyPress('D'))	m_pBlocks[1].pos.x -= 0.1f;
-	if (IsKeyPress('A'))	m_pBlocks[1].pos.x += 0.1f;
+	//if (IsKeyPress('D'))	m_pBlocks[1].pos.x -= 0.1f;
+	//if (IsKeyPress('A'))	m_pBlocks[1].pos.x += 0.1f;
 
-	for (int i = 0; i < 2/*m_blockNum*/; ++i)
+	for (int i = 0; i < 1/*m_blockNum*/; ++i)
 	{
 		SetGeometoryTranslate(m_pBlocks[i].pos.x, m_pBlocks[i].pos.y, m_pBlocks[i].pos.z);
 		SetGeometoryScaling(m_pBlocks[i].size.x, m_pBlocks[i].size.y, m_pBlocks[i].size.z);

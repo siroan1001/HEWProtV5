@@ -99,7 +99,7 @@ void Game3D::Update()
 	if (m_mainCamera != camera)
 	{
 		m_mainCamera = camera;
-		//m_pPlayer->SetCamera(m_pCamera[m_mainCamera]);
+		m_pPlayer->SetCamera(m_pCamera[m_mainCamera]);
 	}
 
 	if (IsKeyTrigger('P'))
