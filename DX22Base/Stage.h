@@ -23,6 +23,7 @@ public:
 	void Draw();
 
 	Info GetInfo(int num);
+	int GetNum();
 
 protected:
 	Info* m_pBlocks;

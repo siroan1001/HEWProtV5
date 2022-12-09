@@ -30,12 +30,18 @@ public:
 	void Draw();
 
 	void SetCamera(CameraBase* pCamera);
-	XMFLOAT3 GetPos();
+	void SetPos(XMFLOAT3 pos);
+
+	void ResetMove();
+
+	//XMFLOAT3 GetPos();
+	Stage::Info GetInfo();
+
 
 private:
 	CameraBase* m_pCamera;
-	XMFLOAT3 m_Pos;
-	XMFLOAT3 m_Rot;
+	//XMFLOAT3 m_Pos;
+	//XMFLOAT3 m_Rot;
 	Stage::Info m_Info;
 	Model* m_pModel;
 	VertexShader* m_pVS;

@@ -4,11 +4,11 @@
 //using namespace DirectX;
 
 Player::Player()
-	:m_Pos{2.0f, -1.0f, 0.0f}
-	,m_Rot{0.0f, -90.0f, 0.0f}
-	,m_Ground(true)
+	//:m_Pos{2.0f, -1.0f, 0.0f}
+	//,m_Rot{0.0f, -90.0f, 0.0f}
+	:m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
-	,m_Info{{2.0f, -1.0f, -0.0f}, {1.0f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
+	,m_Info{{2.0f, 1.0f, -0.0f}, {1.0f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
 {
 	//モデル読み込み
 	m_pModel = new Model;
@@ -44,24 +44,24 @@ Player::~Player()
 
 void Player::Update()
 {
-	//定数定義
-	const float PLAYER_MOVE = 0.1f;
+	////定数定義
+	//const float PLAYER_MOVE = 0.1f;
 
-	//ローカル変数宣言
-	XMFLOAT3 CamPos = m_pCamera->GetPos();		//カメラPos
-	XMFLOAT3 CamLook = m_pCamera->GetLook();	//カメラLook
-	CamPos.y = CamLook.y = 0.0f;
-	XMVECTOR vCamPos = XMLoadFloat3(&CamPos);	//カメラPosをVectorに置き換える
-	XMVECTOR vCamLook = XMLoadFloat3(&CamLook);	//カメラLookをVectorに置き換える
+	////ローカル変数宣言
+	//XMFLOAT3 CamPos = m_pCamera->GetPos();		//カメラPos
+	//XMFLOAT3 CamLook = m_pCamera->GetLook();	//カメラLook
+	//CamPos.y = CamLook.y = 0.0f;
+	//XMVECTOR vCamPos = XMLoadFloat3(&CamPos);	//カメラPosをVectorに置き換える
+	//XMVECTOR vCamLook = XMLoadFloat3(&CamLook);	//カメラLookをVectorに置き換える
 
-	XMVECTOR vFroat;		//カメラの正面方向のベクトル
-	vFroat = vCamLook - vCamPos;
-	vFroat = XMVector3Normalize(vFroat);		//正規化
+	//XMVECTOR vFroat;		//カメラの正面方向のベクトル
+	//vFroat = vCamLook - vCamPos;
+	//vFroat = XMVector3Normalize(vFroat);		//正規化
 
-	XMMATRIX matRotSide = XMMatrixRotationY(XMConvertToRadians(90.0f));		//Y軸に90度（右方向）に回転する回転行列を生成
-	matRotSide = XMMatrixTranspose(matRotSide);
-	XMVECTOR vSide = XMVector3TransformCoord(vFroat, matRotSide);	//正面方向のベクトルを90度回転させて
-																	//真横のベクトルをとる
+	//XMMATRIX matRotSide = XMMatrixRotationY(XMConvertToRadians(90.0f));		//Y軸に90度（右方向）に回転する回転行列を生成
+	//matRotSide = XMMatrixTranspose(matRotSide);
+	//XMVECTOR vSide = XMVector3TransformCoord(vFroat, matRotSide);	//正面方向のベクトルを90度回転させて
+	//																//真横のベクトルをとる
 
 	//XMMATRIX matRotUp = XMMatrixRotationX(XMConvertToRadians(90.0f));
 
@@ -69,22 +69,22 @@ void Player::Update()
 	m_Move = { 0.0f, m_Move.y, 0.0f };
 
 	//移動処理
-	XMVECTOR vMove = XMVectorZero();	//初期化
+	//XMVECTOR vMove = XMVectorZero();	//初期化
 	//if (IsKeyPress('W'))	vMove += vFroat;	//前
 	//if (IsKeyPress('S'))	vMove -= vFroat;	//後ろ
 	//if (IsKeyPress('A'))	
 	//	vMove -= vSide;		//左
 	//if (IsKeyPress('D'))	vMove += vSide;		//右
-	vMove = XMVectorScale(vMove, 0.2f);		//定数倍かけて移動の大きさを適切にする
+	//vMove = XMVectorScale(vMove, 0.2f);		//定数倍かけて移動の大きさを適切にする
 
-	XMFLOAT3 move;	//Posに反映させるための変数
-	XMStoreFloat3(&move, vMove);	//XMVECTORをXMFLOAT3に置き換える
+	//XMFLOAT3 move;	//Posに反映させるための変数
+	//XMStoreFloat3(&move, vMove);	//XMVECTORをXMFLOAT3に置き換える
 
 	if (IsKeyPress('D'))	m_Move.x -= 0.1f;
 	if (IsKeyPress('A'))	m_Move.x += 0.1f;
 
 	// 自動移動
-	m_Move.x -= 0.02f;
+	//m_Move.x -= 0.02f;
 
 	// Rキーで停止 (デバッグ用
 	if (IsKeyPress('R')) m_Move.x = 0.0f;
@@ -104,10 +104,13 @@ void Player::Update()
 		m_Ground = false;
 	}
 
-	if (!m_Ground)
-	{
-		m_Move.y -= 0.01f;
-	}
+	//if (!m_Ground)
+	//{
+	//	
+	//}
+
+	//重力加算
+	m_Move.y -= 0.01f;
 
 	m_Info.pos.x += m_Move.x;
 	m_Info.pos.y += m_Move.y;
@@ -123,7 +126,7 @@ void Player::Update()
 void Player::Draw()
 {
 	if (!m_pCamera)	return;		//カメラが設定されてなければ処理しない
-	XMFLOAT3 ConvertRot = { XMConvertToRadians(m_Rot.x), XMConvertToRadians(m_Rot.y), XMConvertToRadians(m_Rot.z) };
+	XMFLOAT3 ConvertRot = { XMConvertToRadians(m_Info.rot.x), XMConvertToRadians(m_Info.rot.y), XMConvertToRadians(m_Info.rot.z) };
 	XMFLOAT4X4 mat[3];
 	XMMATRIX temp =	XMMatrixRotationX(ConvertRot.x) * XMMatrixRotationY(ConvertRot.y) * XMMatrixRotationZ(ConvertRot.z) 
 		* XMMatrixTranslation(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
@@ -140,7 +143,18 @@ void Player::SetCamera(CameraBase* pCamera)
 	m_pCamera = pCamera;
 }
 
-XMFLOAT3 Player::GetPos()
+void Player::SetPos(XMFLOAT3 pos)
 {
-	return m_Info.pos;
+	m_Info.pos = pos;
 }
+
+void Player::ResetMove()
+{
+	m_Move.y = 0.0f;
+}
+
+Stage::Info Player::GetInfo()
+{
+	return m_Info;
+}
+

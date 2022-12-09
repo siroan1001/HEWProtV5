@@ -3,7 +3,7 @@
 #include "Input.h"
 
 Stage::Stage()
-	:m_pBlocks(nullptr), m_blockNum(3)
+	:m_pBlocks(nullptr), m_blockNum(2)
 {
 	m_pBlocks = new Info[m_blockNum];
 
@@ -89,7 +89,7 @@ Stage::~Stage()
 
 void Stage::Draw()
 {
-	for (int i = 0; i < 2/*m_blockNum*/; ++i)
+	for (int i = 0; i < m_blockNum; ++i)
 
 	{
 		SetGeometoryTranslate(m_pBlocks[i].pos.x, m_pBlocks[i].pos.y, m_pBlocks[i].pos.z);
@@ -102,4 +102,9 @@ void Stage::Draw()
 Stage::Info Stage::GetInfo(int num)
 {
 	return m_pBlocks[num];
+}
+
+int Stage::GetNum()
+{
+	return m_blockNum;
 }

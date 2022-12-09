@@ -80,7 +80,7 @@ void Game3D::Update()
 
 	//プレイヤーの更新
 	//カメラがPlayerCameraの場合のみ処理する
-	if(m_mainCamera == E_CAM_MAIN)	m_pPlayer->Update();
+	/*if(m_mainCamera == E_CAM_MAIN)*/	m_pPlayer->Update();
 
 	//カメラの切り替え
 	CameraKind camera = m_mainCamera;
@@ -153,6 +153,41 @@ void Game3D::CheckCollision()
 				//printf("あたり");
 				//m_pShadowBlock->SetUse(i, false);
 				init->use = false;
+			}
+		}
+	}
+
+	//PlayerとStageの当たり判定
+	for (int i = 0; i < m_pStage->GetNum(); i++)
+	{
+		Stage::Info stage = m_pStage->GetInfo(i);
+		Stage::Info player = m_pPlayer->GetInfo();
+		player.pos.y += player.size.y / 2.0f;
+
+		if (Collision::RectAndRect(stage, player))
+		{
+			float pos = stage.pos.y + stage.size.y / 2.0f;
+			m_pPlayer->SetPos(XMFLOAT3(player.pos.x, pos, player.pos.z));
+			m_pPlayer->ResetMove();
+		}
+	}
+
+	//PlayerとShadowBloackの当たり判定
+	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
+	{
+		for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
+		{
+			if (!init->use)	continue;
+
+			Stage::Info shadow = init->Info;
+			Stage::Info player = m_pPlayer->GetInfo();
+			player.pos.y += player.size.y / 2.0f;
+
+			if (Collision::RectAndRect(shadow, player))
+			{
+				float pos = shadow.pos.y + shadow.size.y / 2.0f;
+				m_pPlayer->SetPos(XMFLOAT3(player.pos.x, pos, player.pos.z));
+				m_pPlayer->ResetMove();
 			}
 		}
 	}
