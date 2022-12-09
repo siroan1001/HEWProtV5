@@ -1,0 +1,1900 @@
+/**
+ * @typedef {Object<string, *>} ST_TOC
+ */
+
+/**
+ * @typedev {Object<string, *>} ST_TOC.VARS
+ *
+ * @property {string} VARS.uri
+ * @property {string} VARS.nonce
+ * @property {Object.<string, string>} VARS.plugin_meta
+ * @property {string} VARS.plugin_meta.prefix
+ * @property {string} VARS.plugin_meta.slug
+ * @property {number} VARS.post_id
+ * @property {boolean} VARS.trackable
+ * @property {string} VARS.container_id
+ * @property {string} VARS.wrapper
+ *
+ * @property {string} VARS.ignored_selector_before_heading
+ * @property {string} VARS.ignored_selector_after_heading
+ *
+ * @property {string} VARS.classes.close
+ * @property {string} VARS.classes.hierarchical
+ * @property {string} VARS.classes.flat
+ * @property {string} VARS.classes.title
+ * @property {string} VARS.classes.toggle
+ * @property {string} VARS.classes.list
+ * @property {string} VARS.classes.back
+ *
+ * @property {string} VARS.fixed_element_selector
+ *
+ * @property {number} VARS.settings.position
+ * @property {number} VARS.settings.threshold
+ * @property {boolean} VARS.settings.show_title
+ * @property {string} VARS.settings.title
+ * @property {boolean} VARS.settings.expandable
+ * @property {Object.<string, string>} VARS.settings.labels
+ * @property {string} VARS.settings.content_selector
+ * @property {Object.<number, string>} VARS.settings.accepted_selectors
+ * @property {Object.<number, string>} VARS.settings.rejected_selectors
+ * @property {boolean} VARS.settings.hide_by_default
+ * @property {boolean} VARS.settings.show_back_button
+ * @property {boolean} VARS.settings.hierarchical
+ * @property {boolean} VARS.settings.enable_smooth_scroll
+ * @property {?number} VARS.settings.font_size
+ * @property {boolean} VARS.settings.early_loading
+ * @property {number[]} VARS.settings.target_levels
+ *
+ * @property {string} VARS.settings.list_style
+ *
+ * @property {string} VARS.marker
+ */
+;(function (window, document, undefined) {
+	'use strict';
+
+	window.ST_TOC = window.ST_TOC || {};
+}(window, window.document));
+
+;(function (window, document, PLUGIN, undefined) {
+	'use strict';
+
+	var POSITIONS = {
+		BEFORE_FIRST_HEADING: 1,
+		AFTER_FIRST_HEADING : 2,
+		TOP                 : 3,
+		BOTTOM              : 4
+	};
+
+	PLUGIN.POSITIONS = PLUGIN.POSITIONS || POSITIONS;
+}(window, window.document, ST_TOC));
+
+;(function (window, document, PLUGIN, undefined) {
+	'use strict';
+
+	/**
+	 * @param string
+	 *
+	 * @returns {string}
+	 */
+	function escapeSelector(string) {
+		return (string || '').replace(/([\0-\x1f\x7f]|^-?\d)|^-$|[^\0-\x1f\x7f-\uFFFF\w-]/g, function (ch, asCodePoint) {
+			if (asCodePoint) {
+				if (ch === '\0') {
+					return '\uFFFD';
+				}
+
+				return ch.slice(0, -1) + '\\' + ch.charCodeAt(ch.length - 1).toString(16) + ' ';
+			}
+
+			return '\\' + ch;
+		});
+	}
+
+	var Css = {
+		escapeSelector: escapeSelector
+	};
+
+	PLUGIN.Css = PLUGIN.Css || Css;
+}(window, window.document, ST_TOC));
+
+;(function (window, document, PLUGIN, undefined) {
+	'use strict';
+
+	function quote(string) {
+		return (string + '').replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+	}
+
+	var RegExp = {
+		quote: quote
+	};
+
+	PLUGIN.RegExp = PLUGIN.RegExp || RegExp;
+}(window, window.document, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	var Tracker = (function () {
+		/**
+		 * @constructor
+		 *
+		 * @param {string} uri
+		 * @param {string} [prefix]
+		 */
+		function Tracker(uri, prefix) {
+			this._uri    = uri;
+			this._prefix = prefix || '';
+			this._nonce  = '';
+		}
+
+		/**
+		 * @param {string} nonce
+		 */
+		Tracker.prototype.setNonce = function (nonce) {
+			this._nonce = nonce;
+		};
+
+		/**
+		 * @param {number} postId
+		 * @param {TocListItem} item
+		 * @param {Object} options
+		 *
+		 * @returns {JQuery.Promise}
+		 */
+		Tracker.prototype.track = function (postId, item, options) {
+			var _options = options || {};
+
+			var data = {
+				action : this._prefix + 'track_click',
+				post_id: postId,
+				index  : item.index(),
+				level  : item.level(),
+				text   : item.text(),
+				nonce  : this._nonce
+			};
+
+			data = $.extend({}, _options, data);
+
+			return $.ajax({
+				url : this._uri,
+				type: 'POST',
+				data: data
+			})
+		};
+
+		return Tracker;
+	}());
+
+	PLUGIN.Tracker = PLUGIN.Tracker || Tracker;
+}(window, window.document, jQuery, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	var NullTracker = (function () {
+		/**
+		 * @constructor
+		 */
+		function NullTracker() {
+		}
+
+		/**
+		 * @param {string} nonce
+		 */
+		NullTracker.prototype.setNonce = function (nonce) {
+		};
+
+		/**
+		 * @param {number} postId
+		 * @param {TocListItem} item
+		 * @param {Object} options
+		 *
+		 * @returns {JQuery.Promise}
+		 */
+		NullTracker.prototype.track = function (postId, item, options) {
+			return $.Deferred().resolve().promise();
+		};
+
+		return NullTracker;
+	}());
+
+	PLUGIN.NullTracker = PLUGIN.NullTracker || NullTracker;
+}(window, window.document, jQuery, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	var HISTORY_SUPPORT = !!(history && history.pushState);
+
+	var Scroller = (function () {
+		/**
+		 * @constructor
+		 *
+		 * @param {number|string} speed
+		 * @param {jQuery} fixedElementSelector
+		 */
+		function Scroller(speed, fixedElementSelector) {
+			this._speed                = speed;
+			this._fixedElementSelector = fixedElementSelector;
+		}
+
+		/**
+		 * @private
+		 *
+		 * @return {number}
+		 */
+		Scroller.prototype._getOffsetAdjustment = function () {
+			var adjustment    = 16;
+			var $adminBar     = $('#wpadminbar');
+			var $fixedElement = $(this._fixedElementSelector);
+
+			if ($adminBar.length && $adminBar.css('position') === 'fixed') {
+				adjustment += $adminBar.height();
+			}
+
+			if ($fixedElement.length && $fixedElement.css('position') === 'fixed') {
+				adjustment += $fixedElement.height();
+			}
+
+			return adjustment;
+		};
+
+		/**
+		 * @param {string} fragId
+		 * @param {jQuery} $element
+		 * @param {boolean} pushState
+		 * @param {number|string} speed
+		 *
+		 * @returns {JQuery.Promise}
+		 */
+		Scroller.prototype.scrollTo = function (fragId, $element, pushState, speed) {
+			var offset = $element.offset().top - this._getOffsetAdjustment();
+			var _speed = (typeof speed !== 'undefined') ? speed : this._speed;
+
+			if (pushState && HISTORY_SUPPORT) {
+				history.pushState({}, document.title, location.pathname + '#' + fragId);
+			}
+
+			return $('html, body').animate({scrollTop: offset}, _speed).promise();
+		};
+
+		return Scroller;
+	}());
+
+	PLUGIN.Scroller = PLUGIN.Scroller || Scroller;
+}(window, window.document, jQuery, ST_TOC));
+
+;(function (window, document, PLUGIN, undefined) {
+	'use strict';
+
+	var HeadingRule = (function () {
+		/**
+		 * @constructor
+		 *
+		 * @param {Object.<number, string>} accepted
+		 * @param {Object.<number, string>} rejected
+		 */
+		function HeadingRule(accepted, rejected) {
+			this._accepted = {} || accepted;
+			this._rejected = {} || rejected;
+		}
+
+		/**
+		 * @returns {Object.<number, string>}
+		 */
+		HeadingRule.prototype.accepted = function () {
+			return this._accepted;
+		};
+
+		/**
+		 * @param {number?} level
+		 *
+		 * @returns {string}
+		 */
+		HeadingRule.prototype.acceptedSelector = function (level) {
+			var selectors = [];
+
+			if (typeof level !== 'undefined') {
+				selectors = this._accepted[level] || [];
+			} else {
+				for (var _level in this._accepted) {
+					if (!Object.prototype.hasOwnProperty.call(this._accepted, _level)) {
+						continue;
+					}
+
+					selectors = selectors.concat(this._accepted[_level]);
+				}
+			}
+
+			return selectors.join(',');
+		};
+
+		/**
+		 * @returns {Object.<number, string>}
+		 */
+		HeadingRule.prototype.rejected = function () {
+			return this._rejected;
+		};
+
+		/**
+		 * @param {number?} level
+		 *
+		 * @returns {string}
+		 */
+		HeadingRule.prototype.rejectedSelector = function (level) {
+			var selectors = [];
+
+			if (typeof level !== 'undefined') {
+				selectors = this._rejected[level] || [];
+			} else {
+				for (var _level in this._rejected) {
+					if (!Object.prototype.hasOwnProperty.call(this._rejected, _level)) {
+						continue;
+					}
+
+					selectors = selectors.concat(this._rejected[_level]);
+				}
+			}
+
+			return selectors.join(',');
+		};
+
+		/**
+		 * @param {number} level
+		 * @param {string|string[]} selector
+		 */
+		HeadingRule.prototype.accept = function (level, selector) {
+			var selectors;
+
+			if (typeof this._accepted[level] === 'undefined') {
+				this._accepted[level] = [];
+			}
+
+			selectors = Array.isArray(selector) ? selector : [selector];
+
+			this._accepted[level] = this._accepted[level].concat(selectors)
+				.filter(function (value) {
+					return (value !== '');
+				});
+		};
+
+		/**
+		 * @param {number} level
+		 * @param {string} selector
+		 */
+		HeadingRule.prototype.reject = function (level, selector) {
+			var selectors;
+
+			if (typeof this._rejected[level] === 'undefined') {
+				this._rejected[level] = [];
+			}
+
+			selectors = Array.isArray(selector) ? selector : [selector];
+
+			this._rejected[level] = this._rejected[level].concat(selectors)
+				.filter(function (value) {
+					return (value !== '');
+				});
+		};
+
+		return HeadingRule;
+	}());
+
+	PLUGIN.HeadingRule = PLUGIN.HeadingRule || HeadingRule;
+}(window, window.document, ST_TOC));
+
+;(function (window, document, PLUGIN, undefined) {
+	'use strict';
+
+	var HeadingRuleFactory = (function () {
+		/**
+		 * @constructor
+		 *
+		 * @param {Object.<number, string[]>} acceptedSelectors
+		 * @param {Object.<number, string[]>} rejectedSelectors
+		 */
+		function HeadingRuleFactory(acceptedSelectors, rejectedSelectors) {
+			var _acceptedSelectors = {
+				1: ['h1'].concat(acceptedSelectors[1]),
+				2: ['h2'].concat(acceptedSelectors[2]),
+				3: ['h3'].concat(acceptedSelectors[3]),
+				4: ['h4'].concat(acceptedSelectors[4]),
+				5: ['h5'].concat(acceptedSelectors[5]),
+				6: ['h6'].concat(acceptedSelectors[6])
+			};
+
+			var _rejectedSelectors = {
+				1: [].concat(rejectedSelectors[1]),
+				2: [].concat(rejectedSelectors[2]),
+				3: [].concat(rejectedSelectors[3]),
+				4: [].concat(rejectedSelectors[4]),
+				5: [].concat(rejectedSelectors[5]),
+				6: [].concat(rejectedSelectors[6])
+			};
+
+			this._acceptedSelectors = _acceptedSelectors;
+			this._rejectedSelectors = _rejectedSelectors;
+		}
+
+		/**
+		 * @param {number[]} levels
+		 *
+		 * @returns {HeadingRule}
+		 */
+		HeadingRuleFactory.prototype.create = function (levels) {
+			var self = this;
+			var rule = new PLUGIN.HeadingRule();
+
+			levels.forEach(function (level) {
+				rule.accept(level, self._acceptedSelectors[level]);
+				rule.reject(level, self._rejectedSelectors[level]);
+			});
+
+			return rule;
+		};
+
+		return HeadingRuleFactory;
+	}());
+
+	PLUGIN.HeadingRuleFactory = PLUGIN.HeadingRuleFactory || HeadingRuleFactory;
+}(window, window.document, ST_TOC));
+
+;(function (window, document, PLUGIN, undefined) {
+	'use strict';
+
+	var MARKER_ELEMENT_POSITIONS = {
+		NONE         : 0,
+		BEFORE_MARKER: 1,
+		AFTER_MARKER : 2
+	};
+
+	PLUGIN.MARKER_ELEMENT_POSITIONS = PLUGIN.MARKER_ELEMENT_POSITIONS || MARKER_ELEMENT_POSITIONS;
+}(window, window.document, ST_TOC));
+
+;(function (window, document, PLUGIN, undefined) {
+	'use strict';
+
+	var MarkerElement = (function () {
+		MarkerElement.POSITIONS = {};
+
+		/**
+		 * @constructor
+		 *
+		 * @param {jQuery} $element
+		 * @param {number} position
+		 */
+		function MarkerElement($element, position) {
+			this._$element = $element;
+			this._position = position;
+		}
+
+		/**
+		 * @returns {jQuery}
+		 */
+		MarkerElement.prototype.$element = function () {
+			return this._$element;
+		};
+
+		/**
+		 * @returns {boolean}
+		 */
+		MarkerElement.prototype.exists = function () {
+			return (this._$element.length && this._position !== PLUGIN.MARKER_ELEMENT_POSITIONS.NONE);
+		};
+
+		/**
+		 * @returns {boolean}
+		 */
+		MarkerElement.prototype.isBeforeMarker = function () {
+			return (this._position === PLUGIN.MARKER_ELEMENT_POSITIONS.BEFORE_MARKER);
+		};
+
+		/**
+		 * @returns {boolean}
+		 */
+		MarkerElement.prototype.isAfterMarker = function () {
+			return (this._position === PLUGIN.MARKER_ELEMENT_POSITIONS.AFTER_MARKER);
+		};
+
+		return MarkerElement;
+	}());
+
+	PLUGIN.MarkerElement = PLUGIN.MarkerElement || MarkerElement;
+}(window, window.document, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	var MarkerFinder = (function () {
+		/**
+		 * @constructor
+		 */
+		function MarkerFinder(marker) {
+			this._marker = marker;
+		}
+
+		/**
+		 * @param {jQuery} $content
+		 */
+		MarkerFinder.prototype.find = function ($content) {
+			var self          = this;
+			var elementNode   = null;
+			var $firstElement = $content.children().first();
+			var markerElement = new PLUGIN.MarkerElement($(), PLUGIN.MARKER_ELEMENT_POSITIONS.NONE);
+
+			$content.contents()
+				.each(function (index, element) {
+					if (element.nodeType === Node.ELEMENT_NODE) {
+						elementNode = element;
+					} else if (element.nodeType === Node.COMMENT_NODE && element.nodeValue === self._marker) {
+						markerElement = (elementNode !== null)
+							? new PLUGIN.MarkerElement($(elementNode), PLUGIN.MARKER_ELEMENT_POSITIONS.BEFORE_MARKER)
+							: new PLUGIN.MarkerElement($firstElement, PLUGIN.MARKER_ELEMENT_POSITIONS.AFTER_MARKER);
+
+						return false;
+					}
+
+					return true;
+				});
+
+			return markerElement;
+		};
+
+		return MarkerFinder;
+	}());
+
+	PLUGIN.MarkerFinder = PLUGIN.MarkerFinder || MarkerFinder;
+}(window, window.document, jQuery, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	var ContentHeadingFinder = (function () {
+		/**
+		 * @constructor
+		 *
+		 */
+		function ContentHeadingFinder(rule) {
+		}
+
+		/**
+		 * @param {jQuery} $content
+		 * @param {HeadingRule} rule
+		 *
+		 * @returns {jQuery}
+		 */
+		ContentHeadingFinder.prototype.find = function ($content, rule) {
+			return $content.find(rule.acceptedSelector())
+				.not(rule.rejectedSelector());
+		};
+
+		return ContentHeadingFinder;
+	}());
+
+	PLUGIN.ContentHeadingFinder = PLUGIN.ContentHeadingFinder || ContentHeadingFinder;
+}(window, window.document, jQuery, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	var PartialHeadingFinder = (function () {
+		/**
+		 * @constructor
+		 *
+		 * @param {MarkerElement} markerElement
+		 */
+		function PartialHeadingFinder(markerElement) {
+			this._markerElement = markerElement;
+		}
+
+		/**
+		 * @param {jQuery} $content
+		 * @param {HeadingRule} rule
+		 *
+		 * @returns {jQuery}
+		 */
+		PartialHeadingFinder.prototype.find = function ($content, rule) {
+			if (this._markerElement.isAfterMarker()) {
+				return $content.find(rule.acceptedSelector())
+					.not(rule.rejectedSelector());
+			}
+
+			return this._markerElement.$element()
+				.nextAll()
+				.find(rule.acceptedSelector())
+				.addBack()
+				.filter(rule.acceptedSelector())
+				.not(rule.rejectedSelector());
+		};
+
+		return PartialHeadingFinder;
+	}());
+
+	PLUGIN.PartialHeadingFinder = PLUGIN.PartialHeadingFinder || PartialHeadingFinder;
+}(window, window.document, jQuery, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	var TocListItem = (function () {
+		/**
+		 * @constructor
+		 *
+		 * @param {number} index
+		 * @param {number} level
+		 * @param {string} text
+		 * @param {jQuery} $element
+		 */
+		function TocListItem(index, level, text, $element) {
+			this._index    = index;
+			this._depth    = 0;
+			this._level    = level;
+			this._text     = text;
+			this._$element = $element;
+			this._children = [];
+		}
+
+		/**
+		 * @returns {number}
+		 */
+		TocListItem.prototype.index = function () {
+			return this._index;
+		};
+
+		/**
+		 * @param {number} [depth]
+		 *
+		 * @returns {number}
+		 */
+		TocListItem.prototype.depth = function (depth) {
+			if (typeof depth !== 'undefined') {
+				this._depth = depth;
+			} else {
+				return this._depth;
+			}
+
+			return this._depth;
+		};
+
+		/**
+		 * @returns {number}
+		 */
+		TocListItem.prototype.level = function () {
+			return this._level;
+		};
+
+		/**
+		 * @returns {string}
+		 */
+		TocListItem.prototype.text = function () {
+			return this._text;
+		};
+
+		/**
+		 * @returns {jQuery}
+		 */
+		TocListItem.prototype.$element = function () {
+			return this._$element;
+		};
+
+		/**
+		 * @returns {TocListItem[]}
+		 */
+		TocListItem.prototype.children = function () {
+			return this._children;
+		};
+
+		/**
+		 * @returns {boolean}
+		 */
+		TocListItem.prototype.hasChild = function () {
+			return !!this._children.length;
+		};
+
+		/**
+		 *
+		 * @param {TocListItem} child
+		 */
+		TocListItem.prototype.addChild = function (child) {
+			this._children.push($.extend({}, child));
+		};
+
+		return TocListItem;
+	}());
+
+	PLUGIN.TocListItem = PLUGIN.TocListItem || TocListItem;
+}(window, window.document, $, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	var TocList = (function () {
+		/**
+		 * @constructor
+		 */
+		function TocList() {
+			this._items = [];
+		}
+
+		/**
+		 * @returns {TocListItem}
+		 */
+		TocList.prototype.items = function () {
+			return this._items;
+		};
+
+		/**
+		 * @param {TocListItem} item
+		 */
+		TocList.prototype.addItem = function (item) {
+			this._items.push($.extend({}, item));
+		};
+
+		/**
+		 * @param {Object} [fragments]
+		 *
+		 * @returns {Object}
+		 */
+		TocList.prototype.fragments = function (fragments) {
+			if (typeof fragments === 'undefined') {
+				return this._fragments;
+			} else {
+				return this._fragments = $.extend({}, fragments);
+			}
+		};
+
+		return TocList;
+	}());
+
+	PLUGIN.TocList = PLUGIN.Toclist || TocList;
+}(window, window.document, jQuery, ST_TOC));
+
+;(function (window, document, PLUGIN, undefined) {
+	'use strict';
+
+	var TocListGenerator = (function () {
+		/**
+		 * @constructor
+		 */
+		function TocListGenerator() {
+			this._fragments = {};
+		}
+
+		/**
+		 * @private
+		 *
+		 * @param {jQuery} $headings
+		 * @param {HeadingRule} rule
+		 * @param {Object} options
+		 *
+		 * @returns {TocListItem[]}
+		 */
+		TocListGenerator.prototype._generateItems = function ($headings, rule, options) {
+			var acceptedSelectors;
+			var rejectedSelectors;
+			var tocListItems = [];
+			var tocIndex     = 0;
+
+			acceptedSelectors = {
+				1: rule.acceptedSelector(1),
+				2: rule.acceptedSelector(2),
+				3: rule.acceptedSelector(3),
+				4: rule.acceptedSelector(4),
+				5: rule.acceptedSelector(5),
+				6: rule.acceptedSelector(6)
+			};
+
+			rejectedSelectors = {
+				1: rule.rejectedSelector(1),
+				2: rule.rejectedSelector(2),
+				3: rule.rejectedSelector(3),
+				4: rule.rejectedSelector(4),
+				5: rule.rejectedSelector(5),
+				6: rule.rejectedSelector(6)
+			};
+
+			$headings.each(function (index, element) {
+				var $element = $(element);
+				var matched;
+				var item;
+				var customHeading;
+				var text;
+
+				for (var level = 1; level <= 6; level++) {
+					matched = $element.filter(acceptedSelectors[level])
+						.not(rejectedSelectors[level])
+						.length;
+
+					if (matched) {
+						customHeading = $element.attr('data-' + options.prefix + 'h');
+						customHeading = (typeof customHeading !== 'undefined') ? $.trim(customHeading) : '';
+
+						if (customHeading !== '') {
+							text = customHeading;
+						} else {
+							text = $element.clone()
+								.find('.st-h-copy')
+								.addBack()
+								.filter('.st-h-copy')
+								.remove()
+								.end()
+								.end()
+								.end()
+								.text();
+						}
+
+						item = new PLUGIN.TocListItem(tocIndex, level, text, $element);
+
+						tocListItems.push(item);
+
+						tocIndex++;
+					}
+				}
+			});
+
+			return tocListItems;
+		};
+
+		/**
+		 * @private
+		 *
+		 * @param {TocListItem[]} items
+		 */
+		TocListGenerator.prototype._generateFragmentMap = function (items) {
+			var map = {};
+
+			items.forEach(function (item) {
+				map[item.index() + 1] = item;
+			});
+
+			return map;
+		};
+
+		/**
+		 * @private
+		 *
+		 * @param {TocListItem[]} items
+		 *
+		 * @returns {TocList}
+		 */
+		TocListGenerator.prototype._generateList = function (items) {
+			var _items  = Array.prototype.slice.call(items);
+			var parents = [];
+			var list    = new PLUGIN.TocList();
+
+			_items.forEach(function (item) {
+				var parent;
+
+				if (!parents.length) {
+					item.depth(0);
+					list.addItem(item);
+					parents.push(item);
+
+					return;
+				}
+
+				parent = parents[parents.length - 1];
+
+				if (item.level() > parent.level()) {
+					// Makes the item the child item of the previous item.
+					item.depth(parents.length);
+					parent.addChild(item);
+				} else {
+					// Determines the depth of the headings.
+					do {
+						parent = parents.pop();
+					} while (parents.length && item.level() <= parent.level());
+
+					if (parents.length || item.level() > parent.level()) {
+						// Makes the item the child item of the previous item.
+						item.depth(parents.length + 1);
+						parent.addChild(item);
+						parents.push(parent);
+					} else {
+						// Makes the item the root item..
+						item.depth(0);
+						list.addItem(item);
+					}
+				}
+
+				parents.push(item);
+			});
+
+			return list;
+		};
+
+		/**
+		 * @param {jQuery} $headings
+		 * @param {HeadingRule} rule
+		 * @param {Object} options
+		 *
+		 * @returns {TocList}
+		 */
+		TocListGenerator.prototype.generate = function ($headings, rule, options) {
+			var items = this._generateItems($headings, rule, options);
+			var list  = this._generateList(items);
+
+			list.fragments(this._generateFragmentMap(items));
+
+			return list;
+		};
+
+		return TocListGenerator;
+	}());
+
+	PLUGIN.TocListGenerator = PLUGIN.TocListGenerator || TocListGenerator;
+}(window, window.document, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	var FlatTocListRenderer = (function () {
+		/**
+		 * @constructor
+		 */
+		function FlatTocListRenderer() {
+		}
+
+		/**
+		 * @private
+		 *
+		 * @param {TocListItem} item
+		 * @param {Object} options
+		 *
+		 * @returns {jQuery}
+		 */
+		FlatTocListRenderer.prototype._renderItem = function (item, options) {
+			var self   = this;
+			var $link;
+			var $item;
+			var linkAttr;
+			var $items = [];
+
+			linkAttr = {
+				href: '#' + options.fragId + '-' + (item.index() + 1)
+			};
+
+			linkAttr['data-' + options.prefix + 'item'] = '';
+
+			$link = $('<a>', linkAttr)
+				.text(item.text())
+				.data(options.prefix + 'item', item);
+
+			$item = $('<li>')
+				.append($link);
+
+			$items.push($item);
+
+			if (item.hasChild()) {
+				item.children().forEach(function (item) {
+					$items.push(self._renderItem(item, options));
+				});
+			}
+
+			return $($.map($items, function ($element) {
+				return $element.get();
+			}));
+		};
+
+		/**
+		 * @param {TocList} tocList
+		 * @param {Object} options
+		 *
+		 * @returns {jQuery}
+		 */
+		FlatTocListRenderer.prototype.render = function (tocList, options) {
+			var self   = this;
+			var _options;
+			var classesDefaults;
+			var defaults;
+			var listAttr;
+			var $items = [];
+			var $list;
+
+			if (!tocList.items().length) {
+				return $();
+			}
+
+			classesDefaults = {
+				list: 'toc-list'
+			};
+
+			defaults = {
+				prefix  : 'toc-',
+				fragId  : 'toc-h',
+				expanded: false,
+				classes : {}
+			};
+
+			_options         = $.extend({}, defaults, options);
+			_options.classes = $.extend({}, classesDefaults, options.classes);
+
+			tocList.items().forEach(function (item) {
+				$items.push(self._renderItem(item, _options));
+			});
+
+			listAttr = {
+				'class': _options.classes.list
+			};
+
+			listAttr['data-' + _options.prefix + 'list'] = '';
+
+			$list = $('<ul>', listAttr)
+				.append($items)
+				.data(_options.prefix + 'list', tocList);
+
+			if (!_options.expanded) {
+				$list.hide();
+			}
+
+			return $list;
+		};
+
+		return FlatTocListRenderer;
+	}());
+
+	PLUGIN.FlatTocListRenderer = PLUGIN.FlatTocListRenderer || FlatTocListRenderer;
+}(window, window.document, jQuery, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	var HierarchicalTocListRenderer = (function () {
+		/**
+		 * @constructor
+		 */
+		function HierarchicalTocListRenderer() {
+		}
+
+		/**
+		 * @private
+		 *
+		 * @param {TocListItem} item
+		 * @param {Object} options
+		 *
+		 * @returns {jQuery}
+		 */
+		HierarchicalTocListRenderer.prototype._renderItem = function (item, options) {
+			var self = this;
+			var $link;
+			var $item;
+			var linkAttr;
+			var $ol;
+
+			linkAttr = {
+				href: '#' + options.fragId + '-' + (item.index() + 1)
+			};
+
+			linkAttr['data-' + options.prefix + 'item'] = '';
+
+			$link = $('<a>', linkAttr)
+				.text(item.text())
+				.data(options.prefix + 'item', item);
+
+			$item = $('<li>')
+				.append($link);
+
+			if (item.hasChild()) {
+				$ol = $('<ul>');
+
+				item.children().forEach(function (item) {
+					$ol.append(self._renderItem(item, options));
+				});
+
+				$item.append($ol);
+			}
+
+			return $item;
+		};
+
+		/**
+		 * @param {TocList} tocList
+		 * @param {Object} options
+		 *
+		 * @returns {jQuery}
+		 */
+		HierarchicalTocListRenderer.prototype.render = function (tocList, options) {
+			var self   = this;
+			var _options;
+			var classesDefaults;
+			var defaults;
+			var listAttr;
+			var $items = [];
+			var $list;
+
+			if (!tocList.items().length) {
+				return $();
+			}
+
+			classesDefaults = {
+				list: 'toc-list'
+			};
+
+			defaults = {
+				prefix  : 'toc-',
+				fragId  : 'toc-h',
+				expanded: false,
+				classes : {}
+			};
+
+			_options         = $.extend({}, defaults, options);
+			_options.classes = $.extend({}, classesDefaults, options.classes);
+
+			tocList.items().forEach(function (item) {
+				$items.push(self._renderItem(item, _options));
+			});
+
+			listAttr = {
+				'class': _options.classes.list
+			};
+
+			listAttr['data-' + _options.prefix + 'list'] = '';
+
+			$list = $('<ul>', listAttr)
+				.append($items)
+				.data(_options.prefix + 'list', tocList);
+
+			if (!_options.expanded) {
+				$list.hide();
+			}
+
+			return $list;
+		};
+
+		return HierarchicalTocListRenderer;
+	}());
+
+	PLUGIN.HierarchicalTocListRenderer = PLUGIN.HierarchicalTocListRenderer || HierarchicalTocListRenderer;
+}(window, window.document, jQuery, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	var TocContainerRenderer = (function () {
+		/**
+		 * @constructor
+		 *
+		 * @param {MarkerElement} markerElement
+		 */
+		function TocContainerRenderer(markerElement) {
+			this._markerElement = markerElement;
+		}
+
+		/**
+		 * @param {jQuery} $content
+		 * @param {jQuery} $headings
+		 * @param {Object} options
+		 *
+		 * @return {jQuery}
+		 */
+		TocContainerRenderer.prototype.render = function ($content, $headings, options) {
+			var _options;
+			var classesDefaults;
+			var defaults;
+			var containerAttr;
+			var classValue;
+			var $container;
+			var $outer;
+			var wrapperSelector;
+			var $wrapper;
+			var $position;
+			var $sibling;
+
+			classesDefaults = {
+				container   : '',
+				close       : 'is-closed',
+				hierarchical: 'is-hierarchical'
+			};
+
+			defaults = {
+				prefix                      : 'toc-',
+				id                          : 'toc-container',
+				position                    : PLUGIN.POSITIONS.BEFORE_FIRST_HEADING,
+				expandable                  : true,
+				expanded                    : false,
+				hierarchical                : true,
+				wrapper                     : '',
+				classes                     : {},
+				ignoredSelectorBeforeHeading: '',
+				ignoredSelectorAfterHeading : ''
+			};
+
+			_options          = $.extend({}, defaults, options);
+			_options.classes  = $.extend({}, classesDefaults, options.classes);
+			_options.expanded = !_options.expandable || (_options.expandable && _options.expanded);
+
+			classValue = _options.hierarchical ? _options.classes.hierarchical : '';
+			classValue += _options.expanded ? '' : ' ' + _options.classes.close;
+
+			containerAttr = {
+				id     : _options.id,
+				'class': classValue
+			};
+
+			containerAttr['data-' + _options.prefix + 'container'] = '';
+
+			$container = $('<div>', containerAttr);
+
+			$container.addClass(_options.classes.container);
+
+			// Processes wrapper option.
+			wrapperSelector = '[data-' + _options.prefix + 'wrapper]';
+
+			try {
+				$outer = $(_options.wrapper);
+			} catch (err) {
+				$outer = $();
+			}
+
+			$wrapper = $outer.find(wrapperSelector)
+				.addBack()
+				.filter(wrapperSelector);
+
+			if ($wrapper.length) {
+				$wrapper.append($container);
+
+				$container = $outer;
+			}
+
+			// Generates container before the marker comment.
+			if (this._markerElement.exists()) {
+				// Inserts the container as the first child element of the content element
+				// when there are no elements before the marker comment.
+				if (this._markerElement.isAfterMarker()) {
+					$container.prependTo($content);
+				} else {
+					this._markerElement.$element().after($container);
+				}
+
+				return $container;
+			}
+
+			// Generates container based on the position setting.
+			switch (_options.position) {
+				case PLUGIN.POSITIONS.AFTER_FIRST_HEADING:
+					$position = $headings.eq(0);
+					$sibling  = $position.next();
+
+					while ($sibling.filter(_options.ignoredSelectorBeforeHeading).length) {
+						$position = $sibling;
+						$sibling  = $position.next();
+					}
+
+					$position.after($container);
+
+					break;
+
+				case PLUGIN.POSITIONS.TOP:
+					$content.children().first().before($container);
+
+					break;
+
+				case PLUGIN.POSITIONS.BOTTOM:
+					$content.children().last().after($container);
+
+					break;
+
+				case PLUGIN.POSITIONS.BEFORE_FIRST_HEADING:
+				default:
+					$position = $headings.eq(0);
+					$sibling  = $position.prev();
+
+					while ($sibling.filter(_options.ignoredSelectorBeforeHeading).length) {
+						$position = $sibling;
+						$sibling  = $position.prev();
+					}
+
+					$position.before($container);
+
+					break;
+			}
+
+			return $container;
+		};
+
+		return TocContainerRenderer;
+	}());
+
+	PLUGIN.TocContainerRenderer = PLUGIN.TocContainerRenderer || TocContainerRenderer;
+}(window, window.document, jQuery, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	var BackButtonRenderer = (function () {
+		/**
+		 * @constructor
+		 */
+		function BackButtonRenderer() {
+		}
+
+		/**
+		 * @param {Object} options
+		 *
+		 * @return {jQuery}
+		 */
+		BackButtonRenderer.prototype.render = function (options) {
+			var _options;
+			var classesDefaults;
+			var defaults;
+			var $icon;
+			var $label;
+			var buttonAttr;
+			var $button;
+
+			classesDefaults = {
+				back: 'back'
+			};
+
+			defaults = {
+				prefix     : 'toc-',
+				classes    : {},
+				containerId: 'toc-container',
+				label      : '目次へ戻る'
+			};
+
+			_options         = $.extend({}, defaults, options);
+			_options.classes = $.extend({}, classesDefaults, options.classes);
+
+			// Icon.
+			$icon = $('<span />', {
+				'class'      : 'st_toc_back_icon',
+				'aria-hidden': true
+			});
+
+			// Label.
+			$label = $('<span />', {
+				'class': 'st_toc_back_label'
+			}).text(_options.label);
+
+			// Button.
+			buttonAttr = {
+				href   : '#' + _options.containerId,
+				'class': _options.classes.back
+			};
+
+			buttonAttr['data-' + _options.prefix + 'back'] = '';
+
+			$button = $('<a />', buttonAttr)
+				.append($icon)
+				.append($label);
+
+			return $button;
+		};
+
+		return BackButtonRenderer;
+	}());
+
+	PLUGIN.BackButtonRenderer = PLUGIN.BackButtonRenderer || BackButtonRenderer;
+}(window, window.document, jQuery, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	var Toc = (function () {
+		/**
+		 * @constructor
+		 *
+		 * @param {jQuery} $content
+		 * @param {Object} options
+		 */
+		function Toc($content, options) {
+			var trackerDefaults;
+			var labelsDefaults;
+			var classesDefaults;
+			var defaults;
+
+			trackerDefaults = {
+				uri   : '',
+				prefix: '',
+				postId: null,
+				nonce : ''
+			};
+
+			labelsDefaults = {
+				show: '表示',
+				hide: '非表示'
+			};
+
+			classesDefaults = {
+				close       : 'is-closed',
+				hierarchical: 'is-hierarchical',
+				flat        : 'is-flat',
+				title       : 'toc-title',
+				toggle      : 'toc-toggle',
+				list        : 'toc-list'
+			};
+
+			defaults = {
+				prefix              : 'toc-',
+				fragId              : 'toc-h',
+				threshold           : 2,
+				marker              : '',
+				acceptedSelectors   : [],
+				rejectedSelectors   : [],
+				targetLevels        : [1, 2, 3, 4, 5, 6],
+				smoothScroll        : false,
+				trackable           : false,
+				tracker             : {},
+				containerId         : 'toc-container',
+				wrapper             : '',
+				position            : PLUGIN.POSITIONS.BEFORE_FIRST_HEADING,
+				showTitle           : true,
+				title               : '',
+				expandable          : true,
+				labels              : {},
+				expanded            : false,
+				hierarchical        : true,
+				classes             : {},
+				fixedElementSelector: ''
+			};
+
+			this._$content           = $content;
+			this._options            = $.extend({}, defaults, options);
+			this._options.tracker    = $.extend({}, trackerDefaults, options.tracker || {});
+			this._options.labels     = $.extend({}, labelsDefaults, options.labels || {});
+			this._options.classes    = $.extend({}, classesDefaults, options.classes || {});
+			this._options.expandable = (this._options.showTitle && this._options.expandable);
+			this._options.expanded   = !this._options.expandable || (this._options.expandable && this._options.expanded);
+
+			this._tracker              = null;
+			this._scroller             = null;
+			this._headingRuleFactory   = null;
+			this._headingRule          = null;
+			this._markerFinder         = null;
+			this._markerElement        = new PLUGIN.MarkerElement($(), PLUGIN.MARKER_ELEMENT_POSITIONS.NONE);
+			this._headingFinder        = null;
+			this._$headings            = $();
+			this._tocListGenerator     = null;
+			this._tocContainerRenderer = null;
+			this._tocListRenderer      = null;
+			this._backButtonRenderer   = null;
+			this._tocList              = null;
+		}
+
+		/**
+		 * @private
+		 */
+		Toc.prototype._configure = function () {
+			this._tracker = this._options.trackable
+				? new PLUGIN.Tracker(this._options.tracker.uri, this._options.tracker.prefix)
+				: new PLUGIN.NullTracker();
+
+			this._tracker.setNonce(this._options.tracker.nonce);
+
+			this._scroller = new PLUGIN.Scroller(
+				this._options.smoothScroll ? 'normal' : 0,
+				this._options.fixedElementSelector
+			);
+
+			this._headingRuleFactory = new PLUGIN.HeadingRuleFactory(
+				this._options.acceptedSelectors,
+				this._options.rejectedSelectors
+			);
+
+			this._headingRule  = this._headingRuleFactory.create(this._options.targetLevels);
+			this._markerFinder = new PLUGIN.MarkerFinder(this._options.marker);
+
+			this._markerElement = this._markerFinder.find(this._$content);
+
+			this._headingFinder = this._markerElement.exists()
+				? new PLUGIN.PartialHeadingFinder(this._markerElement)
+				: new PLUGIN.ContentHeadingFinder();
+
+			this._$headings = this._headingFinder.find(this._$content, this._headingRule);
+
+			this._tocListGenerator     = new PLUGIN.TocListGenerator();
+			this._tocContainerRenderer = new PLUGIN.TocContainerRenderer(this._markerElement);
+
+			this._tocListRenderer = this._options.hierarchical
+				? new PLUGIN.HierarchicalTocListRenderer()
+				: new PLUGIN.FlatTocListRenderer();
+
+			this._backButtonRenderer = new PLUGIN.BackButtonRenderer();
+
+			this._tocList = this._tocListGenerator.generate(this._$headings, this._headingRule, this._options);
+		};
+
+		/**
+		 * @private
+		 *
+		 * @returns {jQuery}
+		 */
+		Toc.prototype._createTitle = function () {
+			var $title;
+			var $toggleLink;
+			var $toggle;
+			var toggleText;
+			var toggleAltText;
+			var toggleLinkAttr;
+			var toggleAttr;
+
+			if (!this._options.showTitle) {
+				return $();
+			}
+
+			// Title.
+			$title = $('<p>', {'class': this._options.classes.title})
+				.text(this._options.title);
+
+			if (!this._options.expandable) {
+				return $title;
+			}
+
+			// Toggle.
+			toggleText    = this._options.expanded ? this._options.labels.hide : this._options.labels.show;
+			toggleAltText = this._options.expanded ? this._options.labels.show : this._options.labels.hide;
+
+			toggleAttr = {
+				'class': this._options.classes.toggle
+			};
+
+			toggleLinkAttr = {
+				href: '#'
+			};
+
+			toggleLinkAttr['data-' + this._options.prefix + 'toggle'] = toggleAltText;
+
+			$toggleLink = $('<a>', toggleLinkAttr).text(toggleText);
+			$toggle     = $('<span>', toggleAttr);
+
+			$toggle.append('[').append($toggleLink).append(']');
+			$title.append($toggle);
+
+			return $title;
+		};
+
+		/**
+		 * @private
+		 *
+		 * @return {jQuery}
+		 */
+		Toc.prototype._createList = function () {
+			return this._tocListRenderer.render(
+				this._tocList,
+				{
+					fragId  : this._options.fragId,
+					prefix  : this._options.prefix,
+					expanded: this._options.expanded,
+					classes : {
+						list: this._options.classes.list
+					}
+				}
+			);
+		};
+
+		/**
+		 * @private
+		 *
+		 * @param {jQuery} $container
+		 * @param {number} multiplier
+		 */
+		Toc.prototype._adjustFontSize = function ($container, multiplier) {
+			var selectors = [
+				'.st_toc_title',
+				'.st_toc_toggle',
+				'.st_toc_toggle a',
+				'.st_toc_list',
+				'.st_toc_list ul',
+				'.st_toc_list li',
+				'.st_toc_list a'
+			];
+
+			var styles = [];
+
+			$container.find(selectors.join(',')).each(function (index, element) {
+				var $element = $(this);
+				var fontSize;
+				var lineHeight;
+
+				$element.css('font-size', '')
+					.css('line-height', '');
+
+				fontSize   = parseInt(getComputedStyle(element, null).getPropertyValue('font-size'));
+				lineHeight = parseInt(getComputedStyle(element, null).getPropertyValue('line-height'));
+
+				styles.push({
+					$element: $(this),
+					style   : {fontSize: (fontSize * multiplier) + 'px', lineHeight: (lineHeight * multiplier) + 'px'}
+				});
+			});
+
+			styles.forEach(function (value) {
+				value.$element.css(value.style);
+			});
+		};
+
+		/**
+		 * @private
+		 *
+		 * @return {jQuery}
+		 */
+		Toc.prototype._createElements = function () {
+			var $toc;
+			var $container;
+			var $title;
+			var $list;
+			var containerDataAttr = '[data-' + this._options.prefix + 'container]';
+			var $backButton;
+
+			// TOC container.
+			$toc = this._tocContainerRenderer.render(
+				this._$content,
+				this._$headings,
+				{
+					id                          : this._options.containerId,
+					prefix                      : this._options.prefix,
+					position                    : this._options.position,
+					expandable                  : this._options.expandable,
+					expanded                    : this._options.expanded,
+					hierarchical                : this._options.hierarchical,
+					wrapper                     : this._options.wrapper,
+					classes                     : {
+						container   : 'st_toc_style_' + this._options.listStyle,
+						close       : this._options.classes.close,
+						hierarchical: this._options.classes.hierarchical
+					},
+					ignoredSelectorBeforeHeading: this._options.ignoredSelectorBeforeHeading,
+					ignoredSelectorAfterHeading : this._options.ignoredSelectorAfterHeading
+				}
+			);
+
+			$container = $toc.find(containerDataAttr)
+				.addBack()
+				.filter(containerDataAttr);
+
+			$title = this._createTitle();
+			$list  = this._createList();
+
+			if (!$list.find('li ul').length) {
+				$container.addClass(this._options.classes.flat);
+			}
+
+			$container.append($title)
+				.append($list);
+
+			if (this._options.fontSize !== null && this._options.fontSize > 0) {
+				this._adjustFontSize($container, this._options.fontSize);
+			}
+
+			// Back button.
+			if (this._options.showBackButton) {
+				$backButton = this._backButtonRenderer.render({
+					prefix     : this._options.prefix,
+					containerId: this._options.containerId,
+					classes    : {
+						back: this._options.classes.back
+					}
+				});
+
+				$('body').append($backButton);
+			}
+
+			return $container;
+		};
+
+		Toc.prototype.addEventListeners = function () {
+			var self               = this;
+			var containerDataAttr  = 'data-' + self._options.prefix + 'container';
+			var toggleDataAttr     = 'data-' + self._options.prefix + 'toggle';
+			var itemDataAttr       = 'data-' + self._options.prefix + 'item';
+			var backButtonDataAttr = 'data-' + self._options.prefix + 'back';
+			var $container         = $('[' + containerDataAttr + ']');
+
+			// Toggle.
+			this._$toc.find('[' + toggleDataAttr + ']').on('click', function (event) {
+				var $toggle      = $(this);
+				var $container   = $toggle.closest('[' + containerDataAttr + ']');
+				var listDataAttr = 'data-' + self._options.prefix + 'list';
+				var $list        = $container.find('[' + listDataAttr + ']');
+				var text         = $toggle.text();
+				var altText      = $toggle.attr(toggleDataAttr);
+
+				event.preventDefault();
+				event.stopPropagation();
+
+				$toggle.text(altText).attr(toggleDataAttr, text);
+
+				$list.slideToggle('fast');
+
+				$container.toggleClass(self._options.classes.close);
+			});
+
+			// Toc item.
+			this._$toc.find('[' + itemDataAttr + ']').on('click', function (event) {
+				var $link = $(this);
+				var item;
+				var $h;
+
+				event.preventDefault();
+				event.stopPropagation();
+
+				item = $link.data(self._options.prefix + 'item');
+				$h   = item.$element();
+
+				self._tracker.track(self._options.tracker.postId, item);
+				self._scroller.scrollTo($link.attr('href').slice(1), $h, true);
+			});
+
+			// Back button.
+			$('[' + backButtonDataAttr + ']').on('click', function (event) {
+				var $container;
+
+				event.preventDefault();
+				event.stopPropagation();
+
+				$container = $('#' + self._options.containerId);
+
+				self._scroller.scrollTo(self._options.containerId, $container);
+			});
+
+			// Hashchange.
+			$(window).on('hashchange', function (event) {
+				var fragId    = location.hash.slice(1);
+				var $fragment = self.get$fragment(fragId);
+
+				if (!$fragment.length) {
+					return;
+				}
+
+				event.preventDefault();
+				event.stopPropagation();
+
+				self._scroller.scrollTo(fragId, $fragment);
+			});
+
+			// resize, orientationchange.
+			if (self._options.fontSize !== null && self._options.fontSize > 0) {
+				var resizeTimer;
+
+				$(window).on('orientationchange resize', function (event) {
+					if (resizeTimer) {
+						clearTimeout(resizeTimer);
+					}
+
+					resizeTimer = setTimeout(function () {
+						self._adjustFontSize($container, self._options.fontSize);
+					}, 500);
+				});
+			}
+
+			// scroll.
+			$(window).on('scroll', function (event) {
+				if ($(window).scrollTop() > 400) {
+					$('[' + backButtonDataAttr + ']').addClass('is-shown');
+				} else {
+					$('[' + backButtonDataAttr + ']').removeClass('is-shown');
+				}
+			});
+		};
+
+		/**
+		 * @returns {jQuery}
+		 */
+		Toc.prototype.get$fragment = function (fragId) {
+			var $list = $('[data-' + this._options.prefix + 'list]');
+			var fragments;
+			var fragNo;
+
+			if (fragId === '' || !$list.length) {
+				return $();
+			}
+
+			fragments = $list.data(this._options.prefix + 'list').fragments();
+			fragNo    = fragId.replace(new RegExp('^' + PLUGIN.RegExp.quote(this._options.fragId) + '-'), '');
+
+			if (typeof fragments[fragNo] === 'undefined') {
+				return $();
+			}
+
+			return fragments[fragNo].$element();
+		};
+
+		/**
+		 * @param {string} fragId
+		 * @param {number|string} speed
+		 * @param {boolean} pushState
+		 */
+		Toc.prototype.scrollToFragment = function (fragId, pushState, speed) {
+			var $fragment = this.get$fragment(fragId);
+
+			if (!$fragment.length) {
+				return;
+			}
+
+			this._scroller.scrollTo(fragId, $fragment, pushState, speed);
+		};
+
+		Toc.prototype.initialize = function () {
+			this._configure();
+
+			if (this._$headings.length < this._options.threshold) {
+				return;
+			}
+
+			this._$toc = this._createElements();
+
+			this.addEventListeners();
+			this.scrollToFragment(location.hash.slice(1), false, 0);
+		};
+
+		return Toc;
+	}());
+
+	PLUGIN.Toc = PLUGIN.Toc || Toc;
+}(window, window.document, jQuery, ST_TOC));
+
+;(function (window, document, $, PLUGIN, undefined) {
+	'use strict';
+
+	function initialize() {
+		var options;
+		var toc;
+
+		options = {
+			prefix                      : PLUGIN.VARS.plugin_meta.slug + '-',
+			fragId                      : PLUGIN.VARS.plugin_meta.slug + '-h',
+			threshold                   : PLUGIN.VARS.settings.threshold,
+			marker                      : PLUGIN.VARS.marker,
+			acceptedSelectors           : PLUGIN.VARS.settings.accepted_selectors,
+			rejectedSelectors           : PLUGIN.VARS.settings.rejected_selectors,
+			targetLevels                : PLUGIN.VARS.settings.target_levels,
+			smoothScroll                : PLUGIN.VARS.settings.enable_smooth_scroll,
+			fontSize                    : (PLUGIN.VARS.settings.font_size > 0) ? PLUGIN.VARS.settings.font_size / 100 : null,
+			listStyle                   : PLUGIN.VARS.settings.list_style,
+			trackable                   : PLUGIN.VARS.trackable,
+			tracker                     : {
+				uri   : PLUGIN.VARS.uri,
+				prefix: PLUGIN.VARS.plugin_meta.prefix + '_',
+				postId: PLUGIN.VARS.post_id,
+				nonce : PLUGIN.VARS.nonce
+			},
+			wrapper                     : PLUGIN.VARS.wrapper,
+			ignoredSelectorBeforeHeading: PLUGIN.VARS.ignored_selector_before_heading,
+			ignoredSelectorAfterHeading : PLUGIN.VARS.ignored_selector_after_heading,
+			containerId                 : PLUGIN.VARS.container_id,
+			position                    : PLUGIN.VARS.settings.position,
+			showTitle                   : PLUGIN.VARS.settings.show_title,
+			title                       : PLUGIN.VARS.settings.title,
+			expandable                  : PLUGIN.VARS.settings.expandable,
+			labels                      : {
+				show: PLUGIN.VARS.settings.labels.show,
+				hide: PLUGIN.VARS.settings.labels.hide
+			},
+			expanded                    : !PLUGIN.VARS.settings.hide_by_default,
+			showBackButton              : PLUGIN.VARS.settings.show_back_button,
+			hierarchical                : PLUGIN.VARS.settings.hierarchical,
+			classes                     : {
+				close       : PLUGIN.VARS.classes.close,
+				hierarchical: PLUGIN.VARS.classes.hierarchical,
+				flat        : PLUGIN.VARS.classes.flat,
+				title       : PLUGIN.VARS.classes.title,
+				toggle      : PLUGIN.VARS.classes.toggle,
+				list        : PLUGIN.VARS.classes.list,
+				back        : PLUGIN.VARS.classes.back
+			},
+			fixedElementSelector        : PLUGIN.VARS.fixed_element_selector
+		};
+
+		$(PLUGIN.VARS.settings.content_selector).each(function (index, element) {
+			var $content = $(element);
+			var _options = $.extend({}, options);
+
+			if (index > 0) {
+				_options.fragId = PLUGIN.VARS.plugin_meta.slug + '-' + (index + 1) + '-h';
+			}
+
+			toc = new PLUGIN.Toc($content, _options);
+
+			$content.data(PLUGIN.VARS.plugin_meta.slug, toc);
+
+			toc.initialize();
+		});
+	}
+
+	if (PLUGIN.VARS.settings.early_loading) {
+		$(initialize);
+	} else {
+		$(window).on('load', initialize);
+	}
+}(window, window.document, jQuery, ST_TOC));

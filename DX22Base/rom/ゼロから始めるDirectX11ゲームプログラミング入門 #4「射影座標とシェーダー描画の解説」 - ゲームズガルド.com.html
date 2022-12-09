@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)https://gamesgard.com/directx11_lesson04/ -->
+<html lang="ja" class="s-navi-search-overlay  toc-style-timeline-count"><!--<![endif]--><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/cb=gapi.loaded_2" async=""></script><script src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/cb=gapi.loaded_1" async=""></script><script src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/cb=gapi(2).loaded_0" async=""></script><script type="text/javascript" async="" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/q" charset="UTF-8"></script><script type="text/javascript" async="" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/q(1)" charset="UTF-8"></script>
+		
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async="" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/js"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-PKNRNE8RC8');
+	</script>
+			
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,viewport-fit=cover">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="referrer" content="no-referrer-when-downgrade">
+
+		
+		<link rel="alternate" type="application/rss+xml" title="ゲームズガルド.com RSS Feed" href="https://gamesgard.com/feed/">
+		<link rel="pingback" href="https://gamesgard.com/xmlrpc.php">
+		<!--[if lt IE 9]>
+		<script src="https://gamesgard.com/wp-content/themes/affinger/js/html5shiv.js"></script>
+		<![endif]-->
+				<meta name="robots" content="max-image-preview:large">
+<title>ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com</title>
+<link rel="dns-prefetch" href="https://ajax.googleapis.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/gamesgard.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.8.1"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([10084,65039,8205,55357,56613],[10084,65039,8203,55357,56613])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/wp-emoji-release.min.js.ダウンロード" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="urvanov_syntax_highlighter-css" href="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/urvanov_syntax_highlighter.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-theme-1c-kod-css" href="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/1c-kod.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-font-monaco-css" href="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/monaco.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-block-library-css" href="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/style.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="normalize-css" href="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/normalize.css" type="text/css" media="all">
+<link rel="stylesheet" id="st_svg-css" href="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="slick-css" href="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/slick.css" type="text/css" media="all">
+<link rel="stylesheet" id="slick-theme-css" href="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/slick-theme.css" type="text/css" media="all">
+<link rel="stylesheet" id="fonts-googleapis-notosansjp-css" href="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="style-css" href="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/style(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="child-style-css" href="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/style(2).css" type="text/css" media="all">
+<link rel="stylesheet" id="single-css" href="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/st-rankcss.php" type="text/css" media="all">
+<link rel="stylesheet" id="st-themecss-css" href="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/st-themecss-loader.php" type="text/css" media="all">
+<script type="text/javascript" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/jquery.min.js.ダウンロード" id="jquery-js"></script>
+<script type="text/javascript" id="urvanov_syntax_highlighter_js-js-extra">
+/* <![CDATA[ */
+var UrvanovSyntaxHighlighterSyntaxSettings = {"version":"2.8.25","is_admin":"0","ajaxurl":"https:\/\/gamesgard.com\/wp-admin\/admin-ajax.php","prefix":"urvanov-syntax-highlighter-","setting":"urvanov-syntax-highlighter-setting","selected":"urvanov-syntax-highlighter-setting-selected","changed":"urvanov-syntax-highlighter-setting-changed","special":"urvanov-syntax-highlighter-setting-special","orig_value":"data-orig-value","debug":""};
+var UrvanovSyntaxHighlighterSyntaxStrings = {"copy":"Copied to the clipboard","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/urvanov_syntax_highlighter.min.js.ダウンロード" id="urvanov_syntax_highlighter_js-js"></script>
+<link rel="https://api.w.org/" href="https://gamesgard.com/wp-json/"><link rel="alternate" type="application/json" href="https://gamesgard.com/wp-json/wp/v2/posts/721"><link rel="shortlink" href="https://gamesgard.com/?p=721">
+<link rel="alternate" type="application/json+oembed" href="https://gamesgard.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgamesgard.com%2Fdirectx11_lesson04%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://gamesgard.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgamesgard.com%2Fdirectx11_lesson04%2F&amp;format=xml">
+<meta name="robots" content="index, follow">
+<meta name="thumbnail" content="https://gamesgard.com/wp-content/uploads/2021/10/eyecatch.jpg">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PKNRNE8RC8');
+</script>
+<link rel="canonical" href="https://gamesgard.com/directx11_lesson04/">
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #eaedf2; }
+</style>
+	<link rel="icon" href="https://gamesgard.com/wp-content/uploads/2021/10/cropped-Logo-1-32x32.png" sizes="32x32">
+<link rel="icon" href="https://gamesgard.com/wp-content/uploads/2021/10/cropped-Logo-1-192x192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="https://gamesgard.com/wp-content/uploads/2021/10/cropped-Logo-1-180x180.png">
+<meta name="msapplication-TileImage" content="https://gamesgard.com/wp-content/uploads/2021/10/cropped-Logo-1-270x270.png">
+		
+<!-- OGP -->
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」">
+<meta property="og:url" content="https://gamesgard.com/directx11_lesson04/">
+<meta property="og:description" content="今回は前回説明できなかった部分を細かく説明して行こうと思います。 射影座標で考えよう 前回、三角形を画面に描画しました。その時に以下のように３つの座標を作りましたね。 [crayon-636cacaa">
+<meta property="og:site_name" content="ゲームズガルド.com">
+<meta property="og:image" content="https://gamesgard.com/wp-content/uploads/2021/10/eyecatch.jpg">
+
+
+	<meta property="article:published_time" content="2021-10-09T22:49:23+09:00">
+		<meta property="article:author" content="よっしー">
+
+				<meta name="twitter:card" content="summary">
+	
+	<meta name="twitter:site" content="@@ys_game_jp">
+	<meta name="twitter:title" content="ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」">
+	<meta name="twitter:description" content="今回は前回説明できなかった部分を細かく説明して行こうと思います。 射影座標で考えよう 前回、三角形を画面に描画しました。その時に以下のように３つの座標を作りましたね。 [crayon-636cacaa">
+	<meta name="twitter:image" content="https://gamesgard.com/wp-content/uploads/2021/10/eyecatch.jpg">
+<!-- /OGP -->
+		
+
+
+<script>
+	(function (window, document, $, undefined) {
+		'use strict';
+
+		var SlideBox = (function () {
+			/**
+			 * @param $element
+			 *
+			 * @constructor
+			 */
+			function SlideBox($element) {
+				this._$element = $element;
+			}
+
+			SlideBox.prototype.$content = function () {
+				return this._$element.find('[data-st-slidebox-content]');
+			};
+
+			SlideBox.prototype.$toggle = function () {
+				return this._$element.find('[data-st-slidebox-toggle]');
+			};
+
+			SlideBox.prototype.$icon = function () {
+				return this._$element.find('[data-st-slidebox-icon]');
+			};
+
+			SlideBox.prototype.$text = function () {
+				return this._$element.find('[data-st-slidebox-text]');
+			};
+
+			SlideBox.prototype.is_expanded = function () {
+				return !!(this._$element.filter('[data-st-slidebox-expanded="true"]').length);
+			};
+
+			SlideBox.prototype.expand = function () {
+				var self = this;
+
+				this.$content().slideDown()
+					.promise()
+					.then(function () {
+						var $icon = self.$icon();
+						var $text = self.$text();
+
+						$icon.removeClass($icon.attr('data-st-slidebox-icon-collapsed'))
+							.addClass($icon.attr('data-st-slidebox-icon-expanded'))
+
+						$text.text($text.attr('data-st-slidebox-text-expanded'))
+
+						self._$element.removeClass('is-collapsed')
+							.addClass('is-expanded');
+
+						self._$element.attr('data-st-slidebox-expanded', 'true');
+					});
+			};
+
+			SlideBox.prototype.collapse = function () {
+				var self = this;
+
+				this.$content().slideUp()
+					.promise()
+					.then(function () {
+						var $icon = self.$icon();
+						var $text = self.$text();
+
+						$icon.removeClass($icon.attr('data-st-slidebox-icon-expanded'))
+							.addClass($icon.attr('data-st-slidebox-icon-collapsed'))
+
+						$text.text($text.attr('data-st-slidebox-text-collapsed'))
+
+						self._$element.removeClass('is-expanded')
+							.addClass('is-collapsed');
+
+						self._$element.attr('data-st-slidebox-expanded', 'false');
+					});
+			};
+
+			SlideBox.prototype.toggle = function () {
+				if (this.is_expanded()) {
+					this.collapse();
+				} else {
+					this.expand();
+				}
+			};
+
+			SlideBox.prototype.add_event_listeners = function () {
+				var self = this;
+
+				this.$toggle().on('click', function (event) {
+					self.toggle();
+				});
+			};
+
+			SlideBox.prototype.initialize = function () {
+				this.add_event_listeners();
+			};
+
+			return SlideBox;
+		}());
+
+		function on_ready() {
+			var slideBoxes = [];
+
+			$('[data-st-slidebox]').each(function () {
+				var $element = $(this);
+				var slideBox = new SlideBox($element);
+
+				slideBoxes.push(slideBox);
+
+				slideBox.initialize();
+			});
+
+			return slideBoxes;
+		}
+
+		$(on_ready);
+	}(window, window.document, jQuery));
+</script>
+
+
+<script>
+	jQuery(function(){
+		jQuery("#toc_container:not(:has(ul ul))").addClass("only-toc");
+		jQuery(".st-ac-box ul:has(.cat-item)").each(function(){
+			jQuery(this).addClass("st-ac-cat");
+		});
+	});
+</script>
+
+<script>
+	jQuery(function(){
+						jQuery('.st-star').parent('.rankh4').css('padding-bottom','5px'); // スターがある場合のランキング見出し調整
+	});
+</script>
+
+
+
+	<script>
+		$(function() {
+			$('.is-style-st-paragraph-kaiwa').wrapInner('<span class="st-paragraph-kaiwa-text">');
+		});
+	</script>
+
+	<script>
+		$(function() {
+			$('.is-style-st-paragraph-kaiwa-b').wrapInner('<span class="st-paragraph-kaiwa-text">');
+		});
+	</script>
+
+<script>
+	/* 段落スタイルを調整 */
+	$(function() {
+		$( '[class^="is-style-st-paragraph-"],[class*=" is-style-st-paragraph-"]' ).wrapInner( '<span class="st-noflex"></span>' );
+	});
+</script>
+
+	<script>
+		jQuery(function($) {
+			$("p:empty").remove();
+		});
+	</script>
+
+			<style>.gc-bubbleDefault{background-color:transparent!important;text-align:left;padding:0!important;margin:0!important;border:0!important;table-layout:auto!important}.gc-reset{background-color:transparent!important;border:0!important;padding:0!important;margin:0!important;text-align:left}.pls-bubbleTop{border-bottom:1px solid #ccc!important}.pls-contentLeft,.pls-topTail,.pls-vertShimLeft{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/border_3.gif)!important}.pls-topTail{background-repeat:repeat-x!important;background-position:bottom!important}.pls-vertShim{background-color:#fff!important;text-align:right}.tbl-grey .pls-vertShim{background-color:#f5f5f5!important}.pls-vertShimLeft{background-repeat:repeat-y!important;background-position:100%!important;height:4px}.pls-vertShimRight{height:4px}.pls-confirm-container .pls-vertShim{background-color:#fff3c2!important}.pls-contentWrap{background-color:#fff!important;position:relative!important;vertical-align:top}.pls-contentLeft{background-repeat:repeat-y;background-position:100%;vertical-align:top}.pls-dropRight{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleDropR_3.png)!important;background-repeat:repeat-y!important;vertical-align:top}.pls-dropBL,.pls-dropTR .pls-dropBR,.pls-tailleft,.pls-vert,.pls-vert img{vertical-align:top}.pls-dropBottom{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleDropB_3.png)!important;background-repeat:repeat-x!important;width:100%;vertical-align:top}.pls-topLeft{background:inherit!important;text-align:right;vertical-align:bottom}.pls-topRight{background:inherit!important;text-align:left;vertical-align:bottom}.pls-bottomLeft{background:inherit!important;text-align:right}.pls-bottomRight{background:inherit!important;text-align:left;vertical-align:top}.pls-tailbottom,.pls-tailleft,.pls-tailright,.pls-tailtop{display:none;position:relative}.pls-dropBL,.pls-dropBR,.pls-dropTR,.pls-tailbottom,.pls-tailleft,.pls-tailright,.pls-tailtop{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleSprite_3.png)!important;background-repeat:no-repeat}.tbl-grey .pls-dropBL,.tbl-grey .pls-dropBR,.tbl-grey .pls-dropTR,.tbl-grey .pls-tailbottom,.tbl-grey .pls-tailleft,.tbl-grey .pls-tailright,.tbl-grey .pls-tailtop{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleSprite-grey.png)!important}.pls-tailbottom{background-position:-23px 0}.pls-confirm-container .pls-tailbottom{background-position:-23px -10px}.pls-tailtop{background-position:-19px -20px}.pls-tailright{background-position:0 0}.pls-tailleft{background-position:-10px 0}.pls-tailtop{vertical-align:top}.gc-bubbleDefault td{line-height:0;font-size:0}.pls-tailbottom,.pls-topLeft img,.pls-topRight img{vertical-align:bottom}.bubbleDropTR,.pls-bottomLeft,.pls-bottomLeft img,.pls-dropBottom img,.pls-dropBottomL img,.pls-dropBottomR img{vertical-align:top}.pls-dropTR{background-position:0 -22px}.pls-dropBR{background-position:0 -27px}.pls-dropBL{background-position:0 -16px}.pls-spacerbottom,.pls-spacerleft,.pls-spacerright,.pls-spacertop{position:static!important}.pls-spinner{bottom:0;position:absolute;left:0;margin:auto;right:0;top:0}</style></head>
+	<body class="post-template-default single single-post postid-721 single-format-standard custom-background not-front-page">
+				<div id="st-ami">
+				<div id="wrapper" class="">
+				<div id="wrapper-in">
+					
+<header id="">
+	<div id="header-full">
+		<div id="headbox-bg">
+			<div id="headbox">
+
+					<nav id="s-navi" class="pcnone" data-st-nav="" data-st-nav-type="normal">
+		<dl class="acordion is-active" data-st-nav-primary="">
+			<dt class="trigger">
+				<p class="acordion_button"><span class="op op-menu"><i class="st-fa st-svg-menu"></i></span></p>
+
+				
+									<div id="st-mobile-logo"></div>
+				
+				<!-- 追加メニュー -->
+				
+				<!-- 追加メニュー2 -->
+				
+			</dt>
+
+			<dd class="acordion_tree">
+				<div class="acordion_tree_content">
+
+					
+
+												<div class="menu-%e3%83%a1%e3%83%8b%e3%83%a5%e3%83%bc-container"><ul id="menu-%e3%83%a1%e3%83%8b%e3%83%a5%e3%83%bc" class="menu"><li id="menu-item-51" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-51 menu-item-expanded"><a href="https://gamesgard.com/"><span class="menu-item-label">ホーム</span><i class="menu-item-icon st-fa st-svg-angle-right"></i></a></li>
+<li id="menu-item-177" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-177 menu-item-expanded"><a href="https://gamesgard.com/category/gadget/"><span class="menu-item-label">ガジェット</span><i class="menu-item-icon st-fa st-svg-angle-right"></i></a></li>
+<li id="menu-item-178" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-178 menu-item-collapsed"><a href="https://gamesgard.com/category/programming/gameprogramming/"><span class="menu-item-label">ゲームプログラミング</span><i class="menu-item-icon st-fa st-svg-angle-down"></i></a>
+<ul class="sub-menu" style="display: none;">
+	<li id="menu-item-1038" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1038 menu-item-expanded"><a href="https://gamesgard.com/category/programming/gameprogramming/directx11/"><span class="menu-item-label">DirectX11</span><i class="menu-item-icon st-fa st-svg-angle-right"></i></a></li>
+	<li id="menu-item-698" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-698 menu-item-expanded"><a href="https://gamesgard.com/category/programming/gameprogramming/unity/"><span class="menu-item-label">Unity</span><i class="menu-item-icon st-fa st-svg-angle-right"></i></a></li>
+</ul>
+</li>
+<li id="menu-item-316" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-316 menu-item-expanded"><a href="https://gamesgard.com/category/3dcg/"><span class="menu-item-label">3DCG</span><i class="menu-item-icon st-fa st-svg-angle-right"></i></a></li>
+</ul></div>						<div class="clear"></div>
+
+					
+				</div>
+			</dd>
+
+					</dl>
+
+					</nav>
+
+									<div id="header-l">
+						
+						<div id="st-text-logo">
+							
+    
+		
+			<!-- キャプション -->
+			
+				          		 	 <p class="descr sitenametop">
+           		     	プログラミング、ゲーム、3DCG、ガジェット紹介など           			 </p>
+				
+			
+			<!-- ロゴ又はブログ名 -->
+			          		  <p class="sitename"><a href="https://gamesgard.com/">
+              		                    		  <img class="sitename-bottom" alt="ゲームズガルド.com" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/6f88d7cff9c81c42e0e3ab2460a5d6d2.png">
+               		           		  </a></p>
+        				<!-- ロゴ又はブログ名ここまで -->
+
+		
+	
+						</div>
+					</div><!-- /#header-l -->
+				
+				<div id="header-r" class="smanone">
+					
+				</div><!-- /#header-r -->
+
+			</div><!-- /#headbox -->
+		</div><!-- /#headbox-bg clearfix -->
+
+		
+		
+		
+		
+			
+
+<div id="gazou-wide">
+			<div id="st-menubox">
+			<div id="st-menuwide">
+				<nav class="smanone clearfix"><ul id="menu-%e3%83%a1%e3%83%8b%e3%83%a5%e3%83%bc-1" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-51"><a href="https://gamesgard.com/">ホーム</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-177"><a href="https://gamesgard.com/category/gadget/">ガジェット</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-178"><a href="https://gamesgard.com/category/programming/gameprogramming/">ゲームプログラミング</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1038"><a href="https://gamesgard.com/category/programming/gameprogramming/directx11/">DirectX11</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-698"><a href="https://gamesgard.com/category/programming/gameprogramming/unity/">Unity</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-316"><a href="https://gamesgard.com/category/3dcg/">3DCG</a></li>
+</ul></nav>			</div>
+		</div>
+						<div id="st-headerbox">
+				<div id="st-header">
+				</div>
+			</div>
+			</div>
+	
+	</div><!-- #header-full -->
+
+	
+
+
+
+
+
+</header>
+
+					<div id="content-w">
+
+					
+					
+	
+			<div id="st-header-post-under-box" class="st-header-post-no-data " style="">
+			<div class="st-dark-cover">
+							</div>
+		</div>
+	
+<div id="content" class="clearfix">
+	<div id="contentInner">
+		<main>
+			<article>
+									<div id="post-721" class="st-post post-721 post type-post status-publish format-standard has-post-thumbnail hentry category-cpp category-directx11 category-gameprogramming category-programming tag-c tag-directx tag-directx11 tag-15 tag-17 tag-33">
+				
+					
+																
+					
+					<!--ぱんくず -->
+											<div id="breadcrumb">
+							<ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
+								<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+									<a href="https://gamesgard.com/" itemprop="item">
+										<span itemprop="name">HOME</span>
+									</a>
+									&gt;
+									<meta itemprop="position" content="1">
+								</li>
+
+								
+																	<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+										<a href="https://gamesgard.com/category/programming/" itemprop="item">
+											<span itemprop="name">プログラミング</span>
+										</a>
+										&gt;
+										<meta itemprop="position" content="2">
+									</li>
+																										<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+										<a href="https://gamesgard.com/category/programming/gameprogramming/" itemprop="item">
+											<span itemprop="name">ゲームプログラミング</span>
+										</a>
+										&gt;
+										<meta itemprop="position" content="3">
+									</li>
+																										<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+										<a href="https://gamesgard.com/category/programming/gameprogramming/cpp/" itemprop="item">
+											<span itemprop="name">C++</span>
+										</a>
+										&gt;
+										<meta itemprop="position" content="4">
+									</li>
+																								</ol>
+
+													</div>
+										<!--/ ぱんくず -->
+
+					<!--ループ開始 -->
+										
+																									<p class="st-catgroup">
+								<a href="https://gamesgard.com/category/programming/gameprogramming/cpp/" title="View all posts in C++" rel="category tag"><span class="catname st-catid19">C++</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/directx11/" title="View all posts in DirectX11" rel="category tag"><span class="catname st-catid10">DirectX11</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/" title="View all posts in ゲームプログラミング" rel="category tag"><span class="catname st-catid4">ゲームプログラミング</span></a> <a href="https://gamesgard.com/category/programming/" title="View all posts in プログラミング" rel="category tag"><span class="catname st-catid5">プログラミング</span></a>							</p>
+						
+						<h1 class="entry-title">ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」</h1>
+
+							<div class="blogbox ">
+		<p><span class="kdate">
+													<i class="st-fa st-svg-refresh"></i><time class="updated" datetime="2021-10-10T00:50:32+0900">2021年10月10日</time>
+						</span></p>
+	</div>
+					
+					
+					
+					<div class="mainbox">
+						<div id="nocopy"><!-- コピー禁止エリアここから -->
+							
+							
+							
+							<div class="entry-content">
+								
+<figure class="wp-block-image size-large"><img width="1024" height="531" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/cfcce7b9f7489bafa9713b2b20d7f0b7-2-1024x531.jpg" alt="" class="wp-image-303" srcset="https://gamesgard.com/wp-content/uploads/2021/10/cfcce7b9f7489bafa9713b2b20d7f0b7-2-1024x531.jpg 1024w, https://gamesgard.com/wp-content/uploads/2021/10/cfcce7b9f7489bafa9713b2b20d7f0b7-2-300x156.jpg 300w, https://gamesgard.com/wp-content/uploads/2021/10/cfcce7b9f7489bafa9713b2b20d7f0b7-2-768x398.jpg 768w, https://gamesgard.com/wp-content/uploads/2021/10/cfcce7b9f7489bafa9713b2b20d7f0b7-2.jpg 1280w" sizes="(max-width: 1024px) 100vw, 1024px"><figcaption>ハッカドールMMDデータ © 2015 DeNA Co.,Ltd.</figcaption></figure>
+
+
+
+<p>今回は前回説明できなかった部分を細かく説明して行こうと思います。</p><div id="st_toc_container" class="st_toc_hierarchical st_toc_style_timeline-count only-toc" data-st-toc-container=""><p class="st_toc_title">目次</p><ul class="st_toc_list" data-st-toc-list=""><li><a href="https://gamesgard.com/directx11_lesson04/#st-toc-h-1" data-st-toc-item="">射影座標で考えよう</a></li><li><a href="https://gamesgard.com/directx11_lesson04/#st-toc-h-2" data-st-toc-item="">シェーダーでの描画について</a></li><li><a href="https://gamesgard.com/directx11_lesson04/#st-toc-h-3" data-st-toc-item="">四角形にしてみよう</a></li><li><a href="https://gamesgard.com/directx11_lesson04/#st-toc-h-4" data-st-toc-item="">プリミティブ・トポロジについて</a></li><li><a href="https://gamesgard.com/directx11_lesson04/#st-toc-h-5" data-st-toc-item="">頂点を描画するにはバッファリソースとして作成する必要がある</a></li><li><a href="https://gamesgard.com/directx11_lesson04/#st-toc-h-6" data-st-toc-item="">デバイスコンテキストに描画をお願いするまでの道のり</a></li></ul></div>
+
+
+
+<!-- ST_TOC -->
+
+
+
+<h2>射影座標で考えよう</h2>
+
+
+
+<p>前回、三角形を画面に描画しました。その時に以下のように３つの座標を作りましたね。</p>
+
+
+
+<div class="wp-block-urvanov-syntax-highlighter-code-block"><!-- Urvanov Syntax Highlighter v2.8.25 -->
+
+		<div id="urvanov-syntax-highlighter-636cacaa4084f976860096" class="urvanov-syntax-highlighter-syntax crayon-theme-1c-kod urvanov-syntax-highlighter-font-monaco urvanov-syntax-highlighter-os-pc print-yes notranslate urvanov-syntax-highlighter-wrapped" data-settings=" minimize scroll-mouseover wrap" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title">前回作成した３つの頂点座標</span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button urvanov-syntax-highlighter-nums-button crayon-pressed" title="行番号ON/OFF"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-wrap-button crayon-pressed" title="Toggle Line Wrap"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-expand-button" title="Expand Code" style="display: none;"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-popup-button" title="新しいウィンドウでコードを開く"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><span class="crayon-language">C++</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="urvanov-syntax-highlighter-plain-wrap"></div>
+			<div class="urvanov-syntax-highlighter-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="urvanov-syntax-highlighter-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="urvanov-syntax-highlighter-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4084f976860096-1" style="height: 15px;">1</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4084f976860096-2" style="height: 15px;">2</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4084f976860096-3" style="height: 15px;">3</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4084f976860096-4" style="height: 15px;">4</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4084f976860096-5" style="height: 15px;">5</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4084f976860096-6" style="height: 15px;">6</div></div>
+				</td>
+						<td class="urvanov-syntax-highlighter-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4084f976860096-1"><span class="crayon-c">// 三角形を作るため、頂点を３つ作る</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4084f976860096-2"><span class="crayon-i">VertexType</span><span class="crayon-h"> </span><span class="crayon-v">v</span><span class="crayon-sy">[</span><span class="crayon-cn">3</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4084f976860096-3"><span class="crayon-h">	</span><span class="crayon-sy">{</span><span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">}</span><span class="crayon-sy">}</span><span class="crayon-sy">,</span><span class="crayon-h">	</span><span class="crayon-c">// 頂点座標0</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4084f976860096-4"><span class="crayon-h">	</span><span class="crayon-sy">{</span><span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-o">-</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">}</span><span class="crayon-sy">}</span><span class="crayon-sy">,</span><span class="crayon-h">	</span><span class="crayon-c">// 頂点座標1</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4084f976860096-5"><span class="crayon-h">	</span><span class="crayon-sy">{</span><span class="crayon-sy">{</span><span class="crayon-o">-</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-o">-</span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">}</span><span class="crayon-sy">}</span><span class="crayon-sy">,</span><span class="crayon-h">	</span><span class="crayon-c">// 頂点座用2</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4084f976860096-6"><span class="crayon-sy">}</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+</div>
+
+
+
+<p>１つ目が(0, 0, 0)、２つ目が(1, -1, 0)、３つ目が(-1, -1, 0)です。順番に<strong>(x, y, z)座標</strong>です。<br>この座標はみなさんがよく知っているピクセル座標ではなく、<span class="st-mymarker-s">射影座標</span>で指定する必要があります。</p>
+
+
+
+<p class="is-style-st-paragraph-bubble has-st-icon has-st-icon-check has-white-color has-soft-red-background-color has-text-color has-background"><span class="st-noflex"><span class="oomozi">射影座標はこんな感じ</span></span></p>
+
+
+
+<figure class="wp-block-image size-large"><img width="1024" height="590" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/8680cf030014607f75666d1b0d0caa2a-1024x590.jpg" alt="" class="wp-image-730" srcset="https://gamesgard.com/wp-content/uploads/2021/10/8680cf030014607f75666d1b0d0caa2a-1024x590.jpg 1024w, https://gamesgard.com/wp-content/uploads/2021/10/8680cf030014607f75666d1b0d0caa2a-300x173.jpg 300w, https://gamesgard.com/wp-content/uploads/2021/10/8680cf030014607f75666d1b0d0caa2a-768x442.jpg 768w, https://gamesgard.com/wp-content/uploads/2021/10/8680cf030014607f75666d1b0d0caa2a.jpg 1118w" sizes="(max-width: 1024px) 100vw, 1024px"></figure>
+
+
+
+<p>座標とは皆さん知っての通り、数学のグラフと時と同じで<span class="st-mymarker-s">右がXで上がY</span>です。それをそのまま画面に当てはめるの上図のようになります。</p>
+
+
+
+<ul class="is-style-st-square-checkbox-no-border has-st-border has-st-solid-border has-st-thick-border-width"><li>画面の<strong>真ん中が(0, 0, 0)</strong>。</li><li>X座標やY座標は<strong>-1～1の範囲</strong>。それ以外は画面外になる。</li></ul>
+
+
+
+<p>一般的なパソコンのペイントソフトなどはこの座標系ではなく、ピクセルで表現されることが多いのでちょっと違和感があるかもですね。<br>今回の画面は1280x720の解像度でDirectXを動作させていますが、<span class="st-mymarker-s">射影座標は画面の解像度関係なく</span><span class="st-mymarker-s">、</span><span class="st-mymarker-s">いつでも-1～1</span>です。</p>
+
+
+
+<p>頂点の順番にも意味があります。上図のように<span class="st-mymarker-s">時計周りになるように</span>しましょう(左手座標系)。反時計回りにすると<span class="st-mymarker-s-b">裏面</span>になってしまいます。そして特別な設定をしない限り、<strong><span class="st-mymarker-s-b">裏面を向いている面は透明になり見えなくなってしまいます</span></strong>。</p>
+
+
+
+<h2>シェーダーでの描画について</h2>
+
+
+
+<p>前回は以下のようなシェーダーを書きましたね。この<strong>頂点シェーダー</strong>と<strong>ピクセルシェーダー</strong>はいったい何をやっているのでしょうか？ちょっと見てみましょう。</p>
+
+
+
+<p class="is-style-st-paragraph-bubble has-white-color has-soft-red-background-color has-text-color has-background"><span class="st-noflex">前回書いたシェーダープログラム</span></p>
+
+
+
+<div class="wp-block-urvanov-syntax-highlighter-code-block"><!-- Urvanov Syntax Highlighter v2.8.25 -->
+
+		<div id="urvanov-syntax-highlighter-636cacaa40852532491721" class="urvanov-syntax-highlighter-syntax crayon-theme-1c-kod urvanov-syntax-highlighter-font-monaco urvanov-syntax-highlighter-os-pc print-yes notranslate urvanov-syntax-highlighter-wrapped" data-settings=" minimize scroll-mouseover wrap" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title">SpriteShader.hlsl</span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button urvanov-syntax-highlighter-nums-button crayon-pressed" title="行番号ON/OFF"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-wrap-button crayon-pressed" title="Toggle Line Wrap"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-expand-button" title="Expand Code" style="display: none;"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-popup-button" title="新しいウィンドウでコードを開く"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><span class="crayon-language">C++</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="urvanov-syntax-highlighter-plain-wrap"></div>
+			<div class="urvanov-syntax-highlighter-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="urvanov-syntax-highlighter-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="urvanov-syntax-highlighter-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-1" style="height: 15px;">1</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-2" style="height: 15px;">2</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-3" style="height: 15px;">3</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-4" style="height: 15px;">4</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-5" style="height: 15px;">5</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-6" style="height: 15px;">6</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-7" style="height: 15px;">7</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-8" style="height: 15px;">8</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-9" style="height: 15px;">9</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-10" style="height: 15px;">10</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-11" style="height: 15px;">11</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-12" style="height: 15px;">12</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-13" style="height: 15px;">13</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-14" style="height: 15px;">14</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-15" style="height: 15px;">15</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-16" style="height: 15px;">16</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-17" style="height: 15px;">17</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-18" style="height: 15px;">18</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-19" style="height: 15px;">19</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-20" style="height: 15px;">20</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-21" style="height: 15px;">21</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-22" style="height: 15px;">22</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-23" style="height: 15px;">23</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-24" style="height: 15px;">24</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40852532491721-25" style="height: 15px;">25</div></div>
+				</td>
+						<td class="urvanov-syntax-highlighter-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-1"><span class="crayon-c">// 頂点シェーダーから出力するデータ</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-2"><span class="crayon-t">struct</span><span class="crayon-h"> </span><span class="crayon-e">VSOutput</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-3"><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">float4 </span><span class="crayon-v">Pos</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">SV_Position</span><span class="crayon-sy">;</span><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-c">// 頂点の座標(射影座標系)</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-5"><span class="crayon-sy">}</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-6"><span class="crayon-h"> </span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-7"><span class="crayon-c">//========================================</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-8"><span class="crayon-c">// 頂点シェーダー</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-9"><span class="crayon-c">//========================================</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-10"><span class="crayon-e">VSOutput </span><span class="crayon-e">VS</span><span class="crayon-sy">(</span><span class="crayon-e">float4 </span><span class="crayon-v">pos</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">POSITION</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-11"><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">VSOutput </span><span class="crayon-v">Out</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// 頂点座標を、何も加工せずそのまま出力</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">Out</span><span class="crayon-sy">.</span><span class="crayon-v">Pos</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">pos</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-15"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">Out</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-16"><span class="crayon-sy">}</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-17"><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-18"><span class="crayon-c">//========================================</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-19"><span class="crayon-c">// ピクセルシェーダー</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-20"><span class="crayon-c">//========================================</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-21"><span class="crayon-e">float4 </span><span class="crayon-e">PS</span><span class="crayon-sy">(</span><span class="crayon-e">VSOutput </span><span class="crayon-st">In</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-e">SV_Target0</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-22"><span class="crayon-sy">{</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-23"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// 緑色にする</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-24"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">float4</span><span class="crayon-sy">(</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40852532491721-25"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+</div>
+
+
+
+<p>今回は三角形を描画しました。つまり<strong>頂点は３つ使用</strong>してますよね。この場合<span class="st-mymarker-s">頂点シェーダーは３回実行</span>されます。</p>
+
+
+
+<p>頂点シェーダーを別に例えるなら、<span class="st-mymarker-s"><span class="oomozi"><span class="sankou">頂点データ加工工場</span></span></span>だと思ってください。この３つの頂点が１つずつベルトコンベアで流れてくるのです。でも<span class="st-mymarker-s">今回は特になにも加工をせず次の工場へ出荷</span>しています。それがこの部分です。</p>
+
+
+
+<p class="is-style-st-paragraph-check"><span class="st-noflex"><strong>Out.Pos = pos;</strong>  // ←posに座標が来ます。それをそのまま出荷します。</span></p>
+
+
+
+<p>もちこん、ここで何かしら座標を変更するようなプログラムを書けば、<strong>自由自在に頂点の座標を変える</strong>ことができます。<span class="st-mymarker-s">3Dゲームにしたい場合は立体的になるように変化させば良い</span>のです。</p>
+
+
+
+<p>そして、<span class="st-mymarker-s">ピクセルシェーダーはすごく単純で、ただ緑色を出荷しているだけ</span>なんです。ピクセルシェーダーも別に例えると<span class="oomozi"><span class="sankou">ピクセル着色工場</span></span>ですね。プログラムではこの部分ですね。</p>
+
+
+
+<p class="is-style-st-paragraph-check"><span class="st-noflex"><strong>return float4(0, 1, 0, 1);</strong> // ← 緑色を作ってそれを出荷します。するとこのピクセルは緑色になります。</span></p>
+
+
+
+<p>頂点は３つだけでしたが、ピクセルは下図のようにいっぱいできあがります。この数ぶんピクセルシェーダーが実行されているのですよ。グラフィックスの処理を行ってくれるGPUはものすごく高速なのでこの程度なら一瞬で完了しちゃいます。</p>
+
+
+
+<figure class="wp-block-image size-large"><img width="1024" height="444" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/02682d725ab927e628bbf42a0c75a914-1024x444.jpg" alt="" class="wp-image-742" srcset="https://gamesgard.com/wp-content/uploads/2021/10/02682d725ab927e628bbf42a0c75a914-1024x444.jpg 1024w, https://gamesgard.com/wp-content/uploads/2021/10/02682d725ab927e628bbf42a0c75a914-300x130.jpg 300w, https://gamesgard.com/wp-content/uploads/2021/10/02682d725ab927e628bbf42a0c75a914-768x333.jpg 768w, https://gamesgard.com/wp-content/uploads/2021/10/02682d725ab927e628bbf42a0c75a914.jpg 1325w" sizes="(max-width: 1024px) 100vw, 1024px"></figure>
+
+
+
+<p class="is-style-st-paragraph-kaiwa"><span class="st-noflex"><span class="st-paragraph-kaiwa-text">頂点１つ１つを加工し次の工程へ。それが面となって大量のピクセルが生まれる。それら全てに色を塗る。といった手順がパソコン内で動いてるんです。パソコンすごいですよね。</span></span></p>
+
+
+
+<p>今回はものすごく単純なプログラムにしたので緑一色だけでしたが、ここをもっとプログラムすれば美麗な表現ができるようになります。この記事のトップに掲載しているキャラクター(ハッカドール1号)や背景が映っている画像も、このシェーダープログラムで表現しています。</p>
+
+
+
+
+
+
+
+<h2>四角形にしてみよう</h2>
+
+
+
+<p>２Dゲームを作るとしたら、三角形はちょっと扱いにくいです。通常は四角形がいいですよね。四角形の面に画像を乗っければ、キャラクターなど何かしら画像を表示できますからね。</p>
+
+
+
+<p class="is-style-st-paragraph-kaiwa"><span class="st-noflex"><span class="st-paragraph-kaiwa-text">パソコンの画像って、通常は長方形ですよね。</span></span></p>
+
+
+
+<p>四角形のやり方は簡単です。<span class="st-mymarker-s">頂点を１つ増やして４つにするだけ</span>です。下図の結果になるようにプログラムを変更してみましょう。</p>
+
+
+
+<figure class="wp-block-image size-large"><img width="1024" height="562" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/556c59760770b4d88cef733f18789189-1024x562.jpg" alt="" class="wp-image-763" srcset="https://gamesgard.com/wp-content/uploads/2021/10/556c59760770b4d88cef733f18789189-1024x562.jpg 1024w, https://gamesgard.com/wp-content/uploads/2021/10/556c59760770b4d88cef733f18789189-300x165.jpg 300w, https://gamesgard.com/wp-content/uploads/2021/10/556c59760770b4d88cef733f18789189-768x421.jpg 768w, https://gamesgard.com/wp-content/uploads/2021/10/556c59760770b4d88cef733f18789189.jpg 1426w" sizes="(max-width: 1024px) 100vw, 1024px"></figure>
+
+
+
+<p class="is-style-st-paragraph-bubble has-white-color has-soft-red-background-color has-text-color has-background"><span class="st-noflex">まずは頂点を作成している部分を変更</span></p>
+
+
+
+<div class="wp-block-urvanov-syntax-highlighter-code-block"><!-- Urvanov Syntax Highlighter v2.8.25 -->
+
+		<div id="urvanov-syntax-highlighter-636cacaa40857185114444" class="urvanov-syntax-highlighter-syntax crayon-theme-1c-kod urvanov-syntax-highlighter-font-monaco urvanov-syntax-highlighter-os-pc print-yes notranslate urvanov-syntax-highlighter-wrapped" data-settings=" minimize scroll-mouseover wrap" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button urvanov-syntax-highlighter-nums-button crayon-pressed" title="行番号ON/OFF"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-wrap-button crayon-pressed" title="Toggle Line Wrap"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-expand-button" title="Expand Code" style="display: none;"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-popup-button" title="新しいウィンドウでコードを開く"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><span class="crayon-language">C++</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="urvanov-syntax-highlighter-plain-wrap"></div>
+			<div class="urvanov-syntax-highlighter-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="urvanov-syntax-highlighter-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="urvanov-syntax-highlighter-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40857185114444-1" style="height: 15px;">1</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40857185114444-2" style="height: 15px;">2</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40857185114444-3" style="height: 15px;">3</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40857185114444-4" style="height: 15px;">4</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40857185114444-5" style="height: 15px;">5</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa40857185114444-6" style="height: 15px;">6</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa40857185114444-7" style="height: 15px;">7</div></div>
+				</td>
+						<td class="urvanov-syntax-highlighter-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40857185114444-1"><span class="crayon-c">// 四角形を作るため、頂点を４つ作る</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40857185114444-2"><span class="crayon-i">VertexType</span><span class="crayon-h"> </span><span class="crayon-v">v</span><span class="crayon-sy">[</span><span class="crayon-cn">4</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40857185114444-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">{</span><span class="crayon-sy">{</span><span class="crayon-o">-</span><span class="crayon-cn">0.5f</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-cn">0.5f</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">}</span><span class="crayon-sy">}</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40857185114444-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">{</span><span class="crayon-sy">{</span><span class="crayon-o">-</span><span class="crayon-cn">0.5f</span><span class="crayon-sy">,</span><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-cn">0.5f</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">}</span><span class="crayon-sy">}</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40857185114444-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">{</span><span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-cn">0.5f</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-cn">0.5f</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">}</span><span class="crayon-sy">}</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa40857185114444-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">{</span><span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-cn">0.5f</span><span class="crayon-sy">,</span><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-cn">0.5f</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">}</span><span class="crayon-sy">}</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa40857185114444-7"><span class="crayon-sy">}</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0002 seconds] -->
+</div>
+
+
+
+<p class="is-style-st-paragraph-bubble has-white-color has-soft-red-background-color has-text-color has-background"><span class="st-noflex">描画命令では頂点を４つ描画するようにしよう！</span></p>
+
+
+
+<div class="wp-block-urvanov-syntax-highlighter-code-block"><!-- Urvanov Syntax Highlighter v2.8.25 -->
+
+		<div id="urvanov-syntax-highlighter-636cacaa4085a076860984" class="urvanov-syntax-highlighter-syntax crayon-theme-1c-kod urvanov-syntax-highlighter-font-monaco urvanov-syntax-highlighter-os-pc print-yes notranslate urvanov-syntax-highlighter-wrapped" data-settings=" minimize scroll-mouseover wrap" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button urvanov-syntax-highlighter-nums-button crayon-pressed" title="行番号ON/OFF"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-wrap-button crayon-pressed" title="Toggle Line Wrap"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-expand-button" title="Expand Code" style="display: none;"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-popup-button" title="新しいウィンドウでコードを開く"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><span class="crayon-language">C++</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="urvanov-syntax-highlighter-plain-wrap"></div>
+			<div class="urvanov-syntax-highlighter-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="urvanov-syntax-highlighter-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="urvanov-syntax-highlighter-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085a076860984-1" style="height: 15px;">1</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085a076860984-2" style="height: 15px;">2</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085a076860984-3" style="height: 15px;">3</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085a076860984-4" style="height: 15px;">4</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085a076860984-5" style="height: 15px;">5</div></div>
+				</td>
+						<td class="urvanov-syntax-highlighter-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085a076860984-1"><span class="crayon-c">//-----------------------------</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085a076860984-2"><span class="crayon-c">// 描画実行</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085a076860984-3"><span class="crayon-c">//-----------------------------</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085a076860984-4"><span class="crayon-c">// デバイスコンテキストくん、上記のセットした内容で描画してください</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085a076860984-5"><span class="crayon-v">D3D</span><span class="crayon-sy">.</span><span class="crayon-v">m_deviceContext</span><span class="crayon-o">-&gt;</span><span class="crayon-e">Draw</span><span class="crayon-sy">(</span><span class="crayon-cn">4</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+</div>
+
+
+
+<p class="is-style-st-paragraph-check"><span class="st-noflex">D3D.m_deviceContext-&gt;Draw( <span class="hutoaka">4</span> , 0 );</span></p>
+
+
+
+<p class="is-style-st-paragraph-kaiwa"><span class="st-noflex"><span class="st-paragraph-kaiwa-text">デバイスコンテキストのDraw関数の第一引数には、<span class="st-mymarker-s">描画に使用する頂点数を指定</span>するのです。</span></span></p>
+
+
+
+<h2>プリミティブ・トポロジについて</h2>
+
+
+
+<p>頂点をたくさん作って面を複数描画する時は、ちょっと注意が必要になります。射影座標の説明の時にこんなこと言ってましたよね。</p>
+
+
+
+<p class="is-style-st-paragraph-attention-gray"><span class="st-noflex">「頂点の順番は時計周りになるようにしましょう」</span></p>
+
+
+
+<p>確かに<strong>１枚目の三角形の０，１，２番目の頂点は<span class="st-mymarker-s">時計回り</span></strong>になっていますが、<strong>２枚目の三角形の１，２，３番目の頂点は<span class="st-mymarker-s-b">反時計周り</span></strong>になってますよね。なんで？と疑問に思うでしょう。</p>
+
+
+
+<p>こういった<strong>「頂点をどのように使用するか？」</strong>といった設定を<span class="st-mymarker-s">プリミティブ・トポロジ</span>と言い、今回は<span class="st-mymarker-s">トライアングルストリップ</span>という設定にしてます。プログラムではこの部分ですね。</p>
+
+
+
+<div class="wp-block-urvanov-syntax-highlighter-code-block"><!-- Urvanov Syntax Highlighter v2.8.25 -->
+
+		<div id="urvanov-syntax-highlighter-636cacaa4085b421938029" class="urvanov-syntax-highlighter-syntax crayon-theme-1c-kod urvanov-syntax-highlighter-font-monaco urvanov-syntax-highlighter-os-pc print-yes notranslate urvanov-syntax-highlighter-wrapped" data-settings=" minimize scroll-mouseover wrap" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button urvanov-syntax-highlighter-nums-button crayon-pressed" title="行番号ON/OFF"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-wrap-button crayon-pressed" title="Toggle Line Wrap"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-expand-button" title="Expand Code" style="display: none;"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-popup-button" title="新しいウィンドウでコードを開く"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><span class="crayon-language">C++</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="urvanov-syntax-highlighter-plain-wrap"></div>
+			<div class="urvanov-syntax-highlighter-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="urvanov-syntax-highlighter-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="urvanov-syntax-highlighter-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085b421938029-1" style="height: 15px;">1</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085b421938029-2" style="height: 15px;">2</div></div>
+				</td>
+						<td class="urvanov-syntax-highlighter-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085b421938029-1"><span class="crayon-c">// プロミティブ・トポロジーをセット</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085b421938029-2"><span class="crayon-v">D3D</span><span class="crayon-sy">.</span><span class="crayon-v">m_deviceContext</span><span class="crayon-o">-&gt;</span><span class="crayon-e">IASetPrimitiveTopology</span><span class="crayon-sy">(</span><span class="crayon-v">D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+</div>
+
+
+
+<p>プリミティブ・トポロジにはいろいろ種類があるのですが、今回は以下の４種類を紹介しましょう。</p>
+
+
+
+<figure class="wp-block-table"><table><tbody><tr><td>D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP</td><td>トライアングルストリップ<br>・(0,1,2)番目の頂点で三角形1枚(<span class="st-mymarker-s">時計回り</span>が表面になる)<br>・(1,2,3)番目の頂点で三角形1枚(<span class="st-mymarker-s-b">反時計回り</span>が表面になる) <br>・(2,3,4)番目の頂点で三角形1枚(<span class="st-mymarker-s">時計回り</span>が表面になる)  <br>・(3,4,5)番目の頂点で三角形1枚(<span class="st-mymarker-s-b">反時計回り</span>が表面になる) <br>といったように、頂点を１つずつずらして三角形として描画していく方法。<br>特徴としては、偶数面が時計回りで表面となり、奇数面が反時計回りで表面になる。<br>ちょっとややこしいですが、レーザービームなどの連続して連なったものを少ない頂点数で描画したい場合はこれが便利。逆にいうと連続したものでしか使えない。</td></tr><tr><td>D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST</td><td>トライアングルリスト<br>・(0,1,2)番目の頂点で三角形1枚(<span class="st-mymarker-s">時計回り</span>が表面になる)<br>・(3,4,5)番目の頂点で三角形1枚(<span class="st-mymarker-s">時計回り</span>が表面になる)<br>・(6,7,8)番目の頂点で三角形1枚(<span class="st-mymarker-s">時計回り</span>が表面になる)<br>といったように、単純に頂点３つずつ使用し、時計回りで表面の三角形として描画していく方法。<br><strong>四角形を描画するには頂点が６つ必要</strong>になってしまいますが、三角形が分離したような非連続の表現もできる。キャラクターのような複雑なものはこれを使用する(メッシュという)。<br>  </td></tr><tr><td>D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP</td><td>ラインストリップ<br>・(0,1)番目の頂点で線１本<br>・(1,2)番目の頂点で線１本<br>・(2,3)番目の頂点で線１本<br>ライン系は線を描くモードです。デバッグ表示などで活躍します。<br>連続した線を少ない頂点で描画したい場合はこれが便利</td></tr><tr><td>D3D11_PRIMITIVE_TOPOLOGY_LINELIST</td><td>ラインリスト<br>・(0,1)番目の頂点で線１本<br>・(2,3)番目の頂点で線１本<br>・(4,5)番目の頂点で線１本<br>ライン系は線を描くモードです。デバッグ表示などで活躍します。 <br>非連続の線も描画したい場合はこっち。</td></tr></tbody></table></figure>
+
+
+
+<p class="is-style-st-paragraph-kaiwa"><span class="st-noflex"><span class="st-paragraph-kaiwa-text">この４種類を覚えておこう！<br>あと文章だけじゃあわかりにくいので、図も用意しましたよ。</span></span></p>
+
+
+
+<figure class="wp-block-image size-full is-resized"><img src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/27add70d5b999a43f806a0fec1a5db01.jpg" alt="" class="wp-image-774" width="470" height="351" srcset="https://gamesgard.com/wp-content/uploads/2021/10/27add70d5b999a43f806a0fec1a5db01.jpg 940w, https://gamesgard.com/wp-content/uploads/2021/10/27add70d5b999a43f806a0fec1a5db01-300x224.jpg 300w, https://gamesgard.com/wp-content/uploads/2021/10/27add70d5b999a43f806a0fec1a5db01-768x574.jpg 768w, https://gamesgard.com/wp-content/uploads/2021/10/27add70d5b999a43f806a0fec1a5db01-202x150.jpg 202w" sizes="(max-width: 470px) 100vw, 470px"></figure>
+
+
+
+<h2>頂点を描画するにはバッファリソースとして作成する必要がある</h2>
+
+
+
+<p>VertexType v[4] = …のように頂点用の配列データを作っても、<span class="st-mymarker-s-b">実は描画には使用できません</span>。描画で使える頂点を作成するには<span class="st-mymarker-s">グラフィックス専用のメモリに作る必要がある</span>のです。DirectXでは<span class="st-mymarker-s">バッファリソース</span>でこれを実現できます。特に頂点用のバッファリソースのことを<span class="st-mymarker-s">頂点バッファ</span>と呼びます。</p>
+
+
+
+<p class="is-style-st-paragraph-bubble has-white-color has-soft-red-background-color has-text-color has-background"><span class="st-noflex">バッファリソースを作成している場所(作成時にvの内容も書き込んでいます)</span></p>
+
+
+
+<div class="wp-block-urvanov-syntax-highlighter-code-block"><!-- Urvanov Syntax Highlighter v2.8.25 -->
+
+		<div id="urvanov-syntax-highlighter-636cacaa4085d218531343" class="urvanov-syntax-highlighter-syntax crayon-theme-1c-kod urvanov-syntax-highlighter-font-monaco urvanov-syntax-highlighter-os-pc print-yes notranslate urvanov-syntax-highlighter-wrapped" data-settings=" minimize scroll-mouseover wrap" style="margin-top: 12px; margin-bottom: 12px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 12px !important;height: 18px !important; line-height: 18px !important;"><div class="crayon-button urvanov-syntax-highlighter-nums-button crayon-pressed" title="行番号ON/OFF"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-wrap-button crayon-pressed" title="Toggle Line Wrap"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-expand-button" title="Expand Code" style="display: none;"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button urvanov-syntax-highlighter-popup-button" title="新しいウィンドウでコードを開く"><div class="urvanov-syntax-highlighter-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://gamesgard.com/wp-content/plugins/urvanov-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><span class="crayon-language">C++</span></div></div>
+			<div class="crayon-info" style="min-height: 16.8px !important; line-height: 16.8px !important;"></div>
+			<div class="urvanov-syntax-highlighter-plain-wrap"></div>
+			<div class="urvanov-syntax-highlighter-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="urvanov-syntax-highlighter-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="urvanov-syntax-highlighter-nums-content" style="font-size: 12px !important; line-height: 15px !important;"><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-1" style="height: 15px;">1</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-2" style="height: 15px;">2</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-3" style="height: 15px;">3</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-4" style="height: 15px;">4</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-5" style="height: 15px;">5</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-6" style="height: 15px;">6</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-7" style="height: 15px;">7</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-8" style="height: 15px;">8</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-9" style="height: 15px;">9</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-10" style="height: 30px;">10</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-11" style="height: 15px;">11</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-12" style="height: 15px;">12</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-13" style="height: 15px;">13</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-14" style="height: 15px;">14</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-15" style="height: 15px;">15</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-16" style="height: 15px;">16</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-17" style="height: 15px;">17</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-18" style="height: 15px;">18</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-19" style="height: 15px;">19</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-20" style="height: 15px;">20</div><div class="crayon-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-21" style="height: 15px;">21</div><div class="crayon-num crayon-striped-num" data-line="urvanov-syntax-highlighter-636cacaa4085d218531343-22" style="height: 15px;">22</div></div>
+				</td>
+						<td class="urvanov-syntax-highlighter-code"><div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-1"><span class="crayon-c">//-----------------------------</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-2"><span class="crayon-c">// 頂点バッファ作成</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-3"><span class="crayon-c">// ・上記で作った３つの頂点はそのままでは描画に使用できないんす…</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-4"><span class="crayon-c">// ・ビデオメモリ側に「頂点バッファ」という形で作る必要があります！</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-5"><span class="crayon-c">// ・今回は効率無視して、その場で作って、使って、すぐ捨てます。</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-6"><span class="crayon-c">//-----------------------------</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-7"><span class="crayon-c">// 作成するバッファの仕様を決める</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-8"><span class="crayon-c">// ・今回は頂点バッファにするぞ！って感じの設定</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-9"><span class="crayon-e">D3D11_BUFFER_DESC </span><span class="crayon-v">vbDesc</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-sy">}</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-10"><span class="crayon-v">vbDesc</span><span class="crayon-sy">.</span><span class="crayon-v">BindFlags</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">D3D11_BIND_VERTEX_BUFFER</span><span class="crayon-sy">;</span><span class="crayon-h">	</span><span class="crayon-c">// デバイスにバインドするときの種類(頂点バッファ、インデックスバッファ、定数バッファなど)</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-11"><span class="crayon-v">vbDesc</span><span class="crayon-sy">.</span><span class="crayon-v">ByteWidth</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-r">sizeof</span><span class="crayon-sy">(</span><span class="crayon-v">v</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h">					</span><span class="crayon-c">// 作成するバッファのバイトサイズ</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-12"><span class="crayon-v">vbDesc</span><span class="crayon-sy">.</span><span class="crayon-v">MiscFlags</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">;</span><span class="crayon-h">							</span><span class="crayon-c">// その他のフラグ</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-13"><span class="crayon-v">vbDesc</span><span class="crayon-sy">.</span><span class="crayon-v">StructureByteStride</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">;</span><span class="crayon-h">					</span><span class="crayon-c">// 構造化バッファの場合、その構造体のサイズ</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-14"><span class="crayon-v">vbDesc</span><span class="crayon-sy">.</span><span class="crayon-v">Usage</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">D3D11_USAGE_DEFAULT</span><span class="crayon-sy">;</span><span class="crayon-h">				</span><span class="crayon-c">// 作成するバッファの使用法</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-15"><span class="crayon-v">vbDesc</span><span class="crayon-sy">.</span><span class="crayon-v">CPUAccessFlags</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-16">&nbsp;</div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-17"><span class="crayon-c">// 上の仕様を渡して頂点バッファを作ってもらう</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-18"><span class="crayon-c">// もちろんデバイスさんにお願いする</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-19"><span class="crayon-v">ComPtr</span><span class="crayon-o">&lt;</span><span class="crayon-v">ID3D11Buffer</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">vb</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-20"><span class="crayon-e">D3D11_SUBRESOURCE_DATA </span><span class="crayon-v">initData</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-v">&amp;v</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-r">sizeof</span><span class="crayon-sy">(</span><span class="crayon-v">v</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">}</span><span class="crayon-sy">;</span><span class="crayon-h">	</span><span class="crayon-c">// 書き込むデータ</span></div><div class="crayon-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-21"><span class="crayon-c">// 頂点バッファの作成</span></div><div class="crayon-line crayon-striped-line" id="urvanov-syntax-highlighter-636cacaa4085d218531343-22"><span class="crayon-v">D3D</span><span class="crayon-sy">.</span><span class="crayon-v">m_device</span><span class="crayon-o">-&gt;</span><span class="crayon-e">CreateBuffer</span><span class="crayon-sy">(</span><span class="crayon-v">&amp;vbDesc</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">&amp;initData</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">&amp;vb</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+</div>
+
+
+
+<p class="is-style-st-paragraph-attention"><span class="st-noflex">今回は簡単にするため、毎回作って、セットして描画、その後破棄 を繰り返しています。これはかなり非効率な方法なので推奨されません。</span></p>
+
+
+
+<p class="is-style-st-paragraph-kaiwa"><span class="st-noflex"><span class="st-paragraph-kaiwa-text">頂点バッファに限らず、描画で使用するデータはほとんどこのバッファリソースとして作成する必要があります。</span></span></p>
+
+
+
+<p>そして、作った頂点バッファを描画で使用するためには、デバイスコンテキストさんへ渡してあげればよいです。</p>
+
+
+
+<p class="is-style-st-paragraph-bubble has-white-color has-soft-red-background-color has-text-color has-background"><span class="st-noflex">頂点バッファをセットする方法</span></p>
+
+
+
+<p class="is-style-st-paragraph-check"><span class="st-noflex">// 頂点バッファを描画で使えるようにセットする<br>UINT stride = sizeof(VertexType);   // ← １頂点のバイトサイズを教えてあげる必要がある。<br>UINT offset = 0;<br>D3D.m_deviceContext-&gt;IASetVertexBuffers(0, 1, vb.GetAddressOf(), &amp;stride, &amp;offset); // デバコンへ頂点バッファをセット！</span></p>
+
+
+
+<h2>デバイスコンテキストに描画をお願いするまでの道のり</h2>
+
+
+
+<p>頂点バッファも作ったし、シェーダーも作った。あとはこれらを描画の職人であるデバイスコンテキストに渡してあげて、「描画してね！」ってお願いすれば描画完了です。</p>
+
+
+
+<ul class="is-style-st-maruno"><li>頂点バッファはこれを使ってね！(IASetVertexBuffers)</li><li>ちなみに頂点はこんな感じで使ってほしいな！(IASetPrimitiveTopology)</li><li>あと、これらの頂点は、こんな計算で変換してください！(VSSetShader)</li><li>あ、頂点はこんな構造になってるから。(IASetInputLayout)</li><li>面になったときは、こんな計算で色を付けて。(PSSetShader)</li><li>よし、頂点をn個ぶん描画しろ！(Draw)</li></ul>
+
+
+
+<p class="is-style-st-paragraph-attention-gray"><span class="st-noflex">これが全てではありません。必要に応じてセットする内容がもっと増えます。</span></p>
+
+
+
+
+
+
+
+
+
+
+
+<h4>おすすめ書籍</h4>
+
+
+
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/cm.html">
+    </iframe>
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/cm(1).html">
+    </iframe>
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/cm(2).html">
+    </iframe>
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/cm(3).html">
+    </iframe>
+							</div>
+						</div><!-- コピー禁止エリアここまで -->
+
+												
+					<div class="adbox">
+				
+							
+	
+									<div style="padding-top:10px;">
+						
+		
+	
+					</div>
+							</div>
+			
+
+						
+					</div><!-- .mainboxここまで -->
+
+																
+					
+					
+	
+	<div class="sns st-sns-singular">
+	<ul class="clearfix">
+					<!--ツイートボタン-->
+			<li class="twitter">
+			<a rel="nofollow" onclick="window.open(&#39;//twitter.com/intent/tweet?url=https%3A%2F%2Fgamesgard.com%2Fdirectx11_lesson04%2F&amp;text=%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%A7%8B%E3%82%81%E3%82%8BDirectX11%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%85%A5%E9%96%80%20%234%E3%80%8C%E5%B0%84%E5%BD%B1%E5%BA%A7%E6%A8%99%E3%81%A8%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC%E6%8F%8F%E7%94%BB%E3%81%AE%E8%A7%A3%E8%AA%AC%E3%80%8D&amp;via=@ys_game_jp&amp;tw_p=tweetbutton&#39;, &#39;&#39;, &#39;width=500,height=450&#39;); return false;"><i class="st-fa st-svg-twitter"></i><span class="snstext ">Twitter</span></a>
+			</li>
+		
+					<!--シェアボタン-->
+			<li class="facebook">
+			<a href="https://www.facebook.com/sharer.php?src=bm&amp;u=https%3A%2F%2Fgamesgard.com%2Fdirectx11_lesson04%2F&amp;t=%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%A7%8B%E3%82%81%E3%82%8BDirectX11%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%85%A5%E9%96%80%20%234%E3%80%8C%E5%B0%84%E5%BD%B1%E5%BA%A7%E6%A8%99%E3%81%A8%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC%E6%8F%8F%E7%94%BB%E3%81%AE%E8%A7%A3%E8%AA%AC%E3%80%8D" target="_blank" rel="nofollow noopener"><i class="st-fa st-svg-facebook"></i><span class="snstext ">Share</span>
+			</a>
+			</li>
+		
+					<!--ポケットボタン-->
+			<li class="pocket">
+			<a rel="nofollow" onclick="window.open(&#39;//getpocket.com/edit?url=https%3A%2F%2Fgamesgard.com%2Fdirectx11_lesson04%2F&amp;title=%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%A7%8B%E3%82%81%E3%82%8BDirectX11%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%85%A5%E9%96%80%20%234%E3%80%8C%E5%B0%84%E5%BD%B1%E5%BA%A7%E6%A8%99%E3%81%A8%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC%E6%8F%8F%E7%94%BB%E3%81%AE%E8%A7%A3%E8%AA%AC%E3%80%8D&#39;, &#39;&#39;, &#39;width=500,height=350&#39;); return false;"><i class="st-fa st-svg-get-pocket"></i><span class="snstext ">Pocket</span></a></li>
+		
+					<!--はてブボタン-->
+			<li class="hatebu">
+				<a href="https://b.hatena.ne.jp/entry/https://gamesgard.com/directx11_lesson04/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple" title="ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」" rel="nofollow" data-hatena-bookmark-initialized="1"><i class="st-fa st-svg-hateb"></i><span class="snstext ">Hatena</span>
+				</a><script type="text/javascript" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/bookmark_button.js.ダウンロード" charset="utf-8" async="async"></script>
+
+			</li>
+		
+		
+					<!--LINEボタン-->
+			<li class="line">
+			<a href="https://line.me/R/msg/text/?%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%A7%8B%E3%82%81%E3%82%8BDirectX11%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%85%A5%E9%96%80%20%234%E3%80%8C%E5%B0%84%E5%BD%B1%E5%BA%A7%E6%A8%99%E3%81%A8%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC%E6%8F%8F%E7%94%BB%E3%81%AE%E8%A7%A3%E8%AA%AC%E3%80%8D%0Ahttps%3A%2F%2Fgamesgard.com%2Fdirectx11_lesson04%2F" target="_blank" rel="nofollow noopener"><i class="st-fa st-svg-line" aria-hidden="true"></i><span class="snstext">LINE</span></a>
+			</li>
+		
+		
+					<!--URLコピーボタン-->
+			<li class="share-copy">
+			<a href="https://gamesgard.com/directx11_lesson04/#" rel="nofollow" data-st-copy-text="ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 / https://gamesgard.com/directx11_lesson04/"><i class="st-fa st-svg-clipboard"></i><span class="snstext">URLコピー</span></a>
+			</li>
+		
+	</ul>
+
+	</div>
+
+											
+											<p class="tagst">
+							<i class="st-fa st-svg-folder-open-o" aria-hidden="true"></i>-<a href="https://gamesgard.com/category/programming/gameprogramming/cpp/" rel="category tag">C++</a>, <a href="https://gamesgard.com/category/programming/gameprogramming/directx11/" rel="category tag">DirectX11</a>, <a href="https://gamesgard.com/category/programming/gameprogramming/" rel="category tag">ゲームプログラミング</a>, <a href="https://gamesgard.com/category/programming/" rel="category tag">プログラミング</a><br>
+							<i class="st-fa st-svg-tags"></i>-<a href="https://gamesgard.com/tag/c/" rel="tag">C++</a>, <a href="https://gamesgard.com/tag/directx/" rel="tag">DirectX</a>, <a href="https://gamesgard.com/tag/directx11/" rel="tag">DirectX11</a>, <a href="https://gamesgard.com/tag/%e3%82%b2%e3%83%bc%e3%83%a0%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9f%e3%83%b3%e3%82%b0/" rel="tag">ゲームプログラミング</a>, <a href="https://gamesgard.com/tag/%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9f%e3%83%b3%e3%82%b0/" rel="tag">プログラミング</a>, <a href="https://gamesgard.com/tag/%e5%85%a5%e9%96%80/" rel="tag">入門</a>						</p>
+					
+					<aside>
+						<p class="author" style="display:none;"><a href="https://gamesgard.com/author/yskkmd/" title="よっしー" class="vcard author"><span class="fn">author</span></a></p>
+																		<!--ループ終了-->
+
+																			
+						<!--関連記事-->
+						
+	
+	<h4 class="point"><span class="point-in">関連記事</span></h4>
+
+	
+<div class="kanren" data-st-load-more-content="" data-st-load-more-id="82e835da-1d77-4572-a112-41ff0a8744fe">
+			
+			
+			
+			<dl class="clearfix">
+				<dt><a href="https://gamesgard.com/directx11_lesson05/">
+						
+															<img width="150" height="150" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/eyecatch-150x150.jpg" class="attachment-st_thumb150 size-st_thumb150 wp-post-image" alt="" srcset="https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-150x150.jpg 150w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-300x300.jpg 300w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-768x768.jpg 768w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-100x100.jpg 100w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch.jpg 988w" sizes="(max-width: 150px) 100vw, 150px">							
+											</a></dt>
+				<dd>
+					
+	
+	<p class="st-catgroup itiran-category">
+		<a href="https://gamesgard.com/category/programming/gameprogramming/cpp/" title="View all posts in C++" rel="category tag"><span class="catname st-catid19">C++</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/directx11/" title="View all posts in DirectX11" rel="category tag"><span class="catname st-catid10">DirectX11</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/" title="View all posts in ゲームプログラミング" rel="category tag"><span class="catname st-catid4">ゲームプログラミング</span></a> <a href="https://gamesgard.com/category/programming/" title="View all posts in プログラミング" rel="category tag"><span class="catname st-catid5">プログラミング</span></a>	</p>
+
+					<h5 class="kanren-t">
+						<a href="https://gamesgard.com/directx11_lesson05/">ゼロから始めるDirectX11ゲームプログラミング入門 #5「画像を面に貼ろう！ - テクスチャマッピング その１- 」</a>
+					</h5>
+
+						<div class="st-excerpt smanone">
+		<p>前回の#4で四角形のポリゴンを表示することができましたが、単色の板を出しただけでは、あまり楽しいものではないですよね。今回は画像ファイルを読み込み、このポリゴンに画像の色を付けてみましょう。 まずは、 ... </p>
+	</div>
+
+					
+				</dd>
+			</dl>
+		
+			
+			
+			<dl class="clearfix">
+				<dt><a href="https://gamesgard.com/unity_triplanar_mapping_part1/">
+						
+															<img width="150" height="150" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/title-150x150.jpg" class="attachment-st_thumb150 size-st_thumb150 wp-post-image" alt="" srcset="https://gamesgard.com/wp-content/uploads/2021/10/title-150x150.jpg 150w, https://gamesgard.com/wp-content/uploads/2021/10/title-100x100.jpg 100w" sizes="(max-width: 150px) 100vw, 150px">							
+											</a></dt>
+				<dd>
+					
+	
+	<p class="st-catgroup itiran-category">
+		<a href="https://gamesgard.com/category/programming/gameprogramming/unity/" title="View all posts in Unity" rel="category tag"><span class="catname st-catid12">Unity</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/" title="View all posts in ゲームプログラミング" rel="category tag"><span class="catname st-catid4">ゲームプログラミング</span></a> <a href="https://gamesgard.com/category/programming/" title="View all posts in プログラミング" rel="category tag"><span class="catname st-catid5">プログラミング</span></a>	</p>
+
+					<h5 class="kanren-t">
+						<a href="https://gamesgard.com/unity_triplanar_mapping_part1/">[Unity] URPでTriplanar Mapping - お手軽に複雑な地形を作成 その１</a>
+					</h5>
+
+						<div class="st-excerpt smanone">
+		<p>Unityで地形を作成したい時、有名な機能では「Terrain」があります。Terrainは起伏の豊かな地形を表現できるのですが、いくつか表現できないこともあります。例えば上図のように垂直やそれ以上の ... </p>
+	</div>
+
+					
+				</dd>
+			</dl>
+		
+			
+			
+			<dl class="clearfix">
+				<dt><a href="https://gamesgard.com/directx11_lesson03/">
+						
+															<img width="150" height="150" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/eyecatch-150x150.jpg" class="attachment-st_thumb150 size-st_thumb150 wp-post-image" alt="" srcset="https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-150x150.jpg 150w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-300x300.jpg 300w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-768x768.jpg 768w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-100x100.jpg 100w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch.jpg 988w" sizes="(max-width: 150px) 100vw, 150px">							
+											</a></dt>
+				<dd>
+					
+	
+	<p class="st-catgroup itiran-category">
+		<a href="https://gamesgard.com/category/programming/gameprogramming/cpp/" title="View all posts in C++" rel="category tag"><span class="catname st-catid19">C++</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/directx11/" title="View all posts in DirectX11" rel="category tag"><span class="catname st-catid10">DirectX11</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/" title="View all posts in ゲームプログラミング" rel="category tag"><span class="catname st-catid4">ゲームプログラミング</span></a> <a href="https://gamesgard.com/category/programming/" title="View all posts in プログラミング" rel="category tag"><span class="catname st-catid5">プログラミング</span></a>	</p>
+
+					<h5 class="kanren-t">
+						<a href="https://gamesgard.com/directx11_lesson03/">ゼロから始めるDirectX11ゲームプログラミング入門 #3「三角形ポリゴンの描画」</a>
+					</h5>
+
+						<div class="st-excerpt smanone">
+		<p>ゲーム専用のクラスを作ろう 前回はApplication.cppに画面を青で塗り 潰したす処理を書きましたね。本来はこの後、塗り潰した画面にさらにキャラクターなどを書いていきますが、それらは別のソース ... </p>
+	</div>
+
+					
+				</dd>
+			</dl>
+		
+			
+			
+			<dl class="clearfix">
+				<dt><a href="https://gamesgard.com/directx11_lesson01/">
+						
+															<img width="150" height="150" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/eyecatch-150x150.jpg" class="attachment-st_thumb150 size-st_thumb150 wp-post-image" alt="" srcset="https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-150x150.jpg 150w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-300x300.jpg 300w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-768x768.jpg 768w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-100x100.jpg 100w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch.jpg 988w" sizes="(max-width: 150px) 100vw, 150px">							
+											</a></dt>
+				<dd>
+					
+	
+	<p class="st-catgroup itiran-category">
+		<a href="https://gamesgard.com/category/programming/gameprogramming/cpp/" title="View all posts in C++" rel="category tag"><span class="catname st-catid19">C++</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/directx11/" title="View all posts in DirectX11" rel="category tag"><span class="catname st-catid10">DirectX11</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/" title="View all posts in ゲームプログラミング" rel="category tag"><span class="catname st-catid4">ゲームプログラミング</span></a> <a href="https://gamesgard.com/category/programming/" title="View all posts in プログラミング" rel="category tag"><span class="catname st-catid5">プログラミング</span></a>	</p>
+
+					<h5 class="kanren-t">
+						<a href="https://gamesgard.com/directx11_lesson01/">ゼロから始めるDirectX11ゲームプログラミング入門 #1「Visual Studioのインストールと新規プロジェクト作成」</a>
+					</h5>
+
+						<div class="st-excerpt smanone">
+		<p>C++とDirectXで、ゼロの状態からゲームプログラミングができるように学習していきましょう。 第１回目は、環境準備をしていきます。 はじめに 最近はUnityやUnreal Engineなどの高機 ... </p>
+	</div>
+
+					
+				</dd>
+			</dl>
+		
+			
+			
+			<dl class="clearfix">
+				<dt><a href="https://gamesgard.com/vs_add_sourcefile/">
+						
+															<img width="150" height="150" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/00-1-150x150.jpg" class="attachment-st_thumb150 size-st_thumb150 wp-post-image" alt="" srcset="https://gamesgard.com/wp-content/uploads/2021/10/00-1-150x150.jpg 150w, https://gamesgard.com/wp-content/uploads/2021/10/00-1-100x100.jpg 100w" sizes="(max-width: 150px) 100vw, 150px">							
+											</a></dt>
+				<dd>
+					
+	
+	<p class="st-catgroup itiran-category">
+		<a href="https://gamesgard.com/category/programming/gameprogramming/cpp/" title="View all posts in C++" rel="category tag"><span class="catname st-catid19">C++</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/" title="View all posts in ゲームプログラミング" rel="category tag"><span class="catname st-catid4">ゲームプログラミング</span></a> <a href="https://gamesgard.com/category/programming/" title="View all posts in プログラミング" rel="category tag"><span class="catname st-catid5">プログラミング</span></a>	</p>
+
+					<h5 class="kanren-t">
+						<a href="https://gamesgard.com/vs_add_sourcefile/">Visual StudioでC++ソースファイルを追加する方法</a>
+					</h5>
+
+						<div class="st-excerpt smanone">
+		<p>Visual C++でソースファイルの追加方法を紹介します。 新しいソース/ヘッダーファイルを追加する方法 １．ファイルを追加したいフィルタを右クリック -&gt; [追加(D)] -&gt; [新しい項目(W) ... </p>
+	</div>
+
+					
+				</dd>
+			</dl>
+					</div>
+
+
+						<!--ページナビ-->
+						
+<div class="p-navi clearfix">
+
+			<a class="st-prev-link" href="https://gamesgard.com/directx11_lesson03/">
+			<p class="st-prev">
+				<i class="st-svg st-svg-angle-right"></i>
+									<img width="60" height="60" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/eyecatch-100x100.jpg" class="attachment-60x60 size-60x60 wp-post-image" alt="" srcset="https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-100x100.jpg 100w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-300x300.jpg 300w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-150x150.jpg 150w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-768x768.jpg 768w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch.jpg 988w" sizes="(max-width: 60px) 100vw, 60px">								<span class="st-prev-title">ゼロから始めるDirectX11ゲームプログラミング入門 #3「三角形ポリゴンの描画」</span>
+			</p>
+		</a>
+	
+			<a class="st-next-link" href="https://gamesgard.com/directx11_lesson05/">
+			<p class="st-next">
+				<span class="st-prev-title">ゼロから始めるDirectX11ゲームプログラミング入門 #5「画像を面に貼ろう！ - テクスチャマッピング その１- 」</span>
+									<img width="60" height="60" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/eyecatch-100x100.jpg" class="attachment-60x60 size-60x60 wp-post-image" alt="" srcset="https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-100x100.jpg 100w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-300x300.jpg 300w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-150x150.jpg 150w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-768x768.jpg 768w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch.jpg 988w" sizes="(max-width: 60px) 100vw, 60px">								<i class="st-svg st-svg-angle-right"></i>
+			</p>
+		</a>
+	</div>
+
+					</aside>
+
+				</div>
+				<!--/post-->
+			</article>
+		</main>
+	</div>
+	<!-- /#contentInner -->
+	<div id="side">
+	<aside class="is-fixed">
+
+					<div class="side-topad">
+				<div id="authorst_widget-2" class="ad widget_authorst_widget"><div class="st-author-box st-author-master">
+
+<div class="st-author-profile">
+		<div class="st-author-profile-avatar">
+					<img src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/e087ca0166e965570d7f07a5aadc07b7.png" width="150px" height="150px">
+			</div>
+
+	<div class="post st-author-profile-content">
+		<p class="st-author-nickname">よっしー</p>
+		<p class="st-author-description">インディーゲーム開発者しています。
+あとYoutubeはじめました！</p>
+		<div class="sns">
+			<ul class="profile-sns clearfix">
+
+									<li class="twitter"><a rel="nofollow" href="https://twitter.com/ys_game_jp" target="_blank"><i class="st-fa st-svg-twitter" aria-hidden="true"></i></a></li>
+				
+				
+				
+									<li class="author-youtube"><a rel="nofollow" href="https://www.youtube.com/channel/UCANxz1GXP8C7z1t5PZk2mog" target="_blank"><i class="st-fa st-svg-youtube-play" aria-hidden="true"></i></a></li>
+				
+				
+				
+				
+									<li class="author-homepage"><a rel="nofollow" href="https://gamesgard.com/" target="_blank"><i class="st-fa st-svg-home" aria-hidden="true"></i></a></li>
+				
+			</ul>
+		</div>
+			</div>
+</div>
+</div></div>
+		<div id="st_custom_html_widget-11" class="widget_text ad widget_st_custom_html_widget">
+					<p class="st-widgets-title"><span>Youtubeチャンネル登録お願いします</span></p>		
+		<div class="textwidget custom-html-widget">
+			<script src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/platform.js.ダウンロード" gapi_processed="true"></script>
+
+<div id="___ytsubscribe_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 115px; height: 24px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 115px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" tabindex="0" vspace="0" width="100%" id="I0_1668066475955" name="I0_1668066475955" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/subscribe_embed.html" data-gapiattached="true"></iframe></div>		</div>
+
+		</div>
+					</div>
+		
+					<div class="kanren ">
+										<dl class="clearfix">
+				<dt><a href="https://gamesgard.com/directx11_lesson07/">
+													<img width="150" height="150" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/eyecatch-150x150.jpg" class="attachment-st_thumb150 size-st_thumb150 wp-post-image" alt="" srcset="https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-150x150.jpg 150w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-300x300.jpg 300w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-768x768.jpg 768w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-100x100.jpg 100w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch.jpg 988w" sizes="(max-width: 150px) 100vw, 150px">											</a></dt>
+				<dd>
+					
+	
+	<p class="st-catgroup itiran-category">
+		<a href="https://gamesgard.com/category/programming/gameprogramming/cpp/" title="View all posts in C++" rel="category tag"><span class="catname st-catid19">C++</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/directx11/" title="View all posts in DirectX11" rel="category tag"><span class="catname st-catid10">DirectX11</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/" title="View all posts in ゲームプログラミング" rel="category tag"><span class="catname st-catid4">ゲームプログラミング</span></a> <a href="https://gamesgard.com/category/programming/" title="View all posts in プログラミング" rel="category tag"><span class="catname st-catid5">プログラミング</span></a>	</p>
+					<h5 class="kanren-t"><a href="https://gamesgard.com/directx11_lesson07/">ゼロから始めるDirectX11ゲームプログラミング入門 #7「ソースを整理する」</a></h5>
+						<div class="blog_info">
+		<p>
+							<i class="st-fa st-svg-clock-o"></i>2021/10/21					</p>
+	</div>
+														</dd>
+			</dl>
+								<dl class="clearfix">
+				<dt><a href="https://gamesgard.com/directx11_lesson06/">
+													<img width="150" height="150" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/eyecatch-150x150.jpg" class="attachment-st_thumb150 size-st_thumb150 wp-post-image" alt="" srcset="https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-150x150.jpg 150w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-300x300.jpg 300w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-768x768.jpg 768w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-100x100.jpg 100w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch.jpg 988w" sizes="(max-width: 150px) 100vw, 150px">											</a></dt>
+				<dd>
+					
+	
+	<p class="st-catgroup itiran-category">
+		<a href="https://gamesgard.com/category/programming/gameprogramming/cpp/" title="View all posts in C++" rel="category tag"><span class="catname st-catid19">C++</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/directx11/" title="View all posts in DirectX11" rel="category tag"><span class="catname st-catid10">DirectX11</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/" title="View all posts in ゲームプログラミング" rel="category tag"><span class="catname st-catid4">ゲームプログラミング</span></a> <a href="https://gamesgard.com/category/programming/" title="View all posts in プログラミング" rel="category tag"><span class="catname st-catid5">プログラミング</span></a>	</p>
+					<h5 class="kanren-t"><a href="https://gamesgard.com/directx11_lesson06/">ゼロから始めるDirectX11ゲームプログラミング入門 #6「画像を面に貼ろう！ - テクスチャマッピング その２- 」</a></h5>
+						<div class="blog_info">
+		<p>
+							<i class="st-fa st-svg-refresh"></i>2021/10/19					</p>
+	</div>
+														</dd>
+			</dl>
+								<dl class="clearfix">
+				<dt><a href="https://gamesgard.com/unity_triplanar_mapping_part2/">
+													<img width="150" height="150" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/title-150x150.jpg" class="attachment-st_thumb150 size-st_thumb150 wp-post-image" alt="" srcset="https://gamesgard.com/wp-content/uploads/2021/10/title-150x150.jpg 150w, https://gamesgard.com/wp-content/uploads/2021/10/title-100x100.jpg 100w" sizes="(max-width: 150px) 100vw, 150px">											</a></dt>
+				<dd>
+					
+	
+	<p class="st-catgroup itiran-category">
+		<a href="https://gamesgard.com/category/programming/gameprogramming/unity/" title="View all posts in Unity" rel="category tag"><span class="catname st-catid12">Unity</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/" title="View all posts in ゲームプログラミング" rel="category tag"><span class="catname st-catid4">ゲームプログラミング</span></a> <a href="https://gamesgard.com/category/programming/" title="View all posts in プログラミング" rel="category tag"><span class="catname st-catid5">プログラミング</span></a>	</p>
+					<h5 class="kanren-t"><a href="https://gamesgard.com/unity_triplanar_mapping_part2/">[Unity] URPでTriplanar Mapping - お手軽に複雑な地形を作成 その２</a></h5>
+						<div class="blog_info">
+		<p>
+							<i class="st-fa st-svg-clock-o"></i>2021/10/16					</p>
+	</div>
+														</dd>
+			</dl>
+								<dl class="clearfix">
+				<dt><a href="https://gamesgard.com/unity_triplanar_mapping_part1/">
+													<img width="150" height="150" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/title-150x150.jpg" class="attachment-st_thumb150 size-st_thumb150 wp-post-image" alt="" srcset="https://gamesgard.com/wp-content/uploads/2021/10/title-150x150.jpg 150w, https://gamesgard.com/wp-content/uploads/2021/10/title-100x100.jpg 100w" sizes="(max-width: 150px) 100vw, 150px">											</a></dt>
+				<dd>
+					
+	
+	<p class="st-catgroup itiran-category">
+		<a href="https://gamesgard.com/category/programming/gameprogramming/unity/" title="View all posts in Unity" rel="category tag"><span class="catname st-catid12">Unity</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/" title="View all posts in ゲームプログラミング" rel="category tag"><span class="catname st-catid4">ゲームプログラミング</span></a> <a href="https://gamesgard.com/category/programming/" title="View all posts in プログラミング" rel="category tag"><span class="catname st-catid5">プログラミング</span></a>	</p>
+					<h5 class="kanren-t"><a href="https://gamesgard.com/unity_triplanar_mapping_part1/">[Unity] URPでTriplanar Mapping - お手軽に複雑な地形を作成 その１</a></h5>
+						<div class="blog_info">
+		<p>
+							<i class="st-fa st-svg-clock-o"></i>2021/10/14					</p>
+	</div>
+														</dd>
+			</dl>
+								<dl class="clearfix">
+				<dt><a href="https://gamesgard.com/directx11_lesson05/">
+													<img width="150" height="150" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/eyecatch-150x150.jpg" class="attachment-st_thumb150 size-st_thumb150 wp-post-image" alt="" srcset="https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-150x150.jpg 150w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-300x300.jpg 300w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-768x768.jpg 768w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch-100x100.jpg 100w, https://gamesgard.com/wp-content/uploads/2021/10/eyecatch.jpg 988w" sizes="(max-width: 150px) 100vw, 150px">											</a></dt>
+				<dd>
+					
+	
+	<p class="st-catgroup itiran-category">
+		<a href="https://gamesgard.com/category/programming/gameprogramming/cpp/" title="View all posts in C++" rel="category tag"><span class="catname st-catid19">C++</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/directx11/" title="View all posts in DirectX11" rel="category tag"><span class="catname st-catid10">DirectX11</span></a> <a href="https://gamesgard.com/category/programming/gameprogramming/" title="View all posts in ゲームプログラミング" rel="category tag"><span class="catname st-catid4">ゲームプログラミング</span></a> <a href="https://gamesgard.com/category/programming/" title="View all posts in プログラミング" rel="category tag"><span class="catname st-catid5">プログラミング</span></a>	</p>
+					<h5 class="kanren-t"><a href="https://gamesgard.com/directx11_lesson05/">ゼロから始めるDirectX11ゲームプログラミング入門 #5「画像を面に貼ろう！ - テクスチャマッピング その１- 」</a></h5>
+						<div class="blog_info">
+		<p>
+							<i class="st-fa st-svg-clock-o"></i>2021/10/13					</p>
+	</div>
+														</dd>
+			</dl>
+					</div>
+		
+					<div id="mybox">
+				
+		<div id="st_custom_html_widget-8" class="widget_text ad widget_st_custom_html_widget">
+		
+		<div class="textwidget custom-html-widget">
+			<script type="text/javascript">amzn_assoc_ad_type ="responsive_search_widget"; amzn_assoc_tracking_id ="yskkmd-22"; amzn_assoc_marketplace ="amazon"; amzn_assoc_region ="JP"; amzn_assoc_placement =""; amzn_assoc_search_type = "search_widget";amzn_assoc_width ="auto"; amzn_assoc_height ="auto"; amzn_assoc_default_search_category ="PCHardware"; amzn_assoc_default_search_key ="";amzn_assoc_theme ="light"; amzn_assoc_bg_color ="FFFFFF"; </script><script src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/q(2)"></script><div id="amzn_assoc_ad_div_adunit_0"></div>		</div>
+
+		</div>
+		<div id="block-3" class="ad widget_block"><div class="wp-block-group"><div class="wp-block-group__inner-container"><h2>最近の投稿</h2><ul class="wp-block-latest-posts__list wp-block-latest-posts"><li><a href="https://gamesgard.com/directx11_lesson07/">ゼロから始めるDirectX11ゲームプログラミング入門 #7「ソースを整理する」</a></li>
+<li><a href="https://gamesgard.com/directx11_lesson06/">ゼロから始めるDirectX11ゲームプログラミング入門 #6「画像を面に貼ろう！ - テクスチャマッピング その２- 」</a></li>
+<li><a href="https://gamesgard.com/unity_triplanar_mapping_part2/">[Unity] URPでTriplanar Mapping - お手軽に複雑な地形を作成 その２</a></li>
+<li><a href="https://gamesgard.com/unity_triplanar_mapping_part1/">[Unity] URPでTriplanar Mapping - お手軽に複雑な地形を作成 その１</a></li>
+<li><a href="https://gamesgard.com/directx11_lesson05/">ゼロから始めるDirectX11ゲームプログラミング入門 #5「画像を面に貼ろう！ - テクスチャマッピング その１- 」</a></li>
+</ul></div></div></div>			</div>
+		
+		<div id="scrollad" style="position: fixed; width: 300px; top: 0px; left: 798.4px;">
+						<!--ここにgoogleアドセンスコードを貼ると規約違反になるので注意して下さい-->
+	<div id="block-5" class="ad widget_block"><div class="wp-block-group"><div class="wp-block-group__inner-container"><h2>アーカイブ</h2><ul class=" wp-block-archives-list wp-block-archives">	<li><a href="https://gamesgard.com/2021/10/">2021年10月</a></li>
+	<li><a href="https://gamesgard.com/2021/09/">2021年9月</a></li>
+</ul></div></div></div><div id="block-6" class="ad widget_block"><div class="wp-block-group"><div class="wp-block-group__inner-container"><h2>カテゴリー</h2><ul class="wp-block-categories-list wp-block-categories">	<li class="cat-item cat-item-19"><a href="https://gamesgard.com/category/programming/gameprogramming/cpp/">C++</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="https://gamesgard.com/category/programming/gameprogramming/directx11/">DirectX11</a>
+</li>
+	<li class="cat-item cat-item-12"><a href="https://gamesgard.com/category/programming/gameprogramming/unity/">Unity</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="https://gamesgard.com/category/gadget/">ガジェット</a>
+</li>
+	<li class="cat-item cat-item-26"><a href="https://gamesgard.com/category/game/">ゲーム</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://gamesgard.com/category/programming/gameprogramming/">ゲームプログラミング</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://gamesgard.com/category/programming/">プログラミング</a>
+</li>
+</ul></div></div></div>
+		<div id="st_custom_html_widget-5" class="widget_text ad widget_st_custom_html_widget">
+		
+		<div class="textwidget custom-html-widget">
+			<script type="text/javascript">amzn_assoc_ad_type ="responsive_search_widget"; amzn_assoc_tracking_id ="yskkmd-22"; amzn_assoc_marketplace ="amazon"; amzn_assoc_region ="JP"; amzn_assoc_placement =""; amzn_assoc_search_type = "search_widget";amzn_assoc_width ="auto"; amzn_assoc_height ="auto"; amzn_assoc_default_search_category ="PCHardware"; amzn_assoc_default_search_key ="";amzn_assoc_theme ="light"; amzn_assoc_bg_color ="FFFFFF"; </script><script src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/q(2)"></script><div id="amzn_assoc_ad_div_adunit_1"></div>		</div>
+
+		</div>
+					
+		</div>
+	</aside>
+</div>
+<!-- /#side -->
+</div>
+<!--/#content -->
+</div><!-- /contentw -->
+
+
+
+<footer>
+	<div id="footer" style="top: 0px;">
+		<div id="footer-wrapper">
+			<div id="footer-in">
+				
+									<div id="st-footer-logo-wrapper">
+							<div id="st-footer-logo">
+		<div id="st-icon-logo">
+							<a href="https://gamesgard.com/"><img src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/6f88d7cff9c81c42e0e3ab2460a5d6d2.png"></a>
+					</div>
+
+	<div id="st-text-logo">
+
+		
+							<p class="footer-description st-text-logo-top">
+					<a href="https://gamesgard.com/">プログラミング、ゲーム、3DCG、ガジェット紹介など</a>
+				</p>
+			
+			<h3 class="footerlogo st-text-logo-bottom">
+									<a href="https://gamesgard.com/">
+				
+																		ゲームズガルド.com											
+									</a>
+							</h3>
+
+		
+	</div>
+
+	</div><!-- /#st-footer-logo -->
+
+	<div class="st-footer-tel">
+		
+	</div>
+					</div>
+				
+				<p class="copyr"><small>© 2022 ゲームズガルド.com</small></p>			</div>
+		</div>
+	</div>
+</footer>
+</div>
+<!-- /#wrapperin -->
+</div>
+<!-- /#wrapper -->
+</div><!-- /#st-ami -->
+<script>
+
+</script><script type="text/javascript" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/comment-reply.min.js.ダウンロード" id="comment-reply-js"></script>
+<script type="text/javascript" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/slick.js.ダウンロード" id="slick-js"></script>
+<script type="text/javascript" id="base-js-extra">
+/* <![CDATA[ */
+var ST = {"ajax_url":"https:\/\/gamesgard.com\/wp-admin\/admin-ajax.php","expand_accordion_menu":"","sidemenu_accordion":"","is_mobile":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/base.js.ダウンロード" id="base-js"></script>
+<script type="text/javascript" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/scroll.js.ダウンロード" id="scroll-js"></script>
+<script type="text/javascript" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/st-copy-text.js.ダウンロード" id="st-copy-text-js"></script>
+<script type="text/javascript" id="st-toc-js-extra">
+/* <![CDATA[ */
+var ST_TOC = [];
+ST_TOC = {};
+ST_TOC.VARS = {"uri":"https:\/\/gamesgard.com\/wp-admin\/admin-ajax.php","nonce":"6702372d9e","plugin_meta":{"prefix":"st_toc","slug":"st-toc"},"post_id":721,"trackable":true,"settings":{"position":1,"threshold":2,"show_title":true,"title":"\u76ee\u6b21","expandable":false,"labels":{"show":"\u8868\u793a","hide":"\u975e\u8868\u793a"},"hide_by_default":true,"show_back_button":false,"hierarchical":true,"enable_smooth_scroll":false,"font_size":"","list_style":"timeline-count","early_loading":false,"target_levels":[2],"content_selector":".mainbox .entry-content","accepted_selectors":{"1":[".toc-h1"],"2":[".toc-h2"],"3":[".toc-h3"],"4":[".toc-h4"],"5":[".toc-h5"],"6":[".toc-h6"]},"rejected_selectors":{"1":[".st-cardbox h5",".kanren h5.kanren-t",".kanren h3",".post-card-title",".pop-box h5"],"2":[".st-cardbox h5",".kanren h5.kanren-t",".kanren h3",".post-card-title",".pop-box h5"],"3":[".st-cardbox h5",".kanren h5.kanren-t",".kanren h3",".post-card-title",".pop-box h5"],"4":[".st-cardbox h5",".kanren h5.kanren-t",".kanren h3",".post-card-title",".pop-box h5"],"5":[".st-cardbox h5",".kanren h5.kanren-t",".kanren h3",".post-card-title",".pop-box h5"],"6":[".st-cardbox h5",".kanren h5.kanren-t",".kanren h3",".post-card-title",".pop-box h5"]}},"marker":" ST_TOC ","ignored_selector_before_heading":".st-h-ad","ignored_selector_after_heading":"","wrapper":"","container_id":"st_toc_container","classes":{"close":"st_toc_contracted","hierarchical":"st_toc_hierarchical","flat":"only-toc","title":"st_toc_title","toggle":"st_toc_toggle","list":"st_toc_list","back":"st_toc_back is-rounded"},"fixed_element_selector":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/script.js.ダウンロード" id="st-toc-js"></script>
+<script type="text/javascript" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/wp-embed.min.js.ダウンロード" id="wp-embed-js"></script>
+					<div id="page-top" style="display: block;"><a href="https://gamesgard.com/directx11_lesson04/#wrapper" class="st-fa st-svg-angle-up"></a></div>
+		
+<iframe name="oauth2relay359332708" id="oauth2relay359332708" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/postmessageRelay.html" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><div style="display: block; visibility: hidden; position: absolute; width: 106px; left: -1000px; top: -1000px;"><table cellpadding="0" cellspacing="0" dir="ltr" style="width:106px;" frame="void" rules="none" class=" gc-bubbleDefault pls-container"><tbody><tr class="gc-reset"><td class="pls-topLeft gc-reset"><img class="gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/border_3.gif"></td><td class="pls-topTail gc-reset"><img class="pls-tailbottom gc-reset" style="width:15px !important; height:9px !important; max-width: 15px !important; max-height: 9px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/spacer.gif"><img class="pls-spacerbottom gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/spacer.gif"></td><td class="pls-topRight gc-reset"><img class="gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/border_3.gif"></td></tr><tr class="gc-reset"><td class="pls-vertShimLeft gc-reset"><img class="gc-reset" style="width:1px !important; height:4px !important; max-width: 1px !important; max-height: 4px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/spacer.gif"></td><td class="pls-vertShim gc-reset"><img class="gc-reset" style="width:1px !important; height:4px !important; max-width: 1px !important; max-height: 4px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/spacer.gif"></td><td class="pls-vertShimRight gc-reset"><img class="pls-dropTR gc-reset" style="width:5px !important; height:4px !important; max-width: 5px !important; max-height: 4px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/spacer.gif"></td></tr><tr class="gc-reset"><td class="pls-contentLeft gc-reset"><img class="pls-tailright gc-reset" style="width:9px !important; height:15px !important; max-width: 9px !important; max-height: 15px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/spacer.gif"><img class="pls-spacerright gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/spacer.gif"></td><td class="pls-contentWrap gc-reset"><div class="goog-bubble-content gc-reset"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="margin:0px;position:absolute;z-index:1;border-style:none;outline:none;width:100px;" tabindex="0" vspace="0" width="100%" id="I0_1668066476432" name="I0_1668066476432" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/subscribe_embed(1).html"></iframe></div></td><td class="pls-dropRight gc-reset"><img class="pls-tailleft gc-reset" style="width:12px !important; height:19px !important; max-width: 12px !important; max-height: 19px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/spacer.gif"><img class="pls-spacerleft gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/spacer.gif"></td></tr><tr class="gc-reset"><td class="pls-bottomLeft gc-reset"><img class="gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/border_3.gif"></td><td class="gc-reset"><table cellpadding="0" cellspacing="0" style="width:100%" class="gc-reset"><tbody><tr class="gc-reset"><td class="pls-vert gc-reset"><img class="pls-dropBL gc-reset" style="width:4px !important; height:5px !important; max-width: 4px !important; max-height: 5px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/spacer.gif"></td><td class="pls-dropBottom gc-reset"><img class="pls-tailtop gc-reset" style="width:19px !important; height:13px !important; max-width: 19px !important; max-height: 13px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/spacer.gif"><img class="pls-spacertop gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/spacer.gif"></td></tr></tbody></table></td><td class="pls-vert gc-reset"><img class="pls-dropBR gc-reset" style="width:5px !important; height:5px !important; max-width: 5px !important; max-height: 5px !important;" src="./ゼロから始めるDirectX11ゲームプログラミング入門 #4「射影座標とシェーダー描画の解説」 - ゲームズガルド.com_files/spacer.gif"></td></tr></tbody></table></div><div style="visibility: hidden; position: absolute; top: 0px;">S</div></body></html>
