@@ -8,7 +8,7 @@ Player::Player()
 	,m_Rot{0.0f, -90.0f, 0.0f}
 	,m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
-	, m_Info{{2.0f, -1.0f, -0.0f}, {1.0f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
+	,m_Info{{2.0f, -1.0f, -0.0f}, {1.0f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
 {
 	//モデル読み込み
 	m_pModel = new Model;
@@ -85,6 +85,7 @@ void Player::Update()
 
 	// 自動移動
 	m_Move.x -= 0.02f;
+
 	// Rキーで停止 (デバッグ用
 	if (IsKeyPress('R')) m_Move.x = 0.0f;
 
@@ -99,13 +100,13 @@ void Player::Update()
 	//ジャンプ
 	if (IsKeyTrigger(VK_SPACE))
 	{
-		m_Move.y += 0.5f;
+		m_Move.y += 0.15f;
 		m_Ground = false;
 	}
 
 	if (!m_Ground)
 	{
-		m_Move.y -= 0.03f;
+		m_Move.y -= 0.01f;
 	}
 
 	m_Info.pos.x += m_Move.x;

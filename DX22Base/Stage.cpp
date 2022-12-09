@@ -66,13 +66,13 @@ Stage::Stage()
 	m_pBlocks[0].size = { 9.0f, 1.0f, 0.5f };
 	m_pBlocks[0].rot = { 0.0f, 0.0f, 0.0f };
 
-	m_pBlocks[1].pos = { 0.0f, -1.0f, 0.0f };
-	m_pBlocks[1].size = { 2.0f, 1.0f, 1.0f };
-	m_pBlocks[1].rot = { 0.0f, 0.0f, 0.0f };
+	//m_pBlocks[1].size = { 0.5f, 1.0f, 0.5f };
+	//m_pBlocks[1].pos = { 2.0f, -1.0f + m_pBlocks[1].size.y / 2.0f, 0.0f };
+	//m_pBlocks[1].rot = { 0.0f, 0.0f, 0.0f };
 
-	m_pBlocks[2].pos = { -3.5f, -0.5f, -3.0f };
-	m_pBlocks[2].size = { 2.0f, 2.0f, 2.0f };
-	m_pBlocks[2].rot = { 0.0f, 0.0f, 0.0f };
+	m_pBlocks[1].pos = { -2.0f, -0.25f, 0.0f };
+	m_pBlocks[1].size = { 2.0f, 1.5f, 0.5f };
+	m_pBlocks[1].rot = { 0.0f, 0.0f, 0.0f };
 
 	//std::vector<std::vector<int>> hoge;
 	//std::vector<int> fuga;
@@ -89,7 +89,7 @@ Stage::~Stage()
 
 void Stage::Draw()
 {
-	for (int i = 0; i < 1/*m_blockNum*/; ++i)
+	for (int i = 0; i < 2/*m_blockNum*/; ++i)
 
 	{
 		SetGeometoryTranslate(m_pBlocks[i].pos.x, m_pBlocks[i].pos.y, m_pBlocks[i].pos.z);

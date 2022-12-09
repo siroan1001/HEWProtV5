@@ -12,14 +12,17 @@ using namespace DirectX;
 class ShadowBlock
 {
 public:
-	struct BlockBase
+	struct BlockTemp
 	{
-		Stage::Info Info;
-		XMFLOAT2 xy;
-		bool use;
+		Stage::Info Info;		//塊の情報
+		XMFLOAT2 xy;			//縦横の小さいブロックの数
 	};
 
-	//struct 
+	struct SmallBlockTemp
+	{
+		Stage::Info Info;		//小さいブロックの情報
+		bool use;				//使っているかのフラグ
+	};
 
 public:
 	ShadowBlock();
@@ -28,17 +31,17 @@ public:
 	void Draw();
 
 	void SetShadowBlock(Stage::Info info);
-	void SetUse(int num, bool flag);
-	std::vector<BlockBase> GetInfo();
+	void SetUse(XMFLOAT2 num, bool flag);
+	std::vector<std::vector<SmallBlockTemp>>* GetInfo();
 
 
 private:
-	const Stage::Info m_BlockBase = { { 999.0f, 999.0f, 0.0f }, { 0.02f, 0.02f, 0.5f }, { 0.0f, 0.0f, 0.0f } };
+	const Stage::Info m_BlockBase = { { 999.0f, 999.0f, 0.0f }, { 0.03f, 0.03f, 0.5f }, { 0.0f, 0.0f, 0.0f } };
 		//細かく並べられるブロックの情報
 	
 
-	BlockBase m_Block;		//全体の情報
-	std::vector<std::vector<BlockBase>> m_BlockInfo;		//並び順や場所の情報を動的に確保
+	BlockTemp m_BlockInfo;		//全体の情報
+	std::vector<std::vector<SmallBlockTemp>> m_SmallBlockInfo;		//並び順や場所の情報を動的に確保
 
 };
 

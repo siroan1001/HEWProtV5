@@ -37,7 +37,7 @@ Game3D::Game3D()
 	m_pCamera[E_CAM_DEBUG] = new CameraDebug;
 
 	m_pShadowBlock = new ShadowBlock;
-	Stage::Info info = { {0.0f, -0.5f, 0.0f}, {1.0f, 0.5f, 1.0f}, {0.0f, 0.0f, 0.0f} };
+	Stage::Info info = { {0.0f, 0.5f, 0.0f}, {1.0f, 1.5f, 1.0f}, {0.0f, 0.0f, 0.0f} };
 	m_pShadowBlock->SetShadowBlock(info);
 
 	m_pLight = new Light;
@@ -137,19 +137,23 @@ void Game3D::Draw()
 
 void Game3D::CheckCollision()
 {
-	std::vector<ShadowBlock::BlockBase> block = m_pShadowBlock->GetInfo();
+	std::vector<std::vector<ShadowBlock::SmallBlockTemp>>* block = m_pShadowBlock->GetInfo();
 
 	//ShadowBlock‚ÆLigth‚Ì”»’è
-	for (int i = 0; i < block.size(); i++)
+	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
 	{
-		if (!block[i].use)	continue;
-
-		bool flag = Collision::RectAndCircle(block[i].Info, m_pLight->GetInfo(), m_pLight->GetRadius());
-
-		if (flag)
+		for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
 		{
-			//printf("‚ ‚½‚è");
-			m_pShadowBlock->SetUse(i, false);
+			if (!init->use)	continue;
+
+			bool flag = Collision::RectAndCircle(init->Info, m_pLight->GetInfo(), m_pLight->GetRadius());
+
+			if (flag)
+			{
+				//printf("‚ ‚½‚è");
+				//m_pShadowBlock->SetUse(i, false);
+				init->use = false;
+			}
 		}
 	}
 }
