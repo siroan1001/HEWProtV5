@@ -7,6 +7,7 @@
 #include "CameraBase.h"
 #include "Model.h"
 #include "ConstantBuffer.h"
+#include "Stage.h"
 
 using namespace DirectX;
 
@@ -25,6 +26,7 @@ private:
 	CameraBase* m_pCamera;
 	XMFLOAT3 m_Pos;
 	XMFLOAT3 m_Rot;
+	//Stage::Info m_Info;
 	Model* m_pModel;
 	VertexShader* m_pVS;
 	ConstantBuffer* m_pWVP;
