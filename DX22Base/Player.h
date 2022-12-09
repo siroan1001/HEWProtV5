@@ -11,8 +11,18 @@
 
 using namespace DirectX;
 
+
 class Player
 {
+public:
+	// プレイヤーの方向
+	enum PlayerDirection
+	{
+		E_PLAYER_RIGHT,	// 右
+		E_PLAYER_LEFT,	// 左
+
+		E_PLAYER_DIRECTION_MAX
+	};
 public:
 	Player();
 	~Player();
@@ -26,7 +36,7 @@ private:
 	CameraBase* m_pCamera;
 	XMFLOAT3 m_Pos;
 	XMFLOAT3 m_Rot;
-	//Stage::Info m_Info;
+	Stage::Info m_Info;
 	Model* m_pModel;
 	VertexShader* m_pVS;
 	ConstantBuffer* m_pWVP;
