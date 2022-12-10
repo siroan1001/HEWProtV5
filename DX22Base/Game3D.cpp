@@ -217,11 +217,39 @@ void Game3D::CheckCollision()
 			Stage::Info player = m_pPlayer->GetInfo();
 			player.pos.y += player.size.y / 2.0f;
 
+			
+
 			if (Collision::RectAndRect(shadow, player))
 			{
+				//Collision::Direction dire = Collision::LineAndLine(shadow, player);
+
 				float pos = shadow.pos.y + shadow.size.y / 2.0f;
 				m_pPlayer->SetPos(XMFLOAT3(player.pos.x, pos, player.pos.z));
 				m_pPlayer->ResetMove();
+
+				//			//•â³—ppos
+				//XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
+
+				//switch (dire)
+				//{
+				//case Collision::E_DIRECTION_L:
+				//	pos.x = shadow.pos.x + shadow.size.x / 2.0f + player.size.x / 2.0f;
+				//	break;
+				//case Collision::E_DIRECTION_R:
+				//	pos.x = shadow.pos.x - shadow.size.x / 2.0f - player.size.x / 2.0f;
+				//	break;
+				//case Collision::E_DIRECTION_U:
+				//	pos.y = shadow.pos.y + shadow.size.y / 2.0f;
+				//	m_pPlayer->ResetMove();
+				//	break;
+				//case Collision::E_DIRECTION_D:
+				//	pos.y = shadow.pos.y - shadow.size.y / 2.0f;
+				//	break;
+				//default:
+				//	break;
+				//}
+				//m_pPlayer->SetPos(pos);
+				//player.pos = pos;
 			}
 		}
 	}

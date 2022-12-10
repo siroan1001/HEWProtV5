@@ -84,10 +84,12 @@ void Player::Update()
 	if (IsKeyPress('A'))	m_Move.x += 0.1f;
 
 	// 自動移動
-	//m_Move.x -= 0.02f;
+	m_Move.x -= 0.02f;
 
 	// Rキーで停止 (デバッグ用
-	if (IsKeyPress('R')) m_Move.x = 0.0f;
+	if (IsKeyPress('R')) m_Info.pos = {2.0f, 1.0f, -0.0f};
+
+
 
 /*
 	
