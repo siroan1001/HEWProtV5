@@ -158,9 +158,16 @@ Collision::Direction Collision::LineAndLine(Stage::Info Obj1, Stage::Info Obj2)
 	XMFLOAT2 p3;
 	XMFLOAT2 p4;
 
+	XMFLOAT2 vtx[] = {
+		{ Obj1.pos.x + Obj1.size.x / 2.0f, Obj1.pos.y + Obj1.size.y / 2.0f },	//左上
+		{ Obj1.pos.x + Obj1.size.x / 2.0f, Obj1.pos.y - Obj1.size.y / 2.0f },	//左下
+		{ Obj1.pos.x - Obj1.size.x / 2.0f, Obj1.pos.y + Obj1.size.y / 2.0f },	//右上
+		{ Obj1.pos.x - Obj1.size.x / 2.0f, Obj1.pos.y - Obj1.size.y / 2.0f }	//右下
+	};
+
 	//左
-	p3 = {Obj1.pos.x + Obj1.size.x / 2.0f, Obj1.pos.y + Obj1.size.y / 2.0f};	//左上
-	p4 = {Obj1.pos.x + Obj1.size.x / 2.0f, Obj1.pos.y - Obj1.size.y / 2.0f};	//左下
+	p3 = vtx[0];	//左上
+	p4 = vtx[1];	//左下
 
 	if (((p1.x - p2.x) * (p3.y - p1.y) + (p1.y - p2.y) * (p1.x - p3.x))
 		* ((p1.x - p2.x) * (p4.y - p1.y) + (p1.y - p2.y) * (p1.x - p4.x)) < 0)
@@ -173,8 +180,8 @@ Collision::Direction Collision::LineAndLine(Stage::Info Obj1, Stage::Info Obj2)
 	}
 
 	//右
-	p3 = { Obj1.pos.x - Obj1.size.x / 2.0f, Obj1.pos.y + Obj1.size.y / 2.0f };	//右上
-	p4 = { Obj1.pos.x - Obj1.size.x / 2.0f, Obj1.pos.y - Obj1.size.y / 2.0f };	//右下
+	p3 = vtx[2];	//右上
+	p4 = vtx[3];	//右下
 
 	if (((p1.x - p2.x) * (p3.y - p1.y) + (p1.y - p2.y) * (p1.x - p3.x))
 		* ((p1.x - p2.x) * (p4.y - p1.y) + (p1.y - p2.y) * (p1.x - p4.x)) < 0)
@@ -187,8 +194,8 @@ Collision::Direction Collision::LineAndLine(Stage::Info Obj1, Stage::Info Obj2)
 	}
 
 	//上
-	p3 = { Obj1.pos.x + Obj1.size.x / 2.0f, Obj1.pos.y + Obj1.size.y / 2.0f };	//左上
-	p4 = { Obj1.pos.x - Obj1.size.x / 2.0f, Obj1.pos.y + Obj1.size.y / 2.0f };	//右上
+	p3 = vtx[0];	//左上
+	p4 = vtx[2];	//右上
 
 	if (((p1.x - p2.x) * (p3.y - p1.y) + (p1.y - p2.y) * (p1.x - p3.x))
 		* ((p1.x - p2.x) * (p4.y - p1.y) + (p1.y - p2.y) * (p1.x - p4.x)) < 0)
@@ -201,8 +208,8 @@ Collision::Direction Collision::LineAndLine(Stage::Info Obj1, Stage::Info Obj2)
 	}
 
 	//下
-	p3 = { Obj1.pos.x + Obj1.size.x / 2.0f, Obj1.pos.y - Obj1.size.y / 2.0f };	//左下
-	p4 = { Obj1.pos.x - Obj1.size.x / 2.0f, Obj1.pos.y - Obj1.size.y / 2.0f };	//右下
+	p3 = vtx[1];	//左下
+	p4 = vtx[3];	//右下
 
 	if (((p1.x - p2.x) * (p3.y - p1.y) + (p1.y - p2.y) * (p1.x - p3.x))
 		* ((p1.x - p2.x) * (p4.y - p1.y) + (p1.y - p2.y) * (p1.x - p4.x)) < 0)

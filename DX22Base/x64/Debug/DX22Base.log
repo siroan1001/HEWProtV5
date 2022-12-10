@@ -1,3 +1,5 @@
-﻿  ShadowBlock.cpp
+﻿  Collision.cpp
+  ShadowBlock.cpp
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\shadowblock.cpp(88): warning C4244: '引数': 'float' から 'const unsigned __int64' への変換です。データが失われる可能性があります。
+  コードを生成中...
   DX22Base.vcxproj -> C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DX22Base.exe
