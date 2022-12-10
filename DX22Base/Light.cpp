@@ -3,6 +3,7 @@
 
 Light::Light()
 	:m_Info{ {1.0f, 1.0f, 0.0f}, {0.5f, 0.1f, 0.5f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
+	,m_Power(5.0f)
 {
 
 }
@@ -49,4 +50,9 @@ float Light::GetRadius()
 Stage::Info Light::GetInfo()
 {
 	return m_Info;
+}
+
+float Light::GetPower()
+{
+	return m_Power;
 }

@@ -77,6 +77,8 @@ void Game3D::Update()
 
 	m_pShadowBlock->Update();
 	m_pLight->Update();
+	m_pShadowBlock->Update();
+
 
 	//プレイヤーの更新
 	//カメラがPlayerCameraの場合のみ処理する
@@ -144,7 +146,7 @@ void Game3D::CheckCollision()
 	{
 		for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
 		{
-			if (!init->use)	continue;
+			//if (!init->use)	continue;
 
 			bool flag = Collision::RectAndCircle(init->Info, m_pLight->GetInfo(), m_pLight->GetRadius());
 
@@ -152,7 +154,12 @@ void Game3D::CheckCollision()
 			{
 				//printf("あたり");
 				//m_pShadowBlock->SetUse(i, false);
-				init->use = false;
+				init->life -= m_pLight->GetPower();
+				if (init->life <= 0.0f)
+				{
+					init->life = 0.0f;
+					init->use = false;
+				}
 			}
 		}
 	}

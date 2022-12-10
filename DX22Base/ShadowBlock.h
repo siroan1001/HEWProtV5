@@ -22,6 +22,7 @@ public:
 	{
 		Stage::Info Info;		//小さいブロックの情報
 		bool use;				//使っているかのフラグ
+		float life;
 	};
 
 public:

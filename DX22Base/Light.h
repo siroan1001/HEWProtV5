@@ -14,9 +14,11 @@ public:
 
 	float GetRadius();
 	Stage::Info GetInfo();
+	float GetPower();
 
 private:
 	Stage::Info m_Info;
+	float m_Power;
 
 };
 

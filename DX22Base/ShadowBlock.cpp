@@ -14,6 +14,21 @@ ShadowBlock::~ShadowBlock()
 
 void ShadowBlock::Update()
 {
+	for (std::vector<std::vector<SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	{
+		for (std::vector<SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
+		{
+			if (init->life >= 30.0f)	continue;
+
+			init->life += 0.1f;
+			if (init->life >= 30.0f)
+			{
+				init->life = 30.0f;
+				init->use = true;
+			}
+
+		}
+	}
 }
 
 void ShadowBlock::Draw()
@@ -56,7 +71,7 @@ void ShadowBlock::SetShadowBlock(Stage::Info info)
 
 		for (int j = 0; j < m_BlockInfo.xy.x; j++)
 		{
-			SmallBlockTemp temp = { m_BlockBase, true};
+			SmallBlockTemp temp = { m_BlockBase, true, 30.0f};
 			temp.Info.pos = { m_BlockInfo.Info.pos.x - m_BlockBase.size.x * j, m_BlockInfo.Info.pos.y - m_BlockBase.size.y * i, m_BlockInfo.Info.pos.z };//ブロックのサイズ分ずらす
 			//m_SmallBlockInfo[i].push_back(temp);
 			tempVec.push_back(temp);
