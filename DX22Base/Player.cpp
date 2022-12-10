@@ -8,7 +8,7 @@ Player::Player()
 	//,m_Rot{0.0f, -90.0f, 0.0f}
 	:m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
-	,m_Info{{2.0f, 1.0f, -0.0f}, {1.0f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
+	,m_Info{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
 {
 	//ÉÇÉfÉãì«Ç›çûÇ›
 	m_pModel = new Model;

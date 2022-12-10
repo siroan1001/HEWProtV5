@@ -160,26 +160,31 @@ void Game3D::CheckCollision()
 	//PlayerとStageの当たり判定
 	for (int i = 0; i < m_pStage->GetNum(); i++)
 	{
+		//当たり判定に使う要素
 		Stage::Info stage = m_pStage->GetInfo(i);
 		Stage::Info player = m_pPlayer->GetInfo();
-		player.pos.y += player.size.y / 2.0f;
+		player.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
+		//Obj同士が当たっているか
 		if (Collision::RectAndRect(stage, player))
 		{
+			//どの方向に当たっているか
 			Collision::Direction dire = Collision::LineAndLine(stage, player);
 
-			XMFLOAT3 pos = {0.0f, 0.0f, 0.0f};
+			//補正用pos
+			XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
 
 			switch (dire)
 			{
 			case Collision::E_DIRECTION_L:
-				pos.x = stage.pos.x + stage.size.x / 2.0f;
+				pos.x = stage.pos.x + stage.size.x / 2.0f + player.size.x / 2.0f;
 				break;
 			case Collision::E_DIRECTION_R:
-				pos.x = stage.pos.x - stage.size.x / 2.0f;
+				pos.x = stage.pos.x - stage.size.x / 2.0f - player.size.x / 2.0f;
 				break;
 			case Collision::E_DIRECTION_U:
 				pos.y = stage.pos.y + stage.size.y / 2.0f;
+				m_pPlayer->ResetMove();
 				break;
 			case Collision::E_DIRECTION_D:
 				pos.y = stage.pos.y - stage.size.y / 2.0f;
@@ -188,7 +193,8 @@ void Game3D::CheckCollision()
 				break;
 			}
 			m_pPlayer->SetPos(pos);
-			m_pPlayer->ResetMove();
+			player.pos = pos;
+			
 			
 		}
 	}
