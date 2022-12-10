@@ -147,3 +147,72 @@ float Collision::DistanceSqrf(const float t_x1, const float t_y1, const float t_
 
 	return (dx * dx) + (dy * dy);
 }
+
+//線同士の判定
+//vtx1, vtx2, center, center
+//Obj1にshadowBlockを設定する
+Collision::Direction Collision::LineAndLine(Stage::Info Obj1, Stage::Info Obj2)
+{
+	XMFLOAT2 p1 = { Obj1.pos.x, Obj1.pos.y };
+	XMFLOAT2 p2 = { Obj2.pos.x, Obj2.pos.y };
+	XMFLOAT2 p3;
+	XMFLOAT2 p4;
+
+	//左
+	p3 = {Obj1.pos.x + Obj1.size.x / 2.0f, Obj1.pos.y + Obj1.size.y / 2.0f};	//左上
+	p4 = {Obj1.pos.x + Obj1.size.x / 2.0f, Obj1.pos.y - Obj1.size.y / 2.0f};	//左下
+
+	if (((p1.x - p2.x) * (p3.y - p1.y) + (p1.y - p2.y) * (p1.x - p3.x))
+		* ((p1.x - p2.x) * (p4.y - p1.y) + (p1.y - p2.y) * (p1.x - p4.x)) < 0)
+	{
+		if (((p3.x - p4.x) * (p1.y - p3.y) + (p3.y - p4.y) * (p3.x - p1.x))
+			* ((p3.x - p4.x) * (p2.y - p3.y) + (p3.y - p4.y) * (p3.x - p2.x)) < 0)
+		{
+			return Collision::E_DIRECTION_L;
+		}
+	}
+
+	//右
+	p3 = { Obj1.pos.x - Obj1.size.x / 2.0f, Obj1.pos.y + Obj1.size.y / 2.0f };	//右上
+	p4 = { Obj1.pos.x - Obj1.size.x / 2.0f, Obj1.pos.y - Obj1.size.y / 2.0f };	//右下
+
+	if (((p1.x - p2.x) * (p3.y - p1.y) + (p1.y - p2.y) * (p1.x - p3.x))
+		* ((p1.x - p2.x) * (p4.y - p1.y) + (p1.y - p2.y) * (p1.x - p4.x)) < 0)
+	{
+		if (((p3.x - p4.x) * (p1.y - p3.y) + (p3.y - p4.y) * (p3.x - p1.x))
+			* ((p3.x - p4.x) * (p2.y - p3.y) + (p3.y - p4.y) * (p3.x - p2.x)) < 0)
+		{
+			return Collision::E_DIRECTION_R;
+		}
+	}
+
+	//上
+	p3 = { Obj1.pos.x + Obj1.size.x / 2.0f, Obj1.pos.y + Obj1.size.y / 2.0f };	//左上
+	p4 = { Obj1.pos.x - Obj1.size.x / 2.0f, Obj1.pos.y + Obj1.size.y / 2.0f };	//右上
+
+	if (((p1.x - p2.x) * (p3.y - p1.y) + (p1.y - p2.y) * (p1.x - p3.x))
+		* ((p1.x - p2.x) * (p4.y - p1.y) + (p1.y - p2.y) * (p1.x - p4.x)) < 0)
+	{
+		if (((p3.x - p4.x) * (p1.y - p3.y) + (p3.y - p4.y) * (p3.x - p1.x))
+			* ((p3.x - p4.x) * (p2.y - p3.y) + (p3.y - p4.y) * (p3.x - p2.x)) < 0)
+		{
+			return Collision::E_DIRECTION_U;
+		}
+	}
+
+	//下
+	p3 = { Obj1.pos.x + Obj1.size.x / 2.0f, Obj1.pos.y - Obj1.size.y / 2.0f };	//左下
+	p4 = { Obj1.pos.x - Obj1.size.x / 2.0f, Obj1.pos.y - Obj1.size.y / 2.0f };	//右下
+
+	if (((p1.x - p2.x) * (p3.y - p1.y) + (p1.y - p2.y) * (p1.x - p3.x))
+		* ((p1.x - p2.x) * (p4.y - p1.y) + (p1.y - p2.y) * (p1.x - p4.x)) < 0)
+	{
+		if (((p3.x - p4.x) * (p1.y - p3.y) + (p3.y - p4.y) * (p3.x - p1.x))
+			* ((p3.x - p4.x) * (p2.y - p3.y) + (p3.y - p4.y) * (p3.x - p2.x)) < 0)
+		{
+			return Collision::E_DIRECTION_U;
+		}
+	}
+
+	return Collision::E_DIRECTION_MAX;
+}

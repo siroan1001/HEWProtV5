@@ -166,9 +166,30 @@ void Game3D::CheckCollision()
 
 		if (Collision::RectAndRect(stage, player))
 		{
-			float pos = stage.pos.y + stage.size.y / 2.0f;
-			m_pPlayer->SetPos(XMFLOAT3(player.pos.x, pos, player.pos.z));
+			Collision::Direction dire = Collision::LineAndLine(stage, player);
+
+			XMFLOAT3 pos = {0.0f, 0.0f, 0.0f};
+
+			switch (dire)
+			{
+			case Collision::E_DIRECTION_L:
+				pos.x = stage.pos.x + stage.size.x / 2.0f;
+				break;
+			case Collision::E_DIRECTION_R:
+				pos.x = stage.pos.x - stage.size.x / 2.0f;
+				break;
+			case Collision::E_DIRECTION_U:
+				pos.y = stage.pos.y + stage.size.y / 2.0f;
+				break;
+			case Collision::E_DIRECTION_D:
+				pos.y = stage.pos.y - stage.size.y / 2.0f;
+				break;
+			default:
+				break;
+			}
+			m_pPlayer->SetPos(pos);
 			m_pPlayer->ResetMove();
+			
 		}
 	}
 
