@@ -1,2 +1,16 @@
-﻿  Game3D.cpp
-  DX22Base.vcxproj -> C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DX22Base.exe
+﻿  BlendState.cpp
+  Player.cpp
+  コードを生成中...
+  LINK : 前回のインクリメンタル リンクで C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DX22Base.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
+DirectXTex_vs2017_x64D.lib(BC.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(BC.obj)' で、または 'C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(BC4BC5.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(BC4BC5.obj)' で、または 'C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(BC6HBC7.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(BC6HBC7.obj)' で、または 'C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexCompress.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexCompress.obj)' で、または 'C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexConvert.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexConvert.obj)' で、または 'C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexD3D11.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexD3D11.obj)' で、または 'C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexImage.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexImage.obj)' で、または 'C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexMipMaps.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexMipMaps.obj)' で、または 'C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexTGA.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexTGA.obj)' で、または 'C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexUtil.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexUtil.obj)' で、または 'C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexWIC.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexWIC.obj)' で、または 'C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+  DX22Base.vcxproj -> C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DX22Base.exe
