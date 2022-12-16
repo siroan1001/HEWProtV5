@@ -43,6 +43,7 @@ Game3D::Game3D()
 	m_pLight = new Light;
 
 	m_pPlayer->SetCamera(m_pCamera[m_mainCamera]);
+	m_pPlayer->InitDirection(m_pStage->GetNum() + m_pShadowBlock->GetNum());
 }
 Game3D::~Game3D()
 {
@@ -140,14 +141,13 @@ void Game3D::Draw()
 void Game3D::CheckCollision()
 {
 	std::vector<std::vector<ShadowBlock::SmallBlockTemp>>* block = m_pShadowBlock->GetInfo();
+	//int num = 0;
 
 	//ShadowBlockとLigthの判定
 	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
 	{
 		for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
 		{
-			//if (!init->use)	continue;
-
 			bool flag = Collision::RectAndCircle(init->Info, m_pLight->GetInfo(), m_pLight->GetRadius());
 
 			if (flag)
@@ -164,20 +164,23 @@ void Game3D::CheckCollision()
 		}
 	}
 
+
+	int num = 0;
+
 	//PlayerとStageの当たり判定
-	for (int i = 0; i < m_pStage->GetNum(); i++)
+	for (int i = 0; i < m_pStage->GetNum(); i++, num++)
 	{
 		//当たり判定に使う要素
 		Stage::Info stage = m_pStage->GetInfo(i);
 		Stage::Info player = m_pPlayer->GetInfo();
+		Stage::Info Oplayer = m_pPlayer->GetOldInfo();
 		player.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
+		Oplayer.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
+		
 
 		//Obj同士が当たっているか
-		if (Collision::RectAndRect(stage, player))
+		if (Collision::Direction dire = Collision::RectAndRectNew(player, Oplayer, stage, m_pPlayer->GetDirection(num)))
 		{
-			//どの方向に当たっているか
-			Collision::Direction dire = Collision::LineAndLine(stage, player);
-
 			//補正用pos
 			XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
 
@@ -194,14 +197,14 @@ void Game3D::CheckCollision()
 				m_pPlayer->ResetMove();
 				break;
 			case Collision::E_DIRECTION_D:
-				pos.y = stage.pos.y - stage.size.y / 2.0f;
+				pos.y = stage.pos.y - stage.size.y / 2.0f - player.size.y;
 				break;
 			default:
 				break;
 			}
 			m_pPlayer->SetPos(pos);
 			player.pos = pos;
-			
+			m_pPlayer->SetDirection(dire, num);
 			
 		}
 	}
@@ -209,23 +212,73 @@ void Game3D::CheckCollision()
 	//PlayerとShadowBloackの当たり判定
 	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
 	{
-		for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
+		for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init, num++)
 		{
-			if (!init->use)	continue;
-
 			Stage::Info shadow = init->Info;
 			Stage::Info player = m_pPlayer->GetInfo();
-			player.pos.y += player.size.y / 2.0f;
+			Stage::Info Oplayer = m_pPlayer->GetOldInfo();
+			player.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
+			Oplayer.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
-			
-
-			if (Collision::RectAndRect(shadow, player))
+			if (Collision::Direction dire = Collision::RectAndRectNew(player, Oplayer, shadow, m_pPlayer->GetDirection(num)))
 			{
-				//Collision::Direction dire = Collision::LineAndLine(shadow, player);
+				if (init->use)
+				{
+					//補正用pos
+					XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
 
-				float pos = shadow.pos.y + shadow.size.y / 2.0f;
-				m_pPlayer->SetPos(XMFLOAT3(player.pos.x, pos, player.pos.z));
-				m_pPlayer->ResetMove();
+					switch (dire)
+					{
+					case Collision::E_DIRECTION_L:
+						pos.x = shadow.pos.x + shadow.size.x / 2.0f + player.size.x / 2.0f;
+						break;
+					case Collision::E_DIRECTION_R:
+						pos.x = shadow.pos.x - shadow.size.x / 2.0f - player.size.x / 2.0f;
+						break;
+					case Collision::E_DIRECTION_U:
+						pos.y = shadow.pos.y + shadow.size.y / 2.0f;
+						m_pPlayer->ResetMove();
+						break;
+					case Collision::E_DIRECTION_D:
+						pos.y = shadow.pos.y - shadow.size.y / 2.0f - player.size.y;
+						break;
+					default:
+						break;
+					}
+					m_pPlayer->SetPos(pos);
+					player.pos = pos;
+					
+				}
+				else
+				{
+					init->life -= m_pLight->GetPower();
+					if (init->life <= 0.0f)
+					{
+						init->life = 0.0f;
+						init->use = false;
+					}
+				}
+
+				m_pPlayer->SetDirection(dire, num);
+			}
+
+			//if (Collision::RectAndRect(shadow, player))
+			//{
+			//	if (init->use)
+			//	{
+			//		float pos = shadow.pos.y + shadow.size.y / 2.0f;
+			//		m_pPlayer->SetPos(XMFLOAT3(player.pos.x, pos, player.pos.z));
+			//		m_pPlayer->ResetMove();
+			//	}
+			//	else
+			//	{
+			//		init->life -= m_pLight->GetPower();
+			//		if (init->life <= 0.0f)
+			//		{
+			//			init->life = 0.0f;
+			//			init->use = false;
+			//		}
+			//	}
 
 				//			//補正用pos
 				//XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
@@ -250,7 +303,7 @@ void Game3D::CheckCollision()
 				//}
 				//m_pPlayer->SetPos(pos);
 				//player.pos = pos;
-			}
+			
 		}
 	}
 }

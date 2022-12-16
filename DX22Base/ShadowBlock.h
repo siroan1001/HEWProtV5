@@ -34,6 +34,7 @@ public:
 	void SetShadowBlock(Stage::Info info);
 	void SetUse(XMFLOAT2 num, bool flag);
 	std::vector<std::vector<SmallBlockTemp>>* GetInfo();
+	int GetNum();
 
 
 private:

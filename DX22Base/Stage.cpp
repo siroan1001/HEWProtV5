@@ -3,7 +3,7 @@
 #include "Input.h"
 
 Stage::Stage()
-	:m_pBlocks(nullptr), m_blockNum(3)
+	:m_pBlocks(nullptr), m_blockNum(4)
 {
 	m_pBlocks = new Info[m_blockNum];
 
@@ -77,6 +77,19 @@ Stage::Stage()
 	m_pBlocks[2].pos = { -3.75f, 0.0f, 0.0f };
 	m_pBlocks[2].size = { 1.5f, 2.0f, 0.5f };
 	m_pBlocks[2].rot = { 0.0f, 0.0f, 0.0f };
+
+	//m_pBlocks[3].pos = { 2.0f, -0.95f, 0.0f };
+	//m_pBlocks[3].size = { 0.3f, 0.05f, 0.3f };
+	//m_pBlocks[3].rot = { 0.0f, 0.0f, 0.0f };
+
+	//m_pBlocks[4].pos = { 2.0f, -0.45f, 0.0f };
+	//m_pBlocks[4].size = { 0.3f, 0.95f, 0.3f };
+	//m_pBlocks[4].rot = { 0.0f, 0.0f, 0.0f };
+
+	m_pBlocks[3].pos = { 1.0f, 0.8f, 0.0f };
+	m_pBlocks[3].size = { 0.5f, 0.2f, 0.3f };
+	m_pBlocks[3].rot = { 0.0f, 0.0f, 0.0f };
+
 
 	//std::vector<std::vector<int>> hoge;
 	//std::vector<int> fuga;

@@ -93,3 +93,14 @@ std::vector<std::vector<ShadowBlock::SmallBlockTemp>>* ShadowBlock::GetInfo()
 	return &m_SmallBlockInfo;
 }
 
+int ShadowBlock::GetNum()
+{
+	int num = 0;
+
+	for (std::vector<std::vector<SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	{
+		num += it->size();
+	}
+	return num;
+}
+
