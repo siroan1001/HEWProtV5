@@ -216,24 +216,48 @@ void Game3D::CheckCollision()
 		{
 			Stage::Info shadow = init->Info;
 			Stage::Info player = m_pPlayer->GetInfo();
-			Stage::Info Oplayer = m_pPlayer->GetOldInfo();
 			player.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
-			Oplayer.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
-			if (Collision::Direction dire = Collision::RectAndRectNew(player, Oplayer, shadow, m_pPlayer->GetDirection(num)))
-			{
-				if (init->use)
+			if (init->use)
+			{//存在する（引き戻しの処理）
+				Stage::Info Oplayer = m_pPlayer->GetOldInfo();
+				Oplayer.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
+
+				if (Collision::Direction dire = Collision::RectAndRectNew(player, Oplayer, shadow, m_pPlayer->GetDirection(num)))
 				{
 					//補正用pos
 					XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
-
 					switch (dire)
 					{
 					case Collision::E_DIRECTION_L:
-						pos.x = shadow.pos.x + shadow.size.x / 2.0f + player.size.x / 2.0f;
-						break;
 					case Collision::E_DIRECTION_R:
-						pos.x = shadow.pos.x - shadow.size.x / 2.0f - player.size.x / 2.0f;
+						Stage::Info PlayerBot;
+						Stage::Info PlayerTop;
+						PlayerBot = PlayerTop = m_pPlayer->GetInfo();
+						PlayerBot.size.y = 0.1f;		//足元の大きさ
+						PlayerBot.pos.y += PlayerBot.size.y / 2.0f;		//プレイヤーの元の座標から足元の大きさ分ずらす
+						PlayerTop.size.y -= PlayerBot.size.y;		//体の大きさ（プレイヤー全体から足元の大きさを引いた大きさ）
+						PlayerTop.pos.y += PlayerBot.size.y + PlayerTop.size.y / 2.0f;	//プレイヤーの元の座標から足元の大きさ分と体の半分ずらす
+						{
+							bool bTop = Collision::RectAndRect(PlayerTop, shadow);
+							bool bBot = Collision::RectAndRect(PlayerBot, shadow);
+							if (bBot && !bTop)
+							{//上
+								pos.y = shadow.pos.y + shadow.size.y / 2.0f;
+								m_pPlayer->ResetMove();
+							}
+							else
+							{//横
+								if (player.pos.x < shadow.pos.x)
+								{//右
+									pos.x = shadow.pos.x - shadow.size.x / 2.0f - player.size.x / 2.0f;
+								}
+								else if (player.pos.x >= shadow.pos.x)
+								{//左
+									pos.x = shadow.pos.x + shadow.size.x / 2.0f + player.size.x / 2.0f;
+								}
+							}
+						}
 						break;
 					case Collision::E_DIRECTION_U:
 						pos.y = shadow.pos.y + shadow.size.y / 2.0f;
@@ -243,13 +267,17 @@ void Game3D::CheckCollision()
 						pos.y = shadow.pos.y - shadow.size.y / 2.0f - player.size.y;
 						break;
 					default:
+						continue;
 						break;
 					}
 					m_pPlayer->SetPos(pos);
 					player.pos = pos;
-					
+					m_pPlayer->SetDirection(dire, num);
 				}
-				else
+			}
+			else if (!init->use)
+			{//存在しない（消し続ける処理）
+				if (Collision::RectAndRect(player, shadow))
 				{
 					init->life -= m_pLight->GetPower();
 					if (init->life <= 0.0f)
@@ -258,9 +286,56 @@ void Game3D::CheckCollision()
 						init->use = false;
 					}
 				}
-
-				m_pPlayer->SetDirection(dire, num);
 			}
+
+
+			//Stage::Info shadow = init->Info;
+			//Stage::Info player = m_pPlayer->GetInfo();
+			//Stage::Info Oplayer = m_pPlayer->GetOldInfo();
+			//player.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
+			//Oplayer.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
+
+			//if (Collision::Direction dire = Collision::RectAndRectNew(player, Oplayer, shadow, m_pPlayer->GetDirection(num)))
+			//{
+			//	if (init->use)
+			//	{
+			//		//補正用pos
+			//		XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
+
+			//		switch (dire)
+			//		{
+			//		case Collision::E_DIRECTION_L:
+			//			pos.x = shadow.pos.x + shadow.size.x / 2.0f + player.size.x / 2.0f;
+			//			break;
+			//		case Collision::E_DIRECTION_R:
+			//			pos.x = shadow.pos.x - shadow.size.x / 2.0f - player.size.x / 2.0f;
+			//			break;
+			//		case Collision::E_DIRECTION_U:
+			//			pos.y = shadow.pos.y + shadow.size.y / 2.0f;
+			//			m_pPlayer->ResetMove();
+			//			break;
+			//		case Collision::E_DIRECTION_D:
+			//			pos.y = shadow.pos.y - shadow.size.y / 2.0f - player.size.y;
+			//			break;
+			//		default:
+			//			break;
+			//		}
+			//		m_pPlayer->SetPos(pos);
+			//		player.pos = pos;
+			//		
+			//	}
+			//	else
+			//	{
+			//		init->life -= m_pLight->GetPower();
+			//		if (init->life <= 0.0f)
+			//		{
+			//			init->life = 0.0f;
+			//			init->use = false;
+			//		}
+			//	}
+
+			//	m_pPlayer->SetDirection(dire, num);
+			//}
 
 			//if (Collision::RectAndRect(shadow, player))
 			//{
