@@ -33,66 +33,72 @@ bool Collision::RectAndRect(Stage::Info Obj1, Stage::Info Obj2)
 	return false;
 }
 
-Collision::Direction Collision::RectAndRectNew(Stage::Info Nobj1, Stage::Info Oobj1, Stage::Info obj2, Collision::Direction dire)
+//四角形同士の当たり判定を取ってどの方向から当たったかを返す
+Collision::Direction Collision::RectAndRectDirection(Stage::Info Nobj1, Stage::Info Oobj1, Stage::Info obj2, Collision::Direction dire)
 {
-	LinePos ObjLine[3];
+	LinePos ObjLine[3];		//線のポジションを格納
 
+	//今のキャラクターの座標
 	ObjLine[0].L = Nobj1.pos.x + Nobj1.size.x / 2.0f;
 	ObjLine[0].R = Nobj1.pos.x - Nobj1.size.x / 2.0f;
 	ObjLine[0].T = Nobj1.pos.y + Nobj1.size.y / 2.0f;
 	ObjLine[0].B = Nobj1.pos.y - Nobj1.size.y / 2.0f;
 
+	//前フレームのキャラクターの座標
 	ObjLine[1].L = Oobj1.pos.x + Oobj1.size.x / 2.0f;
 	ObjLine[1].R = Oobj1.pos.x - Oobj1.size.x / 2.0f;
 	ObjLine[1].T = Oobj1.pos.y + Oobj1.size.y / 2.0f;
 	ObjLine[1].B = Oobj1.pos.y - Oobj1.size.y / 2.0f;
 
+	//ブロックの座標
 	ObjLine[2].L = obj2.pos.x + obj2.size.x / 2.0f;
 	ObjLine[2].R = obj2.pos.x - obj2.size.x / 2.0f;
 	ObjLine[2].T = obj2.pos.y + obj2.size.y / 2.0f;
 	ObjLine[2].B = obj2.pos.y - obj2.size.y / 2.0f;
 
+	//当たっていなければNULLを返す
 	if (!(ObjLine[0].R < ObjLine[2].L && ObjLine[0].L > ObjLine[2].R &&
 		ObjLine[0].B < ObjLine[2].T && ObjLine[0].T > ObjLine[2].B))
 	{
 		return E_DIRECTION_NULL;
 	}
 
+	//前フレームのキャラクターとブロックが当たってるか縦横別に格納
 	Hit Old = { false, false };
 
 	if (ObjLine[1].R < ObjLine[2].L && ObjLine[1].L > ObjLine[2].R)
-	{
+	{//横
 		Old.x = true;
 	}
 	if (ObjLine[1].B < ObjLine[2].T && ObjLine[1].T > ObjLine[2].B)
-	{
+	{//縦
 		Old.y = true;
 	}
 
 	if (!Old.x && Old.y)
-	{
+	{//前フレームデ縦だけ当たっていた場合（横向きの当たり）
 		if (Nobj1.pos.x > obj2.pos.x)
-		{
+		{//左
 			return E_DIRECTION_L;
 		}
 		else if (Nobj1.pos.x <= obj2.pos.x)
-		{
+		{//右
 			return E_DIRECTION_R;
 		}
 	}
 	else if(Old.x && !Old.y)
-	{
+	{//前フレームデ横だけ当たっていた場合（縦向きの当たり）
 		if (Nobj1.pos.y > obj2.pos.y)
-		{
+		{//上
 			return E_DIRECTION_U;
 		}
 		else if (Nobj1.pos.y <= obj2.pos.y)
-		{
+		{//下
 			return E_DIRECTION_D;
 		}
 	}
 	
-
+	//前フレームで既に当たっていた場合前フレームと同じ処理を繰り返す
 	return dire;
 
 }
