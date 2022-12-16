@@ -4,8 +4,6 @@
 
 //using namespace DirectX;
 
-Model* g_pModel;
-
 Player::Player()
 	//:m_Pos{2.0f, -1.0f, 0.0f}
 	//,m_Rot{0.0f, -90.0f, 0.0f}
