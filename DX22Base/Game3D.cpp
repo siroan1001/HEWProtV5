@@ -155,6 +155,7 @@ void Game3D::CheckCollision()
 				break;
 			case Collision::E_DIRECTION_D:	//‰º
 				pos.y = stage.pos.y - stage.size.y / 2.0f - player.size.y;
+				m_pPlayer->ResetMove();
 				break;
 			default:
 				break;
@@ -221,6 +222,7 @@ void Game3D::CheckCollision()
 						break;	
 					case Collision::E_DIRECTION_D:		//‰º
 						pos.y = shadow.pos.y - shadow.size.y / 2.0f - player.size.y;
+						m_pPlayer->ResetMove();
 						break;
 					default:
 						continue;

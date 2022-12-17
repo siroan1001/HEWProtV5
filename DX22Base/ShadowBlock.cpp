@@ -1,5 +1,7 @@
 #include "ShadowBlock.h"
 
+using namespace std;
+
 ShadowBlock::ShadowBlock()
 {
 	m_BlockInfo.Info.pos = { 999.0f, 999.0f, 0.0f };
@@ -45,18 +47,113 @@ void ShadowBlock::Draw()
 	//	DrawBox();
 	//}
 
+	vector<Stage::Info>	block;		//描画用のデータを格納
+	Stage::Info info;		//計算用
+	float PosL;		//ブロックの左端を示す
+	int count;
+
 	for (std::vector<std::vector<SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
 	{
+		info = m_BlockBase;
+		count = 0;
+		//info.size.x = 0.0f;
+		PosL = it->begin()->Info.pos.x + it->begin()->Info.size.x / 2.0f;
+		std::vector<SmallBlockTemp>::iterator end = it->end();		//横列の最後の要素を指す
+		end--;
 		for (std::vector<SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
 		{
-			if (!init->use)	continue;
+			if (init->use)
+			{
+				count++;
+			}
+			else if(!init->use)
+			{
+				if (init == end)
+				{
+					info.size.x *= count;
+					info.pos.x = PosL + info.size.x / 2.0f;
+					block.push_back(info);
+				}
+				else if (count <= 0)
+				{
+					continue;
+				}
+				else
+				{
+					info.size.x *= count;
+					info.pos.x = PosL + info.size.x / 2.0f;
+					block.push_back(info);
+					info = m_BlockBase;
+					//infoの次を示した場所の左端をposLに入れる
+					//countをリセット
+				}
+				info.size.x *= count;
+				info.pos.x = PosL + info.size.x / 2.0f;
+				block.push_back(info);
+				info = m_BlockBase;
+				//infoの次を示した場所の左端をposLに入れる
+				//countをリセット
+				//最後を指していたらpushする
+			}
 
-			SetGeometoryTranslate(init->Info.pos.x, init->Info.pos.y, init->Info.pos.z);
-			SetGeometoryScaling(init->Info.size.x, init->Info.size.x, init->Info.size.z);
-			SetGeometoryRotation(init->Info.rot.x, init->Info.rot.y, init->Info.rot.z);
-			DrawBox();
+			//if (!init->use || init == end)
+			//{
+			//	block.push_back(info);
+			//	
+			//	if (init == end)
+			//	{
+			//		break;
+			//	}
+			//	else
+			//	{
+			//		std::vector<SmallBlockTemp>::iterator next = init;
+			//		next++;
+			//		while (!next->use)
+			//		{
+			//			next++;
+
+			//			if (next == end)
+			//			{
+			//				break;
+			//			}
+			//		}
+			//		info = next->Info;
+			//		PosL = info.pos.x + info.size.x / 2.0f;
+			//		next--;
+			//		init = next;
+			//		if (init == end)
+			//		{
+			//			break;
+			//		}
+			//		continue;
+			//	}
+			//}
+
+			//info.size.x += init->Info.size.x;
+			//info.pos.x = PosL - info.size.x / 2.0f;
 		}
 	}
+
+	for (vector<Stage::Info>::iterator it = block.begin(); it != block.end(); ++it)
+	{
+		SetGeometoryTranslate(it->pos.x, it->pos.y, it->pos.z);
+		SetGeometoryScaling(it->size.x, it->size.y, it->size.z);
+		SetGeometoryRotation(it->rot.x, it->rot.y, it->rot.z);
+		DrawBox();
+	}
+
+	//for (std::vector<std::vector<SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	//{
+	//	for (std::vector<SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
+	//	{
+	//		if (!init->use)	continue;
+
+	//		SetGeometoryTranslate(init->Info.pos.x, init->Info.pos.y, init->Info.pos.z);
+	//		SetGeometoryScaling(init->Info.size.x, init->Info.size.x, init->Info.size.z);
+	//		SetGeometoryRotation(init->Info.rot.x, init->Info.rot.y, init->Info.rot.z);
+	//		DrawBox();
+	//	}
+	//}
 }
 
 void ShadowBlock::SetShadowBlock(Stage::Info info)
