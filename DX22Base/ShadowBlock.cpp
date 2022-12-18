@@ -131,6 +131,7 @@ void ShadowBlock::Draw()
 
 			//info.size.x += init->Info.size.x;
 			//info.pos.x = PosL - info.size.x / 2.0f;
+
 		}
 	}
 
