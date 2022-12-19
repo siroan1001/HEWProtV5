@@ -22,7 +22,7 @@ void ShadowBlock::Update()
 		{
 			if (init->life >= 30.0f)	continue;
 
-			init->life += 0.04f;
+			init->life += 0.1f;
 			if (init->life >= 30.0f)
 			{
 				init->life = 30.0f;

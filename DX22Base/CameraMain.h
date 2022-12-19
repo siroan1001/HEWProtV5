@@ -8,7 +8,7 @@
 class CameraMain : public CameraBase
 {
 public:
-	CameraMain(Player* pPlayer) : m_pPlayer(pPlayer), m_lateXZ(90.0f), m_lateY(0.0f) { m_radius = 3.0f; }
+	CameraMain() : m_pPlayer(NULL), m_lateXZ(90.0f), m_lateY(0.0f) { m_radius = 3.0f; }
 	~CameraMain() {}
 	void Update()
 	{
@@ -23,6 +23,10 @@ public:
 		m_pos.x = m_look.x;
 		m_pos.y = m_look.y;
 		m_pos.z = m_look.z + m_radius;
+	}
+	void SetPlayer(Player* player)
+	{
+		m_pPlayer = player;
 	}
 
 private:
