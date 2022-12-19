@@ -1,10 +1,4 @@
 ﻿  ShadowBlock.cpp
-<<<<<<< HEAD
-c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\shadowblock.cpp(164): warning C4244: '引数': 'float' から 'const unsigned __int64' への変換です。データが失われる可能性があります。
-c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\shadowblock.cpp(178): warning C4267: '+=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  DX22Base.vcxproj -> C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DX22Base.exe
-=======
-c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(143): warning C4244: '引数': 'float' から 'const unsigned __int64' への変換です。データが失われる可能性があります。
-c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(157): warning C4267: '+=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(141): warning C4244: '引数': 'float' から 'const unsigned __int64' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(155): warning C4267: '+=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
   DX22Base.vcxproj -> C:\Users\User\Documents\HEWProtV5\x64\Debug\DX22Base.exe
->>>>>>> 9eb44e2185b706d617fc09c667d5a963d7152b2d
