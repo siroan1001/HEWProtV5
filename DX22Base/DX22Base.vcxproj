@@ -147,17 +147,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BG.cpp" />
     <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="CameraEvent.cpp" />
     <ClCompile Include="CameraPlayer.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="controller.cpp" />
     <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="DirectXTex\Texture.cpp" />
     <ClCompile Include="Game3D.cpp" />
     <ClCompile Include="Geometory.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="LayerBG.cpp" />
     <ClCompile Include="LayerGame.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -168,12 +171,14 @@
     <ClCompile Include="SamplerState.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShadowBlock.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Startup.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WinUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BG.h" />
     <ClInclude Include="BlendState.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="CameraBase.h" />
@@ -183,12 +188,14 @@
     <ClInclude Include="CameraPlayer.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="controller.h" />
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="DirectXTex\Texture.h" />
     <ClInclude Include="Game3D.h" />
     <ClInclude Include="Geometory.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Layer.h" />
+    <ClInclude Include="LayerBG.h" />
     <ClInclude Include="LayerGame.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Main.h" />
@@ -198,6 +205,7 @@
     <ClInclude Include="SamplerState.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShadowBlock.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WinUtil.h" />

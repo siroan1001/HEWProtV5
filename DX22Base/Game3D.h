@@ -1,6 +1,7 @@
 #ifndef __GAME_3D_H__
 #define __GAME_3D_H__
 
+#include "BlendState.h"
 #include "CameraBase.h"
 #include "Stage.h"
 #include "Player.h"
@@ -25,7 +26,7 @@ public:
 		E_LAYER_GAME,
 		E_LAYER_UI,
 
-		E_LAYER_MAX,
+		E_LAYER_MAX
 	};
 
 public:
@@ -34,9 +35,12 @@ public:
 	void Update();
 	void Draw();
 
+	static CameraBase* GetCamera();
+
 private:
-	CameraBase* m_pCamera[E_CAM_MAX];
-	CameraKind m_mainCamera;
+	BlendState* m_pBlend;
+	static CameraBase* m_pCamera[E_CAM_MAX];
+	static CameraKind m_mainCamera;
 	Layer* m_pLayer[E_LAYER_MAX];
 
 };

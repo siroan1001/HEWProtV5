@@ -10,14 +10,37 @@
 #include "Collision.h"
 #include "Layer.h"
 #include "LayerGame.h"
+#include "LayerBG.h"
+
+Game3D::CameraKind Game3D::m_mainCamera = E_CAM_MAIN;
+CameraBase* Game3D::m_pCamera[] = {};
+
 
 Game3D::Game3D()
 {
-	m_mainCamera = E_CAM_MAIN;
+	//画像合成方法の設定
+	m_pBlend = new BlendState;
+	D3D11_RENDER_TARGET_BLEND_DESC blend = {};
+	blend.BlendEnable = TRUE;
+	blend.RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	blend.SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blend.SrcBlendAlpha = D3D11_BLEND_ONE;
+	blend.DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blend.DestBlendAlpha = D3D11_BLEND_ONE;
+	blend.BlendOp = D3D11_BLEND_OP_ADD;
+	blend.BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	m_pBlend->Create(blend);
+	m_pBlend->Bind();
+
 	m_pCamera[E_CAM_MAIN] = new CameraMain;
 	m_pCamera[E_CAM_DEBUG] = new CameraDebug;
+	
+	
 
+	m_pLayer[E_LAYER_BG] = new LayerBG;
+	m_pLayer[E_LAYER_BUCK_OBJECT] = NULL;
 	m_pLayer[E_LAYER_GAME] = new LayerGame(m_pCamera[m_mainCamera]);
+	m_pLayer[E_LAYER_UI] = NULL;
 
 	LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
 	CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
@@ -27,7 +50,12 @@ Game3D::Game3D()
 Game3D::~Game3D()
 {
 	//レイヤーの終了
-	delete m_pLayer[E_LAYER_GAME];
+	for (int i = 0; i < E_LAYER_MAX; i++)
+	{
+		if (!m_pLayer[i])	continue;
+		delete m_pLayer[i];
+	}
+	
 
 	//カメラの終了
 	for (int i = 0; i < E_CAM_MAX; i++)
@@ -42,7 +70,11 @@ void Game3D::Update()
 	//カメラの更新
 	m_pCamera[m_mainCamera]->Update();
 
-	m_pLayer[E_LAYER_GAME]->Update();
+	for (int i = 0; i < E_LAYER_MAX; i++)
+	{
+		if (!m_pLayer[i])	continue;
+		m_pLayer[i]->Update();
+	}
 
 	//カメラの切り替え
 	CameraKind camera = m_mainCamera;
@@ -54,7 +86,7 @@ void Game3D::Update()
 	if (m_mainCamera != camera)
 	{
 		m_mainCamera = camera;
-		LayerGame* temp = reinterpret_cast<LayerGame*>(m_pLayer[0]);
+		LayerGame* temp = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
 		temp->SetCamera(m_pCamera[m_mainCamera]);
 		m_pLayer[E_LAYER_GAME] = temp;
 	}
@@ -65,5 +97,21 @@ void Game3D::Draw()
 	//ジオメトリーのビュー行列とプロジェクション行列を設定する
 	SetGeometoryVPMatrix(m_pCamera[m_mainCamera]->GetViewMatrix(), m_pCamera[m_mainCamera]->GetProjectionMatrix(CameraBase::CameraAngle::E_CAM_ANGLE_PERSPECTIVEFOV));
 	
-	m_pLayer[E_LAYER_GAME]->Draw();
+	for (int i = 0; i < E_LAYER_MAX; i++)
+	{
+		if (!m_pLayer[i])	continue;
+		m_pLayer[i]->Draw();
+	}
+
+
+	
+	//m_pLayer[E_LAYER_GAME]->Draw();
+
+	//if (IsKeyPress('P'))
+	//	m_pLayer[E_LAYER_BG]->Draw();
+}
+
+CameraBase * Game3D::GetCamera()
+{
+	return m_pCamera[m_mainCamera];
 }
