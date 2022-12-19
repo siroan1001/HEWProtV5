@@ -10,6 +10,9 @@
 #include "ShadowBlock.h"
 #include "Light.h"
 #include "Collision.h"
+#include "Fade.h"
+
+Fade* g_pFade;
 
 Game3D::Game3D()
 	:m_cylinderFlag(false)
@@ -19,6 +22,8 @@ Game3D::Game3D()
 
 	//プレイヤーの生成
 	m_pPlayer = new Player;
+
+	g_pFade = new Fade;
 
 	m_mainCamera = E_CAM_MAIN;
 	m_pCamera[E_CAM_MAIN] = new CameraMain(m_pPlayer);
@@ -32,9 +37,27 @@ Game3D::Game3D()
 
 	m_pPlayer->SetCamera(m_pCamera[m_mainCamera]);
 	m_pPlayer->InitDirection(m_pStage->GetNum() + m_pShadowBlock->GetNum());
+
+	// 画像合成方法の設定
+	m_pBlend = new BlendState;
+
+	D3D11_RENDER_TARGET_BLEND_DESC blend = {};
+	blend.BlendEnable = TRUE;
+	blend.RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	blend.SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blend.SrcBlendAlpha = D3D11_BLEND_ONE;
+	blend.DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blend.DestBlendAlpha = D3D11_BLEND_ONE;
+	blend.BlendOp = D3D11_BLEND_OP_ADD;
+	blend.BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	m_pBlend->Create(blend);
+	m_pBlend->Bind();
+
 }
 Game3D::~Game3D()
 {
+	delete m_pBlend;
+	delete g_pFade;
 	//ステージの終了
 	//delete m_pStage;
 	delete m_pPlayer;
@@ -50,13 +73,18 @@ Game3D::~Game3D()
 }
 void Game3D::Update()
 {
+	if (IsKeyPress('0'))
+	{
+		g_pFade->StartOut();
+	}
+	g_pFade->Update();
+
 	//カメラの更新
 	m_pCamera[m_mainCamera]->Update();
 
 	m_pShadowBlock->Update();
 	m_pLight->Update();
 	m_pShadowBlock->Update();
-
 
 	//プレイヤーの更新
 	//カメラがPlayerCameraの場合のみ処理する
@@ -97,7 +125,11 @@ void Game3D::Draw()
 	m_pShadowBlock->Draw();
 
 	//ライトの描画
-	m_pLight->Draw();
+	m_pLight->Draw(); 
+	
+	g_pFade->Draw();
+
+	
 }
 
 void Game3D::CheckCollision()

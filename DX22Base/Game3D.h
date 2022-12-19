@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "ShadowBlock.h"
 #include "Light.h"
+#include "BlendState.h"
 
 class Game3D
 {
@@ -38,6 +39,7 @@ private:
 	Light* m_pLight;
 	ShadowBlock* m_pShadowBlock;
 	CameraKind m_mainCamera;
+	BlendState* m_pBlend;
 	bool m_cylinderFlag;
 };
 

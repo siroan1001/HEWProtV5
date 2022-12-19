@@ -92,6 +92,9 @@ HRESULT MeshBuffer::CreateVertexBuffer()
 }
 HRESULT MeshBuffer::CreateIndexBuffer()
 {
+	// インデックスのデータがない場合は作成しない
+	if (m_desc.pIdx == nullptr) return S_OK;
+
 	// バッファの情報を設定
 	D3D11_BUFFER_DESC bufDesc = {};
 	bufDesc.ByteWidth = m_desc.idxSize * m_desc.idxCount;

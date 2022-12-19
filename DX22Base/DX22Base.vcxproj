@@ -78,7 +78,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\User\Documents\HEWProtV5\DX22Base;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\naoto\Desktop\hew\DX22Base;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -127,6 +127,7 @@
     </Link>
     <FxCompile>
       <ObjectFileOutput>$(ProjectDir)Assets\Shader\%(Filename).cso</ObjectFileOutput>
+      <ShaderType>Pixel</ShaderType>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,6 +155,7 @@
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="DirectXTex\Texture.cpp" />
+    <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Game3D.cpp" />
     <ClCompile Include="Geometory.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -166,6 +168,7 @@
     <ClCompile Include="SamplerState.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShadowBlock.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Startup.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -183,6 +186,7 @@
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="DirectXTex\Texture.h" />
+    <ClInclude Include="Fade.h" />
     <ClInclude Include="Game3D.h" />
     <ClInclude Include="Geometory.h" />
     <ClInclude Include="Input.h" />
@@ -194,11 +198,13 @@
     <ClInclude Include="SamplerState.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShadowBlock.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WinUtil.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="FadePS.hlsl" />
     <FxCompile Include="ModelVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>

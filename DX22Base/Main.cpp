@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "Game3D.h"
 #include "Geometory.h"
+#include "Sprite.h"
 
 //aaaa
 
@@ -42,6 +43,7 @@ void Init()
 	{
 		Error("geometory initialize failed.");
 	}
+	Sprite::Init();
 	g_pGame = new Game3D();
 }
 void Uninit()
