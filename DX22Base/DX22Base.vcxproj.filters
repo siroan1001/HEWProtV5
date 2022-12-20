@@ -164,9 +164,6 @@
     <ClInclude Include="Model.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
     <ClInclude Include="CameraBase.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
@@ -213,6 +210,9 @@
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
     <ClInclude Include="BG.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraDelay.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
   </ItemGroup>

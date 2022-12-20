@@ -180,9 +180,9 @@
   <ItemGroup>
     <ClInclude Include="BG.h" />
     <ClInclude Include="BlendState.h" />
-    <ClInclude Include="camera.h" />
     <ClInclude Include="CameraBase.h" />
     <ClInclude Include="CameraDebug.h" />
+    <ClInclude Include="CameraDelay.h" />
     <ClInclude Include="CameraEvent.h" />
     <ClInclude Include="CameraMain.h" />
     <ClInclude Include="CameraPlayer.h" />

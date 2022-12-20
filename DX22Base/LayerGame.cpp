@@ -8,7 +8,7 @@ LayerGame::LayerGame(CameraBase* camera)
 	m_pStage = new Stage;
 
 	//プレイヤーの生成
-	m_pPlayer = new Player;
+	m_pPlayer = new Player(Collision::E_DIRECTION_L);
 
 	m_pShadowBlock = new ShadowBlock;
 	Stage::Info info = { {0.0f, 0.5f, 0.0f}, {1.0f, 1.5f, 1.0f}, {0.0f, 0.0f, 0.0f} };
@@ -106,7 +106,7 @@ void LayerGame::CheckCollision()
 
 
 		//どの方向に当たったかを確認する
-		if (Collision::Direction dire = Collision::RectAndRectDirection(player, Oplayer, stage, m_pPlayer->GetDirection(num)))
+		if (Collision::Direction dire = Collision::RectAndRectDirection(player, Oplayer, stage, m_pPlayer->GetStageCollistonDirection(num)))
 		{
 			//補正用pos(足元)
 			XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
@@ -150,7 +150,7 @@ void LayerGame::CheckCollision()
 				Stage::Info Oplayer = m_pPlayer->GetOldInfo();		//前フレームの情報
 				Oplayer.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
-				if (Collision::Direction dire = Collision::RectAndRectDirection(player, Oplayer, shadow, m_pPlayer->GetDirection(num)))
+				if (Collision::Direction dire = Collision::RectAndRectDirection(player, Oplayer, shadow, m_pPlayer->GetStageCollistonDirection(num)))
 				{
 					//補正用pos
 					XMFLOAT3 pos = m_pPlayer->GetInfo().pos;

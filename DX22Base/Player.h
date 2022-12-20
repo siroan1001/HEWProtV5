@@ -27,7 +27,7 @@ public:
 		E_PLAYER_DIRECTION_MAX
 	};
 public:
-	Player();
+	Player(Collision::Direction dire);
 	~Player();
 	void Update();
 	void Draw();
@@ -42,7 +42,8 @@ public:
 	//XMFLOAT3 GetPos();
 	Stage::Info GetInfo();
 	Stage::Info GetOldInfo();
-	Collision::Direction GetDirection(int num);
+	Collision::Direction GetDirection();
+	Collision::Direction GetStageCollistonDirection(int num);
 	void SetDirection(Collision::Direction, int i);
 
 

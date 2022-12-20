@@ -77,13 +77,13 @@ Stage::Stage()
 	m_pBlocks[1].rot = { 0.0f, 0.0f, 0.0f };
 
 	//è∞(è„)
-	m_pBlocks[2].pos = { -0.7f, 3.0f, 0.0f };
-	m_pBlocks[2].size = { 10.5f, 0.5f, 0.5f };
+	m_pBlocks[2].pos = { -2.2f, 3.0f, 0.0f };
+	m_pBlocks[2].size = { 13.5f, 0.5f, 0.5f };
 	m_pBlocks[2].rot = { 0.0f, 0.0f, 0.0f };
 
 	//ï«(ç∂)
-	m_pBlocks[3].pos = { -6.2f, 1.0f, 0.0f };
-	m_pBlocks[3].size = { 0.5f, 7.0f, 0.5f };
+	m_pBlocks[3].pos = { -6.2f, 0.35f, 0.0f };
+	m_pBlocks[3].size = { 0.5f, 5.7f, 0.5f };
 	m_pBlocks[3].rot = { 0.0f, 0.0f, 0.0f };
 
 	//ï«(âE)

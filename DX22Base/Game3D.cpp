@@ -4,6 +4,8 @@
 #include "CameraBase.h"
 #include "CameraDebug.h"
 #include "CameraMain.h"
+#include "CameraEvent.h"
+#include "CameraDelay.h"
 #include "Stage.h"
 #include "ShadowBlock.h"
 #include "Light.h"
@@ -12,7 +14,7 @@
 #include "LayerGame.h"
 #include "LayerBG.h"
 
-Game3D::CameraKind Game3D::m_mainCamera = E_CAM_MAIN;
+Game3D::CameraKind Game3D::m_mainCamera = E_CAM_DELAY;
 CameraBase* Game3D::m_pCamera[] = {};
 
 
@@ -33,6 +35,12 @@ Game3D::Game3D()
 	m_pBlend->Bind();
 
 	m_pCamera[E_CAM_MAIN] = new CameraMain;
+	CameraEvent* pEvent = new CameraEvent();
+	pEvent->SetEvent(XMFLOAT3(-3.0f, 4.25f, 3.0f), XMFLOAT3(-3.0f, 4.25f, 3.0f), 3.0f);
+	m_pCamera[E_CAM_EVENT] = pEvent;
+	CameraDelay* pDelay = new CameraDelay;
+	pDelay->SetCamera(XMFLOAT3(-3.8f, 4.25f, 0.0f), 3.0f, 3.0f);
+	m_pCamera[E_CAM_DELAY] = pDelay;
 	m_pCamera[E_CAM_DEBUG] = new CameraDebug;
 	
 	
@@ -67,6 +75,29 @@ Game3D::~Game3D()
 
 void Game3D::Update()
 {
+	if (m_mainCamera == E_CAM_EVENT)
+	{
+		CameraEvent* pEvent = reinterpret_cast<CameraEvent*>(m_pCamera[m_mainCamera]);
+		if (!pEvent->IsEvent())
+		{
+			m_mainCamera = E_CAM_MAIN;
+			LayerGame* game = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
+			game->SetCamera(m_pCamera[m_mainCamera]);
+			m_pLayer[E_LAYER_GAME] = game;
+		}
+	}
+	else if (m_mainCamera == E_CAM_DELAY)
+	{
+		CameraDelay* pDelay = reinterpret_cast<CameraDelay*>(m_pCamera[m_mainCamera]);
+		if (!pDelay->IsDelay())
+		{
+			m_mainCamera = E_CAM_MAIN;
+			LayerGame* game = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
+			game->SetCamera(m_pCamera[m_mainCamera]);
+			m_pLayer[E_LAYER_GAME] = game;
+		}
+	}
+
 	//ƒJƒƒ‰‚ÌXV
 	m_pCamera[m_mainCamera]->Update();
 

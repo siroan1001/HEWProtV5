@@ -4,6 +4,7 @@
 
 #include "CameraBase.h"
 #include "Player.h"
+#include "Collision.h"
 
 class CameraMain : public CameraBase
 {
@@ -13,8 +14,21 @@ public:
 	void Update()
 	{
 		m_look = m_pPlayer->GetInfo().pos;
-		m_look.x -= 2.0f;
-		m_look.y += 1.0f;
+
+		switch (m_pPlayer->GetDirection())
+		{
+		case Collision::E_DIRECTION_L:
+			m_look.x += 2.0f;
+			m_look.y += 1.0f;
+			break;
+		case Collision::E_DIRECTION_R:
+			m_look.x -= 2.0f;
+			m_look.y += 1.0f;
+			break;
+		default:
+			break;
+		}
+
 		
 		//m_pos.x = cos(m_lateY) * sin(m_lateXZ) * m_radius + m_look.x;
 		//m_pos.y = sin(m_lateY)                 * m_radius + m_look.y;
