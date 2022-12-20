@@ -68,14 +68,14 @@ void Player::Update()
 	//à⁄ìÆèàóù
 	if (IsKeyPress('D'))
 	{
-		m_Move.x -= 0.1f;
+		//m_Move.x -= 0.1f;
 		m_Direction = Collision::E_DIRECTION_R;
 		m_Info.rot.y = -90.0f;
 	}
 		
 	if (IsKeyPress('A'))
 	{
-		m_Move.x += 0.1f;
+		//m_Move.x += 0.1f;
 		m_Direction = Collision::E_DIRECTION_L;
 		m_Info.rot.y = 90.0f;
 	}
