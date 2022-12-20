@@ -9,13 +9,13 @@ Player::Player()
 	//,m_Rot{0.0f, -90.0f, 0.0f}
 	:m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
-	,m_Info{{2.0f, 1.0f, -0.0f}, {0.3f, 1.06f, 0.3f}, {0.0f, -90.0f, 0.0f}}
+	,m_Info{{-5.8f, 3.25f, 0.0f}, {0.3f, 0.424f, 0.3f}, {0.0f, -90.0f, 0.0f}}
 	,m_OldInfo{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
-	//,m_Direction(Collision::E_DIRECTION_NULL)
+	,m_Direction(Collision::E_DIRECTION_R)
 {
 	//モデル読み込み
 	m_pModel = new Model;
-	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.05f))
+	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.02f))
 	{
 		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
 	}
@@ -70,7 +70,7 @@ void Player::Update()
 	//ジャンプ
 	if (IsKeyTrigger(VK_SPACE))
 	{
-		m_Move.y += 0.15f;
+		m_Move.y += 0.10f;
 		m_Ground = false;
 	}
 
