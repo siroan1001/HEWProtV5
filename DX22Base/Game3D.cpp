@@ -39,7 +39,7 @@ Game3D::Game3D()
 	pEvent->SetEvent(XMFLOAT3(-3.0f, 4.25f, 3.0f), XMFLOAT3(-3.0f, 4.25f, 3.0f), 3.0f);
 	m_pCamera[E_CAM_EVENT] = pEvent;
 	CameraDelay* pDelay = new CameraDelay;
-	pDelay->SetCamera(XMFLOAT3(-3.8f, 4.25f, 0.0f), 3.0f, 3.0f);
+	pDelay->SetCamera(XMFLOAT3(-4.3f, 4.25f, 0.0f), 3.0f, 1.0f);
 	m_pCamera[E_CAM_DELAY] = pDelay;
 	m_pCamera[E_CAM_DEBUG] = new CameraDebug;
 	
@@ -92,6 +92,9 @@ void Game3D::Update()
 		if (!pDelay->IsDelay())
 		{
 			m_mainCamera = E_CAM_MAIN;
+			CameraMain* cam = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
+			cam->SetLook(pDelay->GetLook());
+			m_pCamera[E_CAM_MAIN] = cam;
 			LayerGame* game = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
 			game->SetCamera(m_pCamera[m_mainCamera]);
 			m_pLayer[E_LAYER_GAME] = game;

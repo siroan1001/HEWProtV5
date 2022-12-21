@@ -9,30 +9,36 @@
 class CameraMain : public CameraBase
 {
 public:
-	CameraMain() : m_pPlayer(NULL), m_lateXZ(90.0f), m_lateY(0.0f) { m_radius = 3.0f; }
+	CameraMain() : m_pPlayer(NULL), m_lateXZ(90.0f), m_lateY(0.0f), m_LimitX{0.0f, 0.0f}, m_LimitY{ 0.0f, 0.0f }{ m_radius = 3.0f; }
 	~CameraMain() {}
 	void Update()
 	{
-		m_look = m_pPlayer->GetInfo().pos;
-
+		const float LIMIT = 1.5f;
+		XMFLOAT3 Playerpos = m_pPlayer->GetInfo().pos;
 		switch (m_pPlayer->GetDirection())
 		{
 		case Collision::E_DIRECTION_L:
-			m_look.x += 2.0f;
-			m_look.y += 1.0f;
+			
+			m_look.x += 0.1f;
+			if (m_look.x - LIMIT > Playerpos.x)
+			{
+				m_look.x = Playerpos.x + LIMIT;
+			}
+			
 			break;
 		case Collision::E_DIRECTION_R:
-			m_look.x -= 2.0f;
-			m_look.y += 1.0f;
+			m_look.x -= 0.1f;
+			if (m_look.x + LIMIT < Playerpos.x)
+			{
+				m_look.x = Playerpos.x - LIMIT;
+			}
+
 			break;
 		default:
 			break;
 		}
 
-		
-		//m_pos.x = cos(m_lateY) * sin(m_lateXZ) * m_radius + m_look.x;
-		//m_pos.y = sin(m_lateY)                 * m_radius + m_look.y;
-		//m_pos.z = cos(m_lateY) * cos(m_lateXZ) * m_radius + m_look.z;
+		m_look.y = Playerpos.y + 1.0f;
 
 		m_pos.x = m_look.x;
 		m_pos.y = m_look.y;
@@ -42,10 +48,16 @@ public:
 	{
 		m_pPlayer = player;
 	}
+	void SetLook(XMFLOAT3 look)
+	{
+		m_look = look;
+	}
 
 private:
 	float m_lateY, m_lateXZ;
 	Player* m_pPlayer;
+	XMFLOAT2 m_LimitX;	//max,min
+	XMFLOAT2 m_LimitY;	//max,min
 };
 
 #endif // !_____CAMERA_MAIN_H____

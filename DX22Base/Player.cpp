@@ -83,10 +83,10 @@ void Player::Update()
 	switch (m_Direction)
 	{
 	case Collision::E_DIRECTION_L:
-		m_Move.x += 0.01f;
+		m_Move.x += 0.03f;
 		break;
 	case Collision::E_DIRECTION_R:
-		m_Move.x -= 0.01f;
+		m_Move.x -= 0.03f;
 		break;
 	default:
 		break;
