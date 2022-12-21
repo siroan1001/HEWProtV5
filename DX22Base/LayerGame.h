@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Light.h"
 #include "ShadowBlock.h"
+#include "ReverseBlock.h"
 #include "CameraBase.h"
 
 class LayerGame	: public Layer
@@ -29,7 +30,7 @@ private:
 	Light* m_pLight;
 	ShadowBlock* m_pShadowBlock;
 	CameraBase* m_pCamera;
-
+	ReverseBlock* m_pRvsBlock;
 };
 
 #endif // !_____LAYER_GAME_H____

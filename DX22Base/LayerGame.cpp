@@ -19,10 +19,12 @@ LayerGame::LayerGame(CameraBase* camera)
 	m_pPlayer->SetCamera(camera);
 	m_pPlayer->InitDirection(m_pStage->GetNum() + m_pShadowBlock->GetNum());
 
+	m_pRvsBlock = new ReverseBlock;
 }
 
 LayerGame::~LayerGame()
 {
+	delete m_pRvsBlock;
 	delete m_pLight;
 	delete m_pShadowBlock;
 	delete m_pPlayer;
@@ -52,6 +54,8 @@ void LayerGame::Draw()
 
 	//シャドウブロックの描画
 	m_pShadowBlock->Draw();
+
+	m_pRvsBlock->Draw();
 
 	//ライトの描画
 	m_pLight->Draw();
@@ -131,7 +135,7 @@ void LayerGame::CheckCollision()
 				break;
 			}
 			m_pPlayer->SetPos(pos);		//補正した値をプレイヤーに反映
-			m_pPlayer->SetDirection(dire, num);		//どの方向に当たったかを保持する
+			m_pPlayer->SetStageCollisionDirection(dire, num);		//どの方向に当たったかを保持する
 
 		}
 	}
@@ -199,7 +203,7 @@ void LayerGame::CheckCollision()
 						break;
 					}
 					m_pPlayer->SetPos(pos);		//プレイヤーに反映
-					m_pPlayer->SetDirection(dire, num);		//当たった方向を保持
+					m_pPlayer->SetStageCollisionDirection(dire, num);		//当たった方向を保持
 				}
 			}
 			else if (!init->use)
@@ -216,5 +220,13 @@ void LayerGame::CheckCollision()
 			}
 		}
 
+	}
+
+	for (int i = 0; i < m_pRvsBlock->GetNum(); i++)
+	{
+		if (Collision::RectAndRect(m_pPlayer->GetInfo(), m_pRvsBlock->GetInfo(i)))
+		{
+			m_pPlayer->SetDirection(m_pRvsBlock->GetDirection(i));
+		}
 	}
 }

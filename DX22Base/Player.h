@@ -44,7 +44,8 @@ public:
 	Stage::Info GetOldInfo();
 	Collision::Direction GetDirection();
 	Collision::Direction GetStageCollistonDirection(int num);
-	void SetDirection(Collision::Direction, int i);
+	void SetStageCollisionDirection(Collision::Direction dire, int num);
+	void SetDirection(Collision::Direction);
 
 
 private:

@@ -182,8 +182,25 @@ Collision::Direction Player::GetStageCollistonDirection(int num)
 	return m_StageDire[num];
 }
 
-void Player::SetDirection(Collision::Direction dire, int num)
+void Player::SetStageCollisionDirection(Collision::Direction dire, int num)
 {
 	m_StageDire[num] = dire;
+}
+
+void Player::SetDirection(Collision::Direction dire)
+{
+	m_Direction = dire;
+
+	switch (m_Direction)
+	{
+	case Collision::E_DIRECTION_L:
+		m_Info.rot.y =  90.0f;
+		break;
+	case Collision::E_DIRECTION_R:
+		m_Info.rot.y = -90.0f;
+		break;
+	default:
+		break;
+	}
 }
 
