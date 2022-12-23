@@ -34,10 +34,11 @@ public:
 	void SetShadowBlock(Stage::Info info);
 	void SetUse(XMFLOAT2 num, bool flag);
 	std::vector<std::vector<SmallBlockTemp>>* GetInfo();
+	int GetNum();
 
 
 private:
-	const Stage::Info m_BlockBase = { { 999.0f, 999.0f, 0.0f }, { 0.03f, 0.03f, 0.5f }, { 0.0f, 0.0f, 0.0f } };
+	const Stage::Info m_BlockBase = { { 999.0f, 999.0f, 0.0f }, { 0.02f, 0.02f, 0.5f }, { 0.0f, 0.0f, 0.0f } };
 		//×‚©‚­•À‚×‚ç‚ê‚éƒuƒƒbƒN‚Ìî•ñ
 	
 

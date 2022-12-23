@@ -5,8 +5,7 @@
 #include "Input.h"
 #include "Game3D.h"
 #include "Geometory.h"
-
-//aaaa
+#include "Sprite.h"
 
 //--- ’è”’è‹`
 const unsigned int SCREEN_WIDTH = 1280;
@@ -42,11 +41,15 @@ void Init()
 	{
 		Error("geometory initialize failed.");
 	}
+
+	Sprite::Init();
+
 	g_pGame = new Game3D();
 }
 void Uninit()
 {
 	delete g_pGame;
+	Sprite::Uninit();
 	UninitGeometory();
 	UninitInput();
 	UninitTexture();

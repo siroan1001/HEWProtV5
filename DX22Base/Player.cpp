@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Input.h"
+#include "Collision.h"
 
 //using namespace DirectX;
 
@@ -8,11 +9,13 @@ Player::Player()
 	//,m_Rot{0.0f, -90.0f, 0.0f}
 	:m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
-	,m_Info{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
+	,m_Info{{-5.8f, 3.25f, 0.0f}, {0.3f, 0.424f, 0.3f}, {0.0f, -90.0f, 0.0f}}
+	,m_OldInfo{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
+	,m_Direction(Collision::E_DIRECTION_R)
 {
 	//モデル読み込み
 	m_pModel = new Model;
-	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.05f))
+	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.02f))
 	{
 		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
 	}
@@ -44,80 +47,42 @@ Player::~Player()
 
 void Player::Update()
 {
-	////定数定義
-	//const float PLAYER_MOVE = 0.1f;
-
-	////ローカル変数宣言
-	//XMFLOAT3 CamPos = m_pCamera->GetPos();		//カメラPos
-	//XMFLOAT3 CamLook = m_pCamera->GetLook();	//カメラLook
-	//CamPos.y = CamLook.y = 0.0f;
-	//XMVECTOR vCamPos = XMLoadFloat3(&CamPos);	//カメラPosをVectorに置き換える
-	//XMVECTOR vCamLook = XMLoadFloat3(&CamLook);	//カメラLookをVectorに置き換える
-
-	//XMVECTOR vFroat;		//カメラの正面方向のベクトル
-	//vFroat = vCamLook - vCamPos;
-	//vFroat = XMVector3Normalize(vFroat);		//正規化
-
-	//XMMATRIX matRotSide = XMMatrixRotationY(XMConvertToRadians(90.0f));		//Y軸に90度（右方向）に回転する回転行列を生成
-	//matRotSide = XMMatrixTranspose(matRotSide);
-	//XMVECTOR vSide = XMVector3TransformCoord(vFroat, matRotSide);	//正面方向のベクトルを90度回転させて
-	//																//真横のベクトルをとる
-
-	//XMMATRIX matRotUp = XMMatrixRotationX(XMConvertToRadians(90.0f));
-
 	//移動量カット
 	m_Move = { 0.0f, m_Move.y, 0.0f };
 
+	//前フレームのポジションを保持
+	m_OldInfo = m_Info;
+
 	//移動処理
-	//XMVECTOR vMove = XMVectorZero();	//初期化
-	//if (IsKeyPress('W'))	vMove += vFroat;	//前
-	//if (IsKeyPress('S'))	vMove -= vFroat;	//後ろ
-	//if (IsKeyPress('A'))	
-	//	vMove -= vSide;		//左
-	//if (IsKeyPress('D'))	vMove += vSide;		//右
-	//vMove = XMVectorScale(vMove, 0.2f);		//定数倍かけて移動の大きさを適切にする
-
-	//XMFLOAT3 move;	//Posに反映させるための変数
-	//XMStoreFloat3(&move, vMove);	//XMVECTORをXMFLOAT3に置き換える
-
-	if (IsKeyPress('D'))	m_Move.x -= 0.1f;
+	if (IsKeyPress('D'))	
+		m_Move.x -= 0.1f;
 	if (IsKeyPress('A'))	m_Move.x += 0.1f;
 
 	// 自動移動
-	m_Move.x -= 0.02f;
+	//m_Move.x -= 0.01f;
 
-	// Rキーで停止 (デバッグ用
-	if (IsKeyPress('R')) m_Info.pos = {2.0f, 1.0f, -0.0f};
-
-
-
-/*
-	
-	m_Move.x += move.x;
-	m_Move.y += move.y;
-	m_Move.z += move.z;
-*/
+	// Rキーでリスポーンする (デバッグ用
+#ifdef DEBUG
+	if (IsKeyPress('R')) m_Info.pos = { 2.0f, 1.0f, -0.0f };
+#endif // DEBUG
 
 	
 	//ジャンプ
 	if (IsKeyTrigger(VK_SPACE))
 	{
-		m_Move.y += 0.15f;
+		m_Move.y += 0.10f;
 		m_Ground = false;
 	}
-
-	//if (!m_Ground)
-	//{
-	//	
-	//}
 
 	//重力加算
 	m_Move.y -= 0.01f;
 
+	//移動量反映
 	m_Info.pos.x += m_Move.x;
 	m_Info.pos.y += m_Move.y;
 	m_Info.pos.z += m_Move.z;
 
+	//落下後処理
 	if (m_Info.pos.y < -50.0f)
 	{
 		m_Info.pos.y = 5.0f;
@@ -150,6 +115,16 @@ void Player::SetPos(XMFLOAT3 pos)
 	m_Info.pos = pos;
 }
 
+void Player::InitDirection(int num)
+{
+	//m_StageDire.
+	for (int i = 0; i < num; i++)
+	{
+		
+		m_StageDire.push_back(Collision::E_DIRECTION_NULL);
+	}
+}
+
 void Player::ResetMove()
 {
 	m_Move.y = 0.0f;
@@ -158,5 +133,20 @@ void Player::ResetMove()
 Stage::Info Player::GetInfo()
 {
 	return m_Info;
+}
+
+Stage::Info Player::GetOldInfo()
+{
+	return m_OldInfo;
+}
+
+Collision::Direction Player::GetDirection(int num)
+{
+	return m_StageDire[num];
+}
+
+void Player::SetDirection(Collision::Direction dire, int num)
+{
+	m_StageDire[num] = dire;
 }
 
