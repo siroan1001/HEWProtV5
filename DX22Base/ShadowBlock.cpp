@@ -1,14 +1,17 @@
 #include "ShadowBlock.h"
 #include "ShadowBillBoard.h"
+#include "Geometory.h"
 
 using namespace std;
 
-ShadowBlock::ShadowBlock()
+ShadowBlock::ShadowBlock(Object::Info info)
 {
 	m_BlockInfo.Info.pos = { 999.0f, 999.0f, 0.0f };
 	m_BlockInfo.Info.size = { 0.5f, 0.5f, 0.5f };
 	m_BlockInfo.Info.rot = { 0.0f, 0.0f, 0.0f };
 	m_BlockInfo.xy = { 0.0f, 0.0f };
+
+	SetShadowBlock(info);
 }
 
 ShadowBlock::~ShadowBlock()
@@ -18,9 +21,9 @@ ShadowBlock::~ShadowBlock()
 
 void ShadowBlock::Update()
 {
-	for (std::vector<std::vector<SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
 	{
-		for (std::vector<SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
+		for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
 		{
 			if (init->life >= 30.0f)	continue;
 
@@ -37,33 +40,21 @@ void ShadowBlock::Update()
 
 void ShadowBlock::Draw()
 {
-	//for (int i = 0; i < m_BlockInfo.size(); i++)
-	//{
-
-
-	//	if (!m_BlockInfo[i].use)	continue;
-
-	//	SetGeometoryTranslate(m_BlockInfo[i].Info.pos.x, m_BlockInfo[i].Info.pos.y, m_BlockInfo[i].Info.pos.z);
-	//	SetGeometoryScaling(m_BlockInfo[i].Info.size.x, m_BlockInfo[i].Info.size.y, m_BlockInfo[i].Info.size.z);
-	//	SetGeometoryRotation(m_BlockInfo[i].Info.rot.x, m_BlockInfo[i].Info.rot.y, m_BlockInfo[i].Info.rot.z);
-	//	DrawBox();
-	//}
-
-	vector<Stage::Info>	block;		//描画用のデータを格納
-	Stage::Info info;		//計算用
+	vector<Object::Info>	block;		//描画用のデータを格納
+	Object::Info info;		//計算用
 	float PosL;		//ブロックの左端を示す
 	int count;
 
-	for (std::vector<std::vector<SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
 	{
 		info = m_BlockBase;
 		info.pos.y = it->begin()->Info.pos.y;
 		count = 0;
 		//info.size.x = 0.0f;
 		PosL = it->begin()->Info.pos.x + it->begin()->Info.size.x / 2.0f;
-		std::vector<SmallBlockTemp>::iterator end = it->end();		//横列の最後の要素を指す
+		std::vector<ShadowBlock::SmallBlockTemp>::iterator end = it->end();		//横列の最後の要素を指す
 		end--;
-		for (std::vector<SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
+		for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
 		{
 			if (init == end)
 			{
@@ -83,7 +74,7 @@ void ShadowBlock::Draw()
 			{
 				if (count <= 0)
 				{
-					vector<SmallBlockTemp>::iterator next = init;
+					vector<ShadowBlock::SmallBlockTemp>::iterator next = init;
 					next++;
 					PosL = next->Info.pos.x + next->Info.size.x / 2.0f;
 					continue;
@@ -95,7 +86,7 @@ void ShadowBlock::Draw()
 					block.push_back(info);
 					info = m_BlockBase;
 					//infoの次を示した場所の左端をposLに入れる
-					vector<SmallBlockTemp>::iterator next = init;
+					vector<ShadowBlock::SmallBlockTemp>::iterator next = init;
 					info.pos.y = it->begin()->Info.pos.y;
 					next++;
 					PosL = next->Info.pos.x + next->Info.size.x / 2.0f;
@@ -105,7 +96,7 @@ void ShadowBlock::Draw()
 		}
 	}
 
-	for (vector<Stage::Info>::iterator it = block.begin(); it != block.end(); ++it)
+	for (vector<Object::Info>::iterator it = block.begin(); it != block.end(); ++it)
 	{
 		SetGeometoryTranslate(it->pos.x, it->pos.y, it->pos.z);
 		SetGeometoryScaling(it->size.x, it->size.y, it->size.z);
@@ -122,7 +113,7 @@ void ShadowBlock::Draw()
 	//}
 }
 
-void ShadowBlock::SetShadowBlock(Stage::Info info)
+void ShadowBlock::SetShadowBlock(Object::Info info)
 {
 	m_BlockInfo.Info = info;
 	m_BlockInfo.xy.x = m_BlockInfo.Info.size.x / m_BlockBase.size.x;
@@ -130,19 +121,19 @@ void ShadowBlock::SetShadowBlock(Stage::Info info)
 
 	for (int i = 0; i < m_BlockInfo.xy.y; i++)
 	{
-		std::vector<SmallBlockTemp> tempVec;
+		std::vector<ShadowBlock::SmallBlockTemp> tempVec;
 		vector<ShadowBillBoard*> tempb;
 
 		for (int j = 0; j < m_BlockInfo.xy.x; j++)
 		{
-			SmallBlockTemp temp = { m_BlockBase, true, 30.0f};
+			ShadowBlock::SmallBlockTemp temp = { m_BlockBase, true, 30.0f};
 			temp.Info.pos = { m_BlockInfo.Info.pos.x - m_BlockBase.size.x * j, m_BlockInfo.Info.pos.y - m_BlockBase.size.y * i, m_BlockInfo.Info.pos.z };//ブロックのサイズ分ずらす
 
 			tempVec.push_back(temp);
 			tempb.push_back(new ShadowBillBoard(temp.Info.pos));
 		}
 		m_SmallBlockInfo.push_back(tempVec);
-		m_BillBoard.push_back(tempb);
+		//m_BillBoard.push_back(tempb);
 	}
 
 	
@@ -165,7 +156,7 @@ int ShadowBlock::GetNum()
 {
 	int num = 0;
 
-	for (std::vector<std::vector<SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
 	{
 		num += it->size();
 	}

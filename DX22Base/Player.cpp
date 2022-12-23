@@ -162,12 +162,12 @@ void Player::ResetMove()
 	m_Move.y = 0.0f;
 }
 
-Stage::Info Player::GetInfo()
+Object::Info Player::GetInfo()
 {
 	return m_Info;
 }
 
-Stage::Info Player::GetOldInfo()
+Object::Info Player::GetOldInfo()
 {
 	return m_OldInfo;
 }

@@ -13,11 +13,11 @@ public:
 	void Draw();
 
 	float GetRadius();
-	Stage::Info GetInfo();
+	Object::Info GetInfo();
 	float GetPower();
 
 private:
-	Stage::Info m_Info;
+	Object::Info m_Info;
 	float m_Power;
 
 };

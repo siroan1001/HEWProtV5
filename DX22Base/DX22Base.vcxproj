@@ -168,6 +168,7 @@
     <ClCompile Include="MeshBuffer.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Model_Contents.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ReverseBlock.cpp" />
     <ClCompile Include="SamplerState.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="MeshBuffer.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ReverseBlock.h" />
     <ClInclude Include="SamplerState.h" />

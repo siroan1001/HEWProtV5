@@ -47,7 +47,7 @@ float Light::GetRadius()
 	return GetCylinderRadius() * m_Info.size.x;
 }
 
-Stage::Info Light::GetInfo()
+Object::Info Light::GetInfo()
 {
 	return m_Info;
 }

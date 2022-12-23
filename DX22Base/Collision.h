@@ -38,12 +38,12 @@ public:
 	};
 
 public:
-	static bool RectAndRect(Stage::Info, Stage::Info);			// 四角形同士の衝突判定を行う関数
-	static Direction RectAndRectDirection(Stage::Info, Stage::Info, Stage::Info, Direction);			// 四角形同士の衝突判定を行う関数(四角１の今ポジ、四角１の後ポジ、四角２の今ポジ、四角２の後ポジ)
-	static bool RectAndCircle(Stage::Info, Stage::Info, float);// 四角形と円の衝突判定を行う関数(２つ目の引数に円の情報を入れること)
-	static bool CircleAndCircle(Stage::Info, Stage::Info, float, float);		// 円同士の衝突判定を行う関数
+	static bool RectAndRect(Object::Info, Object::Info);			// 四角形同士の衝突判定を行う関数
+	static Direction RectAndRectDirection(Object::Info, Object::Info, Object::Info, Direction);			// 四角形同士の衝突判定を行う関数(四角１の今ポジ、四角１の後ポジ、四角２の今ポジ、四角２の後ポジ)
+	static bool RectAndCircle(Object::Info, Object::Info, float);// 四角形と円の衝突判定を行う関数(２つ目の引数に円の情報を入れること)
+	static bool CircleAndCircle(Object::Info, Object::Info, float, float);		// 円同士の衝突判定を行う関数
 	static float DistanceSqrf(const float, const float, const float, const float);
-	static Direction LineAndLine(Stage::Info Obj1, Stage::Info Obj2);
+	static Direction LineAndLine(Object::Info Obj1, Object::Info Obj2);
 
 
 private:

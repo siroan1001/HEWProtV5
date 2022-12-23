@@ -40,8 +40,8 @@ public:
 	void ResetMove();
 
 	//XMFLOAT3 GetPos();
-	Stage::Info GetInfo();
-	Stage::Info GetOldInfo();
+	Object::Info GetInfo();
+	Object::Info GetOldInfo();
 	Collision::Direction GetDirection();
 	Collision::Direction GetStageCollistonDirection(int num);
 	void SetStageCollisionDirection(Collision::Direction dire, int num);
@@ -52,8 +52,8 @@ private:
 	CameraBase* m_pCamera;
 	//XMFLOAT3 m_Pos;
 	//XMFLOAT3 m_Rot;
-	Stage::Info m_Info;
-	Stage::Info m_OldInfo;
+	Object::Info m_Info;
+	Object::Info m_OldInfo;
 	Model* m_pModel;
 	VertexShader* m_pVS;
 	ConstantBuffer* m_pWVP;

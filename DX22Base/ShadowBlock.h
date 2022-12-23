@@ -4,48 +4,48 @@
 #define _____SHADOW_BLOCK_H____
 
 #include <DirectXMath.h>
-#include "Stage.h"
+//#include "Stage.h"
+#include "Object.h"
 #include <vector>
-#include "ShadowBillBoard.h"
+//#include "ShadowBillBoard.h"
 
 using namespace DirectX;
+using namespace std;
 
 class ShadowBlock
 {
 public:
 	struct BlockTemp
 	{
-		Stage::Info Info;		//塊の情報
+		Object::Info Info;		//塊の情報
 		XMFLOAT2 xy;			//縦横の小さいブロックの数
 	};
 
 	struct SmallBlockTemp
 	{
-		Stage::Info Info;		//小さいブロックの情報
+		Object::Info Info;		//小さいブロックの情報
 		bool use;				//使っているかのフラグ
 		float life;
 	};
 
 public:
-	ShadowBlock();
+	ShadowBlock(Object::Info info);
 	~ShadowBlock();
 	void Update();
 	void Draw();
 
-	void SetShadowBlock(Stage::Info info);
+	void SetShadowBlock(Object::Info info);
 	void SetUse(XMFLOAT2 num, bool flag);
 	std::vector<std::vector<SmallBlockTemp>>* GetInfo();
 	int GetNum();
 
 
 private:
-	const Stage::Info m_BlockBase = { { 999.0f, 999.0f, 0.0f }, { 0.02f, 0.02f, 0.5f }, { 0.0f, 0.0f, 0.0f } };
-	const Billboard::Info m_Billboard = { { 999.0f, 999.0f, 1.0f }, { 0.04f, 0.04f } };
+	const Object::Info m_BlockBase = { { 999.0f, 999.0f, 0.0f }, { 0.02f, 0.02f, 0.5f }, { 0.0f, 0.0f, 0.0f } };
+	//const Billboard::Info m_Billboard = { { 999.0f, 999.0f, 1.0f }, { 0.04f, 0.04f } };
 		//細かく並べられるブロックの情報
 	BlockTemp m_BlockInfo;		//全体の情報
-	vector<vector<SmallBlockTemp>> m_SmallBlockInfo;		//並び順や場所の情報を動的に確保
-	vector<vector<ShadowBillBoard*>> m_BillBoard;
-
+	vector<vector<ShadowBlock::SmallBlockTemp>> m_SmallBlockInfo;		//並び順や場所の情報を動的に確保
 };
 
 #endif // !_____SHADOW_BLOCK_H____
