@@ -15,6 +15,7 @@ LayerGame::LayerGame(CameraBase* camera)
 	m_pShadowBlock->SetShadowBlock(info);
 
 	m_pLight = new Light;
+	m_pLight->SetCamera(camera);
 
 	m_pPlayer->SetCamera(camera);
 	m_pPlayer->InitDirection(m_pStage->GetNum() + m_pShadowBlock->GetNum());
@@ -66,6 +67,7 @@ Player * LayerGame::GetPlayer()
 void LayerGame::SetCamera(CameraBase * camera)
 {
 	m_pCamera = camera;
+	m_pLight->SetCamera(m_pCamera);
 	m_pPlayer->SetCamera(m_pCamera);
 }
 
