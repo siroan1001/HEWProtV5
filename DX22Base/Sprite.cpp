@@ -57,7 +57,7 @@ struct PS_IN {
 Texture2D tex : register(t0);
 SamplerState samp : register(s0);
 float4 main(PS_IN pin) : SV_TARGET {
-	return tex.Sample(samp, pin.uv) * pin.color;	
+	return tex.Sample(samp, pin.uv) * pin.color;
 })EOT";
 
 	struct Vertex
@@ -71,7 +71,7 @@ float4 main(PS_IN pin) : SV_TARGET {
 		{{ 0.5f,-0.5f, 0.0f}, {1.0f, 1.0f}},
 	};
 
-	// メッシュ	
+	// メッシュ
 	MeshBuffer::Description desc = {};
 	desc.pVtx = vtx;
 	desc.vtxSize = sizeof(Vertex);

@@ -4,18 +4,18 @@
 
 //using namespace DirectX;
 
-Player::Player()
+Player::Player(Collision::Direction dire)
 	//:m_Pos{2.0f, -1.0f, 0.0f}
 	//,m_Rot{0.0f, -90.0f, 0.0f}
 	:m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
-	,m_Info{{2.0f, 1.0f, -0.0f}, {0.3f, 1.06f, 0.3f}, {0.0f, -90.0f, 0.0f}}
+	,m_Info{{-7.6f, 3.25f, 0.0f}, {0.3f, 0.424f, 0.3f}, {0.0f, -90.0f, 0.0f}}
 	,m_OldInfo{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
-	//,m_Direction(Collision::E_DIRECTION_NULL)
+	,m_Direction(dire)
 {
 	//モデル読み込み
 	m_pModel = new Model;
-	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.05f))
+	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.02f))
 	{
 		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
 	}
@@ -36,6 +36,18 @@ Player::Player()
 	{
 		MessageBox(NULL, "pWVP作成失敗", "エラー", MB_OK);
 	}
+
+	switch (m_Direction)
+	{
+	case Collision::E_DIRECTION_L:
+		m_Info.rot.y = 90.0f;
+		break;
+	case Collision::E_DIRECTION_R:
+		m_Info.rot.y = -90.0f;
+		break;
+	default:
+		break;
+	}
 }
 
 Player::~Player()
@@ -54,13 +66,33 @@ void Player::Update()
 	m_OldInfo = m_Info;
 
 	//移動処理
-	if (IsKeyPress('D'))	
-		m_Move.x -= 0.1f;
-	if (IsKeyPress('A'))	m_Move.x += 0.1f;
-
+	if (IsKeyPress('D'))
+	{
+		//m_Move.x -= 0.1f;
+		m_Direction = Collision::E_DIRECTION_R;
+		m_Info.rot.y = -90.0f;
+	}
+		
+	if (IsKeyPress('A'))
+	{
+		//m_Move.x += 0.1f;
+		m_Direction = Collision::E_DIRECTION_L;
+		m_Info.rot.y = 90.0f;
+	}
 	// 自動移動
-	//m_Move.x -= 0.01f;
+	switch (m_Direction)
+	{
+	case Collision::E_DIRECTION_L:
+		m_Move.x += 0.03f;
+		break;
+	case Collision::E_DIRECTION_R:
+		m_Move.x -= 0.03f;
+		break;
+	default:
+		break;
+	}
 
+	
 	// Rキーでリスポーンする (デバッグ用
 #ifdef DEBUG
 	if (IsKeyPress('R')) m_Info.pos = { 2.0f, 1.0f, -0.0f };
@@ -70,7 +102,7 @@ void Player::Update()
 	//ジャンプ
 	if (IsKeyTrigger(VK_SPACE))
 	{
-		m_Move.y += 0.15f;
+		m_Move.y += 0.10f;
 		m_Ground = false;
 	}
 
@@ -140,13 +172,35 @@ Stage::Info Player::GetOldInfo()
 	return m_OldInfo;
 }
 
-Collision::Direction Player::GetDirection(int num)
+Collision::Direction Player::GetDirection()
+{
+	return m_Direction;
+}
+
+Collision::Direction Player::GetStageCollistonDirection(int num)
 {
 	return m_StageDire[num];
 }
 
-void Player::SetDirection(Collision::Direction dire, int num)
+void Player::SetStageCollisionDirection(Collision::Direction dire, int num)
 {
 	m_StageDire[num] = dire;
+}
+
+void Player::SetDirection(Collision::Direction dire)
+{
+	m_Direction = dire;
+
+	switch (m_Direction)
+	{
+	case Collision::E_DIRECTION_L:
+		m_Info.rot.y =  90.0f;
+		break;
+	case Collision::E_DIRECTION_R:
+		m_Info.rot.y = -90.0f;
+		break;
+	default:
+		break;
+	}
 }
 

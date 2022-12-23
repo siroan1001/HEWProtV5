@@ -3,46 +3,99 @@
 #include "Input.h"
 
 Stage::Stage()
-	:m_pBlocks(nullptr), m_blockNum(4)
+	:m_blockNum(11)
 {
-	m_pBlocks = new Info[m_blockNum];
+	Info info;
 
-	m_pBlocks[0].pos = { 0.0f, -1.5f, 0.0f };
-	m_pBlocks[0].size = { 9.0f, 1.0f, 0.5f };
-	m_pBlocks[0].rot = { 0.0f, 0.0f, 0.0f };
+	//床(下)
+	info.pos = { 3.8f, -2.5f, 0.0f };
+	info.size = { 20.5f, 0.5f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
 
-	m_pBlocks[1].pos = { -2.0f, -0.25f, 0.0f };
-	m_pBlocks[1].size = { 2.0f, 1.5f, 0.5f };
-	m_pBlocks[1].rot = { 0.0f, 0.0f, 0.0f };
+	//床(真ん中)
+	info.pos = { 1.7f, 0.2f, 0.0f };
+	info.size = { 10.9f, 0.5f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
 
-	m_pBlocks[2].pos = { -3.75f, 0.0f, 0.0f };
-	m_pBlocks[2].size = { 1.5f, 2.0f, 0.5f };
-	m_pBlocks[2].rot = { 0.0f, 0.0f, 0.0f };
+	//床(上)
+	info.pos = { -2.2f, 3.0f, 0.0f };
+	info.size = { 13.5f, 0.5f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
 
-	m_pBlocks[3].pos = { 1.0f, 0.8f, 0.0f };
-	m_pBlocks[3].size = { 0.5f, 0.2f, 0.3f };
-	m_pBlocks[3].rot = { 0.0f, 0.0f, 0.0f };
+	//壁(左)
+	info.pos = { -6.2f, 0.35f, 0.0f };
+	info.size = { 0.5f, 5.7f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
+
+	//壁(右)
+	info.pos = { 6.9f, 2.9f, 0.0f };
+	info.size = { 0.5f, 5.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
+
+	//オブジェクト1(上)
+	info.pos = { -2.0f, 3.75f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
+
+	//オブジェクト2(上)
+	info.pos = { 0.7f, 3.75f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
+
+	//オブジェクト3(真ん中)
+	info.pos = { 0.0f, 0.95f, 0.0f };
+	info.size = { 3.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
+
+	//オブジェクト4(下)
+	info.pos = { -0.7f, -1.75f, 0.0f };
+	info.size = { 3.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
+
+	//オブジェクト5(下)
+	info.pos = { 5.0f, -1.75f, 0.0f };
+	info.size = { 2.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
+
+	//オブジェクト6(下)
+	info.pos = { 9.5f, -1.55f, 0.0f };
+	info.size = { 2.0f, 1.5f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
 }
 
 Stage::~Stage()
 {
-	delete[] m_pBlocks;
+	m_Info.clear();
 }
 
 void Stage::Draw()
 {
-	for (int i = 0; i < m_blockNum; ++i)
+
+
+	for (int i = 0; i < m_blockNum; i++)
 	{
-		SetGeometoryTranslate(m_pBlocks[i].pos.x, m_pBlocks[i].pos.y, m_pBlocks[i].pos.z);
-		SetGeometoryScaling(m_pBlocks[i].size.x, m_pBlocks[i].size.y, m_pBlocks[i].size.z);
-		SetGeometoryRotation(m_pBlocks[i].rot.x, m_pBlocks[i].rot.y, m_pBlocks[i].rot.z);
+		SetGeometoryTranslate(m_Info[i].pos.x, m_Info[i].pos.y, m_Info[i].pos.z);
+		SetGeometoryScaling(m_Info[i].size.x, m_Info[i].size.y, m_Info[i].size.z);
+		SetGeometoryRotation(m_Info[i].rot.x, m_Info[i].rot.y, m_Info[i].rot.z);
 		DrawBox();
 	}
+	
 }
 
 Stage::Info Stage::GetInfo(int num)
 {
-	return m_pBlocks[num];
+	return m_Info[num];
 }
 
 int Stage::GetNum()

@@ -3,8 +3,8 @@
 #include "DirectXTex/Texture.h"
 
 Fade::Fade():
-	m_color{ 0.0f, 0.0f ,0.0f, 1.0f }
-	,m_state (FADE_IN)
+	m_color{ 0.0f, 0.0f ,0.0f, 0.0f }
+	,m_state (FADE_NONE)
 {
 	m_pFadePS = new PixelShader;
 	m_pFadePS->Load("Assets/Shader/FadePS.cso");

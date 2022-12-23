@@ -28,7 +28,7 @@ public:
 	static void SetDefaultPixelShader();
 	static void SetVertexShader(VertexShader* pVS);
 	static void SetPixelShader(PixelShader* pPS);
-	
+
 private:
 	static MeshBuffer* m_pMesh;
 	static ConstantBuffer* m_pBuf[2];
@@ -39,7 +39,6 @@ private:
 	static PixelShader* m_pPS;
 	static VertexShader* m_pDefVS;
 	static PixelShader* m_pDefPS;
-	
 };
 
 #endif // __SPRITE_H__
