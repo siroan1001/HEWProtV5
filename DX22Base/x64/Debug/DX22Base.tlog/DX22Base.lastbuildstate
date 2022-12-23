@@ -1,2 +1,6 @@
 #TargetFrameworkVersion=v4.0:PlatformToolSet=v141:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=10.0.17763.0
+<<<<<<< HEAD
 Debug|x64|C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\|
+=======
+Debug|x64|C:\Users\User\Documents\HEWProtV5\|
+>>>>>>> ac2134cd9d83271d447db8d7b2a486ede6caf136

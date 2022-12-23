@@ -8,7 +8,7 @@ LayerGame::LayerGame(CameraBase* camera)
 	m_pStage = new Stage;
 
 	//プレイヤーの生成
-	m_pPlayer = new Player;
+	m_pPlayer = new Player(Collision::E_DIRECTION_L);
 
 	m_pShadowBlock = new ShadowBlock;
 	Stage::Info info = { {0.0f, 0.5f, 0.0f}, {1.0f, 1.5f, 1.0f}, {0.0f, 0.0f, 0.0f} };
@@ -19,10 +19,12 @@ LayerGame::LayerGame(CameraBase* camera)
 	m_pPlayer->SetCamera(camera);
 	m_pPlayer->InitDirection(m_pStage->GetNum() + m_pShadowBlock->GetNum());
 
+	m_pRvsBlock = new ReverseBlock;
 }
 
 LayerGame::~LayerGame()
 {
+	delete m_pRvsBlock;
 	delete m_pLight;
 	delete m_pShadowBlock;
 	delete m_pPlayer;
@@ -52,6 +54,8 @@ void LayerGame::Draw()
 
 	//シャドウブロックの描画
 	m_pShadowBlock->Draw();
+
+	m_pRvsBlock->Draw();
 
 	//ライトの描画
 	m_pLight->Draw();
@@ -106,7 +110,7 @@ void LayerGame::CheckCollision()
 
 
 		//どの方向に当たったかを確認する
-		if (Collision::Direction dire = Collision::RectAndRectDirection(player, Oplayer, stage, m_pPlayer->GetDirection(num)))
+		if (Collision::Direction dire = Collision::RectAndRectDirection(player, Oplayer, stage, m_pPlayer->GetStageCollistonDirection(num)))
 		{
 			//補正用pos(足元)
 			XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
@@ -131,7 +135,7 @@ void LayerGame::CheckCollision()
 				break;
 			}
 			m_pPlayer->SetPos(pos);		//補正した値をプレイヤーに反映
-			m_pPlayer->SetDirection(dire, num);		//どの方向に当たったかを保持する
+			m_pPlayer->SetStageCollisionDirection(dire, num);		//どの方向に当たったかを保持する
 
 		}
 	}
@@ -150,7 +154,7 @@ void LayerGame::CheckCollision()
 				Stage::Info Oplayer = m_pPlayer->GetOldInfo();		//前フレームの情報
 				Oplayer.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
-				if (Collision::Direction dire = Collision::RectAndRectDirection(player, Oplayer, shadow, m_pPlayer->GetDirection(num)))
+				if (Collision::Direction dire = Collision::RectAndRectDirection(player, Oplayer, shadow, m_pPlayer->GetStageCollistonDirection(num)))
 				{
 					//補正用pos
 					XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
@@ -199,7 +203,7 @@ void LayerGame::CheckCollision()
 						break;
 					}
 					m_pPlayer->SetPos(pos);		//プレイヤーに反映
-					m_pPlayer->SetDirection(dire, num);		//当たった方向を保持
+					m_pPlayer->SetStageCollisionDirection(dire, num);		//当たった方向を保持
 				}
 			}
 			else if (!init->use)
@@ -216,5 +220,13 @@ void LayerGame::CheckCollision()
 			}
 		}
 
+	}
+
+	for (int i = 0; i < m_pRvsBlock->GetNum(); i++)
+	{
+		if (Collision::RectAndRect(m_pPlayer->GetInfo(), m_pRvsBlock->GetInfo(i)))
+		{
+			m_pPlayer->SetDirection(m_pRvsBlock->GetDirection(i));
+		}
 	}
 }

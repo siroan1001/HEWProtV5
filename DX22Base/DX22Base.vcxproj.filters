@@ -120,6 +120,9 @@
     <ClCompile Include="BG.cpp">
       <Filter>ソース ファイル\DX22</Filter>
     </ClCompile>
+    <ClCompile Include="ReverseBlock.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -162,9 +165,6 @@
       <Filter>ヘッダー ファイル\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
     <ClInclude Include="CameraBase.h">
@@ -213,6 +213,12 @@
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
     <ClInclude Include="BG.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraDelay.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="ReverseBlock.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
   </ItemGroup>

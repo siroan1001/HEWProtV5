@@ -15,6 +15,8 @@ public:
 	enum CameraKind
 	{
 		E_CAM_MAIN = 0,
+		E_CAM_EVENT,
+		E_CAM_DELAY,
 		E_CAM_DEBUG,
 
 		E_CAM_MAX

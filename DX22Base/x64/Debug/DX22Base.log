@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  BG.cpp
   Collision.cpp
   controller.cpp
@@ -28,3 +29,7 @@ DirectXTex_vs2017_x64D.lib(DirectXTexTGA.obj) : warning LNK4099: PDB 'DirectXTex
 DirectXTex_vs2017_x64D.lib(DirectXTexUtil.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexUtil.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 DirectXTex_vs2017_x64D.lib(DirectXTexWIC.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexWIC.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
   DX22Base.vcxproj -> C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DX22Base.exe
+=======
+﻿  Player.cpp
+  DX22Base.vcxproj -> C:\Users\User\Documents\HEWProtV5\x64\Debug\DX22Base.exe
+>>>>>>> ac2134cd9d83271d447db8d7b2a486ede6caf136
