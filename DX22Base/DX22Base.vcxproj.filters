@@ -102,6 +102,33 @@
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル\DX22</Filter>
     </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerGame.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="controller.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerBG.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
+    <ClCompile Include="BG.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
+    <ClCompile Include="ReverseBlock.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
+    <ClCompile Include="Billboard.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowBillBoard.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -146,9 +173,6 @@
     <ClInclude Include="Model.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
     <ClInclude Include="CameraBase.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
@@ -177,6 +201,36 @@
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerGame.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="controller.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerBG.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="BG.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraDelay.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="ReverseBlock.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="Billboard.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowBillBoard.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
   </ItemGroup>

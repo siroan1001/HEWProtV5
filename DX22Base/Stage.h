@@ -5,8 +5,10 @@
 
 #include <DirectXMath.h>
 #include "Geometory.h"
+#include <vector>
 
 using namespace DirectX;
+using namespace std;
 
 class Stage
 {
@@ -26,8 +28,9 @@ public:
 	int GetNum();
 
 protected:
-	Info* m_pBlocks;
+	//Info* m_pBlocks;
 	int m_blockNum;
+	vector<Info> m_Info;
 };
 
 #endif // !_____STAGE_H____

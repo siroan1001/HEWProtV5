@@ -1,1 +1,8 @@
+<<<<<<< HEAD
 ﻿  DX22Base.vcxproj -> C:\Users\林　克弥\OneDrive - nkz.ac.jp\デスクトップ\Hew2\x64\Debug\DX22Base.exe
+=======
+﻿  ShadowBlock.cpp
+c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(156): warning C4244: '引数': 'float' から 'const unsigned __int64' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(170): warning C4267: '+=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  DX22Base.vcxproj -> C:\Users\User\Documents\HEWProtV5\x64\Debug\DX22Base.exe
+>>>>>>> 8a5f24f495526b62d961e07719b9996faf10e1b6
