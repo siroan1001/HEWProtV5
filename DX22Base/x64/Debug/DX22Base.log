@@ -1,6 +1,30 @@
-<<<<<<< HEAD
-﻿  DX22Base.vcxproj -> C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DX22Base.exe
-=======
-﻿  Player.cpp
-  DX22Base.vcxproj -> C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DX22Base.exe
->>>>>>> 0ab8e59fab58eb7d51ccbfdcfa511635dcb52606
+﻿  BG.cpp
+  Collision.cpp
+  controller.cpp
+  Game3D.cpp
+  Layer.cpp
+  LayerBG.cpp
+  LayerGame.cpp
+  Light.cpp
+  Main.cpp
+  MeshBuffer.cpp
+  Player.cpp
+  ShadowBlock.cpp
+c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\shadowblock.cpp(141): warning C4244: '引数': 'float' から 'const unsigned __int64' への変換です。データが失われる可能性があります。
+c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\shadowblock.cpp(155): warning C4267: '+=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  Sprite.cpp
+  Stage.cpp
+  コードを生成中...
+Model_Contents.obj : warning LNK4099: PDB 'vc141.pdb' が 'Model_Contents.obj' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\vc141.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(BC.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(BC.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(BC4BC5.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(BC4BC5.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(BC6HBC7.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(BC6HBC7.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexCompress.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexCompress.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexConvert.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexConvert.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexD3D11.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexD3D11.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexImage.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexImage.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexMipMaps.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexMipMaps.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexTGA.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexTGA.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexUtil.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexUtil.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexWIC.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexWIC.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+  DX22Base.vcxproj -> C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DX22Base.exe
