@@ -1,4 +1,5 @@
 #include "ShadowBlock.h"
+#include "ShadowBillBoard.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ ShadowBlock::ShadowBlock()
 
 ShadowBlock::~ShadowBlock()
 {
+
 }
 
 void ShadowBlock::Update()
@@ -110,6 +112,14 @@ void ShadowBlock::Draw()
 		SetGeometoryRotation(it->rot.x, it->rot.y, it->rot.z);
 		DrawBox();
 	}
+
+	//for (int i = 0; i < m_BillBoard.size(); i++)
+	//{
+	//	for (int j = 0; j < m_BillBoard[i].size(); j++)
+	//	{
+	//		m_BillBoard[i][j]->Draw();
+	//	}
+	//}
 }
 
 void ShadowBlock::SetShadowBlock(Stage::Info info)
@@ -121,16 +131,21 @@ void ShadowBlock::SetShadowBlock(Stage::Info info)
 	for (int i = 0; i < m_BlockInfo.xy.y; i++)
 	{
 		std::vector<SmallBlockTemp> tempVec;
+		vector<ShadowBillBoard*> tempb;
 
 		for (int j = 0; j < m_BlockInfo.xy.x; j++)
 		{
 			SmallBlockTemp temp = { m_BlockBase, true, 30.0f};
 			temp.Info.pos = { m_BlockInfo.Info.pos.x - m_BlockBase.size.x * j, m_BlockInfo.Info.pos.y - m_BlockBase.size.y * i, m_BlockInfo.Info.pos.z };//ブロックのサイズ分ずらす
-			//m_SmallBlockInfo[i].push_back(temp);
+
 			tempVec.push_back(temp);
+			tempb.push_back(new ShadowBillBoard(temp.Info.pos));
 		}
 		m_SmallBlockInfo.push_back(tempVec);
+		m_BillBoard.push_back(tempb);
 	}
+
+	
 
 	//m_BlockInfo.Info.pos.x = m_BlockInfo.Info.pos.x + m_SmallBlockInfo[0].Info.size.x / 2.0f;
 	//m_BlockInfo.Info.pos.y = m_BlockInfo.Info.pos.y + m_SmallBlockInfo[0].Info.size.y / 2.0f;

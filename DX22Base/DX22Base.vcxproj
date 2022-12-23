@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BG.cpp" />
+    <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="CameraEvent.cpp" />
     <ClCompile Include="CameraPlayer.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="ReverseBlock.cpp" />
     <ClCompile Include="SamplerState.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShadowBillBoard.cpp" />
     <ClCompile Include="ShadowBlock.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -180,6 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BG.h" />
+    <ClInclude Include="Billboard.h" />
     <ClInclude Include="BlendState.h" />
     <ClInclude Include="CameraBase.h" />
     <ClInclude Include="CameraDebug.h" />
@@ -206,6 +209,7 @@
     <ClInclude Include="ReverseBlock.h" />
     <ClInclude Include="SamplerState.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShadowBillBoard.h" />
     <ClInclude Include="ShadowBlock.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage.h" />

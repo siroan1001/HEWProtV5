@@ -9,13 +9,13 @@ Player::Player(Collision::Direction dire)
 	//,m_Rot{0.0f, -90.0f, 0.0f}
 	:m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
-	,m_Info{{-7.6f, 3.25f, 0.0f}, {0.3f, 0.424f, 0.3f}, {0.0f, -90.0f, 0.0f}}
+	,m_Info{{-7.6f, 3.25f, 0.0f}, {0.3f, 0.646f, 0.3f}, {0.0f, -90.0f, 0.0f}}
 	,m_OldInfo{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
 	,m_Direction(dire)
 {
 	//モデル読み込み
 	m_pModel = new Model;
-	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.02f))
+	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.03f))
 	{
 		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
 	}
