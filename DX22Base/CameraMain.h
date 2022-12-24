@@ -5,6 +5,7 @@
 #include "CameraBase.h"
 #include "Player.h"
 #include "Collision.h"
+#include "Stage.h"
 
 class CameraMain : public CameraBase
 {
@@ -13,25 +14,38 @@ public:
 	~CameraMain() {}
 	void Update()
 	{
+	
 		const float LIMIT = 1.5f;
 		XMFLOAT3 Playerpos = m_pPlayer->GetInfo().pos;
+
+	
 		switch (m_pPlayer->GetDirection())
 		{
 		case Collision::E_DIRECTION_L:
 			
 			m_look.x += 0.1f;
+		
 			if (m_look.x - LIMIT > Playerpos.x)
 			{
 				m_look.x = Playerpos.x + LIMIT;
+			}
+
+			if (m_look.x > 5.0f)
+			{
+				m_look.x = 5.0f;
 			}
 			
 			break;
 		case Collision::E_DIRECTION_R:
 			m_look.x -= 0.1f;
+
+		
 			if (m_look.x + LIMIT < Playerpos.x)
 			{
 				m_look.x = Playerpos.x - LIMIT;
 			}
+
+			
 
 			break;
 		default:
@@ -39,6 +53,7 @@ public:
 		}
 
 		m_look.y = Playerpos.y + 1.0f;
+
 
 		m_pos.x = m_look.x;
 		m_pos.y = m_look.y;
