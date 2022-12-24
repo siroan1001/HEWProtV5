@@ -3,7 +3,7 @@
 #define _____BILLBOARD_H____
 
 #include "DirectXTex/Texture.h"
-#include "Stage.h"
+//#include "Stage.h"
 #include "CameraBase.h"
 
 class Billboard

@@ -5,26 +5,18 @@
 //using namespace DirectX;
 
 Player::Player(Collision::Direction dire)
-	//:m_Pos{2.0f, -1.0f, 0.0f}
-	//,m_Rot{0.0f, -90.0f, 0.0f}
 	:m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
-	,m_Info{{-7.6f, 3.25f, 0.0f}, {0.3f, 0.646f, 0.3f}, {0.0f, -90.0f, 0.0f}}
 	,m_OldInfo{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
 	,m_Direction(dire)
 {
+	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.646f, 0.3f}, {0.0f, -90.0f, 0.0f} };
+
 	//モデル読み込み
 	m_pModel = new Model;
 	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.03f))
 	{
 		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
-	}
-
-	//頂点シェーダ読み込み
-	m_pVS = new VertexShader;
-	if (FAILED(m_pVS->Load("Assets/Shader/ModelVS.cso")))
-	{
-		MessageBox(NULL, "プレイヤーのVS読み込み失敗", "エラー", MB_OK);
 	}
 
 	//頂点シェーダをモデルに設定
@@ -50,13 +42,6 @@ Player::Player(Collision::Direction dire)
 	}
 }
 
-Player::~Player()
-{
-	delete m_pWVP;
-	delete m_pVS;
-	delete m_pModel;
-}
-
 void Player::Update()
 {
 	//移動量カット
@@ -68,14 +53,12 @@ void Player::Update()
 	//移動処理
 	if (IsKeyPress('D'))
 	{
-		//m_Move.x -= 0.1f;
 		m_Direction = Collision::E_DIRECTION_R;
 		m_Info.rot.y = -90.0f;
 	}
 		
 	if (IsKeyPress('A'))
 	{
-		//m_Move.x += 0.1f;
 		m_Direction = Collision::E_DIRECTION_L;
 		m_Info.rot.y = 90.0f;
 	}
@@ -122,26 +105,6 @@ void Player::Update()
 	}
 }
 
-void Player::Draw()
-{
-	if (!m_pCamera)	return;		//カメラが設定されてなければ処理しない
-	XMFLOAT3 ConvertRot = { XMConvertToRadians(m_Info.rot.x), XMConvertToRadians(m_Info.rot.y), XMConvertToRadians(m_Info.rot.z) };
-	XMFLOAT4X4 mat[3];
-	XMMATRIX temp =	XMMatrixRotationX(ConvertRot.x) * XMMatrixRotationY(ConvertRot.y) * XMMatrixRotationZ(ConvertRot.z) 
-		* XMMatrixTranslation(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
-	XMStoreFloat4x4(&mat[0], XMMatrixTranspose(temp));	//ワールド行列
-	mat[1] = m_pCamera->GetViewMatrix();		//ビュー行列
-	mat[2] = m_pCamera->GetProjectionMatrix(CameraBase::CameraAngle::E_CAM_ANGLE_PERSPECTIVEFOV);	//プロジェクション行列
-	m_pWVP->Write(mat);		//WVP設定
-	m_pWVP->BindVS(0);
-	m_pModel->Draw();
-}
-
-void Player::SetCamera(CameraBase* pCamera)
-{
-	m_pCamera = pCamera;
-}
-
 void Player::SetPos(XMFLOAT3 pos)
 {
 	m_Info.pos = pos;
@@ -162,12 +125,7 @@ void Player::ResetMove()
 	m_Move.y = 0.0f;
 }
 
-Stage::Info Player::GetInfo()
-{
-	return m_Info;
-}
-
-Stage::Info Player::GetOldInfo()
+Object::Info Player::GetOldInfo()
 {
 	return m_OldInfo;
 }

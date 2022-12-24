@@ -5,7 +5,7 @@
 Stage::Stage()
 	:m_blockNum(11)
 {
-	Info info;
+	Object::Info info;
 
 	//床(下)
 	info.pos = { 3.8f, -2.5f, 0.0f };
@@ -72,6 +72,19 @@ Stage::Stage()
 	info.size = { 2.0f, 1.5f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Info.push_back(info);
+
+	//シャドウブロック1
+	info.pos = { 0.0f, 0.5f, 0.0f };
+	info.size = { 1.0f, 1.5f, 1.0f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック2
+	info.pos = { -6.0f, 4.0f, 0.0f };
+	info.size = { 1.0f, 1.5f, 1.0f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+	
 }
 
 Stage::~Stage()
@@ -81,24 +94,43 @@ Stage::~Stage()
 
 void Stage::Draw()
 {
-
-
-	for (int i = 0; i < m_blockNum; i++)
+	for (int i = 0; i < m_Info.size(); i++)
 	{
 		SetGeometoryTranslate(m_Info[i].pos.x, m_Info[i].pos.y, m_Info[i].pos.z);
 		SetGeometoryScaling(m_Info[i].size.x, m_Info[i].size.y, m_Info[i].size.z);
 		SetGeometoryRotation(m_Info[i].rot.x, m_Info[i].rot.y, m_Info[i].rot.z);
 		DrawBox();
 	}
-	
+
+	for (int i = 0; i < m_Shadow.size(); i++)
+	{
+		m_Shadow[i]->Draw();
+	}
 }
 
-Stage::Info Stage::GetInfo(int num)
+Object::Info Stage::GetInfo(int num)
 {
 	return m_Info[num];
 }
 
-int Stage::GetNum()
+int Stage::GetStageNum()
 {
-	return m_blockNum;
+	return m_Info.size();
+}
+
+int Stage::GetShadowNum()
+{
+	int num = 0;
+
+	for (int i = 0; i < m_Shadow.size(); i++)
+	{
+		num += m_Shadow[i]->GetNum();
+	}
+
+	return num;
+}
+
+vector<ShadowBlock*> Stage::GetShadowBlock()
+{
+	return m_Shadow;
 }
