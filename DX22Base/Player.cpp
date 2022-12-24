@@ -9,6 +9,7 @@ Player::Player(Collision::Direction dire)
 	,m_Move{0.0f, 0.0f, 0.0f}
 	,m_OldInfo{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
 	,m_Direction(dire)
+	,m_Spead(0.03f)
 {
 	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.646f, 0.3f}, {0.0f, -90.0f, 0.0f} };
 
@@ -23,11 +24,11 @@ Player::Player(Collision::Direction dire)
 	m_pModel->SetVertexShader(m_pVS);
 
 	//WVP生成
-	m_pWVP = new ConstantBuffer;
-	if (FAILED(m_pWVP->Create(sizeof(DirectX::XMFLOAT4X4) * 3)))
-	{
-		MessageBox(NULL, "pWVP作成失敗", "エラー", MB_OK);
-	}
+	//m_pWVP = new ConstantBuffer;
+	//if (FAILED(m_pWVP->Create(sizeof(DirectX::XMFLOAT4X4) * 3)))
+	//{
+	//	MessageBox(NULL, "pWVP作成失敗", "エラー", MB_OK);
+	//}
 
 	switch (m_Direction)
 	{
@@ -66,10 +67,10 @@ void Player::Update()
 	switch (m_Direction)
 	{
 	case Collision::E_DIRECTION_L:
-		m_Move.x += 0.03f;
+		m_Move.x += m_Spead;
 		break;
 	case Collision::E_DIRECTION_R:
-		m_Move.x -= 0.03f;
+		m_Move.x -= m_Spead;
 		break;
 	default:
 		break;

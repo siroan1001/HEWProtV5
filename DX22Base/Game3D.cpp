@@ -45,9 +45,9 @@ Game3D::Game3D()
 	
 	
 
-	m_pLayer[E_LAYER_BG] = new LayerBG;
+	m_pLayer[E_LAYER_BG] = new LayerBG;		//Ç±ÇÍ
 	m_pLayer[E_LAYER_BUCK_OBJECT] = NULL;
-	m_pLayer[E_LAYER_GAME] = new LayerGame(m_pCamera[m_mainCamera]);
+	m_pLayer[E_LAYER_GAME] = new LayerGame(m_pCamera[m_mainCamera]);		//Ç±ÇÍ
 	m_pLayer[E_LAYER_UI] = NULL;
 
 	LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
@@ -63,14 +63,12 @@ Game3D::~Game3D()
 		if (!m_pLayer[i])	continue;
 		delete m_pLayer[i];
 	}
-	
 
 	//ÉJÉÅÉâÇÃèIóπ
 	for (int i = 0; i < E_CAM_MAX; i++)
 	{
 		delete m_pCamera[i];
 	}
-
 }
 
 void Game3D::Update()

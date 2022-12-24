@@ -51,6 +51,7 @@ private:
 	XMFLOAT3 m_Move;
 	Collision::Direction m_Direction;		//i‚ñ‚Å‚¢‚é•ûŒü
 	vector<Collision::Direction> m_StageDire;
+	float m_Spead;
 };
 
 #endif // !_____PLAYER_H____

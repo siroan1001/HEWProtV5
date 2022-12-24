@@ -73,18 +73,59 @@ Stage::Stage()
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Info.push_back(info);
 
-	//シャドウブロック1
-	info.pos = { 0.0f, 0.5f, 0.0f };
-	info.size = { 1.0f, 1.5f, 1.0f };
+	//シャドウブロック1(上)
+	info.pos = { -2.5f, 4.25f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Shadow.push_back(new ShadowBlock(info));
 
-	//シャドウブロック2
-	info.pos = { -6.0f, 4.0f, 0.0f };
-	info.size = { 1.0f, 1.5f, 1.0f };
+	//シャドウブロック2(上)
+	//info.pos = { 0.2f, 5.25f, 0.0f };
+	//info.size = { 1.7f, 2.0f, 0.5f };
+	//info.rot = { 0.0f, 0.0f, 0.0f };
+	//m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック3(上)
+	//info.pos = { 2.2f, 4.25f, 0.0f };
+	//info.size = { 1.0f, 1.0f, 0.5f };
+	//info.rot = { 0.0f, 0.0f, 0.0f };
+	//m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック4(真ん中)
+	//info.pos = { -1.5f, 1.44f, 0.0f };
+	//info.size = { 1.0f, 1.0f, 0.5f };
+	//info.rot = { 0.0f, 0.0f, 0.0f };
+	//m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック5(真ん中)
+	info.pos = { 2.48f, 1.44f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Shadow.push_back(new ShadowBlock(info));
-	
+
+	//シャドウブロック6(下)
+	info.pos = { -2.2f, -1.26f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック7(下)
+	//info.pos = { 1.79f, -1.26f, 0.0f };
+	//info.size = { 1.0f, 1.0f, 0.5f };
+	//info.rot = { 0.0f, 0.0f, 0.0f };
+	//m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック8(下)
+	info.pos = { 4.0f, -0.76f, 0.0f };
+	info.size = { 1.0f, 1.5f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック9(下)
+	info.pos = { 8.5f, -0.76f, 0.0f };
+	info.size = { 2.51f, 1.2f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
 }
 
 Stage::~Stage()

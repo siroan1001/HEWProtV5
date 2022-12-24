@@ -122,7 +122,7 @@ void ShadowBlock::SetShadowBlock(Object::Info info)
 	for (int i = 0; i < m_BlockInfo.xy.y; i++)
 	{
 		std::vector<ShadowBlock::SmallBlockTemp> tempVec;
-		vector<ShadowBillBoard*> tempb;
+		//vector<ShadowBillBoard*> tempb;
 
 		for (int j = 0; j < m_BlockInfo.xy.x; j++)
 		{
@@ -130,7 +130,7 @@ void ShadowBlock::SetShadowBlock(Object::Info info)
 			temp.Info.pos = { m_BlockInfo.Info.pos.x - m_BlockBase.size.x * j, m_BlockInfo.Info.pos.y - m_BlockBase.size.y * i, m_BlockInfo.Info.pos.z };//ブロックのサイズ分ずらす
 
 			tempVec.push_back(temp);
-			tempb.push_back(new ShadowBillBoard(temp.Info.pos));
+			//tempb.push_back(new ShadowBillBoard(temp.Info.pos));
 		}
 		m_SmallBlockInfo.push_back(tempVec);
 		//m_BillBoard.push_back(tempb);

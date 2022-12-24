@@ -13,7 +13,7 @@ Object::Object()
 Object::~Object()
 {
 	if (m_pModel)	delete m_pModel;
-	if (m_pCamera)	delete m_pCamera;
+	//if (m_pCamera)	delete m_pCamera;
 }
 
 void Object::Init()

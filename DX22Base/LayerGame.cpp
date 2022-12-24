@@ -10,10 +10,6 @@ LayerGame::LayerGame(CameraBase* camera)
 	//プレイヤーの生成
 	m_pPlayer = new Player(Collision::E_DIRECTION_L);
 
-	//m_pShadowBlock = new ShadowBlock;
-	//Object::Info info = { {0.0f, 0.5f, 0.0f}, {1.0f, 1.5f, 1.0f}, {0.0f, 0.0f, 0.0f} };
-	//m_pShadowBlock->SetShadowBlock(info);
-
 	m_pLight = new Light;
 	m_pLight->SetCamera(camera);
 
@@ -102,7 +98,6 @@ void LayerGame::CheckCollision()
 			}
 		}
 	}
-
 
 	int num = 0;		//プレイヤーとブロックの当たり判定が何個目かを入れる（前フレームのどの方向に当たったかを確認するのに使う）
 
