@@ -194,6 +194,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="controller.h" />
+    <ClInclude Include="Def.h" />
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="DirectXTex\Texture.h" />
     <ClInclude Include="Game3D.h" />

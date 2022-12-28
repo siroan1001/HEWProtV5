@@ -126,7 +126,7 @@ void Player::ResetMove()
 	m_Move.y = 0.0f;
 }
 
-Object::Info Player::GetOldInfo()
+Def::Info Player::GetOldInfo()
 {
 	return m_OldInfo;
 }

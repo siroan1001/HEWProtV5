@@ -81,7 +81,7 @@ void LayerGame::CheckCollision()
 	
 	for (int i = 0; i < shadow.size(); i++)
 	{
-		block = shadow[i]->GetInfo();
+		block = shadow[i]->GetSmallBlockInfo();
 		for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
 		{
 			for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
@@ -105,9 +105,9 @@ void LayerGame::CheckCollision()
 	for (num = 0; num < m_pStage->GetStageNum(); num++)
 	{
 		//当たり判定に使う要素
-		Object::Info stage = m_pStage->GetInfo(num);		//ステージブロックの情報
-		Object::Info player = m_pPlayer->GetInfo();		//プレイヤーの情報（プレイヤーの中心をposとする）
-		Object::Info Oplayer = m_pPlayer->GetOldInfo();	//プレイヤーの前フレームの情報
+		Def::Info stage = m_pStage->GetInfo(num);		//ステージブロックの情報
+		Def::Info player = m_pPlayer->GetInfo();		//プレイヤーの情報（プレイヤーの中心をposとする）
+		Def::Info Oplayer = m_pPlayer->GetOldInfo();	//プレイヤーの前フレームの情報
 		player.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 		Oplayer.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
@@ -148,18 +148,18 @@ void LayerGame::CheckCollision()
 	//PlayerとShadowBloackの当たり判定
 	for (int i = 0; i < shadow.size(); i++)
 	{
-		block = shadow[i]->GetInfo();
+		block = shadow[i]->GetSmallBlockInfo();
 		for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
 		{
 			for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init, num++)
 			{
-				Object::Info shadow = init->Info;		//シャドウブロックの情報
-				Object::Info player = m_pPlayer->GetInfo();		//プレイヤーの情報
+				Def::Info shadow = init->Info;		//シャドウブロックの情報
+				Def::Info player = m_pPlayer->GetInfo();		//プレイヤーの情報
 				player.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
 				if (init->use)
 				{//存在する（引き戻しの処理）
-					Object::Info Oplayer = m_pPlayer->GetOldInfo();		//前フレームの情報
+					Def::Info Oplayer = m_pPlayer->GetOldInfo();		//前フレームの情報
 					Oplayer.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
 					if (Collision::Direction dire = Collision::RectAndRectDirection(player, Oplayer, shadow, m_pPlayer->GetStageCollistonDirection(num)))
@@ -170,8 +170,8 @@ void LayerGame::CheckCollision()
 						{
 						case Collision::E_DIRECTION_L:		//左
 						case Collision::E_DIRECTION_R:		//右
-							Object::Info PlayerBot;
-							Object::Info PlayerTop;
+							Def::Info PlayerBot;
+							Def::Info PlayerTop;
 							PlayerBot = PlayerTop = m_pPlayer->GetInfo();
 							PlayerBot.size.y = 0.1f;		//足元の大きさ
 							PlayerBot.pos.y += PlayerBot.size.y / 2.0f;		//プレイヤーの元の座標から足元の大きさ分ずらす

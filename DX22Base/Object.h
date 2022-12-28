@@ -7,19 +7,12 @@
 #include "Model.h"
 #include "Shader.h"
 #include "ConstantBuffer.h"
+#include "Def.h"
 
 using namespace DirectX;
 
 class Object
 {
-public:
-	struct Info
-	{
-		XMFLOAT3 pos;
-		XMFLOAT3 size;
-		XMFLOAT3 rot;
-	};
-
 public:
 	Object();
 	~Object();
@@ -27,13 +20,13 @@ public:
 	static void Uninit();
 	void Draw();
 
-	Info GetInfo();
+	Def::Info GetInfo();
 
 	void SetCamera(CameraBase*);
 
 protected:
 	Model* m_pModel;
-	Info m_Info;
+	Def::Info m_Info;
 	CameraBase* m_pCamera;
 	static VertexShader* m_pVS;
 	static ConstantBuffer* m_pWVP;	

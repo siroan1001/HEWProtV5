@@ -38,7 +38,7 @@ public:
 	void ResetMove();
 
 
-	Object::Info GetOldInfo();
+	Def::Info GetOldInfo();
 	Collision::Direction GetDirection();
 	Collision::Direction GetStageCollistonDirection(int num);
 	void SetStageCollisionDirection(Collision::Direction dire, int num);
@@ -46,7 +46,7 @@ public:
 
 
 private:
-	Object::Info m_OldInfo;
+	Def::Info m_OldInfo;
 	bool m_Ground;
 	XMFLOAT3 m_Move;
 	Collision::Direction m_Direction;		//êiÇÒÇ≈Ç¢ÇÈï˚å¸

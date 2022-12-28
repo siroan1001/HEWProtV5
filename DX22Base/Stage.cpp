@@ -1,11 +1,14 @@
 #include "Stage.h"
 #include <vector>
 #include "Input.h"
+#include "Collision.h"
+#include "Game3D.h"
+#include "CameraBase.h"
 
 Stage::Stage()
 	:m_blockNum(11)
 {
-	Object::Info info;
+	Def::Info info;
 
 	//è∞(â∫)
 	info.pos = { 3.8f, -2.5f, 0.0f };
@@ -135,8 +138,11 @@ Stage::~Stage()
 
 void Stage::Draw()
 {
+	CameraBase* cam = Game3D::GetCamera();
+
 	for (int i = 0; i < m_Info.size(); i++)
 	{
+		if (!Collision::RectAndRect(m_Info[i], cam->GetInfo()))	continue;
 		SetGeometoryTranslate(m_Info[i].pos.x, m_Info[i].pos.y, m_Info[i].pos.z);
 		SetGeometoryScaling(m_Info[i].size.x, m_Info[i].size.y, m_Info[i].size.z);
 		SetGeometoryRotation(m_Info[i].rot.x, m_Info[i].rot.y, m_Info[i].rot.z);
@@ -145,11 +151,12 @@ void Stage::Draw()
 
 	for (int i = 0; i < m_Shadow.size(); i++)
 	{
+		if (!Collision::RectAndRect(m_Shadow[i]->GetInfo(), cam->GetInfo()))	continue;
 		m_Shadow[i]->Draw();
 	}
 }
 
-Object::Info Stage::GetInfo(int num)
+Def::Info Stage::GetInfo(int num)
 {
 	return m_Info[num];
 }

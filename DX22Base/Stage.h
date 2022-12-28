@@ -21,7 +21,7 @@ public:
 	~Stage();
 	void Draw();
 
-	Object::Info GetInfo(int num);
+	Def::Info GetInfo(int num);
 	int GetStageNum();
 	int GetShadowNum();
 	vector<ShadowBlock*> GetShadowBlock();
@@ -30,7 +30,7 @@ protected:
 	//Info* m_pBlocks;
 	vector<ShadowBlock*> m_Shadow;
 	int m_blockNum;
-	vector<Object::Info> m_Info;
+	vector<Def::Info> m_Info;
 };
 
 #endif // !_____STAGE_H____

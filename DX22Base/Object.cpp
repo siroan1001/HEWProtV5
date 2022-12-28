@@ -43,8 +43,7 @@ void Object::Draw()
 	if (!m_pCamera)	return;		//カメラが設定されてなければ処理しない
 	XMFLOAT3 ConvertRot = { XMConvertToRadians(m_Info.rot.x), XMConvertToRadians(m_Info.rot.y), XMConvertToRadians(m_Info.rot.z) };
 	XMFLOAT4X4 mat[3];
-	XMMATRIX temp = XMMatrixRotationX(ConvertRot.x) * XMMatrixRotationY(ConvertRot.y) * XMMatrixRotationZ(ConvertRot.z)
-		* XMMatrixTranslation(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
+	XMMATRIX temp = XMMatrixRotationX(ConvertRot.x) * XMMatrixRotationY(ConvertRot.y) * XMMatrixRotationZ(ConvertRot.z)	* XMMatrixTranslation(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
 	XMStoreFloat4x4(&mat[0], XMMatrixTranspose(temp));	//ワールド行列
 	mat[1] = m_pCamera->GetViewMatrix();		//ビュー行列
 	mat[2] = m_pCamera->GetProjectionMatrix(CameraBase::CameraAngle::E_CAM_ANGLE_PERSPECTIVEFOV);	//プロジェクション行列
@@ -53,7 +52,7 @@ void Object::Draw()
 	m_pModel->Draw();
 }
 
-Object::Info Object::GetInfo()
+Def::Info Object::GetInfo()
 {
 	return m_Info;
 }

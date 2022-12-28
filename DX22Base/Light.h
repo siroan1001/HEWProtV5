@@ -15,13 +15,13 @@ public:
 	void Draw();
 
 	float GetRadius();
-	Object::Info GetInfo();
+	Def::Info GetInfo();
 	float GetPower();
 
 
 	void SetCamera(CameraBase* pCamera);
 private:
-	Object::Info m_Info;
+	Def::Info m_Info;
 	float m_Power;
 
 	CameraBase* m_pCamera;

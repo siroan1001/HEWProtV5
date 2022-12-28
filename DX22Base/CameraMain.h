@@ -14,7 +14,6 @@ public:
 	~CameraMain() {}
 	void Update()
 	{
-	
 		const float LIMIT = 1.5f;
 		XMFLOAT3 Playerpos = m_pPlayer->GetInfo().pos;
 
@@ -58,6 +57,8 @@ public:
 		m_pos.x = m_look.x;
 		m_pos.y = m_look.y;
 		m_pos.z = m_look.z + m_radius;
+
+		m_Info.pos = m_look;
 	}
 	void SetPlayer(Player* player)
 	{

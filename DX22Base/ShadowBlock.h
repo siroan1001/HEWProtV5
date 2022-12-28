@@ -7,6 +7,7 @@
 //#include "Stage.h"
 #include "Object.h"
 #include <vector>
+#include "Def.h"
 //#include "ShadowBillBoard.h"
 
 using namespace DirectX;
@@ -17,31 +18,32 @@ class ShadowBlock
 public:
 	struct BlockTemp
 	{
-		Object::Info Info;		//塊の情報
+		Def::Info Info;		//塊の情報
 		XMFLOAT2 xy;			//縦横の小さいブロックの数
 	};
 
 	struct SmallBlockTemp
 	{
-		Object::Info Info;		//小さいブロックの情報
+		Def::Info Info;		//小さいブロックの情報
 		bool use;				//使っているかのフラグ
 		float life;
 	};
 
 public:
-	ShadowBlock(Object::Info info);
+	ShadowBlock(Def::Info info);
 	~ShadowBlock();
 	void Update();
 	void Draw();
 
-	void SetShadowBlock(Object::Info info);
+	void SetShadowBlock(Def::Info info);
 	void SetUse(XMFLOAT2 num, bool flag);
-	std::vector<std::vector<SmallBlockTemp>>* GetInfo();
+	std::vector<std::vector<SmallBlockTemp>>* GetSmallBlockInfo();
 	int GetNum();
+	Def::Info GetInfo();
 
 
 private:
-	const Object::Info m_BlockBase = { { 999.0f, 999.0f, 0.0f }, { 0.02f, 0.02f, 0.5f }, { 0.0f, 0.0f, 0.0f } };
+	const Def::Info m_BlockBase = { { 999.0f, 999.0f, 0.0f }, { 0.02f, 0.02f, 0.5f }, { 0.0f, 0.0f, 0.0f } };
 	//const Billboard::Info m_Billboard = { { 999.0f, 999.0f, 1.0f }, { 0.04f, 0.04f } };
 		//細かく並べられるブロックの情報
 	BlockTemp m_BlockInfo;		//全体の情報

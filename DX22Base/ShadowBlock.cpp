@@ -1,10 +1,12 @@
 #include "ShadowBlock.h"
 #include "ShadowBillBoard.h"
 #include "Geometory.h"
+#include "Game3D.h"
+#include "CameraBase.h"
 
 using namespace std;
 
-ShadowBlock::ShadowBlock(Object::Info info)
+ShadowBlock::ShadowBlock(Def::Info info)
 {
 	m_BlockInfo.Info.pos = { 999.0f, 999.0f, 0.0f };
 	m_BlockInfo.Info.size = { 0.5f, 0.5f, 0.5f };
@@ -40,13 +42,16 @@ void ShadowBlock::Update()
 
 void ShadowBlock::Draw()
 {
-	vector<Object::Info>	block;		//描画用のデータを格納
-	Object::Info info;		//計算用
+	vector<Def::Info>	block;		//描画用のデータを格納
+	Def::Info info;		//計算用
 	float PosL;		//ブロックの左端を示す
 	int count;
+	CameraBase* cam = Game3D::GetCamera();
 
 	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
 	{
+		
+
 		info = m_BlockBase;
 		info.pos.y = it->begin()->Info.pos.y;
 		count = 0;
@@ -56,6 +61,8 @@ void ShadowBlock::Draw()
 		end--;
 		for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
 		{
+			//if (!Collision::RectAndRect(init->Info, cam->GetInfo()))	continue;
+
 			if (init == end)
 			{
 				if (count <= 0)
@@ -96,7 +103,7 @@ void ShadowBlock::Draw()
 		}
 	}
 
-	for (vector<Object::Info>::iterator it = block.begin(); it != block.end(); ++it)
+	for (vector<Def::Info>::iterator it = block.begin(); it != block.end(); ++it)
 	{
 		SetGeometoryTranslate(it->pos.x, it->pos.y, it->pos.z);
 		SetGeometoryScaling(it->size.x, it->size.y, it->size.z);
@@ -113,7 +120,7 @@ void ShadowBlock::Draw()
 	//}
 }
 
-void ShadowBlock::SetShadowBlock(Object::Info info)
+void ShadowBlock::SetShadowBlock(Def::Info info)
 {
 	m_BlockInfo.Info = info;
 	m_BlockInfo.xy.x = m_BlockInfo.Info.size.x / m_BlockBase.size.x;
@@ -147,7 +154,7 @@ void ShadowBlock::SetUse(XMFLOAT2 num, bool flag)
 	m_SmallBlockInfo[num.y][num.x].use = flag;
 }
 
-std::vector<std::vector<ShadowBlock::SmallBlockTemp>>* ShadowBlock::GetInfo()
+std::vector<std::vector<ShadowBlock::SmallBlockTemp>>* ShadowBlock::GetSmallBlockInfo()
 {
 	return &m_SmallBlockInfo;
 }
@@ -161,5 +168,10 @@ int ShadowBlock::GetNum()
 		num += it->size();
 	}
 	return num;
+}
+
+Def::Info ShadowBlock::GetInfo()
+{
+	return m_BlockInfo.Info;
 }
 

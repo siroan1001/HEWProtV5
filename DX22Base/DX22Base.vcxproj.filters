@@ -239,6 +239,9 @@
     <ClInclude Include="Object.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
+    <ClInclude Include="Def.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ModelVS.hlsl">

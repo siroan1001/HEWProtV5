@@ -5,7 +5,7 @@
 ReverseBlock::ReverseBlock()
 {
 	//m_blockNum = 1;
-	//m_pBlocks = new Object::Info[m_blockNum];
+	//m_pBlocks = new Def::Info[m_blockNum];
 
 	//m_pBlocks[0].pos = { -4.0f, 3.25f, 0.0f };
 	//m_pBlocks[0].size = { 1.0f, 1.0f, 1.0f };
@@ -15,7 +15,7 @@ ReverseBlock::ReverseBlock()
 
 	m_Info.clear();
 
-	Object::Info info;
+	Def::Info info;
 	info.pos = { 6.8f, 0.95f, 0.0f };
 	info.size = { 0.5f, 1.0f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
