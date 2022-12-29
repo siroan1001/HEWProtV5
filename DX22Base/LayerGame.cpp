@@ -129,6 +129,7 @@ void LayerGame::CheckCollision()
 			case Collision::E_DIRECTION_U:	//上
 				pos.y = stage.pos.y + stage.size.y / 2.0f;
 				m_pPlayer->ResetMove();		//重力をリセットする
+				m_pPlayer->JumpReset();		//ジャンプフラグをリセット
 				break;
 			case Collision::E_DIRECTION_D:	//下
 				pos.y = stage.pos.y - stage.size.y / 2.0f - player.size.y;
@@ -201,6 +202,7 @@ void LayerGame::CheckCollision()
 						case Collision::E_DIRECTION_U:		//上
 							pos.y = shadow.pos.y + shadow.size.y / 2.0f;
 							m_pPlayer->ResetMove();
+							m_pPlayer->JumpReset();
 							break;
 						case Collision::E_DIRECTION_D:		//下
 							pos.y = shadow.pos.y - shadow.size.y / 2.0f - player.size.y;
@@ -238,5 +240,11 @@ void LayerGame::CheckCollision()
 		{
 			m_pPlayer->SetDirection(m_pRvsBlock->GetDirection(i));
 		}
+	}
+	
+	// プレイヤーとライトの当たり判定
+	if (Collision::RectAndCircle(m_pPlayer->GetInfo(), m_pLight->GetInfo(), m_pLight->GetRadius()))
+	{
+		m_pPlayer->LightCollision();
 	}
 }

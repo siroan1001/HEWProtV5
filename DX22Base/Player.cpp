@@ -84,10 +84,20 @@ void Player::Update()
 
 	
 	//ジャンプ
-	if (IsKeyTrigger(VK_SPACE))
+	if (IsKeyTrigger(VK_SPACE) && m_Ground == true)
 	{
 		m_Move.y += 0.10f;
 		m_Ground = false;
+	}
+	//ジャンプ中は横の移動速度を軽減
+	if (m_Ground == false)
+	{
+		m_Move.x *= 0.5f;
+	}
+	//ライトに当たっているときは移動速度を軽減
+	if (m_bLight == true)
+	{
+		m_Move.x *= 0.5f;
 	}
 
 	//重力加算
@@ -104,6 +114,8 @@ void Player::Update()
 		m_Info.pos.y = 5.0f;
 		m_Move.y = 0.0f;
 	}
+	
+	m_bLight = false;
 }
 
 void Player::SetPos(XMFLOAT3 pos)
@@ -124,6 +136,11 @@ void Player::InitDirection(int num)
 void Player::ResetMove()
 {
 	m_Move.y = 0.0f;
+}
+
+void Player::JumpReset()
+{
+	m_Ground = true;
 }
 
 Def::Info Player::GetOldInfo()
@@ -161,5 +178,10 @@ void Player::SetDirection(Collision::Direction dire)
 	default:
 		break;
 	}
+}
+
+void Player::LightCollision()
+{
+	m_bLight = true;
 }
 
