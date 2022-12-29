@@ -14,6 +14,12 @@ Light::~Light()
 
 void Light::Update()
 {
+	XMFLOAT3 CameraPos = m_pCamera->GetPos();
+	float right = CameraPos.x + 3.0f;
+	float left = CameraPos.x - 3.0f;
+	float ceiling = CameraPos.y + 1.5f;
+	float floor = CameraPos.y - 1.5f;
+
 	const float LIGHT_MOVE = 0.05f;
 
 	if (IsKeyPress(VK_LEFT))
@@ -32,6 +38,10 @@ void Light::Update()
 	{
 		m_Info.pos.y -= LIGHT_MOVE;
 	}
+	if (m_Info.pos.x > right)m_Info.pos.x = right;
+	if (m_Info.pos.x < left)m_Info.pos.x = left;
+	if (m_Info.pos.y > ceiling)m_Info.pos.y = ceiling;
+	if (m_Info.pos.y < floor)m_Info.pos.y = floor;
 }
 
 void Light::Draw()
@@ -47,7 +57,7 @@ float Light::GetRadius()
 	return GetCylinderRadius() * m_Info.size.x;
 }
 
-Stage::Info Light::GetInfo()
+Def::Info Light::GetInfo()
 {
 	return m_Info;
 }
@@ -55,4 +65,9 @@ Stage::Info Light::GetInfo()
 float Light::GetPower()
 {
 	return m_Power;
+}
+
+void Light::SetCamera(CameraBase * pCamera)
+{
+	m_pCamera = pCamera;
 }

@@ -12,6 +12,7 @@ LayerBG::~LayerBG()
 
 void LayerBG::Update()
 {
+	m_pBG->Update();
 }
 
 void LayerBG::Draw()
