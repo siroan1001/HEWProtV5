@@ -1,19 +1,14 @@
-<<<<<<< HEAD
 ﻿  BG.cpp
   Collision.cpp
-  controller.cpp
   Game3D.cpp
-  Layer.cpp
-  LayerBG.cpp
   LayerGame.cpp
   Light.cpp
   Main.cpp
-  MeshBuffer.cpp
   Player.cpp
+  ReverseBlock.cpp
   ShadowBlock.cpp
 c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\shadowblock.cpp(141): warning C4244: '引数': 'float' から 'const unsigned __int64' への変換です。データが失われる可能性があります。
 c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\shadowblock.cpp(155): warning C4267: '+=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  Sprite.cpp
   Stage.cpp
   コードを生成中...
 Model_Contents.obj : warning LNK4099: PDB 'vc141.pdb' が 'Model_Contents.obj' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\vc141.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
@@ -29,7 +24,3 @@ DirectXTex_vs2017_x64D.lib(DirectXTexTGA.obj) : warning LNK4099: PDB 'DirectXTex
 DirectXTex_vs2017_x64D.lib(DirectXTexUtil.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexUtil.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 DirectXTex_vs2017_x64D.lib(DirectXTexWIC.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexWIC.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
   DX22Base.vcxproj -> C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DX22Base.exe
-=======
-﻿  Player.cpp
-  DX22Base.vcxproj -> C:\Users\User\Documents\HEWProtV5\x64\Debug\DX22Base.exe
->>>>>>> ac2134cd9d83271d447db8d7b2a486ede6caf136
