@@ -6,7 +6,7 @@
 #include "Stage.h"
 #include "Player.h"
 #include "Light.h"
-#include "ShadowBlock.h"
+//#include "ShadowBlock.h"
 #include "ReverseBlock.h"
 #include "CameraBase.h"
 
@@ -28,7 +28,7 @@ private:
 	Stage* m_pStage;
 	Player* m_pPlayer;
 	Light* m_pLight;
-	ShadowBlock* m_pShadowBlock;
+	//ShadowBlock* m_pShadowBlock;
 	CameraBase* m_pCamera;
 	ReverseBlock* m_pRvsBlock;
 };

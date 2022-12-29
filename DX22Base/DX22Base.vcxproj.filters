@@ -123,6 +123,15 @@
     <ClCompile Include="ReverseBlock.cpp">
       <Filter>ソース ファイル\DX22</Filter>
     </ClCompile>
+    <ClCompile Include="Billboard.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowBillBoard.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -219,6 +228,18 @@
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
     <ClInclude Include="ReverseBlock.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="Billboard.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowBillBoard.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="Def.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
   </ItemGroup>

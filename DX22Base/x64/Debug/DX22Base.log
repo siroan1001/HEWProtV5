@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  BG.cpp
   Collision.cpp
   Game3D.cpp
@@ -24,3 +25,8 @@ DirectXTex_vs2017_x64D.lib(DirectXTexTGA.obj) : warning LNK4099: PDB 'DirectXTex
 DirectXTex_vs2017_x64D.lib(DirectXTexUtil.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexUtil.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 DirectXTex_vs2017_x64D.lib(DirectXTexWIC.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexWIC.obj)' で、または 'C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
   DX22Base.vcxproj -> C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DX22Base.exe
+=======
+﻿  Stage.cpp
+c:\users\user\documents\hewprotv5\dx22base\stage.cpp(166): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  DX22Base.vcxproj -> C:\Users\User\Documents\HEWProtV5\x64\Debug\DX22Base.exe
+>>>>>>> 427c2b29f23a006bfd1cf23831f8f37336f9e6d6

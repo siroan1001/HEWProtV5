@@ -2,8 +2,11 @@
 #define _____CAMERA_BASE_H____
 
 #include <DirectXMath.h>
+#include "Def.h"
 
 using namespace DirectX;
+
+//class Object;
 
 class CameraBase
 {
@@ -21,9 +24,13 @@ public:
 		:m_pos(0.0f, 0.0f, 3.0f), m_look(0.0f, 0.0f, 0.0f), m_up(0.0f, 1.0f, 0.0f)
 		,m_fovy(60.0f), m_aspect(16.0f / 9.0f), m_near(0.2f), m_far(1000.0f)
 		,m_radXZ(0.0f), m_radY(0.0f), m_radius(3.0f)
-	{}
+	{
+		m_Info = { m_look, {7.5f, 4.0f, 0.0f}, {0.0f, 0.0f, 0.0f} };
+	}
 	virtual ~CameraBase() {};
 	virtual void Update() = 0;
+
+	
 
 	XMFLOAT3 GetPos() { return m_pos; }
 	XMFLOAT3 GetLook() { return m_look; }
@@ -73,11 +80,17 @@ public:
 		DirectX::XMStoreFloat4x4(&mat, proj);
 		return mat;
 	}
+
+	Def::Info GetInfo()
+	{
+		return m_Info;
+	}
 protected:
 	XMFLOAT3 m_pos, m_look, m_up;		//ビュー行列の設定に必要な変数
 	float m_fovy, m_aspect, m_near, m_far;		//プロジェクション行列の設定に必要な変数
 	float m_radXZ, m_radY;		//回り込みの角度
 	float m_radius;		//注視点からカメラの距離
+	Def::Info m_Info;
 };
 
 #endif // !_____CAMERA_BASE_H____

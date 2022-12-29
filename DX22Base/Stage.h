@@ -6,31 +6,31 @@
 #include <DirectXMath.h>
 #include "Geometory.h"
 #include <vector>
+#include "ShadowBlock.h"
+#include "Object.h"
 
 using namespace DirectX;
 using namespace std;
 
+//class ShadowBlock;
+
 class Stage
 {
-public:
-	struct Info
-	{
-		XMFLOAT3 pos;
-		XMFLOAT3 size;
-		XMFLOAT3 rot;
-	};
 public:
 	Stage();
 	~Stage();
 	void Draw();
 
-	Info GetInfo(int num);
-	int GetNum();
+	Def::Info GetInfo(int num);
+	int GetStageNum();
+	int GetShadowNum();
+	vector<ShadowBlock*> GetShadowBlock();
 
 protected:
 	//Info* m_pBlocks;
+	vector<ShadowBlock*> m_Shadow;
 	int m_blockNum;
-	vector<Info> m_Info;
+	vector<Def::Info> m_Info;
 };
 
 #endif // !_____STAGE_H____

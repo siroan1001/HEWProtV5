@@ -14,6 +14,8 @@ public:
 	{
 		m_look = XMFLOAT3(0.0f, 0.0f, 0.0f);
 		m_pos = m_look;
+		//CameraBase::Update();
+		m_Info.pos = m_look;
 	}
 	~CameraDelay()
 	{
@@ -21,6 +23,8 @@ public:
 	}
 	void Update()
 	{
+		
+
 		if (!IsDelay()) { return; }
 		m_Time += 1.0f / 60.0f;
 	}
@@ -32,6 +36,7 @@ public:
 		m_pos = m_look;
 		m_pos.z += m_radius;
 		m_maxTime = time;
+		m_Info.pos = m_look;
 	}
 	bool IsDelay()
 	{

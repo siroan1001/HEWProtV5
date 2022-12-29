@@ -3,16 +3,16 @@
 #define _____BG_H____
 
 #include "DirectXTex/Texture.h"
+#include "Billboard.h"
 
-class BG
+class BG : public Billboard
 {
 public:
 	BG();
-	~BG();
-	void Draw();
+	void Update();
+	//void Draw();
 
 private:
-	ID3D11ShaderResourceView* m_pTex;
 
 };
 

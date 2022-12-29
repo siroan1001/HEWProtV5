@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BG.cpp" />
+    <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="CameraEvent.cpp" />
     <ClCompile Include="CameraPlayer.cpp" />
@@ -167,10 +168,12 @@
     <ClCompile Include="MeshBuffer.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Model_Contents.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ReverseBlock.cpp" />
     <ClCompile Include="SamplerState.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShadowBillBoard.cpp" />
     <ClCompile Include="ShadowBlock.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -180,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BG.h" />
+    <ClInclude Include="Billboard.h" />
     <ClInclude Include="BlendState.h" />
     <ClInclude Include="CameraBase.h" />
     <ClInclude Include="CameraDebug.h" />
@@ -190,6 +194,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="controller.h" />
+    <ClInclude Include="Def.h" />
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="DirectXTex\Texture.h" />
     <ClInclude Include="Game3D.h" />
@@ -202,10 +207,12 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="MeshBuffer.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ReverseBlock.h" />
     <ClInclude Include="SamplerState.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShadowBillBoard.h" />
     <ClInclude Include="ShadowBlock.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage.h" />

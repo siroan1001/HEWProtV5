@@ -11,6 +11,7 @@ class ReverseBlock : public Stage
 public:
 	ReverseBlock();
 	~ReverseBlock();
+	void Draw();
 
 	Collision::Direction GetDirection(int i);
 

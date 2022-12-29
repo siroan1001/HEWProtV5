@@ -14,7 +14,7 @@ public:
 	void Update()
 	{
 		m_look = m_pPlayer->GetPos();
-		m_look.y += 1.5f;
+		m_look.y += 2.0f;
 		//ƒJƒƒ‰‚ğ’‹“_‚ğ’†S‚É‰ñ“]
 		const float ROTA_Y = 2.0f;
 		const float ROTA_XZ = 3.0f;

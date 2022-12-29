@@ -2,13 +2,15 @@
 // 当たり判定に関する部分
 //（tureで衝突、falseで非衝突）
 #include "Collision.h"
+#include "Def.h"
 
+using namespace DirectX;
 
 // 四角形同士の衝突判定を行う関数
-bool Collision::RectAndRect(Stage::Info Obj1, Stage::Info Obj2)
+bool Collision::RectAndRect(Def::Info Obj1, Def::Info Obj2)
 {
-	Stage::Info Obj1Info;	// 1つ目のオブジェクトの情報を保持するための変数
-	Stage::Info Obj2Info;	// 2つ目のオブジェクトの情報を保持するための変数
+	Def::Info Obj1Info;	// 1つ目のオブジェクトの情報を保持するための変数
+	Def::Info Obj2Info;	// 2つ目のオブジェクトの情報を保持するための変数	
 
 	Obj1Info = Obj1;
 	Obj2Info = Obj2;
@@ -34,7 +36,7 @@ bool Collision::RectAndRect(Stage::Info Obj1, Stage::Info Obj2)
 }
 
 //四角形同士の当たり判定を取ってどの方向から当たったかを返す
-Collision::Direction Collision::RectAndRectDirection(Stage::Info Nobj1, Stage::Info Oobj1, Stage::Info obj2, Collision::Direction dire)
+Collision::Direction Collision::RectAndRectDirection(Def::Info Nobj1, Def::Info Oobj1, Def::Info obj2, Collision::Direction dire)
 {
 	LinePos ObjLine[3];		//線のポジションを格納
 
@@ -104,10 +106,10 @@ Collision::Direction Collision::RectAndRectDirection(Stage::Info Nobj1, Stage::I
 }
 
 // 四角形と円の衝突判定を行う関数(２つ目の引数に円の情報を入れること)
-bool Collision::RectAndCircle(Stage::Info Obj1, Stage::Info Obj2, float Radius)
+bool Collision::RectAndCircle(Def::Info Obj1, Def::Info Obj2, float Radius)
 {
-	Stage::Info Obj1Info;	// 1つ目のオブジェクトの情報を保持するための変数
-	Stage::Info Obj2Info;	// 2つ目のオブジェクトの情報を保持するための変数
+	Def::Info Obj1Info;	// 1つ目のオブジェクトの情報を保持するための変数
+	Def::Info Obj2Info;	// 2つ目のオブジェクトの情報を保持するための変数
 
 	Obj1Info = Obj1;
 	Obj2Info = Obj2;
@@ -186,10 +188,10 @@ bool Collision::RectAndCircle(Stage::Info Obj1, Stage::Info Obj2, float Radius)
 }
 
 // 円同士の衝突判定を行う関数
-bool Collision::CircleAndCircle(Stage::Info Obj1, Stage::Info Obj2, float Radius1, float Radius2)
+bool Collision::CircleAndCircle(Def::Info Obj1, Def::Info Obj2, float Radius1, float Radius2)
 {
-	Stage::Info Obj1Info;	// 1つ目のオブジェクトの情報を保持するための変数
-	Stage::Info Obj2Info;	// 2つ目のオブジェクトの情報を保持するための変数
+	Def::Info Obj1Info;	// 1つ目のオブジェクトの情報を保持するための変数
+	Def::Info Obj2Info;	// 2つ目のオブジェクトの情報を保持するための変数
 
 	Obj1Info = Obj1;
 	Obj2Info = Obj2;
@@ -221,7 +223,7 @@ float Collision::DistanceSqrf(const float t_x1, const float t_y1, const float t_
 //線同士の判定
 //vtx1, vtx2, center, center
 //Obj1にshadowBlockを設定する
-Collision::Direction Collision::LineAndLine(Stage::Info Obj1, Stage::Info Obj2)
+Collision::Direction Collision::LineAndLine(Def::Info Obj1, Def::Info Obj2)
 {
 	XMFLOAT2 p1 = { Obj1.pos.x, Obj1.pos.y };
 	XMFLOAT2 p2 = { Obj2.pos.x, Obj2.pos.y };

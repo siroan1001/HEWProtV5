@@ -1,11 +1,14 @@
 #include "Stage.h"
 #include <vector>
 #include "Input.h"
+#include "Collision.h"
+#include "Game3D.h"
+#include "CameraBase.h"
 
 Stage::Stage()
 	:m_blockNum(11)
 {
-	Info info;
+	Def::Info info;
 
 	//床(下)
 	info.pos = { 3.8f, -2.5f, 0.0f };
@@ -72,6 +75,60 @@ Stage::Stage()
 	info.size = { 2.0f, 1.5f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Info.push_back(info);
+
+	//シャドウブロック1(上)
+	info.pos = { -2.5f, 4.25f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック2(上)
+	//info.pos = { 0.2f, 5.25f, 0.0f };
+	//info.size = { 1.7f, 2.0f, 0.5f };
+	//info.rot = { 0.0f, 0.0f, 0.0f };
+	//m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック3(上)
+	//info.pos = { 2.2f, 4.25f, 0.0f };
+	//info.size = { 1.0f, 1.0f, 0.5f };
+	//info.rot = { 0.0f, 0.0f, 0.0f };
+	//m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック4(真ん中)
+	//info.pos = { -1.5f, 1.44f, 0.0f };
+	//info.size = { 1.0f, 1.0f, 0.5f };
+	//info.rot = { 0.0f, 0.0f, 0.0f };
+	//m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック5(真ん中)
+	info.pos = { 2.48f, 1.44f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック6(下)
+	info.pos = { -2.2f, -1.26f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック7(下)
+	//info.pos = { 1.79f, -1.26f, 0.0f };
+	//info.size = { 1.0f, 1.0f, 0.5f };
+	//info.rot = { 0.0f, 0.0f, 0.0f };
+	//m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック8(下)
+	info.pos = { 4.0f, -0.76f, 0.0f };
+	info.size = { 1.0f, 1.5f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック9(下)
+	info.pos = { 8.5f, -0.76f, 0.0f };
+	info.size = { 2.51f, 1.2f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
 }
 
 Stage::~Stage()
@@ -81,24 +138,47 @@ Stage::~Stage()
 
 void Stage::Draw()
 {
+	CameraBase* cam = Game3D::GetCamera();
 
-
-	for (int i = 0; i < m_blockNum; i++)
+	for (int i = 0; i < m_Info.size(); i++)
 	{
+		if (!Collision::RectAndRect(m_Info[i], cam->GetInfo()))	continue;
 		SetGeometoryTranslate(m_Info[i].pos.x, m_Info[i].pos.y, m_Info[i].pos.z);
 		SetGeometoryScaling(m_Info[i].size.x, m_Info[i].size.y, m_Info[i].size.z);
 		SetGeometoryRotation(m_Info[i].rot.x, m_Info[i].rot.y, m_Info[i].rot.z);
 		DrawBox();
 	}
-	
+
+	for (int i = 0; i < m_Shadow.size(); i++)
+	{
+		if (!Collision::RectAndRect(m_Shadow[i]->GetInfo(), cam->GetInfo()))	continue;
+		m_Shadow[i]->Draw();
+	}
 }
 
-Stage::Info Stage::GetInfo(int num)
+Def::Info Stage::GetInfo(int num)
 {
 	return m_Info[num];
 }
 
-int Stage::GetNum()
+int Stage::GetStageNum()
 {
-	return m_blockNum;
+	return m_Info.size();
+}
+
+int Stage::GetShadowNum()
+{
+	int num = 0;
+
+	for (int i = 0; i < m_Shadow.size(); i++)
+	{
+		num += m_Shadow[i]->GetNum();
+	}
+
+	return num;
+}
+
+vector<ShadowBlock*> Stage::GetShadowBlock()
+{
+	return m_Shadow;
 }
