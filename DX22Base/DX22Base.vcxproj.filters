@@ -132,6 +132,9 @@
     <ClCompile Include="Object.cpp">
       <Filter>ソース ファイル\DX22</Filter>
     </ClCompile>
+    <ClCompile Include="Lig.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -240,6 +243,9 @@
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
     <ClInclude Include="Def.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="Lig.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
   </ItemGroup>

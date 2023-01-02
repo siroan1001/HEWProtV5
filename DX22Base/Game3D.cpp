@@ -127,7 +127,7 @@ void Game3D::Update()
 void Game3D::Draw()
 {
 	//ジオメトリーのビュー行列とプロジェクション行列を設定する
-	SetGeometoryVPMatrix(m_pCamera[m_mainCamera]->GetViewMatrix(), m_pCamera[m_mainCamera]->GetProjectionMatrix(CameraBase::CameraAngle::E_CAM_ANGLE_PERSPECTIVEFOV));
+	SetGeometoryVPMatrix(m_pCamera[m_mainCamera]->GetViewMatrix(), m_pCamera[m_mainCamera]->GetProjectionMatrix(CameraBase::CameraAngle::E_CAM_ANGLE_PERSPECTIVEFOV), m_pCamera[m_mainCamera]->GetPos());
 	
 	for (int i = 0; i < E_LAYER_MAX; i++)
 	{

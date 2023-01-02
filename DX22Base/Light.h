@@ -3,7 +3,7 @@
 #define _____LIGHT_H____
 
 #include "Stage.h"
-
+#include "Geometory.h"
 #include "CameraBase.h"
 
 class Light

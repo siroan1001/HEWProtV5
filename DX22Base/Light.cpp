@@ -2,7 +2,7 @@
 #include "Input.h"
 
 Light::Light()
-	:m_Info{ {-3.8f, 4.25f, 0.0f}, {0.5f, 0.6f, 0.5f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
+	:m_Info{ {-3.8f, 4.25f, 0.0f}, /*{0.5f, 0.6f, 0.5f}*/{0.2f, 0.3f, 0.2f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
 	,m_Power(30.0f)
 {
 
@@ -38,6 +38,7 @@ void Light::Update()
 	{
 		m_Info.pos.y -= LIGHT_MOVE;
 	}
+	
 	if (m_Info.pos.x > right)m_Info.pos.x = right;
 	if (m_Info.pos.x < left)m_Info.pos.x = left;
 	if (m_Info.pos.y > ceiling)m_Info.pos.y = ceiling;
@@ -49,6 +50,8 @@ void Light::Draw()
 	SetGeometoryTranslate(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
 	SetGeometoryScaling(m_Info.size.x, m_Info.size.y, m_Info.size.z);
 	SetGeometoryRotation(m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
+	XMFLOAT3 LigPos = m_Info.pos; LigPos.z += 10.0f;
+	SetGeometorySpLigPos(LigPos);
 	DrawCylinder();
 }
 
