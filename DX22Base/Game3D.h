@@ -30,6 +30,16 @@ public:
 
 		E_LAYER_MAX
 	};
+	enum GameStatus
+	{
+		E_GAME_STATUS_NOME = 0,
+		E_GAME_STATUS_START,
+		E_GAME_STATUS_NORMAL,
+		E_GAME_STATUS_GOAL,
+		E_GAME_STATUS_PAUSE,
+
+		E_GAME_STATUS_MAX
+	};
 
 public:
 	Game3D();
@@ -38,13 +48,15 @@ public:
 	void Draw();
 
 	static CameraBase* GetCamera();
+	static GameStatus GetGameStatus();
+	static void SetGameStatus(GameStatus);
 
 private:
 	BlendState* m_pBlend;
 	static CameraBase* m_pCamera[E_CAM_MAX];
 	static CameraKind m_mainCamera;
 	Layer* m_pLayer[E_LAYER_MAX];
-
+	static GameStatus m_GameStatus;
 };
 
 #endif // __GAME_3D_H__

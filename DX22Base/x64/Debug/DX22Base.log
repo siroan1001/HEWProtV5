@@ -1,3 +1,2 @@
-﻿  Stage.cpp
-c:\users\user\documents\hewprotv5\dx22base\stage.cpp(166): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+﻿  StartObj.cpp
   DX22Base.vcxproj -> C:\Users\User\Documents\HEWProtV5\x64\Debug\DX22Base.exe

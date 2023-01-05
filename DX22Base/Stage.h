@@ -14,11 +14,23 @@ using namespace std;
 
 //class ShadowBlock;
 
+struct ShadowInfo
+{
+	ShadowBlock* info;
+	bool flag;
+};
+struct StageInfo
+{
+	Def::Info info;
+	bool flag;
+};
+
 class Stage
 {
 public:
 	Stage();
 	~Stage();
+	void Update();
 	void Draw();
 
 	Def::Info GetInfo(int num);

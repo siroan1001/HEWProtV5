@@ -14,41 +14,45 @@ public:
 	~CameraMain() {}
 	void Update()
 	{
+		//if (Game3D::GetGameStatus() != Game3D::E_GAME_STATUS_NORMAL)	return;
+
 		const float LIMIT = 1.5f;
 		XMFLOAT3 Playerpos = m_pPlayer->GetInfo().pos;
 
-	
-		switch (m_pPlayer->GetDirection())
+		if (Game3D::GetGameStatus() == Game3D::E_GAME_STATUS_NORMAL)
 		{
-		case Collision::E_DIRECTION_L:
-			
-			m_look.x += 0.1f;
-		
-			if (m_look.x - LIMIT > Playerpos.x)
+			switch (m_pPlayer->GetDirection())
 			{
-				m_look.x = Playerpos.x + LIMIT;
+			case Collision::E_DIRECTION_L:
+
+				m_look.x += 0.1f;
+
+				if (m_look.x - LIMIT > Playerpos.x)
+				{
+					m_look.x = Playerpos.x + LIMIT;
+				}
+
+				if (m_look.x > 5.0f)
+				{
+					m_look.x = 5.0f;
+				}
+
+				break;
+			case Collision::E_DIRECTION_R:
+				m_look.x -= 0.1f;
+
+
+				if (m_look.x + LIMIT < Playerpos.x)
+				{
+					m_look.x = Playerpos.x - LIMIT;
+				}
+
+
+
+				break;
+			default:
+				break;
 			}
-
-			if (m_look.x > 5.0f)
-			{
-				m_look.x = 5.0f;
-			}
-			
-			break;
-		case Collision::E_DIRECTION_R:
-			m_look.x -= 0.1f;
-
-		
-			if (m_look.x + LIMIT < Playerpos.x)
-			{
-				m_look.x = Playerpos.x - LIMIT;
-			}
-
-			
-
-			break;
-		default:
-			break;
 		}
 
 		m_look.y = Playerpos.y + 1.0f;

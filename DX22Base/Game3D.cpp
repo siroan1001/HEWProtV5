@@ -14,8 +14,9 @@
 #include "LayerGame.h"
 #include "LayerBG.h"
 
-Game3D::CameraKind Game3D::m_mainCamera = E_CAM_DELAY;
+Game3D::CameraKind Game3D::m_mainCamera = E_CAM_MAIN;
 CameraBase* Game3D::m_pCamera[] = {};
+Game3D::GameStatus Game3D::m_GameStatus = E_GAME_STATUS_NOME;
 
 
 Game3D::Game3D()
@@ -34,7 +35,11 @@ Game3D::Game3D()
 	m_pBlend->Create(blend);
 	m_pBlend->Bind();
 
-	m_pCamera[E_CAM_MAIN] = new CameraMain;
+	CameraMain* pMain = new CameraMain;
+	pMain->SetLook(XMFLOAT3(-4.3f, 4.25f, 0.0f));
+	m_pCamera[E_CAM_MAIN] = pMain;
+	//m_pCamera[E_CAM_MAIN] = new CameraMain;
+	//m_pCamera[E_CAM_MAIN]->SetLook();
 	CameraEvent* pEvent = new CameraEvent();
 	pEvent->SetEvent(XMFLOAT3(-3.0f, 4.25f, 3.0f), XMFLOAT3(-3.0f, 4.25f, 3.0f), 3.0f);
 	m_pCamera[E_CAM_EVENT] = pEvent;
@@ -47,12 +52,14 @@ Game3D::Game3D()
 
 	m_pLayer[E_LAYER_BG] = new LayerBG;		//‚±‚ê
 	m_pLayer[E_LAYER_BUCK_OBJECT] = NULL;
-	m_pLayer[E_LAYER_GAME] = new LayerGame(m_pCamera[m_mainCamera]);		//‚±‚ê
+	m_pLayer[E_LAYER_GAME] = new LayerGame(m_pCamera[m_mainCamera], &m_GameStatus);		//‚±‚ê
 	m_pLayer[E_LAYER_UI] = NULL;
 
 	LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
 	CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
 	camera->SetPlayer(layer->GetPlayer());
+
+	m_GameStatus = E_GAME_STATUS_START;
 }
 
 Game3D::~Game3D()
@@ -147,3 +154,15 @@ CameraBase * Game3D::GetCamera()
 {
 	return m_pCamera[m_mainCamera];
 }
+
+Game3D::GameStatus Game3D::GetGameStatus()
+{
+	return m_GameStatus;
+}
+
+void Game3D::SetGameStatus(GameStatus status)
+{
+	m_GameStatus = status;
+}
+
+

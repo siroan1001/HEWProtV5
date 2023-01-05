@@ -177,6 +177,7 @@
     <ClCompile Include="ShadowBlock.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="StartObj.cpp" />
     <ClCompile Include="Startup.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WinUtil.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Quadtree.h" />
     <ClInclude Include="ReverseBlock.h" />
     <ClInclude Include="SamplerState.h" />
     <ClInclude Include="Shader.h" />
@@ -216,6 +218,7 @@
     <ClInclude Include="ShadowBlock.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="StartObj.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WinUtil.h" />
   </ItemGroup>

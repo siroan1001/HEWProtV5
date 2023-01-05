@@ -1,6 +1,7 @@
 #include "LayerGame.h"
+#include "Game3D.h"
 
-LayerGame::LayerGame(CameraBase* camera)
+LayerGame::LayerGame(CameraBase* camera, Game3D::GameStatus* status)
 {
 	m_pCamera = camera;
 
@@ -17,10 +18,16 @@ LayerGame::LayerGame(CameraBase* camera)
 	m_pPlayer->InitDirection(m_pStage->GetStageNum() + m_pStage->GetShadowNum());
 
 	m_pRvsBlock = new ReverseBlock;
+
+	m_pStartObj = new StartObj;
+	m_pStartObj->SetCamera(camera);
+
+	m_GameStatus = status;
 }
 
 LayerGame::~LayerGame()
 {
+	delete m_pStartObj;
 	delete m_pRvsBlock;
 	delete m_pLight;
 	//delete m_pShadowBlock;
@@ -57,6 +64,8 @@ void LayerGame::Draw()
 	//ライトの描画
 	m_pLight->Draw();
 
+	//スタートの描画
+	m_pStartObj->Draw();
 }
 
 Player * LayerGame::GetPlayer()
@@ -74,7 +83,6 @@ void LayerGame::SetCamera(CameraBase * camera)
 
 void LayerGame::CheckCollision()
 {
-
 	//ShadowBlockとLigthの判定
 	vector<ShadowBlock*> shadow = m_pStage->GetShadowBlock();	//シャドウブロックの情報
 	vector<vector<ShadowBlock::SmallBlockTemp>>* block;
@@ -100,7 +108,7 @@ void LayerGame::CheckCollision()
 	}
 
 	int num = 0;		//プレイヤーとブロックの当たり判定が何個目かを入れる（前フレームのどの方向に当たったかを確認するのに使う）
-
+	 
 	//PlayerとStageの当たり判定
 	for (num = 0; num < m_pStage->GetStageNum(); num++)
 	{
@@ -145,17 +153,27 @@ void LayerGame::CheckCollision()
 
 	num--;
 
+	Def::Info cam = m_pCamera->GetInfo();
+
 	//PlayerとShadowBloackの当たり判定
 	for (int i = 0; i < shadow.size(); i++)
 	{
+		if (!Collision::RectAndRect(shadow[i]->GetInfo(), cam))	continue;
 		block = shadow[i]->GetSmallBlockInfo();
+		
 		for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
 		{
 			for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init, num++)
 			{
 				Def::Info shadow = init->Info;		//シャドウブロックの情報
+				
+
+				
+
 				Def::Info player = m_pPlayer->GetInfo();		//プレイヤーの情報
 				player.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
+
+				
 
 				if (init->use)
 				{//存在する（引き戻しの処理）
@@ -237,6 +255,16 @@ void LayerGame::CheckCollision()
 		if (Collision::RectAndRect(m_pPlayer->GetInfo(), m_pRvsBlock->GetInfo(i)))
 		{
 			m_pPlayer->SetDirection(m_pRvsBlock->GetDirection(i));
+		}
+	}
+
+	//プレイヤーとスタート板
+	if (*m_GameStatus == Game3D::E_GAME_STATUS_START)
+	{
+		Def::Info startInfo = m_pStartObj->GetInfo();
+		if (Collision::RectAndRect(m_pPlayer->GetInfo(), startInfo))
+		{
+			Game3D::SetGameStatus(Game3D::E_GAME_STATUS_NORMAL);
 		}
 	}
 }

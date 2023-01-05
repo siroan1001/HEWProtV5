@@ -132,6 +132,9 @@
     <ClCompile Include="Object.cpp">
       <Filter>ソース ファイル\DX22</Filter>
     </ClCompile>
+    <ClCompile Include="StartObj.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -240,6 +243,12 @@
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
     <ClInclude Include="Def.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="StartObj.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
   </ItemGroup>
