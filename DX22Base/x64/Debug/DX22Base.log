@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  Geometory.cpp
 c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(378): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
 c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(379): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
@@ -10,3 +11,25 @@ c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx2
 c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(501): warning C4267: '=': 'size_t' から 'UINT' に変換しました。データが失われているかもしれません。
 c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(504): warning C4267: '=': 'size_t' から 'UINT' に変換しました。データが失われているかもしれません。
   DX22Base.vcxproj -> C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DX22Base.exe
+=======
+﻿  BG.cpp
+  Billboard.cpp
+  Collision.cpp
+  Game3D.cpp
+  LayerBG.cpp
+  LayerGame.cpp
+  Light.cpp
+  Main.cpp
+  Object.cpp
+  Player.cpp
+  ReverseBlock.cpp
+  ShadowBillBoard.cpp
+  ShadowBlock.cpp
+c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(154): warning C4244: '引数': 'float' から 'const unsigned __int64' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(168): warning C4267: '+=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  Stage.cpp
+c:\users\user\documents\hewprotv5\dx22base\stage.cpp(166): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  StartObj.cpp
+  コードを生成中...
+  DX22Base.vcxproj -> C:\Users\User\Documents\HEWProtV5\x64\Debug\DX22Base.exe
+>>>>>>> 83d80c1f86bc84d2bc00ca4d57e03cd859068e73

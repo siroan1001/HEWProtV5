@@ -4,6 +4,8 @@
 
 //using namespace DirectX;
 
+
+
 Player::Player(Collision::Direction dire)
 	:m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
@@ -19,6 +21,10 @@ Player::Player(Collision::Direction dire)
 	{
 		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
 	}
+	//if (!m_pModel->Load("Assets/character01.fbx", 1.0f))
+	//{
+	//	MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
+	//}
 
 	//頂点シェーダをモデルに設定
 	m_pModel->SetVertexShader(m_pVS);

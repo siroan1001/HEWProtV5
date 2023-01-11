@@ -43,3 +43,8 @@ void Billboard::Draw()
 
 	Sprite::Draw();
 }
+
+Def::Info Billboard::GetInfo()
+{
+	return { m_Info.Pos, {m_Info.Size.x, m_Info.Size.y, 0.0f}, {0.0f, 0.0f, 0.0f} };
+}

@@ -83,22 +83,22 @@ Stage::Stage()
 	m_Shadow.push_back(new ShadowBlock(info));
 
 	//シャドウブロック2(上)
-	//info.pos = { 0.2f, 5.25f, 0.0f };
-	//info.size = { 1.7f, 2.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Shadow.push_back(new ShadowBlock(info));
+	info.pos = { 0.2f, 5.25f, 0.0f };
+	info.size = { 1.7f, 2.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
 
 	//シャドウブロック3(上)
-	//info.pos = { 2.2f, 4.25f, 0.0f };
-	//info.size = { 1.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Shadow.push_back(new ShadowBlock(info));
+	info.pos = { 2.2f, 4.25f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
 
 	//シャドウブロック4(真ん中)
-	//info.pos = { -1.5f, 1.44f, 0.0f };
-	//info.size = { 1.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Shadow.push_back(new ShadowBlock(info));
+	info.pos = { -1.5f, 1.44f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
 
 	//シャドウブロック5(真ん中)
 	info.pos = { 2.48f, 1.44f, 0.0f };
@@ -113,10 +113,10 @@ Stage::Stage()
 	m_Shadow.push_back(new ShadowBlock(info));
 
 	//シャドウブロック7(下)
-	//info.pos = { 1.79f, -1.26f, 0.0f };
-	//info.size = { 1.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Shadow.push_back(new ShadowBlock(info));
+	info.pos = { 1.79f, -1.26f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
 
 	//シャドウブロック8(下)
 	info.pos = { 4.0f, -0.76f, 0.0f };
