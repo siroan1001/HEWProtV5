@@ -1,2 +1,12 @@
-﻿  Light.cpp
+﻿  Geometory.cpp
+c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(378): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(379): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(397): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(398): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(416): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(417): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(418): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(419): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(501): warning C4267: '=': 'size_t' から 'UINT' に変換しました。データが失われているかもしれません。
+c:\users\shingekinokyojin\onedrive\デスクトップ\hew\hewプログラム\dx22base\geometory.cpp(504): warning C4267: '=': 'size_t' から 'UINT' に変換しました。データが失われているかもしれません。
   DX22Base.vcxproj -> C:\Users\shingekinokyojin\OneDrive\デスクトップ\HEW\HEWプログラム\x64\Debug\DX22Base.exe
