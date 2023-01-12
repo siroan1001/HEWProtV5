@@ -10,6 +10,7 @@
 //#include "ShadowBlock.h"
 #include "ReverseBlock.h"
 #include "StartObj.h"
+#include "ChasingShadow.h"
 #include "CameraBase.h"
 
 class LayerGame	: public Layer
@@ -34,6 +35,7 @@ private:
 	CameraBase* m_pCamera;
 	ReverseBlock* m_pRvsBlock;
 	StartObj* m_pStartObj;
+	ChasingShadow* m_pChasingShadow;
 	Game3D::GameStatus* m_GameStatus;
 };
 

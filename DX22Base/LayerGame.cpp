@@ -22,11 +22,15 @@ LayerGame::LayerGame(CameraBase* camera, Game3D::GameStatus* status)
 	m_pStartObj = new StartObj;
 	m_pStartObj->SetCamera(camera);
 
+	m_pChasingShadow = new ChasingShadow;
+	m_pChasingShadow->SetPlayer(m_pPlayer);
+
 	m_GameStatus = status;
 }
 
 LayerGame::~LayerGame()
 {
+	delete m_pChasingShadow;
 	delete m_pStartObj;
 	delete m_pRvsBlock;
 	delete m_pLight;
@@ -39,6 +43,8 @@ void LayerGame::Update()
 {
 	//m_pShadowBlock->Update();
 	m_pLight->Update();
+
+	m_pChasingShadow->Update();
 
 	//プレイヤーの更新
 	//カメラがPlayerCameraの場合のみ処理する
@@ -66,6 +72,9 @@ void LayerGame::Draw()
 
 	//スタートの描画
 	m_pStartObj->Draw();
+
+	//追ってくる影の描画
+	m_pChasingShadow->Draw();
 }
 
 Player * LayerGame::GetPlayer()
