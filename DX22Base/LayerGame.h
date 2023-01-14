@@ -11,6 +11,7 @@
 #include "ReverseBlock.h"
 #include "StartObj.h"
 #include "CameraBase.h"
+#include "Obstacle.h"
 
 class LayerGame	: public Layer
 {
@@ -34,6 +35,7 @@ private:
 	CameraBase* m_pCamera;
 	ReverseBlock* m_pRvsBlock;
 	StartObj* m_pStartObj;
+	Obstacle* m_pObstacle;
 	Game3D::GameStatus* m_GameStatus;
 };
 

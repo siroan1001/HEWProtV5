@@ -7,6 +7,7 @@
 #include "Geometory.h"
 #include "Sprite.h"
 #include "Object.h"
+#include "ModelList.h"
 
 //--- íËêîíËã`
 const unsigned int SCREEN_WIDTH = 1280;
@@ -45,12 +46,14 @@ void Init()
 
 	Object::Init();
 	Sprite::Init();
+	ModelList::Init();
 
 	g_pGame = new Game3D();
 }
 void Uninit()
 {
 	delete g_pGame;
+	ModelList::Uninit();
 	Object::Uninit();
 	Sprite::Uninit();
 	UninitGeometory();

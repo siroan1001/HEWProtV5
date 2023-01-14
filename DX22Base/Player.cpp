@@ -14,10 +14,11 @@ Player::Player(Collision::Direction dire)
 	,m_Spead(0.03f)
 {
 	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.646f, 0.3f}, {0.0f, -90.0f, 0.0f} };
+	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
 
 	//モデル読み込み
 	m_pModel = new Model;
-	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.03f))
+	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 1.0f))
 	{
 		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
 	}
