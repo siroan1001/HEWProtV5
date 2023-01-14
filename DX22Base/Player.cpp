@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Input.h"
 #include "Collision.h"
+#include "ModelList.h"
 
 //using namespace DirectX;
 
@@ -17,11 +18,12 @@ Player::Player(Collision::Direction dire)
 	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
 
 	//モデル読み込み
-	m_pModel = new Model;
-	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 1.0f))
-	{
-		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
-	}
+	//m_pModel = new Model;
+	//if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 1.0f))
+	//{
+	//	MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
+	//}
+	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_PLAYER);
 	//if (!m_pModel->Load("Assets/character01.fbx", 1.0f))
 	//{
 	//	MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);

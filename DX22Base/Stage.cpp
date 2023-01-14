@@ -4,6 +4,7 @@
 #include "Collision.h"
 #include "Game3D.h"
 #include "CameraBase.h"
+#include "Geometory.h"
 
 Stage::Stage()
 	:m_blockNum(11)

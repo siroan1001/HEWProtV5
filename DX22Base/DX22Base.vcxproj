@@ -163,6 +163,7 @@
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LayerBG.cpp" />
     <ClCompile Include="LayerGame.cpp" />
+    <ClCompile Include="Lig.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MeshBuffer.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Layer.h" />
     <ClInclude Include="LayerBG.h" />
     <ClInclude Include="LayerGame.h" />
+    <ClInclude Include="Lig.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="MeshBuffer.h" />

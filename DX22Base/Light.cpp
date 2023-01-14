@@ -49,6 +49,8 @@ void Light::Draw()
 	SetGeometoryTranslate(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
 	SetGeometoryScaling(m_Info.size.x, m_Info.size.y, m_Info.size.z);
 	SetGeometoryRotation(m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
+	XMFLOAT3 LigPos = m_Info.pos; LigPos.z += 10.0f;
+	SetGeometorySpLigPos(LigPos);
 	DrawCylinder();
 }
 

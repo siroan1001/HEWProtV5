@@ -1,4 +1,5 @@
 #include "Obstacle.h"
+#include "ModelList.h"
 
 Obstacle::Obstacle()
 {
@@ -7,11 +8,13 @@ Obstacle::Obstacle()
 	m_ModelSize.y = 1.0f;
 	m_ModelSize.z = 1.0f;
 
-	m_pModel = new Model;
-	if (!m_pModel->Load("Assets/box/box.fbx", 1.0f))
-	{
-		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
-	}
+	//m_pModel = new Model;
+	//if (!m_pModel->Load("Assets/box/box.fbx", 1.0f))
+	//{
+	//	MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
+	//}
+	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_BOX);
+
 	m_pModel->SetVertexShader(m_pVS);
 }
 

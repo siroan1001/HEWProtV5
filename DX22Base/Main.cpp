@@ -43,7 +43,7 @@ void Init()
 	{
 		Error("geometory initialize failed.");
 	}
-
+	//SetGeometoryColor(XMFLOAT3(1.0f, 1.0f, 1.0f));
 	Object::Init();
 	Sprite::Init();
 	ModelList::Init();
