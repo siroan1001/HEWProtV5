@@ -1,20 +1,20 @@
-#include "Player.h"
-#include "Input.h"
+#include "Enemy.h"
 #include "Collision.h"
 
 //using namespace DirectX;
 
 
 
-Player::Player(Collision::Direction dire)
+Enemy::Enemy(Collision::Direction dire, XMFLOAT3 pos)
 	:m_Ground(true)
-	,m_Move{0.0f, 0.0f, 0.0f}
-	,m_OldInfo{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
-	,m_Direction(dire)
-	,m_Spead(0.03f)
-	,m_IsColEnemy(false)
+	, m_Move{ 0.0f, 0.0f, 0.0f }
+	, m_OldInfo{ {2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f} }
+	, m_Direction(dire)
+	, m_Spead(0.02f)
+	, m_IsColPlayer(false)
+	, m_life(300.0f)
 {
-	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.646f, 0.3f}, {0.0f, -90.0f, 0.0f} };
+	m_Info = { {pos.x, pos.y, pos.z}, {0.3f, 0.646f, 0.3f}, {0.0f, -90.0f, 0.0f} };
 
 	//モデル読み込み
 	m_pModel = new Model;
@@ -22,11 +22,11 @@ Player::Player(Collision::Direction dire)
 	{
 		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
 	}
-	//if (!m_pModel->Load("Assets/character01.fbx", 1.0f))
-	//{
-	//	MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
-	//}
-
+	/*if (!m_pModel->Load("Assets/Model/enemy01.fbx", 1.0f))
+	{
+		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
+	}
+*/
 	//頂点シェーダをモデルに設定
 	m_pModel->SetVertexShader(m_pVS);
 
@@ -50,7 +50,7 @@ Player::Player(Collision::Direction dire)
 	}
 }
 
-void Player::Update()
+void Enemy::Update()
 {
 	//移動量カット
 	m_Move = { 0.0f, m_Move.y, 0.0f };
@@ -58,23 +58,12 @@ void Player::Update()
 	//前フレームのポジションを保持
 	m_OldInfo = m_Info;
 
-	//移動処理
-	if (IsKeyPress('D'))
-	{
-		m_Direction = Collision::E_DIRECTION_R;
-		m_Info.rot.y = -90.0f;
-	}
-		
-	if (IsKeyPress('A'))
-	{
-		m_Direction = Collision::E_DIRECTION_L;
-		m_Info.rot.y = 90.0f;
-	}
+	if (m_IsColPlayer) m_Spead = 0.015f;
+	else m_Spead = 0.02f;
 
-	if (m_IsColEnemy)m_Spead = 0.015f;
-	else m_Spead = 0.03f;
 
-	m_IsColEnemy = false;
+	m_IsColPlayer = false;
+
 
 	// 自動移動
 	switch (m_Direction)
@@ -89,19 +78,14 @@ void Player::Update()
 		break;
 	}
 
-	
+
 	// Rキーでリスポーンする (デバッグ用
 #ifdef DEBUG
 	if (IsKeyPress('R')) m_Info.pos = { 2.0f, 1.0f, -0.0f };
 #endif // DEBUG
 
-	
+
 	//ジャンプ
-	if (IsKeyTrigger(VK_SPACE))
-	{
-		m_Move.y += 0.10f;
-		m_Ground = false;
-	}
 
 	//重力加算
 	m_Move.y -= 0.01f;
@@ -119,54 +103,54 @@ void Player::Update()
 	}
 }
 
-void Player::SetPos(XMFLOAT3 pos)
+void Enemy::SetPos(XMFLOAT3 pos)
 {
 	m_Info.pos = pos;
 }
 
-void Player::InitDirection(int num)
+void Enemy::InitDirection(int num)
 {
 	//m_StageDire.
 	for (int i = 0; i < num; i++)
 	{
-		
+
 		m_StageDire.push_back(Collision::E_DIRECTION_NULL);
 	}
 }
 
-void Player::ResetMove()
+void Enemy::ResetMove()
 {
 	m_Move.y = 0.0f;
 }
 
-Def::Info Player::GetOldInfo()
+Def::Info Enemy::GetOldInfo()
 {
 	return m_OldInfo;
 }
 
-Collision::Direction Player::GetDirection()
+Collision::Direction Enemy::GetDirection()
 {
 	return m_Direction;
 }
 
-Collision::Direction Player::GetStageCollistonDirection(int num)
+Collision::Direction Enemy::GetStageCollistonDirection(int num)
 {
 	return m_StageDire[num];
 }
 
-void Player::SetStageCollisionDirection(Collision::Direction dire, int num)
+void Enemy::SetStageCollisionDirection(Collision::Direction dire, int num)
 {
 	m_StageDire[num] = dire;
 }
 
-void Player::SetDirection(Collision::Direction dire)
+void Enemy::SetDirection(Collision::Direction dire)
 {
 	m_Direction = dire;
 
 	switch (m_Direction)
 	{
 	case Collision::E_DIRECTION_L:
-		m_Info.rot.y =  90.0f;
+		m_Info.rot.y = 90.0f;
 		break;
 	case Collision::E_DIRECTION_R:
 		m_Info.rot.y = -90.0f;
@@ -176,8 +160,8 @@ void Player::SetDirection(Collision::Direction dire)
 	}
 }
 
-void Player::SetCollisionEnemy()
+void Enemy::SetCollisionPlayer()
 {
-	m_IsColEnemy = true;
+	m_IsColPlayer = true;
 }
 
