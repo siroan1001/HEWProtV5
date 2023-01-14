@@ -107,7 +107,7 @@ void Game3D::Update()
 	}
 
 	//ƒJƒƒ‰‚ÌXV
-	m_pCamera[m_mainCamera]->Update();
+	if(m_GameStatus == E_GAME_STATUS_NORMAL) m_pCamera[m_mainCamera]->Update();
 
 	for (int i = 0; i < E_LAYER_MAX; i++)
 	{

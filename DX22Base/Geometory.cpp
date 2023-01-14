@@ -632,7 +632,7 @@ void CreateGeometoryConstantBuffer()
 	g_geometoryMat[0]._44 = 1.0f;
 	g_pGeometoryColor = new ConstantBuffer();
 	g_pGeometoryColor->Create(sizeof(g_geometoryColor));
-	g_geometoryColor.Color = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	g_geometoryColor.Color = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
 	UpdateGeometoryColor();
 	g_pGeometoryLight = new ConstantBuffer();
 	g_pGeometoryLight->Create(sizeof(g_geometoryLight));

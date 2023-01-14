@@ -8,6 +8,9 @@
 #include "Sprite.h"
 #include "Object.h"
 #include "ModelList.h"
+#include "Quadtree.h"
+
+using namespace IKD;
 
 //--- ’è”’è‹`
 const unsigned int SCREEN_WIDTH = 1280;
@@ -48,6 +51,8 @@ void Init()
 	Sprite::Init();
 	ModelList::Init();
 
+	
+	
 	g_pGame = new Game3D();
 }
 void Uninit()

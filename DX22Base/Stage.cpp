@@ -171,6 +171,7 @@ void Stage::Draw()
 		SetGeometoryTranslate(m_Info[i].pos.x, m_Info[i].pos.y, m_Info[i].pos.z);
 		SetGeometoryScaling(m_Info[i].size.x, m_Info[i].size.y, m_Info[i].size.z);
 		SetGeometoryRotation(m_Info[i].rot.x, m_Info[i].rot.y, m_Info[i].rot.z);
+		SetGeometoryColor(XMFLOAT3(10.0f, 10.0f, 10.0f));
 		DrawBox();
 	}
 

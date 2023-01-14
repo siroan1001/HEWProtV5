@@ -22,6 +22,9 @@ LayerGame::LayerGame(CameraBase* camera, Game3D::GameStatus* status)
 	m_pStartObj = new StartObj;
 	m_pStartObj->SetCamera(camera);
 
+	m_pGoalObj = new GoalObj;
+	m_pGoalObj->SetCamera(camera);
+
 	m_pObstacle = new Obstacle;
 	m_pObstacle->SetCamera(camera);
 
@@ -31,6 +34,7 @@ LayerGame::LayerGame(CameraBase* camera, Game3D::GameStatus* status)
 LayerGame::~LayerGame()
 {
 	delete m_pObstacle;
+	delete m_pGoalObj;
 	delete m_pStartObj;
 	delete m_pRvsBlock;
 	delete m_pLight;
@@ -70,6 +74,8 @@ void LayerGame::Draw()
 
 	//スタートの描画
 	m_pStartObj->Draw();
+	
+	m_pGoalObj->Draw();
 
 	m_pObstacle->Draw();
 }
@@ -271,6 +277,15 @@ void LayerGame::CheckCollision()
 		if (Collision::RectAndRect(m_pPlayer->GetInfo(), startInfo))
 		{
 			Game3D::SetGameStatus(Game3D::E_GAME_STATUS_NORMAL);
+		}
+	}
+
+	if (*m_GameStatus == Game3D::E_GAME_STATUS_NORMAL)
+	{
+		Def::Info GoalInfo = m_pGoalObj->GetInfo();
+		if (Collision::RectAndRect(m_pPlayer->GetInfo(), GoalInfo))
+		{
+			Game3D::SetGameStatus(Game3D::E_GAME_STATUS_GOAL);
 		}
 	}
 }

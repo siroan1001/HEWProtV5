@@ -10,6 +10,7 @@
 //#include "ShadowBlock.h"
 #include "ReverseBlock.h"
 #include "StartObj.h"
+#include "Goal.h"
 #include "CameraBase.h"
 #include "Obstacle.h"
 
@@ -35,6 +36,7 @@ private:
 	CameraBase* m_pCamera;
 	ReverseBlock* m_pRvsBlock;
 	StartObj* m_pStartObj;
+	GoalObj* m_pGoalObj;
 	Obstacle* m_pObstacle;
 	Game3D::GameStatus* m_GameStatus;
 };

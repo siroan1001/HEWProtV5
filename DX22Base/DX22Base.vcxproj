@@ -159,6 +159,7 @@
     <ClCompile Include="DirectXTex\Texture.cpp" />
     <ClCompile Include="Game3D.cpp" />
     <ClCompile Include="Geometory.cpp" />
+    <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LayerBG.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="DirectXTex\Texture.h" />
     <ClInclude Include="Game3D.h" />
     <ClInclude Include="Geometory.h" />
+    <ClInclude Include="Goal.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="LayerBG.h" />
