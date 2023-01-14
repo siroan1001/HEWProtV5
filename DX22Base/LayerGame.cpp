@@ -5,13 +5,13 @@ LayerGame::LayerGame(CameraBase* camera, Game3D::GameStatus* status)
 {
 	m_pCamera = camera;
 
-	//ƒXƒe[ƒW‚Ì¶¬
+	//ã‚¹ãƒ†ãƒ¼ã‚¸ã®ç”Ÿæˆ
 	m_pStage = new Stage;
 
-	//ƒvƒŒƒCƒ„[‚Ì¶¬
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç”Ÿæˆ
 	m_pPlayer = new Player(Collision::E_DIRECTION_L);
 
-	//“G‚Ì¶¬
+	//æ•µã®ç”Ÿæˆ
 	m_pEnemy = new Enemy(Collision::E_DIRECTION_L, { -3.0f, 5.25f, 0.0f });
 
 	m_pBobbingEnemy = new BobbingEnemy(Collision::E_DIRECTION_L, { -7.0f,3.0f,0.0f }, { -4.0f, 5.0f, 0.0f }, 300);
@@ -47,6 +47,12 @@ LayerGame::LayerGame(CameraBase* camera, Game3D::GameStatus* status)
 	m_pStartObj = new StartObj;
 	m_pStartObj->SetCamera(camera);
 
+	m_pGoalObj = new GoalObj;
+	m_pGoalObj->SetCamera(camera);
+
+	m_pObstacle = new Obstacle;
+	m_pObstacle->SetCamera(camera);
+
 	m_pChasingShadow = new ChasingShadow;
 	m_pChasingShadow->SetPlayer(m_pPlayer);
 
@@ -56,6 +62,8 @@ LayerGame::LayerGame(CameraBase* camera, Game3D::GameStatus* status)
 LayerGame::~LayerGame()
 {
 	delete m_pChasingShadow;
+	delete m_pObstacle;
+	delete m_pGoalObj;
 	delete m_pStartObj;
 	delete m_pRvsBlock;
 	delete m_pLight;
@@ -74,11 +82,11 @@ void LayerGame::Update()
 
 	m_pChasingShadow->Update();
 
-	//ƒvƒŒƒCƒ„[‚ÌXV
-	//ƒJƒƒ‰‚ªPlayerCamera‚Ìê‡‚Ì‚İˆ—‚·‚é
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ›´æ–°
+	//ã‚«ãƒ¡ãƒ©ãŒPlayerCameraã®å ´åˆã®ã¿å‡¦ç†ã™ã‚‹
 	m_pPlayer->Update();
 
-	//“G‚ÌXV
+	//æ•µã®æ›´æ–°
 
 	if (m_pEnemy->m_use)m_pEnemy->Update();
 	if (m_pBobbingEnemy->m_use)m_pBobbingEnemy->Update();
@@ -94,13 +102,13 @@ void LayerGame::Update()
 
 void LayerGame::Draw()
 {
-	//ƒXƒe[ƒW‚Ì•`‰æ
+	//ã‚¹ãƒ†ãƒ¼ã‚¸ã®æç”»
 	m_pStage->Draw();
 
-	//ƒvƒŒƒCƒ„[‚Ì•`‰æ
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æç”»
 	m_pPlayer->Draw();
 
-	//“G‚Ì•`‰æ
+	//æ•µã®æç”»
 	if (m_pEnemy->m_use)m_pEnemy->Draw();
 	if (m_pBobbingEnemy->m_use)m_pBobbingEnemy->Draw();
 
@@ -109,19 +117,23 @@ void LayerGame::Draw()
 	//	m_pEnemys[i]->Draw();
 	//}
 
-	//ƒVƒƒƒhƒEƒuƒƒbƒN‚Ì•`‰æ
+	//ã‚·ãƒ£ãƒ‰ã‚¦ãƒ–ãƒ­ãƒƒã‚¯ã®æç”»
 	//m_pShadowBlock->Draw();
 
 	m_pRvsBlock->Draw();
 
-	//ƒ‰ƒCƒg‚Ì•`‰æ
+	//ãƒ©ã‚¤ãƒˆã®æç”»
 	m_pLight->Draw();
 
-	//ƒXƒ^[ƒg‚Ì•`‰æ
+	//ã‚¹ã‚¿ãƒ¼ãƒˆã®æç”»
 	m_pStartObj->Draw();
 
-	//’Ç‚Á‚Ä‚­‚é‰e‚Ì•`‰æ
+  //è¿½ã£ã¦ãã‚‹å½±ã®æç”»
 	m_pChasingShadow->Draw();
+	
+	m_pGoalObj->Draw();
+
+	m_pObstacle->Draw();
 }
 
 Player * LayerGame::GetPlayer()
@@ -139,8 +151,8 @@ void LayerGame::SetCamera(CameraBase * camera)
 
 void LayerGame::CheckCollision()
 {
-	//ShadowBlock‚ÆLigth‚Ì”»’è
-	vector<ShadowBlock*> shadow = m_pStage->GetShadowBlock();	//ƒVƒƒƒhƒEƒuƒƒbƒN‚Ìî•ñ
+	//ShadowBlockã¨Ligthã®åˆ¤å®š
+	vector<ShadowBlock*> shadow = m_pStage->GetShadowBlock();	//ã‚·ãƒ£ãƒ‰ã‚¦ãƒ–ãƒ­ãƒƒã‚¯ã®æƒ…å ±
 	vector<vector<ShadowBlock::SmallBlockTemp>>* block;
 
 	for (int i = 0; i < shadow.size(); i++)
@@ -152,57 +164,57 @@ void LayerGame::CheckCollision()
 			{
 				if (Collision::RectAndCircle(init->Info, m_pLight->GetInfo(), m_pLight->GetRadius()))
 				{
-					init->life -= m_pLight->GetPower();		//ƒVƒƒƒhƒEƒuƒƒbƒN‚Ìƒ‰ƒCƒt‚ğí‚é
+					init->life -= m_pLight->GetPower();		//ã‚·ãƒ£ãƒ‰ã‚¦ãƒ–ãƒ­ãƒƒã‚¯ã®ãƒ©ã‚¤ãƒ•ã‚’å‰Šã‚‹
 					if (init->life <= 0.0f)
-					{//ƒ‰ƒCƒt‚ª‚O‚ğ‰º‰ñ‚Á‚½‚ç
-						init->life = 0.0f;	//‚OˆÈ‰º‚É‚È‚ç‚È‚¢‚æ‚¤‚É•â³
-						init->use = false;	//g—p‚µ‚Ä‚È‚¢ó‘Ô‚É‚·‚é
+					{//ãƒ©ã‚¤ãƒ•ãŒï¼ã‚’ä¸‹å›ã£ãŸã‚‰
+						init->life = 0.0f;	//ï¼ä»¥ä¸‹ã«ãªã‚‰ãªã„ã‚ˆã†ã«è£œæ­£
+						init->use = false;	//ä½¿ç”¨ã—ã¦ãªã„çŠ¶æ…‹ã«ã™ã‚‹
 					}
 				}
 			}
 		}
 	}
 
-	int num = 0;		//ƒvƒŒƒCƒ„[‚ÆƒuƒƒbƒN‚Ì“–‚½‚è”»’è‚ª‰½ŒÂ–Ú‚©‚ğ“ü‚ê‚éi‘OƒtƒŒ[ƒ€‚Ì‚Ç‚Ì•ûŒü‚É“–‚½‚Á‚½‚©‚ğŠm”F‚·‚é‚Ì‚Ég‚¤j
+	int num = 0;		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ãƒ–ãƒ­ãƒƒã‚¯ã®å½“ãŸã‚Šåˆ¤å®šãŒä½•å€‹ç›®ã‹ã‚’å…¥ã‚Œã‚‹ï¼ˆå‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®ã©ã®æ–¹å‘ã«å½“ãŸã£ãŸã‹ã‚’ç¢ºèªã™ã‚‹ã®ã«ä½¿ã†ï¼‰
 
-	//Player‚ÆStage‚Ì“–‚½‚è”»’è
+	//Playerã¨Stageã®å½“ãŸã‚Šåˆ¤å®š
 	for (num = 0; num < m_pStage->GetStageNum(); num++)
 	{
-		//“–‚½‚è”»’è‚Ég‚¤—v‘f
-		Def::Info stage = m_pStage->GetInfo(num);		//ƒXƒe[ƒWƒuƒƒbƒN‚Ìî•ñ
-		Def::Info player = m_pPlayer->GetInfo();		//ƒvƒŒƒCƒ„[‚Ìî•ñiƒvƒŒƒCƒ„[‚Ì’†S‚ğpos‚Æ‚·‚éj
-		Def::Info Oplayer = m_pPlayer->GetOldInfo();	//ƒvƒŒƒCƒ„[‚Ì‘OƒtƒŒ[ƒ€‚Ìî•ñ
-		player.pos.y += player.size.y / 2.0f;		//À•W‚ª‘«Œ³‚É‚ ‚é‚½‚ß’†S‚É‚È‚é‚æ‚¤‚É•â³
-		Oplayer.pos.y += player.size.y / 2.0f;		//À•W‚ª‘«Œ³‚É‚ ‚é‚½‚ß’†S‚É‚È‚é‚æ‚¤‚É•â³
+		//å½“ãŸã‚Šåˆ¤å®šã«ä½¿ã†è¦ç´ 
+		Def::Info stage = m_pStage->GetInfo(num);		//ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®æƒ…å ±
+		Def::Info player = m_pPlayer->GetInfo();		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æƒ…å ±ï¼ˆãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä¸­å¿ƒã‚’posã¨ã™ã‚‹ï¼‰
+		Def::Info Oplayer = m_pPlayer->GetOldInfo();	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®æƒ…å ±
+		player.pos.y += player.size.y / 2.0f;		//åº§æ¨™ãŒè¶³å…ƒã«ã‚ã‚‹ãŸã‚ä¸­å¿ƒã«ãªã‚‹ã‚ˆã†ã«è£œæ­£
+		Oplayer.pos.y += player.size.y / 2.0f;		//åº§æ¨™ãŒè¶³å…ƒã«ã‚ã‚‹ãŸã‚ä¸­å¿ƒã«ãªã‚‹ã‚ˆã†ã«è£œæ­£
 
 
-		//‚Ç‚Ì•ûŒü‚É“–‚½‚Á‚½‚©‚ğŠm”F‚·‚é
+		//ã©ã®æ–¹å‘ã«å½“ãŸã£ãŸã‹ã‚’ç¢ºèªã™ã‚‹
 		if (Collision::Direction dire = Collision::RectAndRectDirection(player, Oplayer, stage, m_pPlayer->GetStageCollistonDirection(num)))
 		{
-			//•â³—ppos(‘«Œ³)
+			//è£œæ­£ç”¨pos(è¶³å…ƒ)
 			XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
 
 			switch (dire)
-			{//“–‚½‚Á‚½•ûŒü‚É‰‚¶‚Ä‚Ìˆ—
-			case Collision::E_DIRECTION_L:	//¶
+			{//å½“ãŸã£ãŸæ–¹å‘ã«å¿œã˜ã¦ã®å‡¦ç†
+			case Collision::E_DIRECTION_L:	//å·¦
 				pos.x = stage.pos.x + stage.size.x / 2.0f + player.size.x / 2.0f;
 				break;
-			case Collision::E_DIRECTION_R:	//‰E
+			case Collision::E_DIRECTION_R:	//å³
 				pos.x = stage.pos.x - stage.size.x / 2.0f - player.size.x / 2.0f;
 				break;
-			case Collision::E_DIRECTION_U:	//ã
+			case Collision::E_DIRECTION_U:	//ä¸Š
 				pos.y = stage.pos.y + stage.size.y / 2.0f;
-				m_pPlayer->ResetMove();		//d—Í‚ğƒŠƒZƒbƒg‚·‚é
+				m_pPlayer->ResetMove();		//é‡åŠ›ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
 				break;
-			case Collision::E_DIRECTION_D:	//‰º
+			case Collision::E_DIRECTION_D:	//ä¸‹
 				pos.y = stage.pos.y - stage.size.y / 2.0f - player.size.y;
 				m_pPlayer->ResetMove();
 				break;
 			default:
 				break;
 			}
-			m_pPlayer->SetPos(pos);		//•â³‚µ‚½’l‚ğƒvƒŒƒCƒ„[‚É”½‰f
-			m_pPlayer->SetStageCollisionDirection(dire, num);		//‚Ç‚Ì•ûŒü‚É“–‚½‚Á‚½‚©‚ğ•Û‚·‚é
+			m_pPlayer->SetPos(pos);		//è£œæ­£ã—ãŸå€¤ã‚’ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«åæ˜ 
+			m_pPlayer->SetStageCollisionDirection(dire, num);		//ã©ã®æ–¹å‘ã«å½“ãŸã£ãŸã‹ã‚’ä¿æŒã™ã‚‹
 
 		}
 
@@ -213,7 +225,7 @@ void LayerGame::CheckCollision()
 
 	Def::Info cam = m_pCamera->GetInfo();
 
-	//Player‚ÆShadowBloack‚Ì“–‚½‚è”»’è
+	//Playerã¨ShadowBloackã®å½“ãŸã‚Šåˆ¤å®š
 	for (int i = 0; i < shadow.size(); i++)
 	{
 		if (!Collision::RectAndRect(shadow[i]->GetInfo(), cam))	continue;
@@ -223,62 +235,62 @@ void LayerGame::CheckCollision()
 		{
 			for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init, num++)
 			{
-				Def::Info shadow = init->Info;		//ƒVƒƒƒhƒEƒuƒƒbƒN‚Ìî•ñ
+				Def::Info shadow = init->Info;		//ã‚·ãƒ£ãƒ‰ã‚¦ãƒ–ãƒ­ãƒƒã‚¯ã®æƒ…å ±
 
 
 
 
-				Def::Info player = m_pPlayer->GetInfo();		//ƒvƒŒƒCƒ„[‚Ìî•ñ
-				player.pos.y += player.size.y / 2.0f;		//À•W‚ª‘«Œ³‚É‚ ‚é‚½‚ß’†S‚É‚È‚é‚æ‚¤‚É•â³
+				Def::Info player = m_pPlayer->GetInfo();		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æƒ…å ±
+				player.pos.y += player.size.y / 2.0f;		//åº§æ¨™ãŒè¶³å…ƒã«ã‚ã‚‹ãŸã‚ä¸­å¿ƒã«ãªã‚‹ã‚ˆã†ã«è£œæ­£
 
 
 
 				if (init->use)
-				{//‘¶İ‚·‚éiˆø‚«–ß‚µ‚Ìˆ—j
-					Def::Info Oplayer = m_pPlayer->GetOldInfo();		//‘OƒtƒŒ[ƒ€‚Ìî•ñ
-					Oplayer.pos.y += player.size.y / 2.0f;		//À•W‚ª‘«Œ³‚É‚ ‚é‚½‚ß’†S‚É‚È‚é‚æ‚¤‚É•â³
+				{//å­˜åœ¨ã™ã‚‹ï¼ˆå¼•ãæˆ»ã—ã®å‡¦ç†ï¼‰
+					Def::Info Oplayer = m_pPlayer->GetOldInfo();		//å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®æƒ…å ±
+					Oplayer.pos.y += player.size.y / 2.0f;		//åº§æ¨™ãŒè¶³å…ƒã«ã‚ã‚‹ãŸã‚ä¸­å¿ƒã«ãªã‚‹ã‚ˆã†ã«è£œæ­£
 
 					if (Collision::Direction dire = Collision::RectAndRectDirection(player, Oplayer, shadow, m_pPlayer->GetStageCollistonDirection(num)))
 					{
-						//•â³—ppos
+						//è£œæ­£ç”¨pos
 						XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
 						switch (dire)
 						{
-						case Collision::E_DIRECTION_L:		//¶
-						case Collision::E_DIRECTION_R:		//‰E
+						case Collision::E_DIRECTION_L:		//å·¦
+						case Collision::E_DIRECTION_R:		//å³
 							Def::Info PlayerBot;
 							Def::Info PlayerTop;
 							PlayerBot = PlayerTop = m_pPlayer->GetInfo();
-							PlayerBot.size.y = 0.1f;		//‘«Œ³‚Ì‘å‚«‚³
-							PlayerBot.pos.y += PlayerBot.size.y / 2.0f;		//ƒvƒŒƒCƒ„[‚ÌŒ³‚ÌÀ•W‚©‚ç‘«Œ³‚Ì‘å‚«‚³•ª‚¸‚ç‚·
-							PlayerTop.size.y -= PlayerBot.size.y;		//‘Ì‚Ì‘å‚«‚³iƒvƒŒƒCƒ„[‘S‘Ì‚©‚ç‘«Œ³‚Ì‘å‚«‚³‚ğˆø‚¢‚½‘å‚«‚³j
-							PlayerTop.pos.y += PlayerBot.size.y + PlayerTop.size.y / 2.0f;	//ƒvƒŒƒCƒ„[‚ÌŒ³‚ÌÀ•W‚©‚ç‘«Œ³‚Ì‘å‚«‚³•ª‚Æ‘Ì‚Ì”¼•ª‚¸‚ç‚·
+							PlayerBot.size.y = 0.1f;		//è¶³å…ƒã®å¤§ãã•
+							PlayerBot.pos.y += PlayerBot.size.y / 2.0f;		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å…ƒã®åº§æ¨™ã‹ã‚‰è¶³å…ƒã®å¤§ãã•åˆ†ãšã‚‰ã™
+							PlayerTop.size.y -= PlayerBot.size.y;		//ä½“ã®å¤§ãã•ï¼ˆãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å…¨ä½“ã‹ã‚‰è¶³å…ƒã®å¤§ãã•ã‚’å¼•ã„ãŸå¤§ãã•ï¼‰
+							PlayerTop.pos.y += PlayerBot.size.y + PlayerTop.size.y / 2.0f;	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å…ƒã®åº§æ¨™ã‹ã‚‰è¶³å…ƒã®å¤§ãã•åˆ†ã¨ä½“ã®åŠåˆ†ãšã‚‰ã™
 							{
-								bool bTop = Collision::RectAndRect(PlayerTop, shadow);		//‘Ì‚ªƒuƒƒbƒN‚Æ“–‚½‚Á‚Ä‚¢‚é‚©
-								bool bBot = Collision::RectAndRect(PlayerBot, shadow);		//‘«Œ³‚ªƒuƒƒbƒN‚Æ“–‚½‚Á‚Ä‚¢‚é‚©
-								if (bBot && !bTop)		//‘«Œ³‚Í“–‚½‚Á‚Ä‚¢‚Ä‘Ì‚Í“–‚½‚Á‚Ä‚¢‚È‚¢ê‡’i·‚ğ–³‹‚·‚é
-								{//ã
-									pos.y = shadow.pos.y + shadow.size.y / 2.0f;		//ƒuƒƒbƒN‚Ìã‚É•â³
-									m_pPlayer->ResetMove();		//d—Í‚ğƒŠƒZƒbƒg
+								bool bTop = Collision::RectAndRect(PlayerTop, shadow);		//ä½“ãŒãƒ–ãƒ­ãƒƒã‚¯ã¨å½“ãŸã£ã¦ã„ã‚‹ã‹
+								bool bBot = Collision::RectAndRect(PlayerBot, shadow);		//è¶³å…ƒãŒãƒ–ãƒ­ãƒƒã‚¯ã¨å½“ãŸã£ã¦ã„ã‚‹ã‹
+								if (bBot && !bTop)		//è¶³å…ƒã¯å½“ãŸã£ã¦ã„ã¦ä½“ã¯å½“ãŸã£ã¦ã„ãªã„å ´åˆæ®µå·®ã‚’ç„¡è¦–ã™ã‚‹
+								{//ä¸Š
+									pos.y = shadow.pos.y + shadow.size.y / 2.0f;		//ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸Šã«è£œæ­£
+									m_pPlayer->ResetMove();		//é‡åŠ›ã‚’ãƒªã‚»ãƒƒãƒˆ
 								}
 								else
-								{//‰¡
+								{//æ¨ª
 									if (player.pos.x < shadow.pos.x)
-									{//‰E
+									{//å³
 										pos.x = shadow.pos.x - shadow.size.x / 2.0f - player.size.x / 2.0f;
 									}
 									else if (player.pos.x >= shadow.pos.x)
-									{//¶
+									{//å·¦
 										pos.x = shadow.pos.x + shadow.size.x / 2.0f + player.size.x / 2.0f;
 									}
 								}
 							}
 							break;
-						case Collision::E_DIRECTION_U:		//ã
+						case Collision::E_DIRECTION_U:		//ä¸Š
 							pos.y = shadow.pos.y + shadow.size.y / 2.0f;
 							m_pPlayer->ResetMove();
 							break;
-						case Collision::E_DIRECTION_D:		//‰º
+						case Collision::E_DIRECTION_D:		//ä¸‹
 							pos.y = shadow.pos.y - shadow.size.y / 2.0f - player.size.y;
 							m_pPlayer->ResetMove();
 							break;
@@ -286,13 +298,13 @@ void LayerGame::CheckCollision()
 							continue;
 							break;
 						}
-						m_pPlayer->SetPos(pos);		//ƒvƒŒƒCƒ„[‚É”½‰f
-						m_pPlayer->SetStageCollisionDirection(dire, num);		//“–‚½‚Á‚½•ûŒü‚ğ•Û
+						m_pPlayer->SetPos(pos);		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«åæ˜ 
+						m_pPlayer->SetStageCollisionDirection(dire, num);		//å½“ãŸã£ãŸæ–¹å‘ã‚’ä¿æŒ
 					}
 				}
 				else if (!init->use)
-				{//‘¶İ‚µ‚È‚¢iÁ‚µ‘±‚¯‚éˆ—j
-					if (Collision::RectAndRect(player, shadow))		//ƒvƒŒƒCƒ„[‚ÆƒuƒƒbƒN‚ª“–‚½‚Á‚Ä‚¢‚é‚©
+				{//å­˜åœ¨ã—ãªã„ï¼ˆæ¶ˆã—ç¶šã‘ã‚‹å‡¦ç†ï¼‰
+					if (Collision::RectAndRect(player, shadow))		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ãƒ–ãƒ­ãƒƒã‚¯ãŒå½“ãŸã£ã¦ã„ã‚‹ã‹
 					{
 						init->life -= m_pLight->GetPower();
 						if (init->life <= 0.0f)
@@ -307,7 +319,7 @@ void LayerGame::CheckCollision()
 		}
 	}
 
-	//ƒvƒŒƒCƒ„[‚Æ”½Ë”Â
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨åå°„æ¿
 	for (int i = 0; i < m_pRvsBlock->GetStageNum(); i++)
 	{
 		if (Collision::RectAndRect(m_pPlayer->GetInfo(), m_pRvsBlock->GetInfo(i)))
@@ -316,7 +328,7 @@ void LayerGame::CheckCollision()
 		}
 	}
 
-	//ƒvƒŒƒCƒ„[‚ÆƒXƒ^[ƒg”Â
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã‚¹ã‚¿ãƒ¼ãƒˆæ¿
 	if (*m_GameStatus == Game3D::E_GAME_STATUS_START)
 	{
 		Def::Info startInfo = m_pStartObj->GetInfo();
@@ -327,46 +339,46 @@ void LayerGame::CheckCollision()
 	}
 
 
-	//Enemy‚ÆStage‚Ì“–‚½‚è”»’è
+	//Enemyã¨Stageã®å½“ãŸã‚Šåˆ¤å®š
 	for (num = 0; num < m_pStage->GetStageNum(); num++)
 	{
-		//“–‚½‚è”»’è‚Ég‚¤—v‘f
-		Def::Info stage = m_pStage->GetInfo(num);		//ƒXƒe[ƒWƒuƒƒbƒN‚Ìî•ñ
-		Def::Info Enemy = m_pEnemy->GetInfo();		//ƒvƒŒƒCƒ„[‚Ìî•ñiƒvƒŒƒCƒ„[‚Ì’†S‚ğpos‚Æ‚·‚éj
-		Def::Info OEnemy = m_pEnemy->GetOldInfo();	//ƒvƒŒƒCƒ„[‚Ì‘OƒtƒŒ[ƒ€‚Ìî•ñ
-		Enemy.pos.y += Enemy.size.y / 2.0f;		//À•W‚ª‘«Œ³‚É‚ ‚é‚½‚ß’†S‚É‚È‚é‚æ‚¤‚É•â³
-		OEnemy.pos.y += Enemy.size.y / 2.0f;		//À•W‚ª‘«Œ³‚É‚ ‚é‚½‚ß’†S‚É‚È‚é‚æ‚¤‚É•â³
+		//å½“ãŸã‚Šåˆ¤å®šã«ä½¿ã†è¦ç´ 
+		Def::Info stage = m_pStage->GetInfo(num);		//ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®æƒ…å ±
+		Def::Info Enemy = m_pEnemy->GetInfo();		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æƒ…å ±ï¼ˆãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä¸­å¿ƒã‚’posã¨ã™ã‚‹ï¼‰
+		Def::Info OEnemy = m_pEnemy->GetOldInfo();	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®æƒ…å ±
+		Enemy.pos.y += Enemy.size.y / 2.0f;		//åº§æ¨™ãŒè¶³å…ƒã«ã‚ã‚‹ãŸã‚ä¸­å¿ƒã«ãªã‚‹ã‚ˆã†ã«è£œæ­£
+		OEnemy.pos.y += Enemy.size.y / 2.0f;		//åº§æ¨™ãŒè¶³å…ƒã«ã‚ã‚‹ãŸã‚ä¸­å¿ƒã«ãªã‚‹ã‚ˆã†ã«è£œæ­£
 
 
-		//‚Ç‚Ì•ûŒü‚É“–‚½‚Á‚½‚©‚ğŠm”F‚·‚é
+		//ã©ã®æ–¹å‘ã«å½“ãŸã£ãŸã‹ã‚’ç¢ºèªã™ã‚‹
 		if (Collision::Direction dire = Collision::RectAndRectDirection(Enemy, OEnemy, stage, m_pEnemy->GetStageCollistonDirection(num)))
 		{
-			//•â³—ppos(‘«Œ³)
+			//è£œæ­£ç”¨pos(è¶³å…ƒ)
 			XMFLOAT3 pos = m_pEnemy->GetInfo().pos;
 
 			switch (dire)
-			{//“–‚½‚Á‚½•ûŒü‚É‰‚¶‚Ä‚Ìˆ—
-			case Collision::E_DIRECTION_L:	//¶
+			{//å½“ãŸã£ãŸæ–¹å‘ã«å¿œã˜ã¦ã®å‡¦ç†
+			case Collision::E_DIRECTION_L:	//å·¦
 				pos.x = stage.pos.x + stage.size.x / 2.0f + Enemy.size.x / 2.0f;
 				m_pEnemy->SetDirection(Collision::E_DIRECTION_R);
 				break;
-			case Collision::E_DIRECTION_R:	//‰E
+			case Collision::E_DIRECTION_R:	//å³
 				pos.x = stage.pos.x - stage.size.x / 2.0f - Enemy.size.x / 2.0f;
 				m_pEnemy->SetDirection(Collision::E_DIRECTION_L);
 				break;
-			case Collision::E_DIRECTION_U:	//ã
+			case Collision::E_DIRECTION_U:	//ä¸Š
 				pos.y = stage.pos.y + stage.size.y / 2.0f;
-				m_pEnemy->ResetMove();		//d—Í‚ğƒŠƒZƒbƒg‚·‚é
+				m_pEnemy->ResetMove();		//é‡åŠ›ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
 				break;
-			case Collision::E_DIRECTION_D:	//‰º
+			case Collision::E_DIRECTION_D:	//ä¸‹
 				pos.y = stage.pos.y - stage.size.y / 2.0f - Enemy.size.y;
 				m_pEnemy->ResetMove();
 				break;
 			default:
 				break;
 			}
-			m_pEnemy->SetPos(pos);		//•â³‚µ‚½’l‚ğƒvƒŒƒCƒ„[‚É”½‰f
-			m_pEnemy->SetStageCollisionDirection(dire, num);		//‚Ç‚Ì•ûŒü‚É“–‚½‚Á‚½‚©‚ğ•Û‚·‚é
+			m_pEnemy->SetPos(pos);		//è£œæ­£ã—ãŸå€¤ã‚’ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«åæ˜ 
+			m_pEnemy->SetStageCollisionDirection(dire, num);		//ã©ã®æ–¹å‘ã«å½“ãŸã£ãŸã‹ã‚’ä¿æŒã™ã‚‹
 
 		}
 	}
@@ -375,7 +387,7 @@ void LayerGame::CheckCollision()
 
 	if (m_pEnemy->m_use)
 	{
-		//Enemy‚ÆShadowBloack‚Ì“–‚½‚è”»’è
+		//Enemyã¨ShadowBloackã®å½“ãŸã‚Šåˆ¤å®š
 		for (int i = 0; i < shadow.size(); i++)
 		{
 			if (!Collision::RectAndRect(shadow[i]->GetInfo(), cam))	continue;
@@ -385,46 +397,46 @@ void LayerGame::CheckCollision()
 			{
 				for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init, num++)
 				{
-					Def::Info shadow = init->Info;		//ƒVƒƒƒhƒEƒuƒƒbƒN‚Ìî•ñ
+					Def::Info shadow = init->Info;		//ã‚·ãƒ£ãƒ‰ã‚¦ãƒ–ãƒ­ãƒƒã‚¯ã®æƒ…å ±
 
 
 
 
-					Def::Info Enemy = m_pEnemy->GetInfo();		//ƒGƒlƒ~[‚Ìî•ñ
-					Enemy.pos.y += Enemy.size.y / 2.0f;		//À•W‚ª‘«Œ³‚É‚ ‚é‚½‚ß’†S‚É‚È‚é‚æ‚¤‚É•â³
+					Def::Info Enemy = m_pEnemy->GetInfo();		//ã‚¨ãƒãƒŸãƒ¼ã®æƒ…å ±
+					Enemy.pos.y += Enemy.size.y / 2.0f;		//åº§æ¨™ãŒè¶³å…ƒã«ã‚ã‚‹ãŸã‚ä¸­å¿ƒã«ãªã‚‹ã‚ˆã†ã«è£œæ­£
 
 
 
 					if (init->use)
-					{//‘¶İ‚·‚éiˆø‚«–ß‚µ‚Ìˆ—j
-						Def::Info OEnemy = m_pEnemy->GetOldInfo();		//‘OƒtƒŒ[ƒ€‚Ìî•ñ
-						OEnemy.pos.y += Enemy.size.y / 2.0f;		//À•W‚ª‘«Œ³‚É‚ ‚é‚½‚ß’†S‚É‚È‚é‚æ‚¤‚É•â³
+					{//å­˜åœ¨ã™ã‚‹ï¼ˆå¼•ãæˆ»ã—ã®å‡¦ç†ï¼‰
+						Def::Info OEnemy = m_pEnemy->GetOldInfo();		//å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®æƒ…å ±
+						OEnemy.pos.y += Enemy.size.y / 2.0f;		//åº§æ¨™ãŒè¶³å…ƒã«ã‚ã‚‹ãŸã‚ä¸­å¿ƒã«ãªã‚‹ã‚ˆã†ã«è£œæ­£
 
 						if (Collision::Direction dire = Collision::RectAndRectDirection(Enemy, OEnemy, shadow, m_pEnemy->GetStageCollistonDirection(num)))
 						{
-							//•â³—ppos
+							//è£œæ­£ç”¨pos
 							XMFLOAT3 pos = m_pEnemy->GetInfo().pos;
 							switch (dire)
 							{
-							case Collision::E_DIRECTION_L:		//¶
-							case Collision::E_DIRECTION_R:		//‰E
-								//‰¡
+							case Collision::E_DIRECTION_L:		//å·¦
+							case Collision::E_DIRECTION_R:		//å³
+								//æ¨ª
 								if (Enemy.pos.x < shadow.pos.x)
-								{//‰E
+								{//å³
 									pos.x = shadow.pos.x - shadow.size.x / 2.0f - Enemy.size.x / 2.0f;
 									m_pEnemy->SetDirection(Collision::E_DIRECTION_R);
 								}
 								else if (Enemy.pos.x >= shadow.pos.x)
-								{//¶
+								{//å·¦
 									pos.x = shadow.pos.x + shadow.size.x / 2.0f + Enemy.size.x / 2.0f;
 									m_pEnemy->SetDirection(Collision::E_DIRECTION_L);
 								}
 								break;
-							case Collision::E_DIRECTION_U:		//ã
+							case Collision::E_DIRECTION_U:		//ä¸Š
 								pos.y = shadow.pos.y + shadow.size.y / 2.0f;
 								m_pEnemy->ResetMove();
 								break;
-							case Collision::E_DIRECTION_D:		//‰º
+							case Collision::E_DIRECTION_D:		//ä¸‹
 								pos.y = shadow.pos.y - shadow.size.y / 2.0f - Enemy.size.y;
 								m_pEnemy->ResetMove();
 								break;
@@ -432,13 +444,13 @@ void LayerGame::CheckCollision()
 								continue;
 								break;
 							}
-							m_pEnemy->SetPos(pos);		//ƒGƒlƒ~[‚É”½‰f
-							m_pEnemy->SetStageCollisionDirection(dire, num);		//“–‚½‚Á‚½•ûŒü‚ğ•Û
+							m_pEnemy->SetPos(pos);		//ã‚¨ãƒãƒŸãƒ¼ã«åæ˜ 
+							m_pEnemy->SetStageCollisionDirection(dire, num);		//å½“ãŸã£ãŸæ–¹å‘ã‚’ä¿æŒ
 						}
 					}
 					else if (!init->use)
-					{//‘¶İ‚µ‚È‚¢iÁ‚µ‘±‚¯‚éˆ—j
-						if (Collision::RectAndRect(Enemy, shadow))		//ƒGƒlƒ~[‚ÆƒuƒƒbƒN‚ª“–‚½‚Á‚Ä‚¢‚é‚©
+					{//å­˜åœ¨ã—ãªã„ï¼ˆæ¶ˆã—ç¶šã‘ã‚‹å‡¦ç†ï¼‰
+						if (Collision::RectAndRect(Enemy, shadow))		//ã‚¨ãƒãƒŸãƒ¼ã¨ãƒ–ãƒ­ãƒƒã‚¯ãŒå½“ãŸã£ã¦ã„ã‚‹ã‹
 						{
 							init->life -= m_pLight->GetPower();
 							if (init->life <= 0.0f)
@@ -454,7 +466,7 @@ void LayerGame::CheckCollision()
 
 		}
 
-		//ƒGƒlƒ~[‚Æ”½Ë”Â
+		//ã‚¨ãƒãƒŸãƒ¼ã¨åå°„æ¿
 		for (int i = 0; i < m_pRvsBlock->GetStageNum(); i++)
 		{
 			if (Collision::RectAndRect(m_pEnemy->GetInfo(), m_pRvsBlock->GetInfo(i)))
@@ -463,7 +475,7 @@ void LayerGame::CheckCollision()
 			}
 		}
 
-		//ƒvƒŒƒCƒ„[‚ÆƒGƒlƒ~[
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã‚¨ãƒãƒŸãƒ¼
 		Def::Info player = m_pPlayer->GetInfo();
 		float playerT = player.pos.y - player.size.y / 2.0f;
 		float playerB = player.pos.y + player.size.y / 2.0f;
@@ -494,7 +506,7 @@ void LayerGame::CheckCollision()
 		}
 		
 
-		//ƒGƒlƒ~[‚Æƒ‰ƒCƒg
+		//ã‚¨ãƒãƒŸãƒ¼ã¨ãƒ©ã‚¤ãƒˆ
 		Def::Info light = m_pLight->GetInfo();
 		float Radius = m_pLight->GetRadius();
 		if ((light.pos.x > EnemyL - Radius) &&
@@ -520,53 +532,53 @@ void LayerGame::CheckCollision()
 
 	//for (int i = 0; i < m_pEnemys.size(); i++)
 	//{
-	//	//Enemy‚ÆStage‚Ì“–‚½‚è”»’è
+	//	//Enemyã¨Stageã®å½“ãŸã‚Šåˆ¤å®š
 	//	for (num = 0; num < m_pStage->GetStageNum(); num++)
 	//	{
-	//		//“–‚½‚è”»’è‚Ég‚¤—v‘f
-	//		Def::Info stage = m_pStage->GetInfo(num);		//ƒXƒe[ƒWƒuƒƒbƒN‚Ìî•ñ
-	//		Def::Info Enemy = m_pEnemys[i]->GetInfo();		//ƒvƒŒƒCƒ„[‚Ìî•ñiƒvƒŒƒCƒ„[‚Ì’†S‚ğpos‚Æ‚·‚éj
-	//		Def::Info OEnemy = m_pEnemys[i]->GetOldInfo();	//ƒvƒŒƒCƒ„[‚Ì‘OƒtƒŒ[ƒ€‚Ìî•ñ
-	//		Enemy.pos.y += Enemy.size.y / 2.0f;		//À•W‚ª‘«Œ³‚É‚ ‚é‚½‚ß’†S‚É‚È‚é‚æ‚¤‚É•â³
-	//		OEnemy.pos.y += Enemy.size.y / 2.0f;		//À•W‚ª‘«Œ³‚É‚ ‚é‚½‚ß’†S‚É‚È‚é‚æ‚¤‚É•â³
+	//		//å½“ãŸã‚Šåˆ¤å®šã«ä½¿ã†è¦ç´ 
+	//		Def::Info stage = m_pStage->GetInfo(num);		//ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ–ãƒ­ãƒƒã‚¯ã®æƒ…å ±
+	//		Def::Info Enemy = m_pEnemys[i]->GetInfo();		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æƒ…å ±ï¼ˆãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä¸­å¿ƒã‚’posã¨ã™ã‚‹ï¼‰
+	//		Def::Info OEnemy = m_pEnemys[i]->GetOldInfo();	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®æƒ…å ±
+	//		Enemy.pos.y += Enemy.size.y / 2.0f;		//åº§æ¨™ãŒè¶³å…ƒã«ã‚ã‚‹ãŸã‚ä¸­å¿ƒã«ãªã‚‹ã‚ˆã†ã«è£œæ­£
+	//		OEnemy.pos.y += Enemy.size.y / 2.0f;		//åº§æ¨™ãŒè¶³å…ƒã«ã‚ã‚‹ãŸã‚ä¸­å¿ƒã«ãªã‚‹ã‚ˆã†ã«è£œæ­£
 
 
-	//		//‚Ç‚Ì•ûŒü‚É“–‚½‚Á‚½‚©‚ğŠm”F‚·‚é
+	//		//ã©ã®æ–¹å‘ã«å½“ãŸã£ãŸã‹ã‚’ç¢ºèªã™ã‚‹
 	//		if (Collision::Direction dire = Collision::RectAndRectDirection(Enemy, OEnemy, stage, m_pEnemys[i]->GetStageCollistonDirection(num)))
 	//		{
-	//			//•â³—ppos(‘«Œ³)
+	//			//è£œæ­£ç”¨pos(è¶³å…ƒ)
 	//			XMFLOAT3 pos = m_pEnemys[i]->GetInfo().pos;
 
 	//			switch (dire)
-	//			{//“–‚½‚Á‚½•ûŒü‚É‰‚¶‚Ä‚Ìˆ—
-	//			case Collision::E_DIRECTION_L:	//¶
+	//			{//å½“ãŸã£ãŸæ–¹å‘ã«å¿œã˜ã¦ã®å‡¦ç†
+	//			case Collision::E_DIRECTION_L:	//å·¦
 	//				pos.x = stage.pos.x + stage.size.x / 2.0f + Enemy.size.x / 2.0f;
 	//				m_pEnemys[i]->SetDirection(Collision::E_DIRECTION_L);
 	//				break;
-	//			case Collision::E_DIRECTION_R:	//‰E
+	//			case Collision::E_DIRECTION_R:	//å³
 	//				pos.x = stage.pos.x - stage.size.x / 2.0f - Enemy.size.x / 2.0f;
 	//				m_pEnemys[i]->SetDirection(Collision::E_DIRECTION_R);
 	//				break;
-	//			case Collision::E_DIRECTION_U:	//ã
+	//			case Collision::E_DIRECTION_U:	//ä¸Š
 	//				pos.y = stage.pos.y + stage.size.y / 2.0f;
-	//				m_pEnemys[i]->ResetMove();		//d—Í‚ğƒŠƒZƒbƒg‚·‚é
+	//				m_pEnemys[i]->ResetMove();		//é‡åŠ›ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
 	//				break;
-	//			case Collision::E_DIRECTION_D:	//‰º
+	//			case Collision::E_DIRECTION_D:	//ä¸‹
 	//				pos.y = stage.pos.y - stage.size.y / 2.0f - Enemy.size.y;
 	//				m_pEnemys[i]->ResetMove();
 	//				break;
 	//			default:
 	//				break;
 	//			}
-	//			m_pEnemys[i]->SetPos(pos);		//•â³‚µ‚½’l‚ğƒvƒŒƒCƒ„[‚É”½‰f
-	//			m_pEnemys[i]->SetStageCollisionDirection(dire, num);		//‚Ç‚Ì•ûŒü‚É“–‚½‚Á‚½‚©‚ğ•Û‚·‚é
+	//			m_pEnemys[i]->SetPos(pos);		//è£œæ­£ã—ãŸå€¤ã‚’ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«åæ˜ 
+	//			m_pEnemys[i]->SetStageCollisionDirection(dire, num);		//ã©ã®æ–¹å‘ã«å½“ãŸã£ãŸã‹ã‚’ä¿æŒã™ã‚‹
 
 	//		}
 	//	}
 
 	//	num--;
 
-	//	//Enemy‚ÆShadowBloack‚Ì“–‚½‚è”»’è
+	//	//Enemyã¨ShadowBloackã®å½“ãŸã‚Šåˆ¤å®š
 	//	for (int j = 0; j < shadow.size(); j++)
 	//	{
 	//		if (!Collision::RectAndRect(shadow[j]->GetInfo(), cam))	continue;
@@ -576,46 +588,46 @@ void LayerGame::CheckCollision()
 	//		{
 	//			for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init, num++)
 	//			{
-	//				Def::Info shadow = init->Info;		//ƒVƒƒƒhƒEƒuƒƒbƒN‚Ìî•ñ
+	//				Def::Info shadow = init->Info;		//ã‚·ãƒ£ãƒ‰ã‚¦ãƒ–ãƒ­ãƒƒã‚¯ã®æƒ…å ±
 
 
 
 
-	//				Def::Info Enemy = m_pEnemys[i]->GetInfo();		//ƒGƒlƒ~[‚Ìî•ñ
-	//				Enemy.pos.y += Enemy.size.y / 2.0f;		//À•W‚ª‘«Œ³‚É‚ ‚é‚½‚ß’†S‚É‚È‚é‚æ‚¤‚É•â³
+	//				Def::Info Enemy = m_pEnemys[i]->GetInfo();		//ã‚¨ãƒãƒŸãƒ¼ã®æƒ…å ±
+	//				Enemy.pos.y += Enemy.size.y / 2.0f;		//åº§æ¨™ãŒè¶³å…ƒã«ã‚ã‚‹ãŸã‚ä¸­å¿ƒã«ãªã‚‹ã‚ˆã†ã«è£œæ­£
 
 
 
 	//				if (init->use)
-	//				{//‘¶İ‚·‚éiˆø‚«–ß‚µ‚Ìˆ—j
-	//					Def::Info OEnemy = m_pEnemys[i]->GetOldInfo();		//‘OƒtƒŒ[ƒ€‚Ìî•ñ
-	//					OEnemy.pos.y += Enemy.size.y / 2.0f;		//À•W‚ª‘«Œ³‚É‚ ‚é‚½‚ß’†S‚É‚È‚é‚æ‚¤‚É•â³
+	//				{//å­˜åœ¨ã™ã‚‹ï¼ˆå¼•ãæˆ»ã—ã®å‡¦ç†ï¼‰
+	//					Def::Info OEnemy = m_pEnemys[i]->GetOldInfo();		//å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®æƒ…å ±
+	//					OEnemy.pos.y += Enemy.size.y / 2.0f;		//åº§æ¨™ãŒè¶³å…ƒã«ã‚ã‚‹ãŸã‚ä¸­å¿ƒã«ãªã‚‹ã‚ˆã†ã«è£œæ­£
 
 	//					if (Collision::Direction dire = Collision::RectAndRectDirection(Enemy, OEnemy, shadow, m_pEnemys[i]->GetStageCollistonDirection(num)))
 	//					{
-	//						//•â³—ppos
+	//						//è£œæ­£ç”¨pos
 	//						XMFLOAT3 pos = m_pEnemys[i]->GetInfo().pos;
 	//						switch (dire)
 	//						{
-	//						case Collision::E_DIRECTION_L:		//¶
-	//						case Collision::E_DIRECTION_R:		//‰E
-	//							//‰¡
+	//						case Collision::E_DIRECTION_L:		//å·¦
+	//						case Collision::E_DIRECTION_R:		//å³
+	//							//æ¨ª
 	//							if (Enemy.pos.x < shadow.pos.x)
-	//							{//‰E
+	//							{//å³
 	//								pos.x = shadow.pos.x - shadow.size.x / 2.0f - Enemy.size.x / 2.0f;
 	//								m_pEnemys[i]->SetDirection(Collision::E_DIRECTION_R);
 	//							}
 	//							else if (Enemy.pos.x >= shadow.pos.x)
-	//							{//¶
+	//							{//å·¦
 	//								pos.x = shadow.pos.x + shadow.size.x / 2.0f + Enemy.size.x / 2.0f;
 	//								m_pEnemys[i]->SetDirection(Collision::E_DIRECTION_L);
 	//							}
 	//							break;
-	//						case Collision::E_DIRECTION_U:		//ã
+	//						case Collision::E_DIRECTION_U:		//ä¸Š
 	//							pos.y = shadow.pos.y + shadow.size.y / 2.0f;
 	//							m_pEnemys[i]->ResetMove();
 	//							break;
-	//						case Collision::E_DIRECTION_D:		//‰º
+	//						case Collision::E_DIRECTION_D:		//ä¸‹
 	//							pos.y = shadow.pos.y - shadow.size.y / 2.0f - Enemy.size.y;
 	//							m_pEnemys[i]->ResetMove();
 	//							break;
@@ -623,13 +635,13 @@ void LayerGame::CheckCollision()
 	//							continue;
 	//							break;
 	//						}
-	//						m_pEnemys[i]->SetPos(pos);		//ƒGƒlƒ~[‚É”½‰f
-	//						m_pEnemys[i]->SetStageCollisionDirection(dire, num);		//“–‚½‚Á‚½•ûŒü‚ğ•Û
+	//						m_pEnemys[i]->SetPos(pos);		//ã‚¨ãƒãƒŸãƒ¼ã«åæ˜ 
+	//						m_pEnemys[i]->SetStageCollisionDirection(dire, num);		//å½“ãŸã£ãŸæ–¹å‘ã‚’ä¿æŒ
 	//					}
 	//				}
 	//				else if (!init->use)
-	//				{//‘¶İ‚µ‚È‚¢iÁ‚µ‘±‚¯‚éˆ—j
-	//					if (Collision::RectAndRect(Enemy, shadow))		//ƒGƒlƒ~[‚ÆƒuƒƒbƒN‚ª“–‚½‚Á‚Ä‚¢‚é‚©
+	//				{//å­˜åœ¨ã—ãªã„ï¼ˆæ¶ˆã—ç¶šã‘ã‚‹å‡¦ç†ï¼‰
+	//					if (Collision::RectAndRect(Enemy, shadow))		//ã‚¨ãƒãƒŸãƒ¼ã¨ãƒ–ãƒ­ãƒƒã‚¯ãŒå½“ãŸã£ã¦ã„ã‚‹ã‹
 	//					{
 	//						init->life -= m_pLight->GetPower();
 	//						if (init->life <= 0.0f)
@@ -645,7 +657,7 @@ void LayerGame::CheckCollision()
 
 	//	}
 
-	//	//ƒGƒlƒ~[‚Æ”½Ë”Â
+	//	//ã‚¨ãƒãƒŸãƒ¼ã¨åå°„æ¿
 	//	for (int j = 0; j < m_pRvsBlock->GetStageNum(); j++)
 	//	{
 	//		if (Collision::RectAndRect(m_pEnemys[i]->GetInfo(), m_pRvsBlock->GetInfo(j)))
@@ -654,7 +666,7 @@ void LayerGame::CheckCollision()
 	//		}
 	//	}
 
-	//	//ƒvƒŒƒCƒ„[‚ÆƒGƒlƒ~[
+	//	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã‚¨ãƒãƒŸãƒ¼
 	//	Def::Info player = m_pPlayer->GetInfo();
 	//	float playerT = player.pos.y - player.size.y / 2.0f;
 	//	float playerB = player.pos.y + player.size.y / 2.0f;
@@ -672,7 +684,7 @@ void LayerGame::CheckCollision()
 	//		m_pEnemys[i]->SetCollisionPlayer();
 	//	}
 
-	//	//ƒGƒlƒ~[‚Æƒ‰ƒCƒg
+	//	//ã‚¨ãƒãƒŸãƒ¼ã¨ãƒ©ã‚¤ãƒˆ
 	//	Def::Info light = m_pLight->GetInfo();
 	//	float Radius = m_pLight->GetRadius();
 	//	if ((light.pos.x > EnemyL - Radius) &&
@@ -691,4 +703,12 @@ void LayerGame::CheckCollision()
 	//}
 
 
+	if (*m_GameStatus == Game3D::E_GAME_STATUS_NORMAL)
+	{
+		Def::Info GoalInfo = m_pGoalObj->GetInfo();
+		if (Collision::RectAndRect(m_pPlayer->GetInfo(), GoalInfo))
+		{
+			Game3D::SetGameStatus(Game3D::E_GAME_STATUS_GOAL);
+		}
+	}
 }

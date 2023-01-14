@@ -32,9 +32,9 @@ public:
 					m_look.x = Playerpos.x + LIMIT;
 				}
 
-				if (m_look.x > 5.0f)
+				if (m_look.x > 9.0f)
 				{
-					m_look.x = 5.0f;
+					m_look.x = 9.0f;
 				}
 
 				break;

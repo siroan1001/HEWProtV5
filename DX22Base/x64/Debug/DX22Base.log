@@ -1,20 +1,4 @@
-﻿  BG.cpp
-  Billboard.cpp
-  Collision.cpp
-  Game3D.cpp
-  LayerBG.cpp
-  LayerGame.cpp
-  Light.cpp
-  Main.cpp
-  Object.cpp
-  Player.cpp
-  ReverseBlock.cpp
-  ShadowBillBoard.cpp
-  ShadowBlock.cpp
-c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(154): warning C4244: '引数': 'float' から 'const unsigned __int64' への変換です。データが失われる可能性があります。
-c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(168): warning C4267: '+=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  Stage.cpp
-c:\users\user\documents\hewprotv5\dx22base\stage.cpp(166): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  StartObj.cpp
+﻿  Game3D.cpp
+  Goal.cpp
   コードを生成中...
-  DX22Base.vcxproj -> C:\Users\User\Documents\HEWProtV5\x64\Debug\DX22Base.exe
+  DX22Base.vcxproj -> C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DX22Base.exe

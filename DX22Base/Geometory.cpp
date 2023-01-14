@@ -21,6 +21,7 @@ using namespace std;
 struct GeometoryVertex
 {
 	XMFLOAT3 pos;
+	XMFLOAT3 normal;
 	XMFLOAT2 uv;
 };
 
@@ -42,6 +43,8 @@ void CreateGeometoryCone();
 void CreateGeometoryShader();
 void CreateGeometoryConstantBuffer();
 void UpdateGeometoryMatrix();
+void UpdateGeometoryColor();
+void UpdateGeometoryLight();
 
 //--- グローバル変数
 MeshBuffer* g_pGeometoryBox;
@@ -52,7 +55,13 @@ MeshBuffer* g_pGeometoryCone;
 VertexShader* g_pGeometoryVS;
 PixelShader* g_pGeometoryPS;
 ConstantBuffer* g_pGeometoryWVP;
+ConstantBuffer* g_pGeometoryColor;
+ConstantBuffer* g_pGeometoryLight;
 DirectX::XMFLOAT4X4 g_geometoryMat[E_GEOMETOR_MAT_NUM_MAX];
+struct GeometoryColor { DirectX::XMFLOAT3 Color; float pad; };
+GeometoryColor g_geometoryColor;
+Lig::Light g_geometoryLight;
+Lig* g_pLight;
 DirectX::XMFLOAT3 g_geometoryTransform[E_GEOMETOR_MAT_NUM_MAX];
 
 float g_CyliderRadius;
@@ -66,6 +75,7 @@ HRESULT InitGeometory()
 	CreateGeometoryCylinder();
 	CreateGeometoryCapsule();
 	CreateGeometoryCone();
+	g_pLight = new Lig;
 	return S_OK;
 }
 void UninitGeometory()
@@ -90,17 +100,34 @@ void SetGeometoryScaling(float x, float y, float z)
 {
 	g_geometoryTransform[2] = DirectX::XMFLOAT3(x, y, z);
 }
-void SetGeometoryVPMatrix(DirectX::XMFLOAT4X4 view, DirectX::XMFLOAT4X4 proj)
+void SetGeometoryVPMatrix(DirectX::XMFLOAT4X4 view, DirectX::XMFLOAT4X4 proj, DirectX::XMFLOAT3 eyePos)
 {
 	g_geometoryMat[1] = view;
 	g_geometoryMat[2] = proj;
+	g_geometoryLight.eyePos = eyePos;
+}
+void SetGeometoryColor(DirectX::XMFLOAT3 color)
+{
+	g_geometoryColor.Color = color;
+}
+void SetGeometorySpLigPos(DirectX::XMFLOAT3 pos)
+{
+	g_geometoryLight.spPos = pos;
+}
+Lig::Light GetLig()
+{
+	return g_geometoryLight;
 }
 void DrawBox()
 {
 	UpdateGeometoryMatrix();
+	UpdateGeometoryColor();
+	UpdateGeometoryLight();
 	g_pGeometoryVS->Bind();
 	g_pGeometoryPS->Bind();
 	g_pGeometoryWVP->BindVS(0);
+	g_pGeometoryColor->BindVS(1);
+	g_pGeometoryLight->BindPS(0);
 	g_pGeometoryBox->Draw();
 }
 void DrawSphere()
@@ -148,41 +175,41 @@ void CreateGeometoryBox()
 		//面の順番は必ず時計回りに設定する
 		//（正しく設定していないと裏側が表示されて面が見えなくなる）
 		
-		//X面
-		{ { 0.5f,  0.5f,  0.5f}, {1.0f, 0.0f} },	//0
-		{ {-0.5f,  0.5f,  0.5f}, {0.0f, 0.0f} },	//1
-		{ { 0.5f, -0.5f,  0.5f}, {1.0f, 1.0f} },	//2
-		{ {-0.5f, -0.5f,  0.5f}, {0.0f, 1.0f} },	//3
-
-		//-X面
-		{ {-0.5f,  0.5f,  0.5f}, {1.0f, 0.0f} },	//5
-		{ {-0.5f,  0.5f, -0.5f}, {0.0f, 0.0f} },	//4
-		{ {-0.5f, -0.5f,  0.5f}, {1.0f, 1.0f} },	//7
-		{ {-0.5f, -0.5f, -0.5f}, {0.0f, 1.0f} },	//6
-
-		//-Y面
-		{ {-0.5f, -0.5f, -0.5f}, {0.0f, 0.0f} },	//8
-		{ { 0.5f, -0.5f, -0.5f}, {1.0f, 0.0f} },	//9
-		{ {-0.5f, -0.5f,  0.5f}, {0.0f, 1.0f} },	//10
-		{ { 0.5f, -0.5f,  0.5f}, {1.0f, 1.0f} },	//11
+		//Z面
+		{ { 0.5f,  0.5f,  0.5f}, { 0.0f,  0.0f,  1.0f }, {1.0f, 0.0f} },	//0
+		{ {-0.5f,  0.5f,  0.5f}, { 0.0f,  0.0f,  1.0f }, {0.0f, 0.0f} },	//1
+		{ { 0.5f, -0.5f,  0.5f}, { 0.0f,  0.0f,  1.0f }, {1.0f, 1.0f} },	//2
+		{ {-0.5f, -0.5f,  0.5f}, { 0.0f,  0.0f,  1.0f }, {0.0f, 1.0f} },	//3
+												 
+		//-X面								    
+		{ {-0.5f,  0.5f,  0.5f}, {-1.0f,  0.0f,  0.0f }, {1.0f, 0.0f} },	//5
+		{ {-0.5f,  0.5f, -0.5f}, {-1.0f,  0.0f,  0.0f }, {0.0f, 0.0f} },	//4
+		{ {-0.5f, -0.5f,  0.5f}, {-1.0f,  0.0f,  0.0f }, {1.0f, 1.0f} },	//7
+		{ {-0.5f, -0.5f, -0.5f}, {-1.0f,  0.0f,  0.0f }, {0.0f, 1.0f} },	//6
+												 
+		//-Y面								    
+		{ {-0.5f, -0.5f, -0.5f}, { 0.0f, -1.0f,  0.0f }, {0.0f, 0.0f} },	//8
+		{ { 0.5f, -0.5f, -0.5f}, { 0.0f, -1.0f,  0.0f }, {1.0f, 0.0f} },	//9
+		{ { 0.5f, -0.5f,  0.5f}, { 0.0f, -1.0f,  0.0f }, {1.0f, 1.0f} },	//11
+		{ {-0.5f, -0.5f,  0.5f}, { 0.0f, -1.0f,  0.0f }, {0.0f, 1.0f} },	//10
 
 		//-Z面
-		{ {-0.5f,  0.5f, -0.5f}, {0.0f, 0.0f} },	//12
-		{ { 0.5f,  0.5f, -0.5f}, {1.0f, 0.0f} },	//13
-		{ {-0.5f, -0.5f, -0.5f}, {0.0f, 1.0f} },	//14
-		{ { 0.5f, -0.5f, -0.5f}, {1.0f, 1.0f} },	//15
+		{ {-0.5f,  0.5f, -0.5f}, { 0.0f,  0.0f, -1.0f }, {0.0f, 0.0f} },	//12
+		{ { 0.5f,  0.5f, -0.5f}, { 0.0f,  0.0f, -1.0f }, {1.0f, 0.0f} },	//13
+		{ {-0.5f, -0.5f, -0.5f}, { 0.0f,  0.0f, -1.0f }, {0.0f, 1.0f} },	//14
+		{ { 0.5f, -0.5f, -0.5f}, { 0.0f,  0.0f, -1.0f }, {1.0f, 1.0f} },	//15
 
 		//Y面
-		{ {-0.5f,  0.5f,  0.5f}, {0.0f, 0.0f} },	//16
-		{ { 0.5f,  0.5f,  0.5f}, {1.0f, 0.0f} },	//17
-		{ {-0.5f,  0.5f, -0.5f}, {0.0f, 1.0f} },	//18
-		{ { 0.5f,  0.5f, -0.5f}, {1.0f, 1.0f} },	//19
+		{ {-0.5f,  0.5f,  0.5f}, { 0.0f,  1.0f,  0.0f }, {0.0f, 0.0f} },	//16
+		{ { 0.5f,  0.5f,  0.5f}, { 0.0f,  1.0f,  0.0f }, {1.0f, 0.0f} },	//17
+		{ {-0.5f,  0.5f, -0.5f}, { 0.0f,  1.0f,  0.0f }, {0.0f, 1.0f} },	//18
+		{ { 0.5f,  0.5f, -0.5f}, { 0.0f,  1.0f,  0.0f }, {1.0f, 1.0f} },	//19
 
 		//X面
-		{ { 0.5f,  0.5f, -0.5f}, {0.0f, 0.0f} },	//20
-		{ { 0.5f,  0.5f,  0.5f}, {1.0f, 0.0f} },	//21
-		{ { 0.5f, -0.5f, -0.5f}, {0.0f, 1.0f} },	//22
-		{ { 0.5f, -0.5f,  0.5f}, {1.0f, 1.0f} },	//23
+		{ { 0.5f,  0.5f, -0.5f}, {1.0f,  0.0f,  0.0f }, {0.0f, 0.0f} },	//20
+		{ { 0.5f,  0.5f,  0.5f}, {1.0f,  0.0f,  0.0f }, {1.0f, 0.0f} },	//21
+		{ { 0.5f, -0.5f, -0.5f}, {1.0f,  0.0f,  0.0f }, {0.0f, 1.0f} },	//22
+		{ { 0.5f, -0.5f,  0.5f}, {1.0f,  0.0f,  0.0f }, {1.0f, 1.0f} },	//23
 
 	};
 
@@ -495,18 +522,24 @@ void CreateGeometoryShader()
 {
 	const char* GeometoryVS = R"EOT(
 struct VS_IN {
-	float3 pos : POSITION0;
-	float2 uv : TEXCOORD0;
+	float3 pos    : POSITION0;
+    float3 normal : NORMAL; 
+	float2 uv     : TEXCOORD0;
 };
 struct VS_OUT {
-	float4 pos : SV_POSITION;
-	float2 uv : TEXCOORD0;
-	float4 wPos : TEXCOORD1;
+	float4 pos    : SV_POSITION;
+    float3 normal : NORMAL;
+	float2 uv     : TEXCOORD0;
+    float3 color  : COLOR;
+	float4 wPos   : TEXCOORD1;
 };
 cbuffer WVP : register(b0) {
 	float4x4 world;
 	float4x4 view;
 	float4x4 proj;
+};
+cbuffer COLOR : register(b1) {
+    float3 geometoryColor;
 };
 VS_OUT main(VS_IN vin) {
 	VS_OUT vout;
@@ -515,28 +548,64 @@ VS_OUT main(VS_IN vin) {
 	vout.wPos = vout.pos;
 	vout.pos = mul(vout.pos, view);
 	vout.pos = mul(vout.pos, proj);
+    vout.normal = mul(vin.normal, world);
 	vout.uv = vin.uv;
+    vout.color = geometoryColor;
 	return vout;
 })EOT";
 	const char* GeometoryPS = R"EOT(
 struct PS_IN {
-	float4 pos : SV_POSITION;
-	float2 uv : TEXCOORD0;
-	float4 wPos : TEXCOORD1;	
+	float4 pos    : SV_POSITION;
+    float3 normal : NORMAL;
+	float2 uv     : TEXCOORD0;
+    float3 color  : COLOR;
+	float4 wPos   : TEXCOORD1;	
 };
+cbuffer LIGHT : register(b0) {
+    float3 spPos;
+    float3 spCol;
+    float spRange;
+    float3 spDir;
+	float spAng;
+	float3 eyePos;
+	float3 amCol;
+};
+float3 CalcLambertFromLight(float3 Direction, float3 Color, float3 Pixelnormal);
+float3 CalcPhongSpecularFromLight(float3 Direction, float3 Color, float3 wPos, float3 Pixelnormal);
+float3 CalcLightFromSpotLight(PS_IN pin);
 float4 main(PS_IN pin) : SV_TARGET
 {
-	float4 color = float4(1,1,1,1);
-	
-	float2 mGrid = floor(abs(pin.uv) * 2.0f);
-	float2 sGrid = floor(abs(pin.uv) * 8.0f);
-
-	float mid = fmod(mGrid.x + mGrid.y, 2.0f);
-	float small = fmod(sGrid.x + sGrid.y, 2.0f);
-
-	color.rgb = ((mid * 0.1f) * small + 0.45f) + (1 - small) * 0.05f;
+	float4 color = float4(pin.color, 1.0f);
+    pin.normal = normalize(pin.normal);
+    float3 spotLig = CalcLightFromSpotLight(pin); float3 finalLig = spotLig + amCol;
+    color.rgb *= finalLig; 
+	//float2 mGrid = floor(abs(pin.uv) * 2.0f);
+	//float2 sGrid = floor(abs(pin.uv) * 8.0f);
+	//float mid = fmod(mGrid.x + mGrid.y, 2.0f);
+	//float small = fmod(sGrid.x + sGrid.y, 2.0f);
+	//color.rgb = ((mid * 0.1f) * small + 0.45f) + (1 - small) * 0.05f;
 	return color;
-})EOT";
+}
+float3 CalcLambertFromLight(float3 Direction, float3 Color, float3 Pixelnormal){
+    float t = dot(Pixelnormal, Direction) * -1.0f; t = max(0.0f, t); return Color * t;
+}
+float3 CalcPhongSpecularFromLight(float3 Direction, float3 Color, float3 wPos, float3 Pixelnormal){
+   float3 refVec = reflect(Direction, Pixelnormal); float3 toEye = eyePos - wPos; toEye = normalize(toEye);
+   float t = dot(refVec, toEye); t = max(0.0f, t); t = pow(t, 3.0f); return Color * t;
+}
+float3 CalcLightFromSpotLight(PS_IN pin)
+{
+   float3 spIncidentVec = pin.wPos - spPos; spIncidentVec = normalize(spIncidentVec);
+   float3 diffuseSpLig = CalcLambertFromLight(spIncidentVec, spCol, pin.normal); float3 specularSpLig = CalcPhongSpecularFromLight(spIncidentVec, spCol, pin.wPos, pin.normal);
+   float3 distance = length(pin.wPos - spPos); float affect = 1.0f - 1.0f / spRange * distance; 
+   if (affect < 0.0f) affect = 0.0f; 
+   affect = pow(affect, 2.0f); diffuseSpLig *= affect; specularSpLig *= affect;
+   float angle = dot(spIncidentVec, spDir); angle = abs(acos(angle)); affect = 1.0f - 1.0f / spAng * angle; 
+   if (affect < 0.0f) affect = 0.0f;
+   affect = pow(affect, 0.5f); diffuseSpLig *= affect; specularSpLig *= affect; 
+   return diffuseSpLig * specularSpLig;
+}
+)EOT";
 
 	g_pGeometoryVS = new VertexShader();
 	_ASSERT_EXPR(SUCCEEDED(g_pGeometoryVS->Compile(GeometoryVS)),
@@ -561,7 +630,16 @@ void CreateGeometoryConstantBuffer()
 	g_geometoryMat[0]._22 = 1.0f;
 	g_geometoryMat[0]._33 = 1.0f;
 	g_geometoryMat[0]._44 = 1.0f;
-
+	g_pGeometoryColor = new ConstantBuffer();
+	g_pGeometoryColor->Create(sizeof(g_geometoryColor));
+	g_geometoryColor.Color = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+	UpdateGeometoryColor();
+	g_pGeometoryLight = new ConstantBuffer();
+	g_pGeometoryLight->Create(sizeof(g_geometoryLight));
+	g_geometoryLight.eyePos = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	g_pLight->InitSpLig(g_geometoryLight);
+	g_pLight->InitAmLig(g_geometoryLight);
+	UpdateGeometoryLight();
 }
 
 void UpdateGeometoryMatrix()
@@ -584,4 +662,12 @@ void UpdateGeometoryMatrix()
 
 	//定数バッファに書き込む
 	g_pGeometoryWVP->Write(g_geometoryMat);
+}
+
+void UpdateGeometoryColor(){
+	g_pGeometoryColor->Write(&g_geometoryColor);
+}
+
+void UpdateGeometoryLight(){
+	g_pGeometoryLight->Write(&g_geometoryLight);
 }

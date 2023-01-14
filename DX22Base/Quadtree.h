@@ -2,7 +2,6 @@
 // 衝突判定用ツリークラス宣言部
 #pragma once
 
-#include "Main.h"
 #include <set>
 #include <vector>
 #include <list>
@@ -15,12 +14,12 @@ namespace IKD
 {
 
 
-	template <class T>
+	template<class T>
 	class CCell;
 	/////////////////////////////////////
 	// 分木登録オブジェクト(OFT)
 	//////////////////////////////////
-	template< class T>
+	template<class T>
 	class OBJECT_FOR_TREE
 	{
 	public:
@@ -77,7 +76,7 @@ namespace IKD
 	// 衝突リスト
 	//////////////////////////////////
 #define COLLISIONLIST_REALLOCSIZE	100
-	template < class T >
+	template<class T>
 	class CollisionList {
 	public:
 		CollisionList() : root_(0), pos_(0), mallocSize_(0) {
@@ -122,8 +121,8 @@ namespace IKD
 
 
 	// 線形4分木空間管理クラス
-#define CLINER4TREEMANAGER_MAXLEVEL		9
-	template <class T>
+#define CLINER4TREEMANAGER_MAXLEVEL		(9)
+	template<class T>
 	class CLiner4TreeManager
 	{
 	protected:
@@ -138,7 +137,7 @@ namespace IKD
 		float m_fUnit_H;		// 最小レベル空間の高単位
 		DWORD m_dwCellNum;		// 空間の数
 		unsigned int m_uiLevel;			// 最下位レベル
-		CollisionList< T > m_ColList;	// 衝突リスト
+		CollisionList<T> m_ColList;	// 衝突リスト
 
 	public:
 		// コンストラクタ
@@ -238,7 +237,6 @@ namespace IKD
 		// 空間内で衝突リストを作成する
 		bool GetCollisionList(DWORD Elem, list<T*> &ColStac)
 		{
-			list<T*>::iterator it;
 			// ① 空間内のオブジェクト同士の衝突リスト作成
 			OBJECT_FOR_TREE<T>* spOFT1 = ppCellAry[Elem]->GetFirstObj();
 			while (spOFT1 != 0)
@@ -249,7 +247,7 @@ namespace IKD
 					spOFT2 = spOFT2->m_spNext;
 				}
 				// ② 衝突スタックとの衝突リスト作成
-				for (it = ColStac.begin(); it != ColStac.end(); it++) {
+				for (auto it = ColStac.begin(); it != ColStac.end(); it++) {
 					m_ColList.wright(spOFT1->m_pObject, *it);
 				}
 				spOFT1 = spOFT1->m_spNext;
@@ -354,7 +352,7 @@ namespace IKD
 
 
 	// 空間クラス
-	template <class T>
+	template<class T>
 	class CCell
 	{
 	protected:
