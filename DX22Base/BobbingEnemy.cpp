@@ -1,22 +1,24 @@
-#include "Enemy.h"
+#include "BobbingEnemy.h"
 #include "Collision.h"
 
 //using namespace DirectX;
 
 
 
-Enemy::Enemy(Collision::Direction dire, XMFLOAT3 pos)
-	:m_Ground(true)
-	, m_Move{ 0.0f, 0.0f, 0.0f }
+BobbingEnemy::BobbingEnemy(Collision::Direction dire, XMFLOAT3 pos, XMFLOAT3 point, int flame)
+	: m_Move{ 0.0f, 0.0f, 0.0f }
 	, m_OldInfo{ {2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f} }
 	, m_Direction(dire)
-	, m_Spead(0.02f)
 	, m_IsColPlayer(false)
 	, m_life(300.0f)
 	, m_use(true)
+	, m_flame(0)
 {
 	m_Info = { {pos.x, pos.y, pos.z}, {0.3f, 0.646f, 0.3f}, {0.0f, -90.0f, 0.0f} };
 
+	m_Start = { pos.x,pos.y,pos.z };        //開始地点
+	m_Point = { point.x, point.y, point.z };//折り返し地点
+	m_maxflame = flame;
 	//モデル読み込み
 	m_pModel = new Model;
 	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.03f))
@@ -51,17 +53,13 @@ Enemy::Enemy(Collision::Direction dire, XMFLOAT3 pos)
 	}
 }
 
-void Enemy::Update()
+void BobbingEnemy::Update()
 {
+	
 	//移動量カット
-	m_Move = { 0.0f, m_Move.y, 0.0f };
 
 	//前フレームのポジションを保持
 	m_OldInfo = m_Info;
-
-	if (m_IsColPlayer) m_Spead = 0.015f;
-	else m_Spead = 0.02f;
-
 
 	m_IsColPlayer = false;
 
@@ -70,74 +68,77 @@ void Enemy::Update()
 	switch (m_Direction)
 	{
 	case Collision::E_DIRECTION_L:
-		m_Move.x += m_Spead;
+		m_Info.pos.x = m_Start.x + (m_Point.x - m_Start.x) * m_flame / m_maxflame;
+		m_Info.pos.y = m_Start.y + (m_Point.y - m_Start.y) * m_flame / m_maxflame;
 		break;
 	case Collision::E_DIRECTION_R:
-		m_Move.x -= m_Spead;
+		m_Info.pos.x = m_Start.x + (m_Point.x - m_Start.x) * (m_maxflame - m_flame) / m_maxflame;
+		m_Info.pos.y = m_Start.y + (m_Point.y - m_Start.y) * (m_maxflame - m_flame) / m_maxflame;
 		break;
 	default:
 		break;
 	}
 
+
 	//ジャンプ
 
 	//重力加算
-	m_Move.y -= 0.01f;
+
 
 	//移動量反映
-	m_Info.pos.x += m_Move.x;
-	m_Info.pos.y += m_Move.y;
-	m_Info.pos.z += m_Move.z;
 
 	//落下後処理
-	if (m_Info.pos.y < -50.0f)
+
+	m_flame++;
+	if (m_flame > m_maxflame)
 	{
-		m_Info.pos.y = 5.0f;
-		m_Move.y = 0.0f;
+		m_flame = 0;
+		switch (m_Direction)
+		{
+		case Collision::E_DIRECTION_L:
+			SetDirection(Collision::E_DIRECTION_R);
+			break;
+		case Collision::E_DIRECTION_R:
+			SetDirection(Collision::E_DIRECTION_L);
+			break;
+		default:
+			break;
+		}
 	}
 }
 
-void Enemy::SetPos(XMFLOAT3 pos)
-{
-	m_Info.pos = pos;
-}
 
-void Enemy::InitDirection(int num)
-{
-	//m_StageDire.
-	for (int i = 0; i < num; i++)
-	{
+//void BobbingEnemy::InitDirection(int num)
+//{
+//	//m_StageDire.
+//	for (int i = 0; i < num; i++)
+//	{
+//
+//		m_StageDire.push_back(Collision::E_DIRECTION_NULL);
+//	}
+//}
 
-		m_StageDire.push_back(Collision::E_DIRECTION_NULL);
-	}
-}
-
-void Enemy::ResetMove()
-{
-	m_Move.y = 0.0f;
-}
-
-Def::Info Enemy::GetOldInfo()
+Def::Info BobbingEnemy::GetOldInfo()
 {
 	return m_OldInfo;
 }
 
-Collision::Direction Enemy::GetDirection()
+Collision::Direction BobbingEnemy::GetDirection()
 {
 	return m_Direction;
 }
 
-Collision::Direction Enemy::GetStageCollistonDirection(int num)
-{
-	return m_StageDire[num];
-}
+//Collision::Direction BobbingEnemy::GetStageCollistonDirection(int num)
+//{
+//	return m_StageDire[num];
+//}
 
-void Enemy::SetStageCollisionDirection(Collision::Direction dire, int num)
-{
-	m_StageDire[num] = dire;
-}
+//void BobbingEnemy::SetStageCollisionDirection(Collision::Direction dire, int num)
+//{
+//	m_StageDire[num] = dire;
+//}
 
-void Enemy::SetDirection(Collision::Direction dire)
+void BobbingEnemy::SetDirection(Collision::Direction dire)
 {
 	m_Direction = dire;
 
@@ -154,7 +155,7 @@ void Enemy::SetDirection(Collision::Direction dire)
 	}
 }
 
-void Enemy::SetCollisionPlayer()
+void BobbingEnemy::SetCollisionPlayer()
 {
 	m_IsColPlayer = true;
 }

@@ -7,6 +7,7 @@
 #include "Stage.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "BobbingEnemy.h"
 #include "Light.h"
 //#include "ShadowBlock.h"
 #include "ReverseBlock.h"
@@ -31,8 +32,9 @@ public:
 private:
 	Stage* m_pStage;
 	Player* m_pPlayer;
-	/*Enemy* m_pEnemy;*/
-	vector<Enemy*> m_pEnemys;
+	Enemy* m_pEnemy;
+	BobbingEnemy* m_pBobbingEnemy;
+	/*vector<Enemy*> m_pEnemys;*/
 	Light* m_pLight;
 	//ShadowBlock* m_pShadowBlock;
 	CameraBase* m_pCamera;
