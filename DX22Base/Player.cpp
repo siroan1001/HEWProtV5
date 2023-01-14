@@ -17,7 +17,11 @@ Player::Player(Collision::Direction dire)
 
 	//モデル読み込み
 	m_pModel = new Model;
-	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.03f))
+	//if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.03f))
+	//{
+	//	MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
+	//}
+	if (!m_pModel->Load("Assets/unitychan/unitychan.fbx", 0.03f))
 	{
 		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
 	}
