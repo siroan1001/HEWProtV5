@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "Collision.h"
+#include "ModelList.h"
 
 //using namespace DirectX;
 
@@ -15,18 +16,21 @@ Enemy::Enemy(Collision::Direction dire, XMFLOAT3 pos)
 	, m_life(300.0f)
 	, m_use(true)
 {
-	m_Info = { {pos.x, pos.y, pos.z}, {0.3f, 0.646f, 0.3f}, {0.0f, -90.0f, 0.0f} };
+	m_Info = { {pos.x, pos.y, pos.z}, {0.3f, 0.4f, 0.3f}, {0.0f, -90.0f, 0.0f} };
+	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
 
 	//モデル読み込み
-	m_pModel = new Model;
-	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.03f))
-	{
-		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
-	}
+	//m_pModel = new Model;
+	//if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.03f))
+	//{
+	//	MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
+	//}
 	//if (!m_pModel->Load("Assets/Model/enemy01.fbx", 1.0f))
 	//{
 	//	MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
 	//}
+
+	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_PLAYER);
 
 	//頂点シェーダをモデルに設定
 	m_pModel->SetVertexShader(m_pVS);

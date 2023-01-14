@@ -12,7 +12,7 @@ LayerGame::LayerGame(CameraBase* camera, Game3D::GameStatus* status)
 	m_pPlayer = new Player(Collision::E_DIRECTION_L);
 
 	//敵の生成
-	m_pEnemy = new Enemy(Collision::E_DIRECTION_L, { -3.0f, 5.25f, 0.0f });
+	m_pEnemy = new Enemy(Collision::E_DIRECTION_L, { -2.2f, 3.25f, 0.0f });
 
 	m_pBobbingEnemy = new BobbingEnemy(Collision::E_DIRECTION_L, { -7.0f,3.0f,0.0f }, { -4.0f, 5.0f, 0.0f }, 300);
 
@@ -109,7 +109,8 @@ void LayerGame::Draw()
 	m_pPlayer->Draw();
 
 	//敵の描画
-	if (m_pEnemy->m_use)m_pEnemy->Draw();
+	if (m_pEnemy->m_use)
+		m_pEnemy->Draw();
 	if (m_pBobbingEnemy->m_use)m_pBobbingEnemy->Draw();
 
 	//for (int i = 0; i < m_pEnemys.size(); i++)
@@ -129,7 +130,7 @@ void LayerGame::Draw()
 	m_pStartObj->Draw();
 
   //追ってくる影の描画
-	m_pChasingShadow->Draw();
+	//m_pChasingShadow->Draw();
 	
 	m_pGoalObj->Draw();
 
@@ -261,7 +262,7 @@ void LayerGame::CheckCollision()
 							Def::Info PlayerBot;
 							Def::Info PlayerTop;
 							PlayerBot = PlayerTop = m_pPlayer->GetInfo();
-							PlayerBot.size.y = 0.1f;		//足元の大きさ
+							PlayerBot.size.y = 0.15f;		//足元の大きさ
 							PlayerBot.pos.y += PlayerBot.size.y / 2.0f;		//プレイヤーの元の座標から足元の大きさ分ずらす
 							PlayerTop.size.y -= PlayerBot.size.y;		//体の大きさ（プレイヤー全体から足元の大きさを引いた大きさ）
 							PlayerTop.pos.y += PlayerBot.size.y + PlayerTop.size.y / 2.0f;	//プレイヤーの元の座標から足元の大きさ分と体の半分ずらす

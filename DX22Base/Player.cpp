@@ -15,7 +15,7 @@ Player::Player(Collision::Direction dire)
 	,m_Spead(0.03f)
 	,m_IsColEnemy(false)
 {
-	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.646f, 0.3f}, {0.0f, -90.0f, 0.0f} };
+	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.4f, 0.3f}, {0.0f, -90.0f, 0.0f} };
 	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
 
 	//ÉÇÉfÉãì«Ç›çûÇ›

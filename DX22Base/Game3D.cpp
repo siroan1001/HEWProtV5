@@ -36,7 +36,7 @@ Game3D::Game3D()
 	m_pBlend->Bind();
 
 	CameraMain* pMain = new CameraMain;
-	pMain->SetLook(XMFLOAT3(-4.3f, 4.25f, 0.0f));
+	pMain->SetLook(XMFLOAT3(-5.0f, 4.25f, 0.0f));
 	m_pCamera[E_CAM_MAIN] = pMain;
 	//m_pCamera[E_CAM_MAIN] = new CameraMain;
 	//m_pCamera[E_CAM_MAIN]->SetLook();
@@ -107,7 +107,8 @@ void Game3D::Update()
 	}
 
 	//ƒJƒƒ‰‚ÌXV
-	if(m_GameStatus == E_GAME_STATUS_NORMAL) m_pCamera[m_mainCamera]->Update();
+	if(m_GameStatus == E_GAME_STATUS_NORMAL) 
+		m_pCamera[m_mainCamera]->Update();
 
 	for (int i = 0; i < E_LAYER_MAX; i++)
 	{
@@ -129,6 +130,14 @@ void Game3D::Update()
 		temp->SetCamera(m_pCamera[m_mainCamera]);
 		m_pLayer[E_LAYER_GAME] = temp;
 	}
+
+	//if (IsKeyTrigger('R'))
+	//{
+	//	CameraMain* cam = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
+	//	cam->SetLook(XMFLOAT3(-5.0f, 4.25f, 0.0f));
+	//	m_pCamera[E_CAM_MAIN] = cam;
+
+	//}
 }
 
 void Game3D::Draw()

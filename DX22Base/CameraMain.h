@@ -71,6 +71,9 @@ public:
 	void SetLook(XMFLOAT3 look)
 	{
 		m_look = look;
+		m_pos = look;
+		m_pos.z += m_radius;
+		m_Info.pos = m_look;
 	}
 
 private:

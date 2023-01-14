@@ -136,6 +136,11 @@ Stage::Stage()
 	info.size = { 22.0f, 0.5f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Info.push_back(info);
+
+	info.pos = { 3.35f, 3.75f, 0.0f };
+	info.size = { 0.2f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
 	
 	//シャドウブロック1
 	info.pos = { -2.3f, 3.95f, 0.0f };
