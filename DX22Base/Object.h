@@ -27,6 +27,7 @@ public:
 protected:
 	Model* m_pModel;
 	Def::Info m_Info;
+	XMFLOAT3 m_ModelSize;
 	CameraBase* m_pCamera;
 	static VertexShader* m_pVS;
 	static ConstantBuffer* m_pWVP;	

@@ -22,11 +22,15 @@ LayerGame::LayerGame(CameraBase* camera, Game3D::GameStatus* status)
 	m_pStartObj = new StartObj;
 	m_pStartObj->SetCamera(camera);
 
+	m_pObstacle = new Obstacle;
+	m_pObstacle->SetCamera(camera);
+
 	m_GameStatus = status;
 }
 
 LayerGame::~LayerGame()
 {
+	delete m_pObstacle;
 	delete m_pStartObj;
 	delete m_pRvsBlock;
 	delete m_pLight;
@@ -66,6 +70,8 @@ void LayerGame::Draw()
 
 	//スタートの描画
 	m_pStartObj->Draw();
+
+	m_pObstacle->Draw();
 }
 
 Player * LayerGame::GetPlayer()
