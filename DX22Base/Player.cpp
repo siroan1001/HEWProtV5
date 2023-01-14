@@ -13,6 +13,7 @@ Player::Player(Collision::Direction dire)
 	,m_OldInfo{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
 	,m_Direction(dire)
 	,m_Spead(0.03f)
+	,m_IsColEnemy(false)
 {
 	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.646f, 0.3f}, {0.0f, -90.0f, 0.0f} };
 	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
@@ -72,6 +73,12 @@ void Player::Update()
 		m_Direction = Collision::E_DIRECTION_L;
 		m_Info.rot.y = 90.0f;
 	}
+
+	if (m_IsColEnemy)m_Spead = 0.015f;
+	else m_Spead = 0.03f;
+
+	m_IsColEnemy = false;
+
 	// Ž©“®ˆÚ“®
 	switch (m_Direction)
 	{
@@ -170,5 +177,10 @@ void Player::SetDirection(Collision::Direction dire)
 	default:
 		break;
 	}
+}
+
+void Player::SetCollisionEnemy()
+{
+	m_IsColEnemy = true;
 }
 

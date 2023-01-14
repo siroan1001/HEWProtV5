@@ -1,13 +1,11 @@
-//#pragma once
-
-#ifndef _____PLAYER_H____
-#define _____PLAYER_H____
+#ifndef _____ENEMY_H____
+#define _____ENEMY_H____
 
 #include <DirectXMath.h>
-#include "CameraBase.h"
 #include "Model.h"
 #include "ConstantBuffer.h"
 #include "Stage.h"
+#include "CameraBase.h"
 #include "Collision.h"
 #include <vector>
 #include "Object.h"
@@ -15,20 +13,22 @@
 using namespace DirectX;
 using namespace std;
 
-
-class Player : public Object
+class Enemy : public Object
 {
 public:
-	// プレイヤーの方向
-	enum PlayerDirection
+	// 敵の方向
+	enum EnemyDirection
 	{
-		E_PLAYER_RIGHT,	// 右
-		E_PLAYER_LEFT,	// 左
+		E_ENEMY_RIGHT,	// 右
+		E_ENEMY_LEFT,	// 左
 
 		E_PLAYER_DIRECTION_MAX
 	};
+
+	float m_life;
+	bool m_use;
 public:
-	Player(Collision::Direction dire);
+	Enemy(Collision::Direction dire, XMFLOAT3 pos);
 	void Update();
 
 	void SetPos(XMFLOAT3 pos);
@@ -44,7 +44,7 @@ public:
 	void SetStageCollisionDirection(Collision::Direction dire, int num);
 	void SetDirection(Collision::Direction);
 
-	void SetCollisionEnemy();
+	void SetCollisionPlayer();
 
 
 private:
@@ -54,7 +54,15 @@ private:
 	Collision::Direction m_Direction;		//進んでいる方向
 	vector<Collision::Direction> m_StageDire;
 	float m_Spead;
-	bool m_IsColEnemy;
+	bool m_IsColPlayer;
+
+
 };
 
-#endif // !_____PLAYER_H____
+
+
+
+
+
+
+#endif // !_____ENEMY_H____
