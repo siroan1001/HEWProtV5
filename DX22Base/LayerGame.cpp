@@ -12,7 +12,7 @@ LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status)
 	m_pPlayer = new Player(Collision::E_DIRECTION_L);
 
 	//敵の生成
-	m_pEnemy = new Enemy(Collision::E_DIRECTION_L, { -2.2f, 3.25f, 0.0f });
+	m_pEnemy = new Enemy(Collision::E_DIRECTION_L, XMFLOAT3(-2.2f, 3.25f, 0.0f ));
 
 	m_pBobbingEnemy = new BobbingEnemy(Collision::E_DIRECTION_L, { -7.0f,3.0f,0.0f }, { -4.0f, 5.0f, 0.0f }, 300);
 
@@ -163,7 +163,7 @@ void LayerGame::CheckCollision()
 
 		Def::Info lightinfo = m_pLight->GetInfo();
 		float lightradius = m_pLight->GetRadius();
-		//if (!Collision::RectAndCircle(shadow[i]->GetInfo(), lightinfo, lightradius))	continue;
+		if (!Collision::RectAndCircle(shadow[i]->GetInfo(), lightinfo, lightradius))	continue;
 
 		block = shadow[i]->GetSmallBlockInfo();
 		for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)

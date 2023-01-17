@@ -137,19 +137,16 @@ void ShadowBlock::SetShadowBlock(Def::Info info)
 			temp.Info.pos = { m_BlockInfo.Info.pos.x - m_BlockBase.size.x * j, m_BlockInfo.Info.pos.y - m_BlockBase.size.y * i, m_BlockInfo.Info.pos.z };//ブロックのサイズ分ずらす
 
 			tempVec.push_back(temp);
-			//tempb.push_back(new ShadowBillBoard(temp.Info.pos));
 		}
 		m_SmallBlockInfo.push_back(tempVec);
-		//m_BillBoard.push_back(tempb);
 	}
 
 	m_BlockInfo.Info.pos.x += m_BlockBase.size.x / 2.0f;
 	m_BlockInfo.Info.pos.y += m_BlockBase.size.y / 2.0f;
 
-	XMFLOAT2 size;
-
-	//m_BlockInfo.Info.pos.x = m_BlockInfo.Info.pos.x + m_SmallBlockInfo[0].Info.size.x / 2.0f;
-	//m_BlockInfo.Info.pos.y = m_BlockInfo.Info.pos.y + m_SmallBlockInfo[0].Info.size.y / 2.0f;
+	XMFLOAT2 size = { m_BlockInfo.xy.x * m_BlockBase.size.x, m_BlockInfo.xy.y * m_BlockBase.size.y };
+	m_BlockInfo.Info.pos.x -= size.x / 2.0f;
+	m_BlockInfo.Info.pos.y -= size.y / 2.0f;
 }
 
 void ShadowBlock::SetUse(XMFLOAT2 num, bool flag)

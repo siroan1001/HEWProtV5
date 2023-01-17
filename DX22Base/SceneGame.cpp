@@ -37,8 +37,6 @@ SceneGame::SceneGame()
 	CameraMain* pMain = new CameraMain;
 	pMain->SetLook(XMFLOAT3(-5.0f, 4.25f, 0.0f));
 	m_pCamera[E_CAM_MAIN] = pMain;
-	//m_pCamera[E_CAM_MAIN] = new CameraMain;
-	//m_pCamera[E_CAM_MAIN]->SetLook();
 	CameraEvent* pEvent = new CameraEvent();
 	pEvent->SetEvent(XMFLOAT3(-3.0f, 4.25f, 3.0f), XMFLOAT3(-3.0f, 4.25f, 3.0f), 3.0f);
 	m_pCamera[E_CAM_EVENT] = pEvent;
@@ -46,8 +44,6 @@ SceneGame::SceneGame()
 	pDelay->SetCamera(XMFLOAT3(-4.3f, 4.25f, 0.0f), 3.0f, 1.0f);
 	m_pCamera[E_CAM_DELAY] = pDelay;
 	m_pCamera[E_CAM_DEBUG] = new CameraDebug;
-
-
 
 	m_pLayer[E_LAYER_BG] = new LayerBG;		//‚±‚ê
 	m_pLayer[E_LAYER_BUCK_OBJECT] = NULL;
@@ -59,7 +55,6 @@ SceneGame::SceneGame()
 	camera->SetPlayer(layer->GetPlayer());
 
 	m_GameStatus = E_GAME_STATUS_START;
-
 }
 
 SceneGame::~SceneGame()
