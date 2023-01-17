@@ -160,6 +160,9 @@
     <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="DirectXTex\Texture.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyBase.cpp" />
+    <ClCompile Include="EnemyDefault.cpp" />
+    <ClCompile Include="EnemyRoundTrip.cpp" />
     <ClCompile Include="Game3D.cpp" />
     <ClCompile Include="Geometory.cpp" />
     <ClCompile Include="Goal.cpp" />
@@ -210,6 +213,9 @@
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="DirectXTex\Texture.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyBase.h" />
+    <ClInclude Include="EnemyDefault.h" />
+    <ClInclude Include="EnemyRoundTrip.h" />
     <ClInclude Include="Game3D.h" />
     <ClInclude Include="Geometory.h" />
     <ClInclude Include="Goal.h" />

@@ -1,5 +1,9 @@
 #include "LayerGame.h"
 #include "SceneGame.h"
+#include "EnemyDefault.h"
+#include "EnemyRoundTrip.h"
+#include <typeinfo>
+#include <assert.h>
 
 LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status)
 {
@@ -16,7 +20,19 @@ LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status)
 
 	m_pBobbingEnemy = new BobbingEnemy(Collision::E_DIRECTION_L, { -7.0f,3.0f,0.0f }, { -4.0f, 5.0f, 0.0f }, 300);
 
+	//---------------
 
+	//m_pEnemyBase[E_ENEMY_KIND_DEF_1] = new EnemyDefault(Collision::E_DIRECTION_L, XMFLOAT3(-2.2f, 3.25f, 0.0f));
+	//m_pEnemyBase[E_ENEMY_KIND_ROUND_TRIP_1] =
+	//	new EnemyRoundTrip(Collision::E_DIRECTION_L, { -7.0f,3.0f,0.0f }, { -4.0f, 5.0f, 0.0f }, 300);
+
+	m_pEnemys.push_back(new EnemyDefault(Collision::E_DIRECTION_L, XMFLOAT3(-2.2f, 3.25f, 0.0f)));
+	m_pEnemys.push_back(new EnemyRoundTrip(Collision::E_DIRECTION_L, { -7.0f,3.0f,0.0f }, { -4.0f, 5.0f, 0.0f }, 300));
+
+	assert(typeid(m_pEnemys[0]) == typeid(EnemyDefault));
+
+
+	//-----------------
 
 	/*m_pEnemys.push_back(new Enemy(Collision::E_DIRECTION_L, { -7.0f, 5.25f, 0.0f }));
 	m_pEnemys.push_back(new Enemy(Collision::E_DIRECTION_L, { -7.0f, 5.25f, 0.0f }));
@@ -69,6 +85,14 @@ LayerGame::~LayerGame()
 	delete m_pLight;
 	//delete m_pShadowBlock;
 	/*m_pEnemys.clear();*/
+	//for (int i = 0; i < E_ENEMY_KIND_MAX; i++)
+	//{
+	//	delete m_pEnemyBase[i];
+	//}
+	for (int i = 0; i < m_pEnemys.size(); i++)
+	{
+		delete m_pEnemys[i];
+	}
 	delete m_pBobbingEnemy;
 	delete m_pEnemy;
 	delete m_pPlayer;
@@ -90,6 +114,11 @@ void LayerGame::Update()
 
 	if (m_pEnemy->m_use)m_pEnemy->Update();
 	if (m_pBobbingEnemy->m_use)m_pBobbingEnemy->Update();
+
+	for (int i = 0; i < m_pEnemys.size(); i++)
+	{
+		m_pEnemys[i]->Update();
+	}
 
 	//for (int i = 0; i < m_pEnemys.size(); i++)
 	//{
@@ -113,10 +142,10 @@ void LayerGame::Draw()
 		m_pEnemy->Draw();
 	if (m_pBobbingEnemy->m_use)m_pBobbingEnemy->Draw();
 
-	//for (int i = 0; i < m_pEnemys.size(); i++)
-	//{
-	//	m_pEnemys[i]->Draw();
-	//}
+	for (int i = 0; i < m_pEnemys.size(); i++)
+	{
+		m_pEnemys[i]->Draw();
+	}
 
 	//シャドウブロックの描画
 	//m_pShadowBlock->Draw();

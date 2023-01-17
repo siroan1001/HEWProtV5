@@ -43,9 +43,6 @@
     <Filter Include="ソース ファイル\DX22\2DObject">
       <UniqueIdentifier>{7b30d2b5-2efc-4621-8c20-86649e54cf3a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\DX22\Layer">
-      <UniqueIdentifier>{99c33a7a-1420-484d-bbd0-4d2a3831fe31}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\DX22\Camera">
       <UniqueIdentifier>{c2a38201-eef3-422e-a648-fc38f8967dab}</UniqueIdentifier>
     </Filter>
@@ -60,6 +57,9 @@
     </Filter>
     <Filter Include="ソース ファイル\DX22\Scene\Layer">
       <UniqueIdentifier>{fbae70d7-2794-4f12-9068-078fb7049a86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\DX22\Scene\Layer">
+      <UniqueIdentifier>{99c33a7a-1420-484d-bbd0-4d2a3831fe31}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +192,15 @@
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル\System</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyBase.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyRoundTrip.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyDefault.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -279,13 +288,13 @@
       <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
     </ClInclude>
     <ClInclude Include="Layer.h">
-      <Filter>ヘッダー ファイル\DX22\Layer</Filter>
+      <Filter>ヘッダー ファイル\DX22\Scene\Layer</Filter>
     </ClInclude>
     <ClInclude Include="LayerBG.h">
-      <Filter>ヘッダー ファイル\DX22\Layer</Filter>
+      <Filter>ヘッダー ファイル\DX22\Scene\Layer</Filter>
     </ClInclude>
     <ClInclude Include="LayerGame.h">
-      <Filter>ヘッダー ファイル\DX22\Layer</Filter>
+      <Filter>ヘッダー ファイル\DX22\Scene\Layer</Filter>
     </ClInclude>
     <ClInclude Include="Lig.h">
       <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
@@ -334,6 +343,15 @@
     </ClInclude>
     <ClInclude Include="Def.h">
       <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBase.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyRoundTrip.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyDefault.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

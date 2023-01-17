@@ -30,17 +30,11 @@ public:
 	BobbingEnemy(Collision::Direction dire, XMFLOAT3 pos, XMFLOAT3 point, int flame);
 	void Update();
 
-	//void InitDirection(int num);
-
-
 	Def::Info GetOldInfo();
 	Collision::Direction GetDirection();
-	//Collision::Direction GetStageCollistonDirection(int num);
-	//void SetStageCollisionDirection(Collision::Direction dire, int num);
 	void SetDirection(Collision::Direction);
 
 	void SetCollisionPlayer();
-
 
 private:
 	Def::Info m_OldInfo;

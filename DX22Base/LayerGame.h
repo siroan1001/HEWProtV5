@@ -16,9 +16,19 @@
 #include "Goal.h"
 #include "CameraBase.h"
 #include "Obstacle.h"
+#include "EnemyBase.h"
 
 class LayerGame	: public Layer
 {
+//public:
+//	enum EnemyKind
+//	{
+//		E_ENEMY_KIND_DEF_1 = 0,
+//		E_ENEMY_KIND_ROUND_TRIP_1,
+//
+//		E_ENEMY_KIND_MAX,
+//	};
+
 public:
 	LayerGame(CameraBase*, SceneGame::GameStatus*);
 	~LayerGame();
@@ -46,6 +56,8 @@ private:
 	GoalObj* m_pGoalObj;
 	Obstacle* m_pObstacle;
 	SceneGame::GameStatus* m_GameStatus;
+	//EnemyBase* m_pEnemyBase[E_ENEMY_KIND_MAX];
+	vector<EnemyBase*> m_pEnemys;
 };
 
 #endif // !_____LAYER_GAME_H____
