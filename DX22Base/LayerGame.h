@@ -2,20 +2,25 @@
 #ifndef _____LAYER_GAME_H____
 #define _____LAYER_GAME_H____
 
-#include "Game3D.h"
+#include "SceneGame.h"
 #include "Layer.h"
 #include "Stage.h"
 #include "Player.h"
+#include "Enemy.h"
+#include "BobbingEnemy.h"
 #include "Light.h"
 //#include "ShadowBlock.h"
 #include "ReverseBlock.h"
 #include "StartObj.h"
+#include "ChasingShadow.h"
+#include "Goal.h"
 #include "CameraBase.h"
+#include "Obstacle.h"
 
 class LayerGame	: public Layer
 {
 public:
-	LayerGame(CameraBase*, Game3D::GameStatus*);
+	LayerGame(CameraBase*, SceneGame::GameStatus*);
 	~LayerGame();
 	void Update();
 	void Draw();
@@ -29,12 +34,18 @@ public:
 private:
 	Stage* m_pStage;
 	Player* m_pPlayer;
+	Enemy* m_pEnemy;
+	BobbingEnemy* m_pBobbingEnemy;
+	/*vector<Enemy*> m_pEnemys;*/
 	Light* m_pLight;
 	//ShadowBlock* m_pShadowBlock;
 	CameraBase* m_pCamera;
 	ReverseBlock* m_pRvsBlock;
 	StartObj* m_pStartObj;
-	Game3D::GameStatus* m_GameStatus;
+	ChasingShadow* m_pChasingShadow;
+	GoalObj* m_pGoalObj;
+	Obstacle* m_pObstacle;
+	SceneGame::GameStatus* m_GameStatus;
 };
 
 #endif // !_____LAYER_GAME_H____

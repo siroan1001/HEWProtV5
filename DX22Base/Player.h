@@ -44,6 +44,8 @@ public:
 	void SetStageCollisionDirection(Collision::Direction dire, int num);
 	void SetDirection(Collision::Direction);
 
+	void SetCollisionEnemy();
+
 
 private:
 	Def::Info m_OldInfo;
@@ -52,6 +54,7 @@ private:
 	Collision::Direction m_Direction;		//i‚ñ‚Å‚¢‚é•ûŒü
 	vector<Collision::Direction> m_StageDire;
 	float m_Spead;
+	bool m_IsColEnemy;
 };
 
 #endif // !_____PLAYER_H____

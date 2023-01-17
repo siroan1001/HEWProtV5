@@ -7,12 +7,13 @@ Object::Object()
 	:m_pModel(NULL)
 	,m_Info{{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}}
 	,m_pCamera(NULL)
+	,m_ModelSize{1.0f, 1.0f, 1.0f}
 {
 }
 
 Object::~Object()
 {
-	if (m_pModel)	delete m_pModel;
+	//if (m_pModel)	delete m_pModel;
 	//if (m_pCamera)	delete m_pCamera;
 }
 
@@ -43,7 +44,7 @@ void Object::Draw()
 	if (!m_pCamera)	return;		//カメラが設定されてなければ処理しない
 	XMFLOAT3 ConvertRot = { XMConvertToRadians(m_Info.rot.x), XMConvertToRadians(m_Info.rot.y), XMConvertToRadians(m_Info.rot.z) };
 	XMFLOAT4X4 mat[3];
-	XMMATRIX temp = XMMatrixRotationX(ConvertRot.x) * XMMatrixRotationY(ConvertRot.y) * XMMatrixRotationZ(ConvertRot.z)	* XMMatrixTranslation(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
+	XMMATRIX temp = XMMatrixScaling(m_ModelSize.x, m_ModelSize.y, m_ModelSize.z) * XMMatrixRotationX(ConvertRot.x) * XMMatrixRotationY(ConvertRot.y) * XMMatrixRotationZ(ConvertRot.z)	* XMMatrixTranslation(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
 	XMStoreFloat4x4(&mat[0], XMMatrixTranspose(temp));	//ワールド行列
 	mat[1] = m_pCamera->GetViewMatrix();		//ビュー行列
 	mat[2] = m_pCamera->GetProjectionMatrix(CameraBase::CameraAngle::E_CAM_ANGLE_PERSPECTIVEFOV);	//プロジェクション行列

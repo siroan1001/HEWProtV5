@@ -1,5 +1,5 @@
 #include "Billboard.h"
-#include "Game3D.h"
+#include "SceneGame.h"
 #include "Sprite.h"
 
 Billboard::Billboard()
@@ -19,7 +19,7 @@ Billboard::~Billboard()
 
 void Billboard::Draw()
 {
-	CameraBase* cam = Game3D::GetCamera();
+	CameraBase* cam = SceneGame::GetCamera();
 	Sprite::SetView(cam->GetViewMatrix());
 	Sprite::SetProjection(cam->GetProjectionMatrix(CameraBase::E_CAM_ANGLE_PERSPECTIVEFOV));
 	XMFLOAT4X4 inv;	//‹ts—ñ‚ÌŠi”[æ
