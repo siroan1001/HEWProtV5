@@ -1,2 +1,75 @@
-﻿  Game3D.cpp
-  DX22Base.vcxproj -> C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DX22Base.exe
+﻿  compilation object save succeeded; see C:\Users\User\Documents\HEWProtV5\DX22Base\Assets\Shader\ModelVS.cso
+  BG.cpp
+  Billboard.cpp
+  BlendState.cpp
+  BobbingEnemy.cpp
+  CameraEvent.cpp
+  CameraPlayer.cpp
+  ChasingShadow.cpp
+  Collision.cpp
+  ConstantBuffer.cpp
+  controller.cpp
+  DirectX.cpp
+c:\users\user\documents\hewprotv5\dx22base\directx.cpp(133): warning C4244: '=': 'UINT' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\directx.cpp(134): warning C4244: '=': 'UINT' から 'FLOAT' への変換です。データが失われる可能性があります。
+  Texture.cpp
+  Enemy.cpp
+  Game3D.cpp
+  Geometory.cpp
+c:\users\user\documents\hewprotv5\dx22base\geometory.cpp(378): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\geometory.cpp(379): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\geometory.cpp(397): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\geometory.cpp(398): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\geometory.cpp(416): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\geometory.cpp(417): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\geometory.cpp(418): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\geometory.cpp(419): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\geometory.cpp(501): warning C4267: '=': 'size_t' から 'UINT' に変換しました。データが失われているかもしれません。
+c:\users\user\documents\hewprotv5\dx22base\geometory.cpp(504): warning C4267: '=': 'size_t' から 'UINT' に変換しました。データが失われているかもしれません。
+  Goal.cpp
+  Input.cpp
+  Layer.cpp
+  LayerBG.cpp
+  LayerGame.cpp
+c:\users\user\documents\hewprotv5\dx22base\layergame.cpp : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  コードを生成中...
+  コンパイル中...
+  Lig.cpp
+  Light.cpp
+  Main.cpp
+  MeshBuffer.cpp
+  Model.cpp
+  ModelList.cpp
+  Model_Contents.cpp
+c:\users\user\documents\hewprotv5\dx22base\model_contents.cpp(3): fatal error C1083: include ファイルを開けません。'assimp/Importer.hpp':No such file or directory
+  Object.cpp
+  Obstacle.cpp
+  Player.cpp
+  ReverseBlock.cpp
+  SamplerState.cpp
+  SceneBace.cpp
+  SceneGame.cpp
+c:\users\user\documents\hewprotv5\dx22base\cameramain.h(22): error C2653: 'Game3D': 識別子がクラス名でも名前空間名でもありません。
+c:\users\user\documents\hewprotv5\dx22base\cameramain.h(22): error C3861: 'GetGameStatus': 識別子が見つかりませんでした
+c:\users\user\documents\hewprotv5\dx22base\cameramain.h(22): error C2065: 'E_GAME_STATUS_NORMAL': 定義されていない識別子です。
+c:\users\user\documents\hewprotv5\dx22base\scenegame.cpp(54): error C2664: 'LayerGame::LayerGame(const LayerGame &)': 引数 2 を 'SceneGame::GameStatus *' から 'Game3D::GameStatus *' へ変換できません。
+  c:\users\user\documents\hewprotv5\dx22base\scenegame.cpp(54): note: 指示された型は関連がありません。変換には reinterpret_cast、C スタイル キャストまたは関数スタイルのキャストが必要です。
+  Shader.cpp
+c:\users\user\documents\hewprotv5\dx22base\shader.cpp(21): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 'fopen' の宣言を確認してください
+c:\users\user\documents\hewprotv5\dx22base\shader.cpp(59): warning C4244: '引数': 'SIZE_T' から 'UINT' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\shader.cpp(149): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  ShadowBillBoard.cpp
+  ShadowBlock.cpp
+c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(154): warning C4244: '引数': 'float' から 'const unsigned __int64' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(168): warning C4267: '+=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  Sprite.cpp
+  Stage.cpp
+c:\users\user\documents\hewprotv5\dx22base\stage.cpp(197): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  StartObj.cpp
+  コードを生成中...
+  コンパイル中...
+  Startup.cpp
+  Timer.cpp
+  WinUtil.cpp
+  コードを生成中...

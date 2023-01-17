@@ -179,6 +179,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ReverseBlock.cpp" />
     <ClCompile Include="SamplerState.cpp" />
+    <ClCompile Include="SceneBace.cpp" />
+    <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShadowBillBoard.cpp" />
     <ClCompile Include="ShadowBlock.cpp" />
@@ -227,6 +229,8 @@
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="ReverseBlock.h" />
     <ClInclude Include="SamplerState.h" />
+    <ClInclude Include="SceneBace.h" />
+    <ClInclude Include="SceneGame.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShadowBillBoard.h" />
     <ClInclude Include="ShadowBlock.h" />

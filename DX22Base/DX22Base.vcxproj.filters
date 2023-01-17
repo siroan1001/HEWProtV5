@@ -156,6 +156,12 @@
     <ClCompile Include="BobbingEnemy.cpp">
       <Filter>ソース ファイル\DX22</Filter>
     </ClCompile>
+    <ClCompile Include="SceneBace.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneGame.cpp">
+      <Filter>ソース ファイル\DX22</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -291,6 +297,12 @@
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
     <ClInclude Include="BobbingEnemy.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBace.h">
+      <Filter>ヘッダー ファイル\DX22</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGame.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
   </ItemGroup>
