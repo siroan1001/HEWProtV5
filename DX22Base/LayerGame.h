@@ -2,7 +2,7 @@
 #ifndef _____LAYER_GAME_H____
 #define _____LAYER_GAME_H____
 
-#include "Game3D.h"
+#include "SceneGame.h"
 #include "Layer.h"
 #include "Stage.h"
 #include "Player.h"
@@ -20,7 +20,7 @@
 class LayerGame	: public Layer
 {
 public:
-	LayerGame(CameraBase*, Game3D::GameStatus*);
+	LayerGame(CameraBase*, SceneGame::GameStatus*);
 	~LayerGame();
 	void Update();
 	void Draw();
@@ -45,7 +45,7 @@ private:
 	ChasingShadow* m_pChasingShadow;
 	GoalObj* m_pGoalObj;
 	Obstacle* m_pObstacle;
-	Game3D::GameStatus* m_GameStatus;
+	SceneGame::GameStatus* m_GameStatus;
 };
 
 #endif // !_____LAYER_GAME_H____

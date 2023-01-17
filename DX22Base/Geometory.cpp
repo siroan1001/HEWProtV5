@@ -451,51 +451,6 @@ void CreateGeometoryCylinder()
 		nIdx.push_back(num + 3);
 	}
 
-	//int idx[] =
-	//{
-	//	//上
-	//	 0,  1,  2,		//0-20   
-	//	 3,  4,  5,		//20-40
-	//	6,7,8,
-	//	9,10,11,
-	//	12,13,14,
-	//	15,16,17,
-	//	18,19,20,
-	//	21,22,23,
-	//	24,25,26,
-
-	//	//下
-	//	27,28,29,
-	//	30,31,32,
-	//	33,34,35,
-	//	36,37,38,
-	//	39,40,41,
-	//	42,43,44,
-	//	45,46,47,
-	//	48,49,50,
-	//	51,52,53,
-
-	//	//サイド
-	//	54,55,56, 56,55,57,
-	//	58,59,60, 60,59,61,
-	//	62,63,64, 64,63,65,
-	//	66,67,68, 68,67,69,
-	//	70,71,72, 72,71,73,
-	//	74,75,76, 76,75,77,
-	//	78,79,80, 80,79,81,
-	//	82,83,84, 84,83,85,
-	//	86,87,88, 88,87,89
-	//};
-
-	//MeshBuffer::Description desc = {};
-	//desc.pVtx = vector.data();	//頂点情報
-	//desc.vtxCount = vector.size(); /*sizeof(vector) / sizeof(GeometoryVertex);*/	//頂点の数
-	//desc.vtxSize = sizeof(GeometoryVertex);		//頂点1つのデータサイズ
-	//desc.pIdx = nIdx.data();	//線を繋ぐ順番（インデックス）
-	//desc.idxCount = nIdx.size(); /*sizeof(nIdx) / sizeof(int);*/	//インデックスの数
-	//desc.idxSize = sizeof(int);		//インデックス1つのデータサイズ
-	//desc.topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;		//どの形のポリゴンを作るか設定する
-
 	MeshBuffer::Description desc = {};
 	desc.pVtx = vector.data();	//頂点情報
 	desc.vtxCount = vector.size();	//頂点の数

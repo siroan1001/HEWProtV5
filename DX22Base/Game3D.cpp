@@ -1,176 +1,31 @@
 #include "Game3D.h"
-#include "Geometory.h"
-#include "Input.h"
-#include "CameraBase.h"
-#include "CameraDebug.h"
-#include "CameraMain.h"
-#include "CameraEvent.h"
-#include "CameraDelay.h"
-#include "Stage.h"
-#include "ShadowBlock.h"
-#include "Light.h"
-#include "Collision.h"
-#include "Layer.h"
-#include "LayerGame.h"
-#include "LayerBG.h"
+#include "SceneGame.h"
 
-Game3D::CameraKind Game3D::m_mainCamera = E_CAM_MAIN;
-CameraBase* Game3D::m_pCamera[] = {};
-Game3D::GameStatus Game3D::m_GameStatus = E_GAME_STATUS_NOME;
-
+SceneBace* Game3D::m_pScene[];
+Game3D::SceneKind Game3D::m_SceneKind;
 
 Game3D::Game3D()
 {
-	//画像合成方法の設定
-	m_pBlend = new BlendState;
-	D3D11_RENDER_TARGET_BLEND_DESC blend = {};
-	blend.BlendEnable = TRUE;
-	blend.RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-	blend.SrcBlend = D3D11_BLEND_SRC_ALPHA;
-	blend.SrcBlendAlpha = D3D11_BLEND_ONE;
-	blend.DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-	blend.DestBlendAlpha = D3D11_BLEND_ONE;
-	blend.BlendOp = D3D11_BLEND_OP_ADD;
-	blend.BlendOpAlpha = D3D11_BLEND_OP_ADD;
-	m_pBlend->Create(blend);
-	m_pBlend->Bind();
+	m_pScene[E_SCENE_KIND_TITLE] = NULL;
+	m_pScene[E_SCENE_KIND_GAME] = new SceneGame;
 
-	CameraMain* pMain = new CameraMain;
-	pMain->SetLook(XMFLOAT3(-5.0f, 4.25f, 0.0f));
-	m_pCamera[E_CAM_MAIN] = pMain;
-	//m_pCamera[E_CAM_MAIN] = new CameraMain;
-	//m_pCamera[E_CAM_MAIN]->SetLook();
-	CameraEvent* pEvent = new CameraEvent();
-	pEvent->SetEvent(XMFLOAT3(-3.0f, 4.25f, 3.0f), XMFLOAT3(-3.0f, 4.25f, 3.0f), 3.0f);
-	m_pCamera[E_CAM_EVENT] = pEvent;
-	CameraDelay* pDelay = new CameraDelay;
-	pDelay->SetCamera(XMFLOAT3(-4.3f, 4.25f, 0.0f), 3.0f, 1.0f);
-	m_pCamera[E_CAM_DELAY] = pDelay;
-	m_pCamera[E_CAM_DEBUG] = new CameraDebug;
-	
-	
-
-	m_pLayer[E_LAYER_BG] = new LayerBG;		//これ
-	m_pLayer[E_LAYER_BUCK_OBJECT] = NULL;
-	m_pLayer[E_LAYER_GAME] = new LayerGame(m_pCamera[m_mainCamera], &m_GameStatus);		//これ
-	m_pLayer[E_LAYER_UI] = NULL;
-
-	LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
-	CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
-	camera->SetPlayer(layer->GetPlayer());
-
-	m_GameStatus = E_GAME_STATUS_START;
+	m_SceneKind = E_SCENE_KIND_GAME;
 }
 
 Game3D::~Game3D()
 {
-	//レイヤーの終了
-	for (int i = 0; i < E_LAYER_MAX; i++)
+	for (int i = 0; i < E_SCENE_KIND_MAX; i++)
 	{
-		if (!m_pLayer[i])	continue;
-		delete m_pLayer[i];
-	}
-
-	//カメラの終了
-	for (int i = 0; i < E_CAM_MAX; i++)
-	{
-		delete m_pCamera[i];
+		delete m_pScene[i];
 	}
 }
 
 void Game3D::Update()
 {
-	if (m_mainCamera == E_CAM_EVENT)
-	{
-		CameraEvent* pEvent = reinterpret_cast<CameraEvent*>(m_pCamera[m_mainCamera]);
-		if (!pEvent->IsEvent())
-		{
-			m_mainCamera = E_CAM_MAIN;
-			LayerGame* game = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
-			game->SetCamera(m_pCamera[m_mainCamera]);
-			m_pLayer[E_LAYER_GAME] = game;
-		}
-	}
-	else if (m_mainCamera == E_CAM_DELAY)
-	{
-		CameraDelay* pDelay = reinterpret_cast<CameraDelay*>(m_pCamera[m_mainCamera]);
-		if (!pDelay->IsDelay())
-		{
-			m_mainCamera = E_CAM_MAIN;
-			CameraMain* cam = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
-			cam->SetLook(pDelay->GetLook());
-			m_pCamera[E_CAM_MAIN] = cam;
-			LayerGame* game = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
-			game->SetCamera(m_pCamera[m_mainCamera]);
-			m_pLayer[E_LAYER_GAME] = game;
-		}
-	}
-
-	//カメラの更新
-	if(m_GameStatus == E_GAME_STATUS_NORMAL) 
-		m_pCamera[m_mainCamera]->Update();
-
-	for (int i = 0; i < E_LAYER_MAX; i++)
-	{
-		if (!m_pLayer[i])	continue;
-		m_pLayer[i]->Update();
-	}
-
-	//カメラの切り替え
-	CameraKind camera = m_mainCamera;
-	if (IsKeyPress('C'))
-	{
-		if (IsKeyTrigger('1'))	camera = E_CAM_DEBUG;
-		if (IsKeyTrigger('2'))	camera = E_CAM_MAIN;
-	}
-	if (m_mainCamera != camera)
-	{
-		m_mainCamera = camera;
-		LayerGame* temp = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
-		temp->SetCamera(m_pCamera[m_mainCamera]);
-		m_pLayer[E_LAYER_GAME] = temp;
-	}
-
-	//if (IsKeyTrigger('R'))
-	//{
-	//	CameraMain* cam = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
-	//	cam->SetLook(XMFLOAT3(-5.0f, 4.25f, 0.0f));
-	//	m_pCamera[E_CAM_MAIN] = cam;
-
-	//}
+	m_pScene[m_SceneKind]->Update();
 }
 
 void Game3D::Draw()
 {
-	//ジオメトリーのビュー行列とプロジェクション行列を設定する
-	SetGeometoryVPMatrix(m_pCamera[m_mainCamera]->GetViewMatrix(), m_pCamera[m_mainCamera]->GetProjectionMatrix(CameraBase::CameraAngle::E_CAM_ANGLE_PERSPECTIVEFOV), m_pCamera[m_mainCamera]->GetPos());
-	for (int i = 0; i < E_LAYER_MAX; i++)
-	{
-		if (!m_pLayer[i])	continue;
-		m_pLayer[i]->Draw();
-	}
-
-
-	
-	//m_pLayer[E_LAYER_GAME]->Draw();
-
-	//if (IsKeyPress('P'))
-	//	m_pLayer[E_LAYER_BG]->Draw();
+	m_pScene[m_SceneKind]->Draw();
 }
-
-CameraBase * Game3D::GetCamera()
-{
-	return m_pCamera[m_mainCamera];
-}
-
-Game3D::GameStatus Game3D::GetGameStatus()
-{
-	return m_GameStatus;
-}
-
-void Game3D::SetGameStatus(GameStatus status)
-{
-	m_GameStatus = status;
-}
-
-

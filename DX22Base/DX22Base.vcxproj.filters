@@ -31,6 +31,36 @@
     <Filter Include="ソース ファイル\DX22">
       <UniqueIdentifier>{01802416-f700-4808-89e1-0764a8308379}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\DX22\Layer">
+      <UniqueIdentifier>{fbae70d7-2794-4f12-9068-078fb7049a86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\DX22\Scene">
+      <UniqueIdentifier>{d0ce2c0a-2876-47bb-bebc-1ef78f98826e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\DX22\Camera">
+      <UniqueIdentifier>{d47050ad-e456-43ff-94af-0bec0241b0bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\DX22\3DObject">
+      <UniqueIdentifier>{dc6c40ae-0abf-43a8-9290-9248df65907d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\DX22\2DObject">
+      <UniqueIdentifier>{7b30d2b5-2efc-4621-8c20-86649e54cf3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\DX22\Layer">
+      <UniqueIdentifier>{99c33a7a-1420-484d-bbd0-4d2a3831fe31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\DX22\Camera">
+      <UniqueIdentifier>{c2a38201-eef3-422e-a648-fc38f8967dab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\DX22\3DObject">
+      <UniqueIdentifier>{ff4d9975-912b-4383-8c3d-e5fa9162dcb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\DX22\2DObject">
+      <UniqueIdentifier>{4a4681b7-f57b-4eba-8114-cd690404c904}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\DX22\Scene">
+      <UniqueIdentifier>{9f817729-e8a5-4416-821f-318895809328}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Startup.cpp">
@@ -66,101 +96,101 @@
     <ClCompile Include="MeshBuffer.cpp">
       <Filter>ソース ファイル\DirectX</Filter>
     </ClCompile>
-    <ClCompile Include="Geometory.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>ソース ファイル\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="ConstantBuffer.cpp">
       <Filter>ソース ファイル\DirectX</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="Model_Contents.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="Stage.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraPlayer.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraEvent.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="ShadowBlock.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="LayerGame.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>ソース ファイル\System</Filter>
     </ClCompile>
     <ClCompile Include="controller.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="LayerBG.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="BG.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="ReverseBlock.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="Billboard.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="ShadowBillBoard.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="StartObj.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelList.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="Lig.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="Goal.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="ChasingShadow.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
-    </ClCompile>
-    <ClCompile Include="BobbingEnemy.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
+      <Filter>ソース ファイル\System</Filter>
     </ClCompile>
     <ClCompile Include="SceneBace.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
+      <Filter>ソース ファイル\DX22\Scene</Filter>
     </ClCompile>
     <ClCompile Include="SceneGame.cpp">
-      <Filter>ソース ファイル\DX22</Filter>
+      <Filter>ソース ファイル\DX22\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>ソース ファイル\DX22\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerBG.cpp">
+      <Filter>ソース ファイル\DX22\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerGame.cpp">
+      <Filter>ソース ファイル\DX22\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraEvent.cpp">
+      <Filter>ソース ファイル\DX22\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraPlayer.cpp">
+      <Filter>ソース ファイル\DX22\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="BobbingEnemy.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ChasingShadow.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Goal.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Lig.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_Contents.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelList.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ReverseBlock.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowBlock.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="StartObj.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BG.cpp">
+      <Filter>ソース ファイル\DX22\2DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Billboard.cpp">
+      <Filter>ソース ファイル\DX22\2DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowBillBoard.cpp">
+      <Filter>ソース ファイル\DX22\2DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometory.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>ソース ファイル\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,116 +224,116 @@
     <ClInclude Include="MeshBuffer.h">
       <Filter>ヘッダー ファイル\DirectX</Filter>
     </ClInclude>
-    <ClInclude Include="Geometory.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>ヘッダー ファイル\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="ConstantBuffer.h">
       <Filter>ヘッダー ファイル\DirectX</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraBase.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraDebug.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="Stage.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraPlayer.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraEvent.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraMain.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="ShadowBlock.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="LayerGame.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>ヘッダー ファイル\System</Filter>
     </ClInclude>
     <ClInclude Include="controller.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
+      <Filter>ヘッダー ファイル\System</Filter>
     </ClInclude>
-    <ClInclude Include="LayerBG.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
+    <ClInclude Include="Collision.h">
+      <Filter>ヘッダー ファイル\System</Filter>
     </ClInclude>
     <ClInclude Include="BG.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraDelay.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="ReverseBlock.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
+      <Filter>ヘッダー ファイル\DX22\2DObject</Filter>
     </ClInclude>
     <ClInclude Include="Billboard.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="ShadowBillBoard.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="Def.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="Quadtree.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="StartObj.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="Obstacle.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelList.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="Lig.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="Goal.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="ChasingShadow.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
+      <Filter>ヘッダー ファイル\DX22\2DObject</Filter>
     </ClInclude>
     <ClInclude Include="BobbingEnemy.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraBase.h">
+      <Filter>ヘッダー ファイル\DX22\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraDebug.h">
+      <Filter>ヘッダー ファイル\DX22\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraDelay.h">
+      <Filter>ヘッダー ファイル\DX22\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraEvent.h">
+      <Filter>ヘッダー ファイル\DX22\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraMain.h">
+      <Filter>ヘッダー ファイル\DX22\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraPlayer.h">
+      <Filter>ヘッダー ファイル\DX22\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ChasingShadow.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometory.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Goal.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>ヘッダー ファイル\DX22\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerBG.h">
+      <Filter>ヘッダー ファイル\DX22\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerGame.h">
+      <Filter>ヘッダー ファイル\DX22\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Lig.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelList.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ReverseBlock.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
     </ClInclude>
     <ClInclude Include="SceneBace.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
+      <Filter>ヘッダー ファイル\DX22\Scene</Filter>
     </ClInclude>
     <ClInclude Include="SceneGame.h">
-      <Filter>ヘッダー ファイル\DX22</Filter>
+      <Filter>ヘッダー ファイル\DX22\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowBillBoard.h">
+      <Filter>ヘッダー ファイル\DX22\2DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowBlock.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="StartObj.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Def.h">
+      <Filter>ヘッダー ファイル\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

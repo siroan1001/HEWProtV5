@@ -1,7 +1,7 @@
 #include "LayerGame.h"
-#include "Game3D.h"
+#include "SceneGame.h"
 
-LayerGame::LayerGame(CameraBase* camera, Game3D::GameStatus* status)
+LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status)
 {
 	m_pCamera = camera;
 
@@ -155,15 +155,22 @@ void LayerGame::CheckCollision()
 	//ShadowBlockとLigthの判定
 	vector<ShadowBlock*> shadow = m_pStage->GetShadowBlock();	//シャドウブロックの情報
 	vector<vector<ShadowBlock::SmallBlockTemp>>* block;
+	Def::Info cam = m_pCamera->GetInfo();
 
 	for (int i = 0; i < shadow.size(); i++)
 	{
+		if (!Collision::RectAndRect(shadow[i]->GetInfo(), cam))	continue;
+
+		Def::Info lightinfo = m_pLight->GetInfo();
+		float lightradius = m_pLight->GetRadius();
+		//if (!Collision::RectAndCircle(shadow[i]->GetInfo(), lightinfo, lightradius))	continue;
+
 		block = shadow[i]->GetSmallBlockInfo();
 		for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
 		{
 			for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
 			{
-				if (Collision::RectAndCircle(init->Info, m_pLight->GetInfo(), m_pLight->GetRadius()))
+				if (Collision::RectAndCircle(init->Info, lightinfo, lightradius))
 				{
 					init->life -= m_pLight->GetPower();		//シャドウブロックのライフを削る
 					if (init->life <= 0.0f)
@@ -224,12 +231,17 @@ void LayerGame::CheckCollision()
 
 	num--;
 
-	Def::Info cam = m_pCamera->GetInfo();
+	
 
 	//PlayerとShadowBloackの当たり判定
 	for (int i = 0; i < shadow.size(); i++)
 	{
+		Def::Info shadowinfo = shadow[i]->GetInfo();
+		Def::Info playerinfo = m_pPlayer->GetInfo();
+
 		if (!Collision::RectAndRect(shadow[i]->GetInfo(), cam))	continue;
+		if (!Collision::RectAndRect(shadowinfo, playerinfo))	continue;
+
 		block = shadow[i]->GetSmallBlockInfo();
 
 		for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
@@ -330,12 +342,12 @@ void LayerGame::CheckCollision()
 	}
 
 	//プレイヤーとスタート板
-	if (*m_GameStatus == Game3D::E_GAME_STATUS_START)
+	if (*m_GameStatus == SceneGame::E_GAME_STATUS_START)
 	{
 		Def::Info startInfo = m_pStartObj->GetInfo();
 		if (Collision::RectAndRect(m_pPlayer->GetInfo(), startInfo))
 		{
-			Game3D::SetGameStatus(Game3D::E_GAME_STATUS_NORMAL);
+			SceneGame::SetGameStatus(SceneGame::E_GAME_STATUS_NORMAL);
 		}
 	}
 
@@ -704,12 +716,12 @@ void LayerGame::CheckCollision()
 	//}
 
 
-	if (*m_GameStatus == Game3D::E_GAME_STATUS_NORMAL)
+	if (*m_GameStatus == SceneGame::E_GAME_STATUS_NORMAL)
 	{
 		Def::Info GoalInfo = m_pGoalObj->GetInfo();
 		if (Collision::RectAndRect(m_pPlayer->GetInfo(), GoalInfo))
 		{
-			Game3D::SetGameStatus(Game3D::E_GAME_STATUS_GOAL);
+			SceneGame::SetGameStatus(SceneGame::E_GAME_STATUS_GOAL);
 		}
 	}
 }

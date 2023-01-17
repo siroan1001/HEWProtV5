@@ -2,7 +2,7 @@
 #include <vector>
 #include "Input.h"
 #include "Collision.h"
-#include "Game3D.h"
+#include "SceneGame.h"
 #include "CameraBase.h"
 #include "Geometory.h"
 
@@ -168,7 +168,7 @@ Stage::~Stage()
 
 void Stage::Draw()
 {
-	CameraBase* cam = Game3D::GetCamera();
+	CameraBase* cam = SceneGame::GetCamera();
 
 	for (int i = 0; i < m_Info.size(); i++)
 	{

@@ -6,10 +6,10 @@
 class SceneBace
 {
 public:
-	SceneBace();
-	~SceneBace();
-	void Update();
-	void Draw();
+	SceneBace() {};
+	virtual ~SceneBace() {};
+	virtual void Update() = 0;
+	virtual void Draw() = 0;
 };
 
 #endif // !_____SCENE_BACE_H____
