@@ -721,7 +721,10 @@ void LayerGame::CheckCollision()
 		Def::Info GoalInfo = m_pGoalObj->GetInfo();
 		if (Collision::RectAndRect(m_pPlayer->GetInfo(), GoalInfo))
 		{
-			SceneGame::SetGameStatus(SceneGame::E_GAME_STATUS_GOAL);
+			//SceneGame::SetGameStatus(SceneGame::E_GAME_STATUS_GOAL);
+			*m_GameStatus = SceneGame::E_GAME_STATUS_GOAL;
 		}
 	}
+
+	//if(*m_GameStatus == Sc)
 }

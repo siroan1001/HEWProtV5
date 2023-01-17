@@ -31,9 +31,6 @@
     <Filter Include="ソース ファイル\DX22">
       <UniqueIdentifier>{01802416-f700-4808-89e1-0764a8308379}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\DX22\Layer">
-      <UniqueIdentifier>{fbae70d7-2794-4f12-9068-078fb7049a86}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\DX22\Scene">
       <UniqueIdentifier>{d0ce2c0a-2876-47bb-bebc-1ef78f98826e}</UniqueIdentifier>
     </Filter>
@@ -60,6 +57,9 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\DX22\Scene">
       <UniqueIdentifier>{9f817729-e8a5-4416-821f-318895809328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\DX22\Scene\Layer">
+      <UniqueIdentifier>{fbae70d7-2794-4f12-9068-078fb7049a86}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,13 +115,13 @@
       <Filter>ソース ファイル\DX22\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Layer.cpp">
-      <Filter>ソース ファイル\DX22\Layer</Filter>
+      <Filter>ソース ファイル\DX22\Scene\Layer</Filter>
     </ClCompile>
     <ClCompile Include="LayerBG.cpp">
-      <Filter>ソース ファイル\DX22\Layer</Filter>
+      <Filter>ソース ファイル\DX22\Scene\Layer</Filter>
     </ClCompile>
     <ClCompile Include="LayerGame.cpp">
-      <Filter>ソース ファイル\DX22\Layer</Filter>
+      <Filter>ソース ファイル\DX22\Scene\Layer</Filter>
     </ClCompile>
     <ClCompile Include="CameraEvent.cpp">
       <Filter>ソース ファイル\DX22\Camera</Filter>
