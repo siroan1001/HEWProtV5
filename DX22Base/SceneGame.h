@@ -55,6 +55,8 @@ public:
 	static GameStatus GetGameStatus();
 	static void SetGameStatus(GameStatus);
 
+	void CameraReset();
+
 private:
 	BlendState* m_pBlend;
 	static CameraBase* m_pCamera[E_CAM_MAX];

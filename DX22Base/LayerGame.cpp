@@ -4,6 +4,8 @@
 #include "EnemyRoundTrip.h"
 #include <typeinfo>
 #include <assert.h>
+#include "Input.h"
+#include "controller.h"
 
 LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status)
 {
@@ -26,7 +28,7 @@ LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status)
 	//m_pEnemyBase[E_ENEMY_KIND_ROUND_TRIP_1] =
 	//	new EnemyRoundTrip(Collision::E_DIRECTION_L, { -7.0f,3.0f,0.0f }, { -4.0f, 5.0f, 0.0f }, 300);
 
-	EnemyDefault* EnemeyD = new EnemyDefault(Collision::E_DIRECTION_L, XMFLOAT3(-2.2f, 3.25f, 0.0f));
+	EnemyDefault* EnemeyD = new EnemyDefault(Collision::E_DIRECTION_L, XMFLOAT3(-2.0f, 3.25f, 0.0f));
 	EnemeyD->SetCamera(camera);
 	EnemeyD->InitDirectin(m_pStage->GetStageNum() + m_pStage->GetShadowNum());
 	m_pEnemy.push_back(EnemeyD);
@@ -470,7 +472,7 @@ void LayerGame::CheckCollision()
 			{
 				for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init, num++)
 				{
-					Def::Info shadow = init->Info;		//シャドウブロックの情報
+					Def::Info shadowInfo = init->Info;		//シャドウブロックの情報
 
 					enemyinfo = m_pEnemy[i]->GetInfo();
 					enemyinfo.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
@@ -482,7 +484,7 @@ void LayerGame::CheckCollision()
 						Def::Info Oenemy = enemy->GetOldInfo();		//前フレームの情報
 						Oenemy.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
-						if (Collision::Direction dire = Collision::RectAndRectDirection(enemyinfo, Oenemy, shadow, enemy->GetStageCollistonDirection(num)))
+						if (Collision::Direction dire = Collision::RectAndRectDirection(enemyinfo, Oenemy, shadowInfo, enemy->GetStageCollistonDirection(num)))
 						{
 							//補正用pos
 							XMFLOAT3 pos = m_pEnemy[i]->GetInfo().pos;
@@ -498,34 +500,34 @@ void LayerGame::CheckCollision()
 								EnemyTop.size.y -= EnemyBot.size.y;		//体の大きさ（プレイヤー全体から足元の大きさを引いた大きさ）
 								EnemyTop.pos.y += EnemyBot.size.y + EnemyTop.size.y / 2.0f;	//プレイヤーの元の座標から足元の大きさ分と体の半分ずらす
 								{
-									bool bTop = Collision::RectAndRect(EnemyTop, shadow);		//体がブロックと当たっているか
-									bool bBot = Collision::RectAndRect(EnemyBot, shadow);		//足元がブロックと当たっているか
+									bool bTop = Collision::RectAndRect(EnemyTop, shadowInfo);		//体がブロックと当たっているか
+									bool bBot = Collision::RectAndRect(EnemyBot, shadowInfo);		//足元がブロックと当たっているか
 									if (bBot && !bTop)		//足元は当たっていて体は当たっていない場合段差を無視する
 									{//上
-										pos.y = shadow.pos.y + shadow.size.y / 2.0f;		//ブロックの上に補正
+										pos.y = shadowInfo.pos.y + shadowInfo.size.y / 2.0f;		//ブロックの上に補正
 										enemy->ResetMove();		//重力をリセット
 									}
 									else
 									{//横
-										if (enemyinfo.pos.x < shadow.pos.x)
+										if (enemyinfo.pos.x < shadowInfo.pos.x)
 										{//右
-											pos.x = shadow.pos.x - shadow.size.x / 2.0f - enemyinfo.size.x / 2.0f;
-											enemy->SetDirection(Collision::E_DIRECTION_L);
-										}
-										else if (enemyinfo.pos.x >= shadow.pos.x)
-										{//左
-											pos.x = shadow.pos.x + shadow.size.x / 2.0f + enemyinfo.size.x / 2.0f;
+											pos.x = shadowInfo.pos.x - shadowInfo.size.x / 2.0f - enemyinfo.size.x / 2.0f;
 											enemy->SetDirection(Collision::E_DIRECTION_R);
+										}
+										else if (enemyinfo.pos.x >= shadowInfo.pos.x)
+										{//左
+											pos.x = shadowInfo.pos.x + shadowInfo.size.x / 2.0f + enemyinfo.size.x / 2.0f;
+											enemy->SetDirection(Collision::E_DIRECTION_L);
 										}
 									}
 								}
 								break;
 							case Collision::E_DIRECTION_U:		//上
-								pos.y = shadow.pos.y + shadow.size.y / 2.0f;
+								pos.y = shadowInfo.pos.y + shadowInfo.size.y / 2.0f;
 								enemy->ResetMove();
 								break;
 							case Collision::E_DIRECTION_D:		//下
-								pos.y = shadow.pos.y - shadow.size.y / 2.0f - enemyinfo.size.y;
+								pos.y = shadowInfo.pos.y - shadowInfo.size.y / 2.0f - enemyinfo.size.y;
 								enemy->ResetMove();
 								break;
 							default:
@@ -539,7 +541,7 @@ void LayerGame::CheckCollision()
 					}
 					else if (!init->use)
 					{//存在しない（消し続ける処理）
-						if (Collision::RectAndRect(enemyinfo, shadow))		//プレイヤーとブロックが当たっているか
+						if (Collision::RectAndRect(enemyinfo, shadowInfo))		//プレイヤーとブロックが当たっているか
 						{
 							init->life -= m_pLight->GetPower();
 							if (init->life <= 0.0f)

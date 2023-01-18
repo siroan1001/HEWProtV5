@@ -125,6 +125,18 @@ void SceneGame::Update()
 		temp->SetCamera(m_pCamera[m_mainCamera]);
 		m_pLayer[E_LAYER_GAME] = temp;
 	}
+
+	//ゴールならフラグをtrueにする
+	if (m_GameStatus == E_GAME_STATUS_GOAL)
+	{
+		if (IsKeyPress('R'))
+		{
+			//次のステージが作られたら下を書き換える
+			//今は次のステージがないのでNORMALになっている
+			m_GameStatus = E_GAME_STATUS_NORMAL;
+			CameraReset();//カメラリセット関数
+		}
+	}
 }
 
 void SceneGame::Draw()
@@ -151,4 +163,16 @@ SceneGame::GameStatus SceneGame::GetGameStatus()
 void SceneGame::SetGameStatus(GameStatus status)
 {
 	m_GameStatus = status;
+}
+
+void SceneGame::CameraReset()
+{
+	CameraMain* pMain = new CameraMain;
+	pMain->SetLook(XMFLOAT3(-5.0f, 4.25f, 0.0f));
+	m_pCamera[E_CAM_MAIN] = pMain;
+
+	LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
+	CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
+	camera->SetPlayer(layer->GetPlayer());
+
 }

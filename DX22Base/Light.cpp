@@ -1,5 +1,6 @@
 #include "Light.h"
 #include "Input.h"
+#include "controller.h"
 
 Light::Light()
 	:m_Info{ {-3.8f, 4.25f, 0.0f}, {0.5f, 0.6f, 0.5f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
@@ -21,6 +22,11 @@ void Light::Update()
 	float floor = CameraPos.y - 1.5f;
 
 	const float LIGHT_MOVE = 0.05f;
+
+	XMFLOAT2 stick = GetLStick();
+
+	m_Info.pos.x -= stick.x / 20.0f;
+	m_Info.pos.y += stick.y / 20.0f;
 
 	if (IsKeyPress(VK_LEFT))
 	{

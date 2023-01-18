@@ -14,6 +14,8 @@ EnemyDefault::EnemyDefault(Collision::Direction dire, XMFLOAT3 pos)
 
 	m_pModel->SetVertexShader(m_pVS);
 
+	m_Direction = dire;
+
 	switch (m_Direction)
 	{
 	case Collision::E_DIRECTION_L:
@@ -82,6 +84,18 @@ void EnemyDefault::SetStageCollisionDirection(Collision::Direction dire, int num
 void EnemyDefault::SetDirection(Collision::Direction dire)
 {
 	m_Direction = dire;
+
+	switch (m_Direction)
+	{
+	case Collision::E_DIRECTION_L:
+		m_Info.rot.y = 90.0f;
+		break;
+	case Collision::E_DIRECTION_R:
+		m_Info.rot.y = -90.0f;
+		break;
+	default:
+		break;
+	}
 }
 
 void EnemyDefault::InitDirectin(int num)

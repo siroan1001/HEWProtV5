@@ -9,6 +9,7 @@
 #include "Object.h"
 #include "ModelList.h"
 #include "Quadtree.h"
+#include "controller.h"
 
 using namespace IKD;
 
@@ -51,12 +52,18 @@ void Init()
 	Sprite::Init();
 	ModelList::Init();
 
-	
+	InitCtrl();
+
+	if (!CheckCtrl())
+	{
+		Error("controller initialize failed.");
+	}
 	
 	g_pGame = new Game3D();
 }
 void Uninit()
 {
+	UninitCtrl();
 	delete g_pGame;
 	ModelList::Uninit();
 	Object::Uninit();
@@ -69,6 +76,7 @@ void Uninit()
 void Update(float deltaTime)
 {
 	UpdateInput();
+	UpdateCtrl();
 	g_pGame->Update();
 }
 void Draw()

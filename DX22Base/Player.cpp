@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "Collision.h"
 #include "ModelList.h"
+#include "controller.h"
 
 //using namespace DirectX;
 
@@ -101,6 +102,11 @@ void Player::Update()
 	
 	//ƒWƒƒƒ“ƒv
 	if (IsKeyTrigger(VK_SPACE))
+	{
+		m_Move.y += 0.10f;
+		m_Ground = false;
+	}
+	if (IsButtonTrigger(BUTTON_A))
 	{
 		m_Move.y += 0.10f;
 		m_Ground = false;
