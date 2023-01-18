@@ -44,8 +44,8 @@ public:
 private:
 	Stage* m_pStage;
 	Player* m_pPlayer;
-	Enemy* m_pEnemy;
-	BobbingEnemy* m_pBobbingEnemy;
+	//Enemy* m_pEnemy;
+	//BobbingEnemy* m_pBobbingEnemy;
 	/*vector<Enemy*> m_pEnemys;*/
 	Light* m_pLight;
 	//ShadowBlock* m_pShadowBlock;
@@ -57,7 +57,7 @@ private:
 	Obstacle* m_pObstacle;
 	SceneGame::GameStatus* m_GameStatus;
 	//EnemyBase* m_pEnemyBase[E_ENEMY_KIND_MAX];
-	vector<EnemyBase*> m_pEnemys;
+	vector<EnemyBase*> m_pEnemy;
 };
 
 #endif // !_____LAYER_GAME_H____

@@ -9,15 +9,22 @@
 class EnemyBase : public Object
 {
 public:
-	EnemyBase():m_OldInfo(m_Info), m_Direction(Collision::E_DIRECTION_NULL), m_IsColPlayer(false), m_Life(300), m_Use(true) {}
+	EnemyBase():m_Direction(Collision::E_DIRECTION_NULL), m_IsColPlayer(false), m_Life(300), m_Use(true) {}
 	virtual void Update() = 0;
 
+	bool IsCollision() { return m_IsCollision; }
+
+	bool GetUse() { return m_Use; }
+	
+	void SetPos(XMFLOAT3 pos) { m_Info.pos = pos; }
+
 protected:
-	Def::Info m_OldInfo;
+	
 	Collision::Direction m_Direction;
 	bool m_IsColPlayer;
 	float m_Life;
 	bool m_Use;
+	bool m_IsCollision;
 
 };
 

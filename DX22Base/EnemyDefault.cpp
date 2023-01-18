@@ -7,6 +7,7 @@ EnemyDefault::EnemyDefault(Collision::Direction dire, XMFLOAT3 pos)
 	,m_Spead(0.02f)
 {
 	m_Info = { {pos.x, pos.y, pos.z}, {0.3f, 0.4f, 0.3f}, {0.0f, -90.0f, 0.0f} };
+	m_OldInfo = m_Info;
 	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
 
 	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_PLAYER);
@@ -24,6 +25,8 @@ EnemyDefault::EnemyDefault(Collision::Direction dire, XMFLOAT3 pos)
 	default:
 		break;
 	}
+
+	m_IsCollision = true;
 }
 
 void EnemyDefault::Update()
@@ -59,4 +62,38 @@ void EnemyDefault::Update()
 	m_Info.pos.x += m_Move.x;
 	m_Info.pos.y += m_Move.y;
 	m_Info.pos.z += m_Move.z;
+}
+
+Def::Info EnemyDefault::GetOldInfo()
+{
+	return m_OldInfo;
+}
+
+Collision::Direction EnemyDefault::GetStageCollistonDirection(int num)
+{
+	return m_StageDire[num];
+}
+
+void EnemyDefault::SetStageCollisionDirection(Collision::Direction dire, int num)
+{
+	m_StageDire[num] = dire;
+}
+
+void EnemyDefault::SetDirection(Collision::Direction dire)
+{
+	m_Direction = dire;
+}
+
+void EnemyDefault::InitDirectin(int num)
+{
+	for (int i = 0; i < num; i++)
+	{
+
+		m_StageDire.push_back(Collision::E_DIRECTION_NULL);
+	}
+}
+
+void EnemyDefault::ResetMove()
+{
+	m_Move.y = 0.0f;
 }
