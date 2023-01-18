@@ -192,6 +192,9 @@
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル\System</Filter>
     </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -334,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="Def.h">
       <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

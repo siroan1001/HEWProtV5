@@ -34,6 +34,9 @@ SceneGame::SceneGame()
 	m_pBlend->Create(blend);
 	m_pBlend->Bind();
 
+	// エフェクト
+	m_pEffect = new EffectManager;
+
 	CameraMain* pMain = new CameraMain;
 	pMain->SetLook(XMFLOAT3(-5.0f, 4.25f, 0.0f));
 	m_pCamera[E_CAM_MAIN] = pMain;
@@ -49,6 +52,8 @@ SceneGame::SceneGame()
 	m_pLayer[E_LAYER_BUCK_OBJECT] = NULL;
 	m_pLayer[E_LAYER_GAME] = new LayerGame(m_pCamera[m_mainCamera], &m_GameStatus);		//これ
 	m_pLayer[E_LAYER_UI] = NULL;
+
+	m_pEffect->SetCamera(m_pCamera[m_mainCamera]);
 
 	LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
 	CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
@@ -71,6 +76,7 @@ SceneGame::~SceneGame()
 	{
 		delete m_pCamera[i];
 	}
+	delete m_pEffect;
 }
 
 void SceneGame::Update()
@@ -111,6 +117,9 @@ void SceneGame::Update()
 		m_pLayer[i]->Update();
 	}
 
+	// エフェクト
+	m_pEffect->Update();
+
 	//カメラの切り替え
 	CameraKind camera = m_mainCamera;
 	if (IsKeyPress('C'))
@@ -125,6 +134,10 @@ void SceneGame::Update()
 		temp->SetCamera(m_pCamera[m_mainCamera]);
 		m_pLayer[E_LAYER_GAME] = temp;
 	}
+	if (IsKeyPress('Z'))
+	{
+		m_pEffect->AtkEffect(-7.6f, 3.25f, 0.0f);
+	}
 }
 
 void SceneGame::Draw()
@@ -136,6 +149,9 @@ void SceneGame::Draw()
 		if (!m_pLayer[i])	continue;
 		m_pLayer[i]->Draw();
 	}
+
+	// エフェクト
+	m_pEffect->Draw();
 }
 
 CameraBase * SceneGame::GetCamera()

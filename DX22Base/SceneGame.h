@@ -11,6 +11,7 @@
 #include "ShadowBlock.h"
 #include "Light.h"
 #include "Layer.h"
+#include "Effect.h"
 
 class SceneGame : public SceneBace
 {
@@ -61,7 +62,7 @@ private:
 	static CameraKind m_mainCamera;
 	Layer* m_pLayer[E_LAYER_MAX];
 	static GameStatus m_GameStatus;
-
+	EffectManager* m_pEffect;
 };
 
 #endif // !_____SCENE_GAME_H____
