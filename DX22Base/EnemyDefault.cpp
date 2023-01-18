@@ -10,7 +10,7 @@ EnemyDefault::EnemyDefault(Collision::Direction dire, XMFLOAT3 pos)
 	m_OldInfo = m_Info;
 	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
 
-	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_PLAYER);
+	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_ENEMY);
 
 	m_pModel->SetVertexShader(m_pVS);
 
