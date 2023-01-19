@@ -1,7 +1,7 @@
 #include "ShadowBlock.h"
 #include "ShadowBillBoard.h"
 #include "Geometory.h"
-#include "Game3D.h"
+#include "SceneGame.h"
 #include "CameraBase.h"
 
 using namespace std;
@@ -46,7 +46,7 @@ void ShadowBlock::Draw()
 	Def::Info info;		//計算用
 	float PosL;		//ブロックの左端を示す
 	int count;
-	CameraBase* cam = Game3D::GetCamera();
+	CameraBase* cam = SceneGame::GetCamera();
 
 	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
 	{
@@ -137,16 +137,16 @@ void ShadowBlock::SetShadowBlock(Def::Info info)
 			temp.Info.pos = { m_BlockInfo.Info.pos.x - m_BlockBase.size.x * j, m_BlockInfo.Info.pos.y - m_BlockBase.size.y * i, m_BlockInfo.Info.pos.z };//ブロックのサイズ分ずらす
 
 			tempVec.push_back(temp);
-			//tempb.push_back(new ShadowBillBoard(temp.Info.pos));
 		}
 		m_SmallBlockInfo.push_back(tempVec);
-		//m_BillBoard.push_back(tempb);
 	}
 
-	
+	m_BlockInfo.Info.pos.x += m_BlockBase.size.x / 2.0f;
+	m_BlockInfo.Info.pos.y += m_BlockBase.size.y / 2.0f;
 
-	//m_BlockInfo.Info.pos.x = m_BlockInfo.Info.pos.x + m_SmallBlockInfo[0].Info.size.x / 2.0f;
-	//m_BlockInfo.Info.pos.y = m_BlockInfo.Info.pos.y + m_SmallBlockInfo[0].Info.size.y / 2.0f;
+	XMFLOAT2 size = { m_BlockInfo.xy.x * m_BlockBase.size.x, m_BlockInfo.xy.y * m_BlockBase.size.y };
+	m_BlockInfo.Info.pos.x -= size.x / 2.0f;
+	m_BlockInfo.Info.pos.y -= size.y / 2.0f;
 }
 
 void ShadowBlock::SetUse(XMFLOAT2 num, bool flag)

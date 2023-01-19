@@ -7,6 +7,11 @@
 #include "Geometory.h"
 #include "Sprite.h"
 #include "Object.h"
+#include "ModelList.h"
+#include "Quadtree.h"
+#include "controller.h"
+
+using namespace IKD;
 
 //--- ’è”’è‹`
 const unsigned int SCREEN_WIDTH = 1280;
@@ -42,15 +47,25 @@ void Init()
 	{
 		Error("geometory initialize failed.");
 	}
-
+	//SetGeometoryColor(XMFLOAT3(1.0f, 1.0f, 1.0f));
 	Object::Init();
 	Sprite::Init();
+	ModelList::Init();
 
+	InitCtrl();
+
+	if (!CheckCtrl())
+	{
+		Error("controller initialize failed.");
+	}
+	
 	g_pGame = new Game3D();
 }
 void Uninit()
 {
+	UninitCtrl();
 	delete g_pGame;
+	ModelList::Uninit();
 	Object::Uninit();
 	Sprite::Uninit();
 	UninitGeometory();
@@ -61,6 +76,7 @@ void Uninit()
 void Update(float deltaTime)
 {
 	UpdateInput();
+	UpdateCtrl();
 	g_pGame->Update();
 }
 void Draw()

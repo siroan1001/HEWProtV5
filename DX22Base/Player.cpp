@@ -1,24 +1,35 @@
 #include "Player.h"
 #include "Input.h"
 #include "Collision.h"
+#include "ModelList.h"
+#include "controller.h"
 
 //using namespace DirectX;
+
+
 
 Player::Player(Collision::Direction dire)
 	:m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
 	,m_OldInfo{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
 	,m_Direction(dire)
-	,m_Spead(0.03f)
+	,m_Spead(PLAYER_MOVE_NORMAL)
+	,m_IsColEnemy(false)
 {
-	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.646f, 0.3f}, {0.0f, -90.0f, 0.0f} };
+	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.4f, 0.3f}, {0.0f, -90.0f, 0.0f} };
+	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
 
 	//モデル読み込み
-	m_pModel = new Model;
-	if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 0.03f))
-	{
-		MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
-	}
+	//m_pModel = new Model;
+	//if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 1.0f))
+	//{
+	//	MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
+	//}
+	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_PLAYER);
+	//if (!m_pModel->Load("Assets/character01.fbx", 1.0f))
+	//{
+	//	MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
+	//}
 
 	//頂点シェーダをモデルに設定
 	m_pModel->SetVertexShader(m_pVS);
@@ -63,6 +74,12 @@ void Player::Update()
 		m_Direction = Collision::E_DIRECTION_L;
 		m_Info.rot.y = 90.0f;
 	}
+
+	if (m_IsColEnemy)m_Spead = PLAYER_MOVE_NORMAL / 2.0f;
+	else m_Spead = PLAYER_MOVE_NORMAL;
+
+	m_IsColEnemy = false;
+
 	// 自動移動
 	switch (m_Direction)
 	{
@@ -86,7 +103,12 @@ void Player::Update()
 	//ジャンプ
 	if (IsKeyTrigger(VK_SPACE))
 	{
-		m_Move.y += 0.10f;
+		m_Move.y += 0.07f;
+		m_Ground = false;
+	}
+	if (IsButtonTrigger(BUTTON_A))
+	{
+		m_Move.y += 0.07f;
 		m_Ground = false;
 	}
 
@@ -161,5 +183,10 @@ void Player::SetDirection(Collision::Direction dire)
 	default:
 		break;
 	}
+}
+
+void Player::SetCollisionEnemy()
+{
+	m_IsColEnemy = true;
 }
 

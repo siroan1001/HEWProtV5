@@ -15,6 +15,7 @@
 using namespace DirectX;
 using namespace std;
 
+const float PLAYER_MOVE_NORMAL = 0.02f;
 
 class Player : public Object
 {
@@ -27,6 +28,7 @@ public:
 
 		E_PLAYER_DIRECTION_MAX
 	};
+
 public:
 	Player(Collision::Direction dire);
 	void Update();
@@ -44,6 +46,8 @@ public:
 	void SetStageCollisionDirection(Collision::Direction dire, int num);
 	void SetDirection(Collision::Direction);
 
+	void SetCollisionEnemy();
+
 
 private:
 	Def::Info m_OldInfo;
@@ -52,6 +56,7 @@ private:
 	Collision::Direction m_Direction;		//êiÇÒÇ≈Ç¢ÇÈï˚å¸
 	vector<Collision::Direction> m_StageDire;
 	float m_Spead;
+	bool m_IsColEnemy;
 };
 
 #endif // !_____PLAYER_H____

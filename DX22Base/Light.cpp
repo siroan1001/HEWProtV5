@@ -1,8 +1,9 @@
 #include "Light.h"
 #include "Input.h"
+#include "controller.h"
 
 Light::Light()
-	:m_Info{ {-3.8f, 4.25f, 0.0f}, {0.5f, 0.6f, 0.5f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
+	:m_Info{ {-3.8f, 4.25f, 0.0f}, {0.55f, 0.6f, 0.55f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
 	,m_Power(30.0f)
 {
 
@@ -15,12 +16,17 @@ Light::~Light()
 void Light::Update()
 {
 	XMFLOAT3 CameraPos = m_pCamera->GetPos();
-	float right = CameraPos.x + 3.0f;
-	float left = CameraPos.x - 3.0f;
-	float ceiling = CameraPos.y + 1.5f;
-	float floor = CameraPos.y - 1.5f;
+	float right = CameraPos.x + 2.75f;
+	float left = CameraPos.x - 2.75f;
+	float ceiling = CameraPos.y + 1.0f;
+	float floor = CameraPos.y - 1.0f;
 
 	const float LIGHT_MOVE = 0.05f;
+
+	XMFLOAT2 stick = GetLStick();
+
+	m_Info.pos.x -= stick.x / 25.0f;
+	m_Info.pos.y += stick.y / 25.0f;
 
 	if (IsKeyPress(VK_LEFT))
 	{
@@ -49,7 +55,9 @@ void Light::Draw()
 	SetGeometoryTranslate(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
 	SetGeometoryScaling(m_Info.size.x, m_Info.size.y, m_Info.size.z);
 	SetGeometoryRotation(m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
-	DrawCylinder();
+	XMFLOAT3 LigPos = m_Info.pos; LigPos.z += 10.0f;
+	SetGeometorySpLigPos(LigPos);
+	//DrawCylinder();
 }
 
 float Light::GetRadius()

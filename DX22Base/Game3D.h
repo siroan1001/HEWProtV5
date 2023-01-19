@@ -1,34 +1,17 @@
 #ifndef __GAME_3D_H__
 #define __GAME_3D_H__
 
-#include "BlendState.h"
-#include "CameraBase.h"
-#include "Stage.h"
-#include "Player.h"
-#include "ShadowBlock.h"
-#include "Light.h"
-#include "Layer.h"
+#include "SceneBace.h"
 
 class Game3D
 {
 public:
-	enum CameraKind
+	enum SceneKind
 	{
-		E_CAM_MAIN = 0,
-		E_CAM_EVENT,
-		E_CAM_DELAY,
-		E_CAM_DEBUG,
+		E_SCENE_KIND_TITLE = 0,
+		E_SCENE_KIND_GAME,
 
-		E_CAM_MAX
-	};
-	enum LayerKind
-	{
-		E_LAYER_BG = 0,
-		E_LAYER_BUCK_OBJECT,
-		E_LAYER_GAME,
-		E_LAYER_UI,
-
-		E_LAYER_MAX
+		E_SCENE_KIND_MAX
 	};
 
 public:
@@ -37,13 +20,9 @@ public:
 	void Update();
 	void Draw();
 
-	static CameraBase* GetCamera();
-
 private:
-	BlendState* m_pBlend;
-	static CameraBase* m_pCamera[E_CAM_MAX];
-	static CameraKind m_mainCamera;
-	Layer* m_pLayer[E_LAYER_MAX];
+	static SceneBace* m_pScene[E_SCENE_KIND_MAX];
+	static SceneKind m_SceneKind;
 
 };
 

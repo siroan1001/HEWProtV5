@@ -25,7 +25,7 @@ public:
 		,m_fovy(60.0f), m_aspect(16.0f / 9.0f), m_near(0.2f), m_far(1000.0f)
 		,m_radXZ(0.0f), m_radY(0.0f), m_radius(3.0f)
 	{
-		m_Info = { m_look, {7.5f, 4.0f, 0.0f}, {0.0f, 0.0f, 0.0f} };
+		m_Info = { m_look, {8.0f, 4.5f, 0.0f}, {0.0f, 0.0f, 0.0f} };
 	}
 	virtual ~CameraBase() {};
 	virtual void Update() = 0;

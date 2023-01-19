@@ -5,6 +5,7 @@
 #include "DirectXTex/Texture.h"
 //#include "Stage.h"
 #include "CameraBase.h"
+#include "Def.h"
 
 class Billboard
 {
@@ -19,6 +20,8 @@ public:
 	Billboard();
 	~Billboard();
 	void Draw();
+
+	Def::Info GetInfo();
 
 protected:
 	Info m_Info;
