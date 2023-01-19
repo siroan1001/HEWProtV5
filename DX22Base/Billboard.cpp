@@ -40,6 +40,8 @@ void Billboard::Draw()
 	Sprite::SetWorld(world);
 	Sprite::SetTexture(m_pTex);
 	Sprite::SetSize(m_Info.Size);
+	//--- ƒ‰ƒCƒg‚Ìî•ñ‚ğGeometory.cpp‚©‚ç‚à‚Á‚Ä‚­‚é
+	Sprite::SetLig(GetLig());
 
 	Sprite::Draw();
 }
