@@ -10,13 +10,13 @@
 class CameraMain : public CameraBase
 {
 public:
-	CameraMain() : m_pPlayer(NULL), m_lateXZ(90.0f), m_lateY(0.0f), m_LimitX{0.0f, 0.0f}, m_LimitY{ 0.0f, 0.0f }{ m_radius = 3.0f; }
+	CameraMain() : m_pPlayer(NULL), m_lateXZ(90.0f), m_lateY(0.0f), m_LimitX{0.0f, 0.0f}, m_LimitY{ 0.0f, 0.0f }{ m_radius = 2.0f; }
 	~CameraMain() {}
 	void Update()
 	{
 		//if (SceneGame::GetGameStatus() != SceneGame::E_GAME_STATUS_NORMAL)	return;
 
-		const float LIMIT = 1.5f;
+		const float LIMIT = 1.2f;
 		XMFLOAT3 Playerpos = m_pPlayer->GetInfo().pos;
 
 		if (SceneGame::GetGameStatus() == SceneGame::E_GAME_STATUS_NORMAL)
@@ -41,13 +41,10 @@ public:
 			case Collision::E_DIRECTION_R:
 				m_look.x -= 0.1f;
 
-
 				if (m_look.x + LIMIT < Playerpos.x)
 				{
 					m_look.x = Playerpos.x - LIMIT;
 				}
-
-
 
 				break;
 			default:
@@ -55,8 +52,7 @@ public:
 			}
 		}
 
-		m_look.y = Playerpos.y + 1.0f;
-
+		m_look.y = Playerpos.y + 0.8f;
 
 		m_pos.x = m_look.x;
 		m_pos.y = m_look.y;

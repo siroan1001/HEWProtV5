@@ -15,6 +15,7 @@
 using namespace DirectX;
 using namespace std;
 
+const float PLAYER_MOVE_NORMAL = 0.02f;
 
 class Player : public Object
 {
@@ -27,6 +28,7 @@ public:
 
 		E_PLAYER_DIRECTION_MAX
 	};
+
 public:
 	Player(Collision::Direction dire);
 	void Update();

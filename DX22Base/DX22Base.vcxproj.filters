@@ -129,13 +129,7 @@
     <ClCompile Include="CameraPlayer.cpp">
       <Filter>ソース ファイル\DX22\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="BobbingEnemy.cpp">
-      <Filter>ソース ファイル\DX22\3DObject</Filter>
-    </ClCompile>
     <ClCompile Include="ChasingShadow.cpp">
-      <Filter>ソース ファイル\DX22\3DObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル\DX22\3DObject</Filter>
     </ClCompile>
     <ClCompile Include="Goal.cpp">
@@ -195,10 +189,10 @@
     <ClCompile Include="EnemyBase.cpp">
       <Filter>ソース ファイル\DX22\3DObject</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyRoundTrip.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyDefault.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyRoundTrip.cpp">
       <Filter>ソース ファイル\DX22\3DObject</Filter>
     </ClCompile>
   </ItemGroup>

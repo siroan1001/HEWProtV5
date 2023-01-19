@@ -35,7 +35,7 @@ SceneGame::SceneGame()
 	m_pBlend->Bind();
 
 	CameraMain* pMain = new CameraMain;
-	pMain->SetLook(XMFLOAT3(-5.0f, 4.25f, 0.0f));
+	pMain->SetLook(XMFLOAT3(-5.0f, 4.05f, 0.0f));
 	m_pCamera[E_CAM_MAIN] = pMain;
 	CameraEvent* pEvent = new CameraEvent();
 	pEvent->SetEvent(XMFLOAT3(-3.0f, 4.25f, 3.0f), XMFLOAT3(-3.0f, 4.25f, 3.0f), 3.0f);

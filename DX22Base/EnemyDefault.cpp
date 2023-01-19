@@ -1,16 +1,18 @@
 #include "EnemyDefault.h"
 #include "ModelList.h"
+#include "Player.h"
 
 EnemyDefault::EnemyDefault(Collision::Direction dire, XMFLOAT3 pos)
 	:m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
-	,m_Spead(0.02f)
+	,m_Spead(0.001f)
 {
 	m_Info = { {pos.x, pos.y, pos.z}, {0.3f, 0.4f, 0.3f}, {0.0f, -90.0f, 0.0f} };
 	m_OldInfo = m_Info;
 	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
 
-	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_ENEMY);
+	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_PLAYER);
+	//m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_ENEMY);
 
 	m_pModel->SetVertexShader(m_pVS);
 
@@ -39,8 +41,8 @@ void EnemyDefault::Update()
 	//前フレームのポジションを保持
 	m_OldInfo = m_Info;
 
-	if (m_IsColPlayer) m_Spead = 0.015f;
-	else m_Spead = 0.02f;
+	if (m_IsColPlayer) m_Spead = 0.0005f;
+	else m_Spead = PLAYER_MOVE_NORMAL;
 
 	m_IsColPlayer = false;
 

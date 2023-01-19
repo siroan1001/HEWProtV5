@@ -313,7 +313,7 @@ void LayerGame::CheckCollision()
 							Def::Info PlayerBot;
 							Def::Info PlayerTop;
 							PlayerBot = PlayerTop = m_pPlayer->GetInfo();
-							PlayerBot.size.y = 0.15f;		//足元の大きさ
+							PlayerBot.size.y = 0.08f;		//足元の大きさ
 							PlayerBot.pos.y += PlayerBot.size.y / 2.0f;		//プレイヤーの元の座標から足元の大きさ分ずらす
 							PlayerTop.size.y -= PlayerBot.size.y;		//体の大きさ（プレイヤー全体から足元の大きさを引いた大きさ）
 							PlayerTop.pos.y += PlayerBot.size.y + PlayerTop.size.y / 2.0f;	//プレイヤーの元の座標から足元の大きさ分と体の半分ずらす
@@ -495,7 +495,7 @@ void LayerGame::CheckCollision()
 								Def::Info EnemyBot;
 								Def::Info EnemyTop;
 								EnemyBot = EnemyTop = m_pEnemy[i]->GetInfo();
-								EnemyBot.size.y = 0.15f;		//足元の大きさ
+								EnemyBot.size.y = 0.08f;		//足元の大きさ
 								EnemyBot.pos.y += EnemyBot.size.y / 2.0f;		//プレイヤーの元の座標から足元の大きさ分ずらす
 								EnemyTop.size.y -= EnemyBot.size.y;		//体の大きさ（プレイヤー全体から足元の大きさを引いた大きさ）
 								EnemyTop.pos.y += EnemyBot.size.y + EnemyTop.size.y / 2.0f;	//プレイヤーの元の座標から足元の大きさ分と体の半分ずらす

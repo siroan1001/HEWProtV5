@@ -16,17 +16,17 @@ Light::~Light()
 void Light::Update()
 {
 	XMFLOAT3 CameraPos = m_pCamera->GetPos();
-	float right = CameraPos.x + 3.0f;
-	float left = CameraPos.x - 3.0f;
-	float ceiling = CameraPos.y + 1.5f;
-	float floor = CameraPos.y - 1.5f;
+	float right = CameraPos.x + 1.75f;
+	float left = CameraPos.x - 1.75f;
+	float ceiling = CameraPos.y + 1.0f;
+	float floor = CameraPos.y - 1.0f;
 
 	const float LIGHT_MOVE = 0.05f;
 
 	XMFLOAT2 stick = GetLStick();
 
-	m_Info.pos.x -= stick.x / 20.0f;
-	m_Info.pos.y += stick.y / 20.0f;
+	m_Info.pos.x -= stick.x / 25.0f;
+	m_Info.pos.y += stick.y / 25.0f;
 
 	if (IsKeyPress(VK_LEFT))
 	{

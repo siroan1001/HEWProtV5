@@ -150,7 +150,6 @@
     <ClCompile Include="BG.cpp" />
     <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="BlendState.cpp" />
-    <ClCompile Include="BobbingEnemy.cpp" />
     <ClCompile Include="CameraEvent.cpp" />
     <ClCompile Include="CameraPlayer.cpp" />
     <ClCompile Include="ChasingShadow.cpp" />
@@ -159,7 +158,6 @@
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="DirectXTex\Texture.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyDefault.cpp" />
     <ClCompile Include="EnemyRoundTrip.cpp" />

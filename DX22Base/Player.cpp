@@ -13,7 +13,7 @@ Player::Player(Collision::Direction dire)
 	,m_Move{0.0f, 0.0f, 0.0f}
 	,m_OldInfo{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
 	,m_Direction(dire)
-	,m_Spead(0.03f)
+	,m_Spead(PLAYER_MOVE_NORMAL)
 	,m_IsColEnemy(false)
 {
 	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.4f, 0.3f}, {0.0f, -90.0f, 0.0f} };
@@ -75,8 +75,8 @@ void Player::Update()
 		m_Info.rot.y = 90.0f;
 	}
 
-	if (m_IsColEnemy)m_Spead = 0.015f;
-	else m_Spead = 0.03f;
+	if (m_IsColEnemy)m_Spead = PLAYER_MOVE_NORMAL / 2.0f;
+	else m_Spead = PLAYER_MOVE_NORMAL;
 
 	m_IsColEnemy = false;
 
@@ -103,12 +103,12 @@ void Player::Update()
 	//ƒWƒƒƒ“ƒv
 	if (IsKeyTrigger(VK_SPACE))
 	{
-		m_Move.y += 0.10f;
+		m_Move.y += 0.07f;
 		m_Ground = false;
 	}
 	if (IsButtonTrigger(BUTTON_A))
 	{
-		m_Move.y += 0.10f;
+		m_Move.y += 0.07f;
 		m_Ground = false;
 	}
 
