@@ -37,7 +37,6 @@ public:
 
 	void ResetMove();
 
-	void JumpReset();
 
 	Def::Info GetOldInfo();
 	Collision::Direction GetDirection();
@@ -45,7 +44,6 @@ public:
 	void SetStageCollisionDirection(Collision::Direction dire, int num);
 	void SetDirection(Collision::Direction);
 
-	void LightCollision();
 
 private:
 	Def::Info m_OldInfo;
@@ -54,7 +52,6 @@ private:
 	Collision::Direction m_Direction;		//êiÇÒÇ≈Ç¢ÇÈï˚å¸
 	vector<Collision::Direction> m_StageDire;
 	float m_Spead;
-	bool m_bLight;
 };
 
 #endif // !_____PLAYER_H____

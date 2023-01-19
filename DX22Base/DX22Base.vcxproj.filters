@@ -132,9 +132,6 @@
     <ClCompile Include="Object.cpp">
       <Filter>ソース ファイル\DX22</Filter>
     </ClCompile>
-    <ClCompile Include="Fade.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -245,14 +242,10 @@
     <ClInclude Include="Def.h">
       <Filter>ヘッダー ファイル\DX22</Filter>
     </ClInclude>
-    <ClInclude Include="Fade.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ModelVS.hlsl">
       <Filter>リソース ファイル</Filter>
     </FxCompile>
-    <FxCompile Include="FadePS.hlsl" />
   </ItemGroup>
 </Project>
