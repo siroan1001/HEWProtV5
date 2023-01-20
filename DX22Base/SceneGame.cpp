@@ -34,7 +34,7 @@ SceneGame::SceneGame()
 	m_pBlend->Create(blend);
 	m_pBlend->Bind();
 
-	m_pEffect = new EffectManager;
+	//m_pEffect = new EffectManager;
 
 	CameraMain* pMain = new CameraMain;
 	pMain->SetLook(XMFLOAT3(-5.0f, 4.05f, 0.0f));
@@ -52,7 +52,7 @@ SceneGame::SceneGame()
 	m_pLayer[E_LAYER_GAME] = new LayerGame(m_pCamera[m_mainCamera], &m_GameStatus);		//‚±‚ê
 	m_pLayer[E_LAYER_UI] = NULL;
 
-	m_pEffect->SetCamera(m_pCamera[m_mainCamera]);
+	EffectManager::SetCamera(m_pCamera[m_mainCamera]);
 
 	LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
 	CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
@@ -76,12 +76,12 @@ SceneGame::~SceneGame()
 		delete m_pCamera[i];
 	}
 
-	delete m_pEffect;
+	//delete m_pEffect;
 }
 
 void SceneGame::Update()
 {
-	m_pEffect->Update();
+	//m_pEffect->Update();
 
 	if (m_mainCamera == E_CAM_EVENT)
 	{
@@ -134,10 +134,10 @@ void SceneGame::Update()
 		m_pLayer[E_LAYER_GAME] = temp;
 	}
 
-	if (IsKeyPress('Z'))
-	{
-		m_pEffect->AtkEffect(-7.6f, 3.25f, 0.0f);
-	}
+	//if (IsKeyPress('Z'))
+	//{
+	//	m_pEffect->AtkEffect(EffectManager::E_EFFECT_KIND_ATK, -7.6f, 3.25f, 0.0f);
+	//}
 
 	//ƒS[ƒ‹‚È‚çƒtƒ‰ƒO‚ğtrue‚É‚·‚é
 	if (m_GameStatus == E_GAME_STATUS_GOAL)

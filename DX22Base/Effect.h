@@ -7,22 +7,30 @@
 class EffectManager
 {
 public:
+	enum EffectKind
+	{
+		E_EFFECT_KIND_ATK = 0,
+
+		E_EFFECT_KIND_MAX
+	};
+
+public:
 	EffectManager();
 	~EffectManager();
-	void Update();
-	void Draw();
-	void AtkEffect(float x, float y, float z);
-	void SetCamera(CameraBase* pCamera);
+	static void Init();
+	static void Uninit();
+	static void Update();
+	static void Draw();
+	static void SetEffect(EffectKind effect, float x, float y, float z);
+	static void SetCamera(CameraBase* pCamera);
 private:
-	Effekseer::ManagerRef m_efkManager;
-	EffekseerRendererDX11::RendererRef m_efkRenderer;
-	Effekseer::Handle m_efkHandle;
+	static Effekseer::ManagerRef m_efkManager;
+	static EffekseerRendererDX11::RendererRef m_efkRenderer;
+	static Effekseer::Handle m_efkHandle;
 
-	CameraBase* m_pCamera;
+	static CameraBase* m_pCamera;
 
-	Effekseer::EffectRef m_effect1;
-	//Effekseer::EffectRef m_effect2;
-	DirectX::XMFLOAT3 efkPos;
+	static Effekseer::EffectRef m_effect1;
 };
 
 

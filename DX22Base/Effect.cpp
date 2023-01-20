@@ -3,9 +3,16 @@
 #include "DirectX.h"
 #include "Input.h"
 //a
+
+Effekseer::ManagerRef EffectManager::m_efkManager;
+EffekseerRendererDX11::RendererRef EffectManager::m_efkRenderer;
+Effekseer::Handle EffectManager::m_efkHandle;
+CameraBase* EffectManager::m_pCamera;
+Effekseer::EffectRef EffectManager::m_effect1;
+
 EffectManager::EffectManager()
-:efkPos(0.0f,0.0f,0.0f)
-,m_pCamera(NULL)
+//:efkPos(0.0f,0.0f,0.0f)
+//,m_pCamera(NULL)
 {
 	//--- effekseer関連初期化
 	m_efkManager = Effekseer::Manager::Create(8000);
@@ -35,6 +42,45 @@ EffectManager::EffectManager()
 }
 
 EffectManager::~EffectManager()
+{
+	//m_effect2.Reset();
+	m_effect1.Reset();
+	m_efkRenderer.Reset();
+	m_efkManager.Reset();
+}
+
+void EffectManager::Init()
+{
+	//--- effekseer関連初期化
+	m_efkManager = Effekseer::Manager::Create(8000);
+
+	auto graphicsDevice = EffekseerRendererDX11::CreateGraphicsDevice(
+		GetDevice(), GetContext());
+	m_efkRenderer = EffekseerRendererDX11::Renderer::Create(graphicsDevice, 8000);
+
+	m_efkManager->SetSpriteRenderer(m_efkRenderer->CreateSpriteRenderer());
+	m_efkManager->SetRibbonRenderer(m_efkRenderer->CreateRibbonRenderer());
+	m_efkManager->SetRingRenderer(m_efkRenderer->CreateRingRenderer());
+	m_efkManager->SetTrackRenderer(m_efkRenderer->CreateTrackRenderer());
+	m_efkManager->SetModelRenderer(m_efkRenderer->CreateModelRenderer());
+
+	m_efkManager->SetTextureLoader(m_efkRenderer->CreateTextureLoader());
+	m_efkManager->SetModelLoader(m_efkRenderer->CreateModelLoader());
+	m_efkManager->SetMaterialLoader(m_efkRenderer->CreateMaterialLoader());
+	m_efkManager->SetCurveLoader(Effekseer::MakeRefPtr<Effekseer::CurveLoader>());
+
+
+	//--- effect読み込み
+	// ↓ここでエフェクトのデータ読み込み
+	//m_effect1 = Effekseer::Effect::Create(m_efkManager, u"Assets/effect/charge.efkefc");
+	m_effect1 = Effekseer::Effect::Create(m_efkManager, u"Assets/effect/bakuhatu.efkefc");
+	//m_effect1 = Effekseer::Effect::Create(m_efkManager, u"Assets/effect/bakuhatu.efkefc");
+	//m_effect2 = Effekseer::Effect::Create(m_efkManager, u"Assets/Effect/atk.efkefc");
+
+	m_pCamera = NULL;
+}
+
+void EffectManager::Uninit()
 {
 	//m_effect2.Reset();
 	m_effect1.Reset();
@@ -102,14 +148,11 @@ void EffectManager::Draw()
 	m_efkRenderer->EndRendering();
 
 }
-void EffectManager::AtkEffect(float x, float y, float z)
+void EffectManager::SetEffect(EffectKind effect, float x, float y, float z)
 {
-	efkPos.x = x;
-	efkPos.y = y;
-	efkPos.z = z;
-	m_efkHandle = m_efkManager->Play(m_effect1,efkPos.x, efkPos.y, efkPos.z);//0.0.0が座標
-	m_efkManager->SetScale(m_efkHandle, 1.0f, 1.0f, 1.0f);	//サイズ変換
-	EffectManager::Draw();
+	m_efkHandle = m_efkManager->Play(m_effect1, x, y, z);//0.0.0が座標
+	m_efkManager->SetScale(m_efkHandle, 0.1f, 0.1f, 0.1f);	//サイズ変換
+	//EffectManager::Draw();
 }
 void EffectManager::SetCamera(CameraBase* pCamera)
 {

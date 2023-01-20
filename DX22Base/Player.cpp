@@ -3,6 +3,7 @@
 #include "Collision.h"
 #include "ModelList.h"
 #include "controller.h"
+#include "Effect.h"
 
 //using namespace DirectX;
 
@@ -119,6 +120,11 @@ void Player::Update()
 	m_Info.pos.x += m_Move.x;
 	m_Info.pos.y += m_Move.y;
 	m_Info.pos.z += m_Move.z;
+
+	if (IsKeyTrigger('F'))
+	{
+		EffectManager::SetEffect(EffectManager::E_EFFECT_KIND_ATK, m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
+	}
 
 	//óéâ∫å„èàóù
 	if (m_Info.pos.y < -50.0f)

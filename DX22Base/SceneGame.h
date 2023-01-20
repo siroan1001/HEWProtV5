@@ -64,7 +64,7 @@ private:
 	static CameraKind m_mainCamera;
 	Layer* m_pLayer[E_LAYER_MAX];
 	static GameStatus m_GameStatus;
-	EffectManager* m_pEffect;
+	//EffectManager* m_pEffect;
 
 };
 
