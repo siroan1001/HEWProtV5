@@ -313,7 +313,7 @@ void LayerGame::CheckCollision()
 							Def::Info PlayerBot;
 							Def::Info PlayerTop;
 							PlayerBot = PlayerTop = m_pPlayer->GetInfo();
-							PlayerBot.size.y = 0.08f;		//足元の大きさ
+							PlayerBot.size.y = 0.06f;		//足元の大きさ
 							PlayerBot.pos.y += PlayerBot.size.y / 2.0f;		//プレイヤーの元の座標から足元の大きさ分ずらす
 							PlayerTop.size.y -= PlayerBot.size.y;		//体の大きさ（プレイヤー全体から足元の大きさを引いた大きさ）
 							PlayerTop.pos.y += PlayerBot.size.y + PlayerTop.size.y / 2.0f;	//プレイヤーの元の座標から足元の大きさ分と体の半分ずらす
@@ -322,7 +322,7 @@ void LayerGame::CheckCollision()
 								bool bBot = Collision::RectAndRect(PlayerBot, shadow);		//足元がブロックと当たっているか
 								if (bBot && !bTop)		//足元は当たっていて体は当たっていない場合段差を無視する
 								{//上
-									pos.y = shadow.pos.y + shadow.size.y / 2.0f;		//ブロックの上に補正
+									pos.y = shadow.pos.y + shadow.size.y / 2.0f;		//ブロックの上に補正		//ここ滑らかに上がるように修正
 									m_pPlayer->ResetMove();		//重力をリセット
 								}
 								else
