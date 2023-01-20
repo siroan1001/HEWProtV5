@@ -6,6 +6,9 @@
 #include "CameraBase.h"
 #include "Geometory.h"
 
+const float CAMERA_AREA_MARGIN_VERTICAL = 0.75f;
+const float CAMERA_AREA_MARGIN_HORIZONTAL = 0.5f;
+
 Stage::Stage()
 	:m_blockNum(11)
 {
@@ -159,6 +162,17 @@ Stage::Stage()
 	info.size = { 2.3f, 1.3f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Shadow.push_back(new ShadowBlock(info));
+
+	// ÉJÉÅÉâîÕàÕ 1
+	info.pos = { 1.6f - 5.5f, 3.0f + CAMERA_AREA_MARGIN_VERTICAL, 0.0f };
+	info.size = { 11.0f, 0.5f + CAMERA_AREA_MARGIN_VERTICAL * 2.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_CameraArea.push_back(new Def::Info(info));
+	// ÉJÉÅÉâîÕàÕ 2 
+	info.pos = { 1.6f + 5.5f, 3.0f + CAMERA_AREA_MARGIN_VERTICAL, 0.0f };
+	info.size = { 11.0f, 0.5f + CAMERA_AREA_MARGIN_VERTICAL * 2.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_CameraArea.push_back(new Def::Info(info));
 }
 
 Stage::~Stage()
@@ -212,4 +226,9 @@ int Stage::GetShadowNum()
 vector<ShadowBlock*> Stage::GetShadowBlock()
 {
 	return m_Shadow;
+}
+
+vector<Def::Info*> Stage::GetCameraArea()
+{
+	return m_CameraArea;
 }

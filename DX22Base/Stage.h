@@ -37,12 +37,13 @@ public:
 	int GetStageNum();
 	int GetShadowNum();
 	vector<ShadowBlock*> GetShadowBlock();
-
+	vector<Def::Info*> GetCameraArea();
 protected:
 	//Info* m_pBlocks;
 	vector<ShadowBlock*> m_Shadow;
 	int m_blockNum;
 	vector<Def::Info> m_Info;
+	vector<Def::Info*> m_CameraArea;
 };
 
 #endif // !_____STAGE_H____

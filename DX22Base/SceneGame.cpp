@@ -53,6 +53,7 @@ SceneGame::SceneGame()
 	LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
 	CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
 	camera->SetPlayer(layer->GetPlayer());
+	camera->SetStage(layer->GetStage());
 
 	m_GameStatus = E_GAME_STATUS_START;
 }
