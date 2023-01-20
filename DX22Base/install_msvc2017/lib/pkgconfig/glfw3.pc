@@ -1,0 +1,13 @@
+prefix=C:/Effekseer170aWin/EffekseerForCpp170a/install_msvc2017
+exec_prefix=${prefix}
+includedir=C:/Effekseer170aWin/EffekseerForCpp170a/install_msvc2017/include
+libdir=C:/Effekseer170aWin/EffekseerForCpp170a/install_msvc2017/lib
+
+Name: GLFW
+Description: A multi-platform library for OpenGL, window and input
+Version: 3.4.0
+URL: https://www.glfw.org/
+Requires.private: 
+Libs: -L${libdir} -lglfw3
+Libs.private:  -lgdi32
+Cflags: -I${includedir}

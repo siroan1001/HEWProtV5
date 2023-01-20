@@ -34,6 +34,8 @@ SceneGame::SceneGame()
 	m_pBlend->Create(blend);
 	m_pBlend->Bind();
 
+	m_pEffect = new EffectManager;
+
 	CameraMain* pMain = new CameraMain;
 	pMain->SetLook(XMFLOAT3(-5.0f, 4.05f, 0.0f));
 	m_pCamera[E_CAM_MAIN] = pMain;
@@ -49,6 +51,8 @@ SceneGame::SceneGame()
 	m_pLayer[E_LAYER_BUCK_OBJECT] = NULL;
 	m_pLayer[E_LAYER_GAME] = new LayerGame(m_pCamera[m_mainCamera], &m_GameStatus);		//‚±‚ê
 	m_pLayer[E_LAYER_UI] = NULL;
+
+	m_pEffect->SetCamera(m_pCamera[m_mainCamera]);
 
 	LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
 	CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
@@ -71,10 +75,14 @@ SceneGame::~SceneGame()
 	{
 		delete m_pCamera[i];
 	}
+
+	delete m_pEffect;
 }
 
 void SceneGame::Update()
 {
+	m_pEffect->Update();
+
 	if (m_mainCamera == E_CAM_EVENT)
 	{
 		CameraEvent* pEvent = reinterpret_cast<CameraEvent*>(m_pCamera[m_mainCamera]);
@@ -126,6 +134,11 @@ void SceneGame::Update()
 		m_pLayer[E_LAYER_GAME] = temp;
 	}
 
+	if (IsKeyPress('Z'))
+	{
+		m_pEffect->AtkEffect(-7.6f, 3.25f, 0.0f);
+	}
+
 	//ƒS[ƒ‹‚È‚çƒtƒ‰ƒO‚ðtrue‚É‚·‚é
 	if (m_GameStatus == E_GAME_STATUS_GOAL)
 	{
@@ -148,6 +161,8 @@ void SceneGame::Draw()
 		if (!m_pLayer[i])	continue;
 		m_pLayer[i]->Draw();
 	}
+
+	//m_pEffect->Draw();
 }
 
 CameraBase * SceneGame::GetCamera()
