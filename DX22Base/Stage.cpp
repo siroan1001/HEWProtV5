@@ -166,6 +166,14 @@ Stage::~Stage()
 	m_Info.clear();
 }
 
+void Stage::Update()
+{
+	for (int i = 0; i < m_Shadow.size(); i++)
+	{
+		m_Shadow[i]->Update();
+	}
+}
+
 void Stage::Draw()
 {
 	CameraBase* cam = SceneGame::GetCamera();

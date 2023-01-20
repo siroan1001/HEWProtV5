@@ -7,6 +7,9 @@
 #include "Input.h"
 #include "controller.h"
 
+Def::Info g_temp;
+bool g_flag;
+
 LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status)
 {
 	m_pCamera = camera;
@@ -83,6 +86,8 @@ LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status)
 	m_pChasingShadow->SetPlayer(m_pPlayer);
 
 	m_GameStatus = status;
+	g_flag = false;
+	g_temp = {};
 }
 
 LayerGame::~LayerGame()
@@ -109,6 +114,8 @@ LayerGame::~LayerGame()
 
 void LayerGame::Update()
 {
+	g_flag = false;
+
 	//m_pShadowBlock->Update();
 	m_pLight->Update();
 
@@ -139,6 +146,7 @@ void LayerGame::Update()
 	//	m_pEnemys[i]->Update();
 	//}
 
+	m_pStage->Update();
 
 	CheckCollision();
 }
@@ -175,6 +183,15 @@ void LayerGame::Draw()
 	m_pGoalObj->Draw();
 
 	m_pObstacle->Draw();
+
+	//if (g_flag)
+	//{
+	//	SetGeometoryTranslate(g_temp.pos.x, g_temp.pos.y, g_temp.pos.z);
+	//	SetGeometoryScaling(g_temp.size.x, g_temp.size.y, g_temp.size.z);
+	//	SetGeometoryRotation(g_temp.rot.x, g_temp.rot.y, g_temp.rot.z);
+	//	SetGeometoryColor(XMFLOAT3(10.0f, 0.0f, 0.0f));
+	//	DrawBox();
+	//}
 }
 
 Player * LayerGame::GetPlayer()
@@ -297,6 +314,7 @@ void LayerGame::CheckCollision()
 
 
 
+
 				if (init->use)
 				{//存在する（引き戻しの処理）
 					Def::Info Oplayer = m_pPlayer->GetOldInfo();		//前フレームの情報
@@ -358,11 +376,52 @@ void LayerGame::CheckCollision()
 				{//存在しない（消し続ける処理）
 					if (Collision::RectAndRect(player, shadow))		//プレイヤーとブロックが当たっているか
 					{
-						init->life -= m_pLight->GetPower();
-						if (init->life <= 0.0f)
+						//init->life -= m_pLight->GetPower();
+						//if (init->life <= 0.0f)
+						//{
+						//	init->life = 0.0f;
+						//	init->use = false;
+						//}
+
+						XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
+						Def::Info PlayerBot;
+						//Def::Info PlayerTop;
+						g_flag = true;
+						PlayerBot  = m_pPlayer->GetInfo();
+						PlayerBot.size.y = 0.04f;		//足元の大きさ
+						//PlayerBot.pos.y -= 0f;
+						g_temp = PlayerBot;
+						//PlayerBot.pos.y += PlayerBot.size.y / 2.0f;		//プレイヤーの元の座標から足元の大きさ分ずらす
+						//PlayerTop.size.y -= PlayerBot.size.y + 0.02f;		//体の大きさ（プレイヤー全体から足元の大きさを引いた大きさ）
+						//PlayerTop.pos.y += PlayerBot.size.y + PlayerTop.size.y / 2.0f;	//プレイヤーの元の座標から足元の大きさ分と体の半分ずらす
+
+	
+
 						{
-							init->life = 0.0f;
-							init->use = false;
+							//bool bTop = Collision::RectAndRect(PlayerTop, shadow);		//体がブロックと当たっているか
+							bool bBot = Collision::RectAndRect(PlayerBot, shadow);		//足元がブロックと当たっているか
+							if (bBot)		//足元は当たっていて体は当たっていない場合段差を無視する
+							{//上
+								init->life += 2.0f;
+								if (init->life >= 30.0f)
+								{
+									init->life = 30.0f;
+									init->use = true;
+									pos.y += init->Info.size.y / 2.0f;
+									m_pPlayer->SetPos(pos);
+								}
+							}
+							else
+							{//横
+								init->life -= m_pLight->GetPower();
+								if (init->life <= 0.0f)
+								{
+									init->life = 0.0f;
+									init->use = false;
+								}
+								
+								
+							}
 						}
 					}
 				}
