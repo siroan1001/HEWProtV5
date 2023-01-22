@@ -26,7 +26,7 @@ struct VS_OUT {
 	float2 uv     : TEXCOORD0;
     float3 normal : NORMAL;
 	float4 color  : COLOR0;
-    float4 wPos   : TEXCOORD1;
+    float3 wPos   : TEXCOORD1;
 };
 cbuffer Matrix : register(b0) {
 	float4x4 world;
@@ -62,7 +62,7 @@ struct PS_IN {
 	float2 uv     : TEXCOORD0;
     float3 normal : NORMAL;
 	float4 color  : COLOR0;
-    float4 wPos   : TEXCOORD1;
+    float3 wPos   : TEXCOORD1;
 };
 cbuffer LIGHT : register(b0) {
     float3 spPos;
@@ -112,7 +112,6 @@ float3 CalcLightFromSpotLight(PS_IN pin)
 		float uv[2];
 		float normal[3];
 	} vtx[] = {
-		//--- 法線を追加
 		{{-0.5f, 0.5f, 0.0f},  {0.0f, 0.0f}, { 0.0f, 0.0f, -1.0f }},
 		{{ 0.5f, 0.5f, 0.0f},  {1.0f, 0.0f}, { 0.0f, 0.0f, -1.0f }},
 		{{-0.5f,-0.5f, 0.0f},  {0.0f, 1.0f}, { 0.0f, 0.0f, -1.0f }},
@@ -149,20 +148,18 @@ float3 CalcLightFromSpotLight(PS_IN pin)
 	m_pVS = m_pDefVS;
 	m_pPS = m_pDefPS;
 
-	//--- ライトの初期化クラスの生成
 	m_pLight = new Lig;
-	//--- m_ConBufLigのサイズで定数バッファを作成
 	m_pBufLig = new ConstantBuffer();
 	m_pBufLig->Create(sizeof(m_ConBufLig));
-	//--- ライトの情報を初期化
 	m_ConBufLig.eyePos = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_pLight->InitSpLig(m_ConBufLig);
 	m_pLight->InitAmLig(m_ConBufLig);
-	//--- ライトの情報を定数バッファに書き込み
 	m_pBufLig->Write(&m_ConBufLig);
 }
 void Sprite::Uninit()
 {
+	delete m_pBufLig;
+	delete m_pLight;
 	delete m_pDefPS;
 	delete m_pDefVS;
 	delete m_pBuf[1];
@@ -177,9 +174,7 @@ void Sprite::Draw()
 	m_pBuf[0]->BindVS(0);
 	m_pBuf[1]->Write(m_param);
 	m_pBuf[1]->BindVS(1);
-	//--- ライトの情報を書きこみ
 	m_pBufLig->Write(&m_ConBufLig);
-	//--- ライトをPixelShaderの0番のレジスタに書き込み
 	m_pBufLig->BindPS(0);
 	SetTexturePS(m_pTexture, 0);
 	m_pMesh->Draw();

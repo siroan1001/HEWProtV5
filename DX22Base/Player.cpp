@@ -34,6 +34,7 @@ Player::Player(Collision::Direction dire)
 
 	//頂点シェーダをモデルに設定
 	m_pModel->SetVertexShader(m_pVS);
+	m_pModel->SetPixelShader(m_pPS);
 
 	//WVP生成
 	//m_pWVP = new ConstantBuffer;

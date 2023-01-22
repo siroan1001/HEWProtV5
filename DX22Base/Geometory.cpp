@@ -80,6 +80,7 @@ HRESULT InitGeometory()
 }
 void UninitGeometory()
 {
+	delete g_pLight;
 	GEOMETORY_SAFE_DELETE(g_pGeometoryCone);
 	GEOMETORY_SAFE_DELETE(g_pGeometoryCapsule);
 	GEOMETORY_SAFE_DELETE(g_pGeometoryCylinder);

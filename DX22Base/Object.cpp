@@ -1,7 +1,12 @@
 #include "Object.h"
+#include "Geometory.h"
 
 VertexShader* Object::m_pVS = NULL;
 ConstantBuffer* Object::m_pWVP = NULL;
+PixelShader* Object::m_pPS = NULL;
+ConstantBuffer* Object::m_pBufLight = NULL;
+Lig* Object::m_pObjLight = NULL;
+Lig::Light Object::m_ObjLight;
 
 Object::Object()
 	:m_pModel(NULL)
@@ -31,10 +36,28 @@ void Object::Init()
 		MessageBox(NULL, "pWVP作成失敗", "エラー", MB_OK);
 	}
 
+	m_pPS = new PixelShader;
+	if (FAILED(m_pPS->Load("Assets/Shader/ModelPS.cso")))
+	{
+		MessageBox(nullptr, "ModelPS.cso", "Error", MB_OK);
+	}
+	m_pBufLight = new ConstantBuffer();
+	if (FAILED(m_pBufLight->Create(sizeof(Lig::Light))))
+	{
+		MessageBox(NULL, "m_pLight", "Error", MB_OK);
+	}
+
+	m_ObjLight.eyePos = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	m_pObjLight = new Lig;
+	m_pObjLight->InitSpLig(m_ObjLight);
+	m_pObjLight->InitAmLig(m_ObjLight);
 }
 
 void Object::Uninit()
 {
+	delete m_pObjLight;
+	delete m_pBufLight;
+	delete m_pPS;
 	delete m_pWVP;
 	delete m_pVS;
 }
@@ -50,6 +73,9 @@ void Object::Draw()
 	mat[2] = m_pCamera->GetProjectionMatrix(CameraBase::CameraAngle::E_CAM_ANGLE_PERSPECTIVEFOV);	//プロジェクション行列
 	m_pWVP->Write(mat);		//WVP設定
 	m_pWVP->BindVS(0);
+	m_ObjLight = GetLig();
+	m_pBufLight->Write(&m_ObjLight);
+	m_pBufLight->BindPS(0);
 	m_pModel->Draw();
 }
 

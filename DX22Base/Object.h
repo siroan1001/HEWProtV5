@@ -8,6 +8,7 @@
 #include "Shader.h"
 #include "ConstantBuffer.h"
 #include "Def.h"
+#include "Lig.h"
 
 using namespace DirectX;
 
@@ -31,7 +32,10 @@ protected:
 	CameraBase* m_pCamera;
 	static VertexShader* m_pVS;
 	static ConstantBuffer* m_pWVP;	
-
+	static PixelShader* m_pPS;
+	static ConstantBuffer* m_pBufLight;
+	static Lig::Light m_ObjLight;
+	static Lig* m_pObjLight;
 };
 
 #endif // !_____OBJECT_H____
