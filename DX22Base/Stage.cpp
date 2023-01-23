@@ -176,7 +176,7 @@ void Stage::Update()
 
 void Stage::Draw()
 {
-	CameraBase* cam = SceneGame::GetCamera();
+	CameraBase* cam = Game3D::GetCamera();
 
 	for (int i = 0; i < m_Info.size(); i++)
 	{

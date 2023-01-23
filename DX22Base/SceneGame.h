@@ -16,15 +16,15 @@
 class SceneGame : public SceneBace
 {
 public:
-	enum CameraKind
-	{
-		E_CAM_MAIN = 0,
-		E_CAM_EVENT,
-		E_CAM_DELAY,
-		E_CAM_DEBUG,
+	//enum CameraKind
+	//{
+	//	E_CAM_MAIN = 0,
+	//	E_CAM_EVENT,
+	//	E_CAM_DELAY,
+	//	E_CAM_DEBUG,
 
-		E_CAM_MAX
-	};
+	//	E_CAM_MAX
+	//};
 	enum LayerKind
 	{
 		E_LAYER_BG = 0,
@@ -62,11 +62,12 @@ public:
 	void Update();
 	void Draw();
 
-	static CameraBase* GetCamera();
+	//static CameraBase* GetCamera();
 	static GameStatus GetGameStatus();
 	static void SetGameStatus(GameStatus);
+	static StageNumber GetStageNum();
 
-	void CameraReset();
+	//void CameraReset();
 
 private:
 	void StageTutoRial();
@@ -77,11 +78,12 @@ private:
 
 private:
 	BlendState* m_pBlend;
-	static CameraBase* m_pCamera[E_CAM_MAX];
-	static CameraKind m_mainCamera;
+	//static CameraBase* m_pCamera[E_CAM_MAX];
+	//static CameraKind m_mainCamera;
 	Layer* m_pLayer[E_LAYER_MAX];
 	static GameStatus m_GameStatus;
 	//EffectManager* m_pEffect;
+	static StageNumber m_StageNuber;
 
 };
 

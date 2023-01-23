@@ -19,7 +19,7 @@ Billboard::~Billboard()
 
 void Billboard::Draw()
 {
-	CameraBase* cam = SceneGame::GetCamera();
+	CameraBase* cam = Game3D::GetCamera();
 	Sprite::SetView(cam->GetViewMatrix());
 	Sprite::SetProjection(cam->GetProjectionMatrix(CameraBase::E_CAM_ANGLE_PERSPECTIVEFOV));
 	XMFLOAT4X4 inv;	//‹ts—ñ‚ÌŠi”[æ

@@ -182,7 +182,7 @@ void LayerGame::Draw()
 	
 	m_pGoalObj->Draw();
 
-	m_pObstacle->Draw();
+	//m_pObstacle->Draw();
 
 	//if (g_flag)
 	//{

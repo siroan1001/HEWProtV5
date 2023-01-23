@@ -46,7 +46,7 @@ void ShadowBlock::Draw()
 	Def::Info info;		//計算用
 	float PosL;		//ブロックの左端を示す
 	int count;
-	CameraBase* cam = SceneGame::GetCamera();
+	CameraBase* cam = Game3D::GetCamera();
 
 	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
 	{

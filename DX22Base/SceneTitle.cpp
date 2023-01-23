@@ -20,7 +20,7 @@ void SceneTitle::Update()
 {
 	m_pBG;
 
-	if (IsKeyPress(VK_RETURN))
+	if (IsKeyPress(VK_SPACE))
 	{
 		//ƒGƒ“ƒ^[‚ğ‰Ÿ‚µ‚½‚çØ‚è‘Ö‚¦
 		Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
