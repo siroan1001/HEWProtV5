@@ -19,6 +19,7 @@ public:
 	~Game3D();
 	void Update();
 	void Draw();
+	static void SetScene(SceneKind nextScene);
 
 private:
 	static SceneBace* m_pScene[E_SCENE_KIND_MAX];

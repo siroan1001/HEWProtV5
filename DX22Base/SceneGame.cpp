@@ -18,7 +18,7 @@ SceneGame::CameraKind SceneGame::m_mainCamera;
 CameraBase* SceneGame::m_pCamera[];
 SceneGame::GameStatus SceneGame::m_GameStatus;
 
-SceneGame::SceneGame()
+SceneGame::SceneGame(StageNumber stagenum)
 {
 	//‰æ‘œ‡¬•û–@‚ÌÝ’è
 	m_pBlend = new BlendState;
@@ -36,27 +36,37 @@ SceneGame::SceneGame()
 
 	//m_pEffect = new EffectManager;
 
-	CameraMain* pMain = new CameraMain;
-	pMain->SetLook(XMFLOAT3(-5.0f, 4.05f, 0.0f));
-	m_pCamera[E_CAM_MAIN] = pMain;
-	CameraEvent* pEvent = new CameraEvent();
-	pEvent->SetEvent(XMFLOAT3(-3.0f, 4.25f, 3.0f), XMFLOAT3(-3.0f, 4.25f, 3.0f), 3.0f);
-	m_pCamera[E_CAM_EVENT] = pEvent;
-	CameraDelay* pDelay = new CameraDelay;
-	pDelay->SetCamera(XMFLOAT3(-4.3f, 4.25f, 0.0f), 3.0f, 1.0f);
-	m_pCamera[E_CAM_DELAY] = pDelay;
-	m_pCamera[E_CAM_DEBUG] = new CameraDebug;
+	//CameraMain* pMain = new CameraMain;
+	//pMain->SetLook(XMFLOAT3(-5.0f, 4.05f, 0.0f));
+	//m_pCamera[E_CAM_MAIN] = pMain;
+	//CameraEvent* pEvent = new CameraEvent();
+	//pEvent->SetEvent(XMFLOAT3(-3.0f, 4.25f, 3.0f), XMFLOAT3(-3.0f, 4.25f, 3.0f), 3.0f);
+	//m_pCamera[E_CAM_EVENT] = pEvent;
+	//CameraDelay* pDelay = new CameraDelay;
+	//pDelay->SetCamera(XMFLOAT3(-4.3f, 4.25f, 0.0f), 3.0f, 1.0f);
+	//m_pCamera[E_CAM_DELAY] = pDelay;
+	//m_pCamera[E_CAM_DEBUG] = new CameraDebug;
 
-	m_pLayer[E_LAYER_BG] = new LayerBG;		//‚±‚ê
-	m_pLayer[E_LAYER_BUCK_OBJECT] = NULL;
-	m_pLayer[E_LAYER_GAME] = new LayerGame(m_pCamera[m_mainCamera], &m_GameStatus);		//‚±‚ê
-	m_pLayer[E_LAYER_UI] = NULL;
+	//m_pLayer[E_LAYER_BG] = new LayerBG;		//‚±‚ê
+	//m_pLayer[E_LAYER_BUCK_OBJECT] = NULL;
+	//m_pLayer[E_LAYER_GAME] = new LayerGame(m_pCamera[m_mainCamera], &m_GameStatus);		//‚±‚ê
+	//m_pLayer[E_LAYER_UI] = NULL;
 
-	EffectManager::SetCamera(m_pCamera[m_mainCamera]);
+	//EffectManager::SetCamera(m_pCamera[m_mainCamera]);
 
-	LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
-	CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
-	camera->SetPlayer(layer->GetPlayer());
+	//LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
+	//CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
+	//camera->SetPlayer(layer->GetPlayer());
+
+	switch (stagenum)
+	{
+	case E_STAGE_NUMBER_STAGE_1:
+		Stage1();
+		break;
+	default:
+		break;
+	}
+
 
 	m_GameStatus = E_GAME_STATUS_START;
 }
@@ -190,4 +200,45 @@ void SceneGame::CameraReset()
 	CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
 	camera->SetPlayer(layer->GetPlayer());
 
+}
+
+void SceneGame::StageTutoRial()
+{
+}
+
+void SceneGame::Stage1()
+{
+	CameraMain* pMain = new CameraMain;
+	pMain->SetLook(XMFLOAT3(-5.0f, 4.05f, 0.0f));
+	m_pCamera[E_CAM_MAIN] = pMain;
+	CameraEvent* pEvent = new CameraEvent();
+	pEvent->SetEvent(XMFLOAT3(-3.0f, 4.25f, 3.0f), XMFLOAT3(-3.0f, 4.25f, 3.0f), 3.0f);
+	m_pCamera[E_CAM_EVENT] = pEvent;
+	CameraDelay* pDelay = new CameraDelay;
+	pDelay->SetCamera(XMFLOAT3(-4.3f, 4.25f, 0.0f), 3.0f, 1.0f);
+	m_pCamera[E_CAM_DELAY] = pDelay;
+	m_pCamera[E_CAM_DEBUG] = new CameraDebug;
+
+	m_pLayer[E_LAYER_BG] = new LayerBG;		//‚±‚ê
+	m_pLayer[E_LAYER_BUCK_OBJECT] = NULL;
+	m_pLayer[E_LAYER_GAME] = new LayerGame(m_pCamera[m_mainCamera], &m_GameStatus, E_STAGE_NUMBER_STAGE_1);		//‚±‚ê
+	m_pLayer[E_LAYER_UI] = NULL;
+
+	EffectManager::SetCamera(m_pCamera[m_mainCamera]);
+
+	LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
+	CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
+	camera->SetPlayer(layer->GetPlayer());
+}
+
+void SceneGame::Stage2()
+{
+}
+
+void SceneGame::Stage3()
+{
+}
+
+void SceneGame::Stage4()
+{
 }

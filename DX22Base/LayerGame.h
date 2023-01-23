@@ -30,7 +30,7 @@ class LayerGame	: public Layer
 //	};
 
 public:
-	LayerGame(CameraBase*, SceneGame::GameStatus*);
+	LayerGame(CameraBase*, SceneGame::GameStatus*, SceneGame::StageNumber);
 	~LayerGame();
 	void Update();
 	void Draw();

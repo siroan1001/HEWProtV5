@@ -16,6 +16,7 @@ Obstacle::Obstacle()
 	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_BOX);
 
 	m_pModel->SetVertexShader(m_pVS);
+	m_pModel->SetPixelShader(m_pPS);
 }
 
 void Obstacle::Update()

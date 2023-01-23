@@ -10,11 +10,11 @@
 Def::Info g_temp;
 bool g_flag;
 
-LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status)
+LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status, SceneGame::StageNumber stagenum)
 {
 	m_pCamera = camera;
 
-	//ステージの生成
+	//ステージの生成(他のステージの読み込みどうしよう)
 	m_pStage = new Stage;
 
 	//プレイヤーの生成

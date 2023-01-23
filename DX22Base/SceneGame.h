@@ -45,9 +45,19 @@ public:
 
 		E_GAME_STATUS_MAX
 	};
+	enum StageNumber
+	{
+		E_STAGE_NUMBER_STAGE_TUTORIAL = 0,
+		E_STAGE_NUMBER_STAGE_1,
+		E_STAGE_NUMBER_STAGE_2,
+		E_STAGE_NUMBER_STAGE_3,
+		E_STAGE_NUMBER_STAGE_4,
+
+		E_STAGE_NUMBER_STAGE_MAX
+	};
 
 public:
-	SceneGame();
+	SceneGame(StageNumber);
 	~SceneGame();
 	void Update();
 	void Draw();
@@ -57,6 +67,13 @@ public:
 	static void SetGameStatus(GameStatus);
 
 	void CameraReset();
+
+private:
+	void StageTutoRial();
+	void Stage1();
+	void Stage2();
+	void Stage3();
+	void Stage4();
 
 private:
 	BlendState* m_pBlend;
