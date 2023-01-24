@@ -5,11 +5,22 @@
 
 using namespace DirectX;
 
-BG::BG()
+BG::BG(BG::BGKind bg)
 {
-	LoadTextureFromFile("Assets/ForestBG.jpg", &m_pTex);
+	switch (bg)
+	{
+	case E_BG_KIND_TITLE:
+		LoadTextureFromFile("Assets/TitleBG.jpg", &m_pTex);
+		break;
+	case E_BG_KIND_FOREST:
+		LoadTextureFromFile("Assets/ForestBG.jpg", &m_pTex);
+		break;
+	default:
+		break;
+	}
+	
 	CameraBase* cam = Game3D::GetCamera();
-	m_Info.Pos = XMFLOAT3(cam->GetPos().x, cam->GetPos().y, 1.0f);
+	m_Info.Pos = XMFLOAT3(cam->GetPos().x, cam->GetPos().y, -2.7f);
 	m_Info.Size = XMFLOAT2(10.0f, 5.625f);
 }
 

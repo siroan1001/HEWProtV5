@@ -165,6 +165,7 @@
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyDefault.cpp" />
     <ClCompile Include="EnemyRoundTrip.cpp" />
+    <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Game3D.cpp" />
     <ClCompile Include="Geometory.cpp" />
     <ClCompile Include="Goal.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyDefault.h" />
     <ClInclude Include="EnemyRoundTrip.h" />
+    <ClInclude Include="Fade.h" />
     <ClInclude Include="Game3D.h" />
     <ClInclude Include="Geometory.h" />
     <ClInclude Include="Goal.h" />
@@ -260,6 +262,9 @@
     <ClInclude Include="WinUtil.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="FadePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="ModelPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
     </FxCompile>

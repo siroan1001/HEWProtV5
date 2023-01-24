@@ -2,7 +2,7 @@
 
 LayerBG::LayerBG()
 {
-	m_pBG = new BG;
+	m_pBG = new BG(BG::E_BG_KIND_FOREST);
 }
 
 LayerBG::~LayerBG()

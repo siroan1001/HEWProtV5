@@ -8,7 +8,7 @@ SceneClear::SceneClear()
 	:m_flame(0)
 {
 	m_pClearBill = new ClearBillboard;
-	m_pBG = new BG;
+	m_pBG = new BG(BG::E_BG_KIND_FOREST);
 
 	m_ClearStatus = E_CLEAR_STATUS_START;
 }

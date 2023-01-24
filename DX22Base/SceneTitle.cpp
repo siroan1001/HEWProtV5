@@ -6,7 +6,7 @@
 SceneTitle::SceneTitle()
 {
 	//m_TitleUI = new TitleUI;
-	m_pBG = new BG;
+	m_pBG = new BG(BG::E_BG_KIND_TITLE);
 }
 
 SceneTitle::~SceneTitle()
