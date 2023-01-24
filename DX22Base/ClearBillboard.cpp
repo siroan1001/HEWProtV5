@@ -9,7 +9,7 @@ ClearBillboard::ClearBillboard()
 	LoadTextureFromFile("Assets/ClearSprite.png", &m_pTex);
 	CameraBase* cam = Game3D::GetCamera();
 	m_Info.Pos = XMFLOAT3(cam->GetPos().x, cam->GetPos().y, 1.0f);
-	m_Info.Size = XMFLOAT2(5.2f, 3.9f);
+	m_Info.Size = XMFLOAT2(2.0f, 2.0f);
 	m_uvScale = { 1.0f / m_uv.U, 1.0f / m_uv.V };
 	AnimFlame = 0;
 }

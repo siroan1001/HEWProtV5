@@ -148,12 +148,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationBillboard.cpp" />
     <ClCompile Include="BG.cpp" />
     <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="CameraEvent.cpp" />
     <ClCompile Include="CameraPlayer.cpp" />
     <ClCompile Include="ChasingShadow.cpp" />
+    <ClCompile Include="ClearBillboard.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="controller.cpp" />
@@ -180,10 +182,13 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ResultBillboard.cpp" />
     <ClCompile Include="ReverseBlock.cpp" />
     <ClCompile Include="SamplerState.cpp" />
     <ClCompile Include="SceneBace.cpp" />
+    <ClCompile Include="SceneClear.cpp" />
     <ClCompile Include="SceneGame.cpp" />
+    <ClCompile Include="SceneResult.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShadowBillBoard.cpp" />
@@ -196,6 +201,7 @@
     <ClCompile Include="WinUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationBillboard.h" />
     <ClInclude Include="BG.h" />
     <ClInclude Include="Billboard.h" />
     <ClInclude Include="BlendState.h" />
@@ -207,6 +213,7 @@
     <ClInclude Include="CameraMain.h" />
     <ClInclude Include="CameraPlayer.h" />
     <ClInclude Include="ChasingShadow.h" />
+    <ClInclude Include="ClearBillboard.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="controller.h" />
@@ -235,10 +242,13 @@
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Quadtree.h" />
+    <ClInclude Include="ResultBillboard.h" />
     <ClInclude Include="ReverseBlock.h" />
     <ClInclude Include="SamplerState.h" />
     <ClInclude Include="SceneBace.h" />
+    <ClInclude Include="SceneClear.h" />
     <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="SceneResult.h" />
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShadowBillBoard.h" />

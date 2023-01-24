@@ -48,7 +48,7 @@ void SceneResult::Update()
 			m_ResultStatus = E_RESULT_STATUS_START;
 		}
 		break;
-	case SceneResult::E_GAME_STATUS_MAX:
+	case SceneResult::E_RESULT_STATUS_MAX:
 		break;
 	default:
 		break;
