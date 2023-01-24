@@ -58,6 +58,10 @@ Player::Player(Collision::Direction dire)
 
 void Player::Update()
 {
+	// シーンゲームの情報取得
+	SceneGame* pScene = static_cast<SceneGame*>(Game3D::GetScene());
+	pScene->GetGameStatus();
+
 	//移動量カット
 	m_Move = { 0.0f, m_Move.y, 0.0f };
 
@@ -81,6 +85,11 @@ void Player::Update()
 	else m_Spead = PLAYER_MOVE_NORMAL;
 
 	m_IsColEnemy = false;
+
+	if (pScene->GetGameStatus() == SceneGame::E_GAME_STATUS_GOAL)
+	{
+		m_Spead = 0.0f;
+	}
 
 	// 自動移動
 	switch (m_Direction)
@@ -117,6 +126,8 @@ void Player::Update()
 	//重力加算
 	m_Move.y -= 0.01f;
 
+
+
 	//移動量反映
 	m_Info.pos.x += m_Move.x;
 	m_Info.pos.y += m_Move.y;
@@ -133,6 +144,7 @@ void Player::Update()
 		m_Info.pos.y = 5.0f;
 		m_Move.y = 0.0f;
 	}
+
 }
 
 void Player::SetPos(XMFLOAT3 pos)

@@ -123,6 +123,7 @@ void LayerGame::Update()
 
 	//プレイヤーの更新
 	//カメラがPlayerCameraの場合のみ処理する
+	//m_pPlayer->SetStatus(m_GameStatus);
 	m_pPlayer->Update();
 
 	//敵の更新
