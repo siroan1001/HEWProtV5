@@ -7,6 +7,8 @@ PixelShader* Object::m_pPS = NULL;
 ConstantBuffer* Object::m_pBufLight = NULL;
 Lig* Object::m_pObjLight = NULL;
 Lig::Light Object::m_ObjLight;
+ConstantBuffer* Object::m_pObjColor = NULL;
+Object::ObjCol Object::m_ObjColor;
 
 Object::Object()
 	:m_pModel(NULL)
@@ -41,16 +43,23 @@ void Object::Init()
 	{
 		MessageBox(nullptr, "ModelPS.cso", "Error", MB_OK);
 	}
+
 	m_pBufLight = new ConstantBuffer();
 	if (FAILED(m_pBufLight->Create(sizeof(Lig::Light))))
 	{
 		MessageBox(NULL, "m_pLight", "Error", MB_OK);
 	}
-
 	m_ObjLight.eyePos = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_pObjLight = new Lig;
 	m_pObjLight->InitSpLig(m_ObjLight);
 	m_pObjLight->InitAmLig(m_ObjLight);
+
+	m_pObjColor = new ConstantBuffer();
+	if (FAILED(m_pObjColor->Create(sizeof(Object::ObjCol))))
+	{
+		MessageBox(NULL, "m_pObjColor", "Error", MB_OK);
+	}
+	m_ObjColor.color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void Object::Uninit()
@@ -76,7 +85,14 @@ void Object::Draw()
 	m_ObjLight = GetLig();
 	m_pBufLight->Write(&m_ObjLight);
 	m_pBufLight->BindPS(0);
+	m_pObjColor->Write(&m_ObjColor);
+	m_pObjColor->BindPS(1);
 	m_pModel->Draw();
+}
+
+void Object::SetObjColor(XMFLOAT4 color)
+{
+	m_ObjColor.color = color;
 }
 
 Def::Info Object::GetInfo()

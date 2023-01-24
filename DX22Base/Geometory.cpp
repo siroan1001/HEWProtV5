@@ -58,7 +58,7 @@ ConstantBuffer* g_pGeometoryWVP;
 ConstantBuffer* g_pGeometoryColor;
 ConstantBuffer* g_pGeometoryLight;
 DirectX::XMFLOAT4X4 g_geometoryMat[E_GEOMETOR_MAT_NUM_MAX];
-struct GeometoryColor { DirectX::XMFLOAT3 Color; float pad; };
+struct GeometoryColor { DirectX::XMFLOAT4 Color; };
 GeometoryColor g_geometoryColor;
 Lig::Light g_geometoryLight;
 Lig* g_pLight;
@@ -107,7 +107,7 @@ void SetGeometoryVPMatrix(DirectX::XMFLOAT4X4 view, DirectX::XMFLOAT4X4 proj, Di
 	g_geometoryMat[2] = proj;
 	g_geometoryLight.eyePos = eyePos;
 }
-void SetGeometoryColor(DirectX::XMFLOAT3 color)
+void SetGeometoryColor(DirectX::XMFLOAT4 color)
 {
 	g_geometoryColor.Color = color;
 }
@@ -380,6 +380,10 @@ void CreateGeometoryCylinder()
 		tempVtx[1].pos = { 0.5f * cosf(XMConvertToRadians(Angle)), 0.5f, 0.5f * sinf(XMConvertToRadians(Angle)) };
 		tempVtx[2].pos = { 0.0f, 0.5f, 0.0f };
 
+		tempVtx[0].normal = { 0.0f, 1.0f, 0.0f };
+		tempVtx[1].normal = { 0.0f, 1.0f, 0.0f };
+		tempVtx[2].normal = { 0.0f, 1.0f, 0.0f };
+
 		tempVtx[0].uv = { tempVtx[0].pos.x + 0.5f, tempVtx[0].pos.z + 0.5f };
 		tempVtx[1].uv = { tempVtx[1].pos.x + 0.5f, tempVtx[1].pos.z + 0.5f };
 		tempVtx[2].uv = { tempVtx[2].pos.x + 0.5f, tempVtx[2].pos.z + 0.5f };
@@ -398,6 +402,10 @@ void CreateGeometoryCylinder()
 		tempVtx[0].pos = { 0.5f * cosf(XMConvertToRadians(Angle)), -0.5f, 0.5f * sinf(XMConvertToRadians(Angle)) };
 		tempVtx[1].pos = { 0.5f * cosf(XMConvertToRadians(Angle + 24)), -0.5f, 0.5f * sinf(XMConvertToRadians(Angle + 24)) };
 		tempVtx[2].pos = { 0.0f, -0.5f, 0.0f };
+
+		tempVtx[0].normal = { 0.0f, -1.0f, 0.0f };
+		tempVtx[1].normal = { 0.0f, -1.0f, 0.0f };
+		tempVtx[2].normal = { 0.0f, -1.0f, 0.0f };
 
 		tempVtx[0].uv = { tempVtx[0].pos.x + 0.5f, tempVtx[0].pos.z + 0.5f };
 		tempVtx[1].uv = { tempVtx[1].pos.x + 0.5f, tempVtx[1].pos.z + 0.5f };
@@ -418,6 +426,11 @@ void CreateGeometoryCylinder()
 		tempVtx[1].pos = { 0.5f * cosf(XMConvertToRadians(Angle + 24))	, 0.5f	, 0.5f * sinf(XMConvertToRadians(Angle + 24)) };
 		tempVtx[2].pos = { 0.5f * cosf(XMConvertToRadians(Angle))		, -0.5f	, 0.5f * sinf(XMConvertToRadians(Angle)) };
 		tempVtx[3].pos = { 0.5f * cosf(XMConvertToRadians(Angle + 24))	, -0.5f	, 0.5f * sinf(XMConvertToRadians(Angle + 24)) };
+
+		tempVtx[0].normal = { 1.0f, 0.0f, 0.0f };
+		tempVtx[1].normal = { 1.0f, 0.0f, 0.0f };
+		tempVtx[2].normal = { 1.0f, 0.0f, 0.0f };
+		tempVtx[3].normal = { 1.0f, 0.0f, 0.0f };
 
 		tempVtx[0].uv = { 0.0f, 0.0f };
 		tempVtx[1].uv = { 1.0f, 0.0f };
@@ -588,7 +601,7 @@ void CreateGeometoryConstantBuffer()
 	g_geometoryMat[0]._44 = 1.0f;
 	g_pGeometoryColor = new ConstantBuffer();
 	g_pGeometoryColor->Create(sizeof(g_geometoryColor));
-	g_geometoryColor.Color = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+	g_geometoryColor.Color = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	UpdateGeometoryColor();
 	g_pGeometoryLight = new ConstantBuffer();
 	g_pGeometoryLight->Create(sizeof(g_geometoryLight));

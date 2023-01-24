@@ -3,7 +3,7 @@
 #include "controller.h"
 
 Light::Light()
-	:m_Info{ {-3.8f, 4.25f, 0.0f}, {0.55f, 0.6f, 0.55f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
+	:m_Info{ {-3.8f, 4.25f, 0.0f}, {0.55f, 0.01f, 0.55f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
 	,m_Power(30.0f)
 {
 
@@ -57,7 +57,8 @@ void Light::Draw()
 	SetGeometoryRotation(m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
 	XMFLOAT3 LigPos = m_Info.pos; LigPos.z += 10.0f;
 	SetGeometorySpLigPos(LigPos);
-	//DrawCylinder();
+	SetGeometoryColor(DirectX::XMFLOAT4(10.0f, 10.0f, 0.0f, 0.5f));
+	DrawCylinder();
 }
 
 float Light::GetRadius()

@@ -15,6 +15,9 @@ cbuffer LIGHT : register(b0) {
 	float3 eyePos;
 	float3 amCol;
 };
+cbuffer COLOR : register(b1) {
+	float4 color;
+};
 Texture2D tex : register(t0);
 SamplerState samp : register(s0);
 float3 CalcLambertFromLight(float3 Direction, float3 Color, float3 Pixelnormal);
@@ -22,7 +25,7 @@ float3 CalcPhongSpecularFromLight(float3 Direction, float3 Color, float3 wPos, f
 float3 CalcLightFromSpotLight(PS_IN pin);
 float4 main(PS_IN pin) : SV_TARGET
 {
-	float4 finalColor = float4(1.0f, 1.0f, 1.0f, 1.0f);
+	float4 finalColor = color;
 	pin.normal = normalize(pin.normal);
 	float3 spotLig = CalcLightFromSpotLight(pin);
 	float3 finalLig = spotLig + amCol;
