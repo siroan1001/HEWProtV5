@@ -10,7 +10,7 @@ class BG : public Billboard
 public:
 	BG();
 	void Update();
-	//void Draw();
+	void Draw();
 
 private:
 

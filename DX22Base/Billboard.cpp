@@ -2,6 +2,7 @@
 #include "SceneGame.h"
 #include "Sprite.h"
 
+
 Billboard::Billboard()
 	:m_Info{ {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f} }
 	,m_pTex(NULL)
