@@ -163,6 +163,14 @@ void SceneGame::Update()
 	//		CameraReset();//カメラリセット関数
 	//	}
 	//}
+	if (m_GameStatus == E_GAME_STATUS_GAMEOVER)
+	{
+		Game3D::SetScene(Game3D::E_SCENE_KIND_RESULT);
+	}
+	if (m_GameStatus == E_GAME_STATUS_GOAL)
+	{
+		Game3D::SetScene(Game3D::E_SCENE_KIND_CLEAR);
+	}
 }
 
 void SceneGame::Draw()

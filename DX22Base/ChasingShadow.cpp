@@ -1,8 +1,8 @@
 #include "ChasingShadow.h"
 
-ChasingShadow::ChasingShadow() 
-	:m_Info{ {-10.0f, 5.0f, 0.0f}, {3.0f, 0.5f, 3.0f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f}}
-	,m_PlDirection(Collision::E_DIRECTION_L)
+ChasingShadow::ChasingShadow()
+	:m_Info{ {-10.0f, 5.0f, 0.0f}, {2.0f, 0.5f, 2.0f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
+	, m_PlDirection(Collision::E_DIRECTION_L)
 {
 }
 
@@ -12,10 +12,18 @@ ChasingShadow::~ChasingShadow()
 
 void ChasingShadow::Update()
 {
-	const float SHADOW_MOVE = 0.01f;
+	const int cn_MaxFlame = 300;
+	m_PosLog.push_back(m_pPlayer->GetInfo().pos);
+
+	if (m_PosLog.size() >= cn_MaxFlame)
+	{
+		m_Info.pos = *m_PosLog.begin();
+		m_PosLog.pop_front();
+	}
+	/*const float SHADOW_MOVE = 0.01f;
 	const float LIMIT = 3.0f;
 
-Collision::Direction PlOldDirection = m_PlDirection;
+	Collision::Direction PlOldDirection = m_PlDirection;
 	m_PlDirection = m_pPlayer->GetDirection();
 
 	XMFLOAT3 PlayerPos = m_pPlayer->GetInfo().pos;
@@ -44,9 +52,9 @@ Collision::Direction PlOldDirection = m_PlDirection;
 			break;
 		}
 	}
-	
 
-	
+
+
 
 	if (PlayerPos.x > m_Info.pos.x)
 	{
@@ -71,7 +79,7 @@ Collision::Direction PlOldDirection = m_PlDirection;
 	if (m_Info.pos.x > PlayerPos.x + LIMIT)
 	{
 		m_Info.pos.x = PlayerPos.x + LIMIT;
-	}
+	}*/
 }
 
 void ChasingShadow::Draw()
@@ -85,4 +93,14 @@ void ChasingShadow::Draw()
 void ChasingShadow::SetPlayer(Player * pPlayer)
 {
 	m_pPlayer = pPlayer;
+}
+
+Def::Info ChasingShadow::GetInfo()
+{
+	return m_Info;
+}
+
+float ChasingShadow::GetRadius()
+{
+	return GetCylinderRadius() * m_Info.size.x;
 }

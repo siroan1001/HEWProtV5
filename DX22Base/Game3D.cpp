@@ -1,6 +1,8 @@
 #include "Game3D.h"
 #include "SceneGame.h"
 #include "SceneTitle.h"
+#include "SceneResult.h"
+#include "SceneClear.h"
 #include "CameraMain.h"
 #include "CameraEvent.h"
 #include "CameraDelay.h"
@@ -28,6 +30,8 @@ Game3D::Game3D()
 
 	m_pScene[E_SCENE_KIND_TITLE] = new SceneTitle;
 	m_pScene[E_SCENE_KIND_GAME] = new SceneGame(SceneGame::E_STAGE_NUMBER_STAGE_1);
+	m_pScene[E_SCENE_KIND_RESULT] = new SceneResult;
+	m_pScene[E_SCENE_KIND_CLEAR] = new SceneClear;
 
 	m_SceneKind = E_SCENE_KIND_TITLE;
 }

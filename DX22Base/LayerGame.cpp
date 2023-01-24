@@ -179,7 +179,7 @@ void LayerGame::Draw()
 	m_pStartObj->Draw();
 
   //追ってくる影の描画
-	//m_pChasingShadow->Draw();
+	m_pChasingShadow->Draw();
 	
 	m_pGoalObj->Draw();
 
@@ -440,6 +440,12 @@ void LayerGame::CheckCollision()
 		}
 	}
 
+	//プレイヤーと追ってくる影
+	if (Collision::RectAndCircle(m_pPlayer->GetInfo(), m_pChasingShadow->GetInfo(), m_pChasingShadow->GetRadius()))
+	{
+		SceneGame::SetGameStatus(SceneGame::E_GAME_STATUS_GAMEOVER);
+	}
+
 	//プレイヤーとスタート板
 	if (*m_GameStatus == SceneGame::E_GAME_STATUS_START)
 	{
@@ -461,6 +467,7 @@ void LayerGame::CheckCollision()
 		}
 	}
 
+	
 	
 	//てきとステージ・シャドウブロックの実装
 	for (int i = 0; i < m_pEnemy.size(); i++)

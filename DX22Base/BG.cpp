@@ -18,3 +18,10 @@ void BG::Update()
 	CameraBase* cam = Game3D::GetCamera();
 	m_Info.Pos = XMFLOAT3(cam->GetPos().x, cam->GetPos().y, -1.0f);
 }
+
+void BG::Draw()
+{
+	Sprite::SetUVPos({ 0.0f,0.0f });
+	Sprite::SetUVScale({ 1.0f,1.0f });
+	Billboard::Draw();
+}
