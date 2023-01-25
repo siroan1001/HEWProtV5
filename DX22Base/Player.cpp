@@ -12,12 +12,12 @@ bool g_Playerflag = true;
 Player::Player(Collision::Direction dire)
 	:m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
-	,m_OldInfo{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
+	,m_OldInfo{ {-7.6f, 3.25f, 0.0f}, {0.3f, 0.35f, 0.3f}, {0.0f, -90.0f, 0.0f} }
 	,m_Direction(dire)
 	,m_Spead(PLAYER_MOVE_NORMAL)
 	,m_IsColEnemy(false)
 {
-	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.4f, 0.3f}, {0.0f, -90.0f, 0.0f} };
+	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.35f, 0.3f}, {0.0f, -90.0f, 0.0f} };
 	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
 
 	//ÉÇÉfÉãì«Ç›çûÇ›

@@ -20,8 +20,8 @@ BG::BG(BG::BGKind bg)
 	}
 	
 	CameraBase* cam = Game3D::GetCamera();
-	m_Info.Pos = XMFLOAT3(cam->GetPos().x, cam->GetPos().y, -2.7f);
-	m_Info.Size = XMFLOAT2(10.0f, 5.625f);
+	m_Info.Pos = XMFLOAT3(cam->GetPos().x, cam->GetPos().y, -0.25f);
+	m_Info.Size = XMFLOAT2(7.0f, 3.938f);
 }
 
 void BG::Update()

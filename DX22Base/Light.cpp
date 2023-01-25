@@ -3,7 +3,7 @@
 #include "controller.h"
 
 Light::Light()
-	:m_Info{ {-3.8f, 4.25f, 0.0f}, {0.45f, 0.0001f, 0.45f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
+	:m_Info{ {-3.8f, 4.25f, -0.20f}, {0.45f, 0.0001f, 0.45f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
 	,m_Power(30.0f)
 {
 
@@ -16,8 +16,8 @@ Light::~Light()
 void Light::Update()
 {
 	XMFLOAT3 CameraPos = m_pCamera->GetPos();
-	float right = CameraPos.x + 2.75f;
-	float left = CameraPos.x - 2.75f;
+	float right = CameraPos.x + 2.0f;
+	float left = CameraPos.x - 2.0f;
 	float ceiling = CameraPos.y + 1.0f;
 	float floor = CameraPos.y - 1.0f;
 
