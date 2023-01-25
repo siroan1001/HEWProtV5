@@ -142,9 +142,13 @@ void DrawSphere()
 void DrawCylinder()
 {
 	UpdateGeometoryMatrix();
+	UpdateGeometoryColor();
+	UpdateGeometoryLight();
 	g_pGeometoryVS->Bind();
 	g_pGeometoryPS->Bind();
 	g_pGeometoryWVP->BindVS(0);
+	g_pGeometoryColor->BindVS(1);
+	g_pGeometoryLight->BindPS(0);
 	g_pGeometoryCylinder->Draw();
 }
 void DrawCone()
@@ -499,7 +503,7 @@ struct VS_OUT {
 	float4 pos    : SV_POSITION;
     float3 normal : NORMAL;
 	float2 uv     : TEXCOORD0;
-    float3 color  : COLOR;
+    float4 color  : COLOR;
 	float4 wPos   : TEXCOORD1;
 };
 cbuffer WVP : register(b0) {
@@ -508,7 +512,7 @@ cbuffer WVP : register(b0) {
 	float4x4 proj;
 };
 cbuffer COLOR : register(b1) {
-    float3 geometoryColor;
+    float4 geometoryColor;
 };
 VS_OUT main(VS_IN vin) {
 	VS_OUT vout;
@@ -527,7 +531,7 @@ struct PS_IN {
 	float4 pos    : SV_POSITION;
     float3 normal : NORMAL;
 	float2 uv     : TEXCOORD0;
-    float3 color  : COLOR;
+    float4 color  : COLOR;
 	float4 wPos   : TEXCOORD1;	
 };
 cbuffer LIGHT : register(b0) {
@@ -544,7 +548,7 @@ float3 CalcPhongSpecularFromLight(float3 Direction, float3 Color, float3 wPos, f
 float3 CalcLightFromSpotLight(PS_IN pin);
 float4 main(PS_IN pin) : SV_TARGET
 {
-	float4 color = float4(pin.color, 1.0f);
+	float4 color = pin.color;
     pin.normal = normalize(pin.normal);
     float3 spotLig = CalcLightFromSpotLight(pin); float3 finalLig = spotLig + amCol;
     color.rgb *= finalLig; 
@@ -572,7 +576,7 @@ float3 CalcLightFromSpotLight(PS_IN pin)
    float angle = dot(spIncidentVec, spDir); angle = abs(acos(angle)); affect = 1.0f - 1.0f / spAng * angle; 
    if (affect < 0.0f) affect = 0.0f;
    affect = pow(affect, 0.5f); diffuseSpLig *= affect; specularSpLig *= affect; 
-   return diffuseSpLig * specularSpLig;
+   return diffuseSpLig + specularSpLig;
 }
 )EOT";
 

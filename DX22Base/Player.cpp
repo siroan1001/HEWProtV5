@@ -7,7 +7,7 @@
 
 //using namespace DirectX;
 
-
+bool g_Playerflag = true;
 
 Player::Player(Collision::Direction dire)
 	:m_Ground(true)
@@ -126,13 +126,16 @@ void Player::Update()
 	//èdóÕâ¡éZ
 	m_Move.y -= 0.01f;
 
-
+	if (IsKeyTrigger('Z'))	
+		g_Playerflag ^= 1;
 
 	//à⁄ìÆó îΩâf
-	m_Info.pos.x += m_Move.x;
-	m_Info.pos.y += m_Move.y;
-	m_Info.pos.z += m_Move.z;
-
+	if (g_Playerflag)
+	{
+		m_Info.pos.x += m_Move.x;
+		m_Info.pos.y += m_Move.y;
+		m_Info.pos.z += m_Move.z;
+	}
 	if (IsKeyTrigger('F'))
 	{
 		EffectManager::SetEffect(EffectManager::E_EFFECT_KIND_ATK, m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);

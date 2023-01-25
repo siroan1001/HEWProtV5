@@ -1,17 +1,18 @@
 #include "EnemyDefault.h"
 #include "ModelList.h"
 #include "Player.h"
+#include "Input.h"
 
 EnemyDefault::EnemyDefault(Collision::Direction dire, XMFLOAT3 pos)
 	:m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
 	,m_Spead(0.001f)
 {
-	m_Info = { {pos.x, pos.y, pos.z}, {0.3f, 0.4f, 0.3f}, {0.0f, -90.0f, 0.0f} };
+	m_Info = { {-5.6f, 3.75f, 0.0f}, { 0.3f, 0.4f, 0.3f }, { 0.0f, -90.0f, 0.0f } };
 	m_OldInfo = m_Info;
-	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
+	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.2f;
 
-	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_PLAYER);
+	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_ENEMY);
 	//m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_ENEMY);
 
 	m_pModel->SetVertexShader(m_pVS);
@@ -46,18 +47,24 @@ void EnemyDefault::Update()
 
 	m_IsColPlayer = false;
 
+	//if (IsKeyPress('N'))
+	//{
+	//	m_Info.rot.y += 1.0f;
+	//}
+
+
 	// é©ìÆà⁄ìÆ
-	switch (m_Direction)
-	{
-	case Collision::E_DIRECTION_L:
-		m_Move.x += m_Spead;
-		break;
-	case Collision::E_DIRECTION_R:
-		m_Move.x -= m_Spead;
-		break;
-	default:
-		break;
-	}
+	//switch (m_Direction)
+	//{
+	//case Collision::E_DIRECTION_L:
+	//	m_Move.x += m_Spead;
+	//	break;
+	//case Collision::E_DIRECTION_R:
+	//	m_Move.x -= m_Spead;
+	//	break;
+	//default:
+	//	break;
+	//}
 
 	//èdóÕâ¡éZ
 	m_Move.y -= 0.01f;
@@ -98,6 +105,11 @@ void EnemyDefault::SetDirection(Collision::Direction dire)
 	default:
 		break;
 	}
+}
+
+void EnemyDefault::SetPos(XMFLOAT3 pos)
+{
+	m_Info.pos = pos;
 }
 
 void EnemyDefault::InitDirectin(int num)

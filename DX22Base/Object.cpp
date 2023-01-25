@@ -88,6 +88,13 @@ void Object::Draw()
 	m_pObjColor->Write(&m_ObjColor);
 	m_pObjColor->BindPS(1);
 	m_pModel->Draw();
+
+
+	//SetGeometoryRotation(0.0f, 0.0f, 0.0f);
+	//SetGeometoryScaling(0.1f, 0.1f, 0.5f);
+	//SetGeometoryTranslate(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
+	//SetGeometoryColor(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+	//DrawBox();
 }
 
 void Object::SetObjColor(XMFLOAT4 color)

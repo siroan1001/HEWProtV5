@@ -150,6 +150,13 @@ void LayerGame::Update()
 	m_pStage->Update();
 
 	CheckCollision();
+
+	//m_pEnemy[0]->SetPos(m_pPlayer->GetInfo().pos);
+
+
+
+
+
 }
 
 void LayerGame::Draw()
@@ -441,10 +448,10 @@ void LayerGame::CheckCollision()
 	}
 
 	//プレイヤーと追ってくる影
-	if (Collision::RectAndCircle(m_pPlayer->GetInfo(), m_pChasingShadow->GetInfo(), m_pChasingShadow->GetRadius()))
-	{
-		SceneGame::SetGameStatus(SceneGame::E_GAME_STATUS_GAMEOVER);
-	}
+	//if (Collision::RectAndCircle(m_pPlayer->GetInfo(), m_pChasingShadow->GetInfo(), m_pChasingShadow->GetRadius()))
+	//{
+	//	SceneGame::SetGameStatus(SceneGame::E_GAME_STATUS_GAMEOVER);
+	//}
 
 	//プレイヤーとスタート板
 	if (*m_GameStatus == SceneGame::E_GAME_STATUS_START)
@@ -477,7 +484,6 @@ void LayerGame::CheckCollision()
 		num = 0;		//敵用にリセット
 		EnemyDefault* enemy = reinterpret_cast<EnemyDefault*>(m_pEnemy[i]);
 
-
 		//敵とStageの当たり判定
 		for (num = 0; num < m_pStage->GetStageNum(); num++)
 		{
@@ -485,8 +491,8 @@ void LayerGame::CheckCollision()
 			Def::Info stage = m_pStage->GetInfo(num);		//ステージブロックの情報
 			enemyinfo = m_pEnemy[i]->GetInfo();				//敵の情報（プレイヤーの中心をposとする）
 			Def::Info Oenemy = enemy->GetOldInfo();			//プレイヤーの前フレームの情報
-			enemyinfo.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
-			Oenemy.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
+			//enemyinfo.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
+			//Oenemy.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
 			//どの方向に当たったかを確認する
 			if (Collision::Direction dire = Collision::RectAndRectDirection(enemyinfo, Oenemy, stage, enemy->GetStageCollistonDirection(num)))

@@ -219,6 +219,9 @@
     <ClCompile Include="Fade.cpp">
       <Filter>ソース ファイル\System</Filter>
     </ClCompile>
+    <ClCompile Include="SceneStageSelect.cpp">
+      <Filter>ソース ファイル\DX22\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -394,6 +397,9 @@
     </ClInclude>
     <ClInclude Include="Fade.h">
       <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneStageSelect.h">
+      <Filter>ヘッダー ファイル\DX22\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
