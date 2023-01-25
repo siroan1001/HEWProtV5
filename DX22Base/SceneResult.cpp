@@ -26,7 +26,7 @@ void SceneResult::Update()
 	case SceneResult::E_RESULT_STATUS_NOME:
 		break;
 	case SceneResult::E_RESULT_STATUS_START:
-		m_pResultBill->Update(m_flame);
+		m_pResultBill->Update(/*m_flame*/);
 		m_flame++;
 		if (m_flame == m_pResultBill->GetMaxFlame())
 		{
