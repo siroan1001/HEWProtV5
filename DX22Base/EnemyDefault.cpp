@@ -8,14 +8,15 @@ EnemyDefault::EnemyDefault(Collision::Direction dire, XMFLOAT3 pos)
 	,m_Move{0.0f, 0.0f, 0.0f}
 	,m_Spead(0.001f)
 {
-	m_Info = { {-5.6f, 3.75f, 0.0f}, { 0.3f, 0.4f, 0.3f }, { 0.0f, -90.0f, 0.0f } };
+	m_Info = { {-3.5f, 4.5f, 0.0f}, { 0.3f, 0.4f, 0.3f }, { 0.0f, -90.0f, 0.0f } };
 	m_OldInfo = m_Info;
-	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.2f;
+	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.1f;
 
 	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_ENEMY);
 	//m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_ENEMY);
 
 	m_pModel->SetVertexShader(m_pVS);
+	m_pModel->SetPixelShader(m_pPS);
 
 	m_Direction = dire;
 
@@ -47,10 +48,10 @@ void EnemyDefault::Update()
 
 	m_IsColPlayer = false;
 
-	//if (IsKeyPress('N'))
-	//{
-	//	m_Info.rot.y += 1.0f;
-	//}
+	if (IsKeyPress('N'))
+	{
+		m_Info.rot.y += 1.0f;
+	}
 
 
 	// ©“®ˆÚ“®
@@ -67,7 +68,7 @@ void EnemyDefault::Update()
 	//}
 
 	//d—Í‰ÁZ
-	m_Move.y -= 0.01f;
+	//m_Move.y -= 0.01f;
 
 	//ˆÚ“®—Ê”½‰f
 	m_Info.pos.x += m_Move.x;

@@ -20,7 +20,7 @@ public:
 	static void Init();
 	static void Uninit();
 	void Draw();
-	void SetObjColor(XMFLOAT4 color);
+	static void SetObjColor(XMFLOAT4 color);
 
 	Def::Info GetInfo();
 

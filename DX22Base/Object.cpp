@@ -59,7 +59,7 @@ void Object::Init()
 	{
 		MessageBox(NULL, "m_pObjColor", "Error", MB_OK);
 	}
-	m_ObjColor.color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_ObjColor.color = XMFLOAT4(50.0f, 50.0f, 50.0f, 1.0f);
 }
 
 void Object::Uninit()
@@ -80,6 +80,7 @@ void Object::Draw()
 	XMStoreFloat4x4(&mat[0], XMMatrixTranspose(temp));	//ワールド行列
 	mat[1] = m_pCamera->GetViewMatrix();		//ビュー行列
 	mat[2] = m_pCamera->GetProjectionMatrix(CameraBase::CameraAngle::E_CAM_ANGLE_PERSPECTIVEFOV);	//プロジェクション行列
+	//m_ObjColor.color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_pWVP->Write(mat);		//WVP設定
 	m_pWVP->BindVS(0);
 	m_ObjLight = GetLig();
