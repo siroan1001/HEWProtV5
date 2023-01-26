@@ -111,6 +111,10 @@ void SetGeometoryColor(DirectX::XMFLOAT4 color)
 {
 	g_geometoryColor.Color = color;
 }
+void SetGeometoryPtLigPos(DirectX::XMFLOAT3 PtLigPos)
+{
+	g_geometoryLight.ptPos = PtLigPos;
+}
 void SetGeometorySpLigPos(DirectX::XMFLOAT3 pos)
 {
 	g_geometoryLight.spPos = pos;
@@ -535,6 +539,9 @@ struct PS_IN {
 	float4 wPos   : TEXCOORD1;	
 };
 cbuffer LIGHT : register(b0) {
+    float3 ptPos;
+    float3 ptCol;
+	float ptRange;        
     float3 spPos;
     float3 spCol;
     float spRange;
@@ -545,12 +552,14 @@ cbuffer LIGHT : register(b0) {
 };
 float3 CalcLambertFromLight(float3 Direction, float3 Color, float3 Pixelnormal);
 float3 CalcPhongSpecularFromLight(float3 Direction, float3 Color, float3 wPos, float3 Pixelnormal);
+float3 CalcLightFromPointLight(PS_IN pin);
 float3 CalcLightFromSpotLight(PS_IN pin);
 float4 main(PS_IN pin) : SV_TARGET
 {
 	float4 color = pin.color;
     pin.normal = normalize(pin.normal);
-    float3 spotLig = CalcLightFromSpotLight(pin); float3 finalLig = spotLig + amCol;
+    float3 pointLig = CalcLightFromPointLight(pin); float3 spotLig = CalcLightFromSpotLight(pin); 
+    float3 finalLig = pointLig + spotLig + amCol;
     color.rgb *= finalLig; 
 	//float2 mGrid = floor(abs(pin.uv) * 2.0f);
 	//float2 sGrid = floor(abs(pin.uv) * 8.0f);
@@ -565,6 +574,15 @@ float3 CalcLambertFromLight(float3 Direction, float3 Color, float3 Pixelnormal){
 float3 CalcPhongSpecularFromLight(float3 Direction, float3 Color, float3 wPos, float3 Pixelnormal){
    float3 refVec = reflect(Direction, Pixelnormal); float3 toEye = eyePos - wPos; toEye = normalize(toEye);
    float t = dot(refVec, toEye); t = max(0.0f, t); t = pow(t, 3.0f); return Color * t;
+}
+float3 CalcLightFromPointLight(PS_IN pin)
+{
+    float3 ptIncidentVec = pin.wPos - ptPos; ptIncidentVec = normalize(ptIncidentVec);    
+    float3 diffusePtLig = CalcLambertFromLight(ptIncidentVec, ptCol, pin.normal); float3 specularPtLig = CalcPhongSpecularFromLight(ptIncidentVec, ptCol, pin.wPos, pin.normal);
+    float3 distance = length(pin.wPos - ptPos); float affect = 1.0f - 1.0f / ptRange * distance;
+    if (affect < 0.0f) affect = 0.0f;
+    affect = pow(affect, 0.5f); diffusePtLig *= affect; specularPtLig *= affect;
+    return diffusePtLig + specularPtLig;
 }
 float3 CalcLightFromSpotLight(PS_IN pin)
 {
@@ -592,11 +610,9 @@ void CreateGeometoryConstantBuffer()
 {
 	g_pGeometoryWVP = new ConstantBuffer();
 	g_pGeometoryWVP->Create(sizeof(g_geometoryMat));
-
 	g_geometoryTransform[0] = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 	g_geometoryTransform[1] = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 	g_geometoryTransform[2] = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
-
 	UpdateGeometoryMatrix();
 
 	g_geometoryMat[0]._11 = 1.0f;
@@ -610,6 +626,7 @@ void CreateGeometoryConstantBuffer()
 	g_pGeometoryLight = new ConstantBuffer();
 	g_pGeometoryLight->Create(sizeof(g_geometoryLight));
 	g_geometoryLight.eyePos = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	g_pLight->InitPtLig(g_geometoryLight);
 	g_pLight->InitSpLig(g_geometoryLight);
 	g_pLight->InitAmLig(g_geometoryLight);
 	UpdateGeometoryLight();

@@ -7,6 +7,9 @@ struct PS_IN
 };
 
 cbuffer LIGHT : register(b0) {
+	float3 ptPos;
+	float3 ptCol;
+	float ptRange;
 	float3 spPos;
 	float3 spCol;
 	float spRange;
@@ -22,13 +25,14 @@ Texture2D tex : register(t0);
 SamplerState samp : register(s0);
 float3 CalcLambertFromLight(float3 Direction, float3 Color, float3 Pixelnormal);
 float3 CalcPhongSpecularFromLight(float3 Direction, float3 Color, float3 wPos, float3 Pixelnormal);
+float3 CalcLightFromPointLight(PS_IN pin);
 float3 CalcLightFromSpotLight(PS_IN pin);
 float4 main(PS_IN pin) : SV_TARGET
 {
 	float4 finalColor = color;
 	pin.normal = normalize(pin.normal);
-	float3 spotLig = CalcLightFromSpotLight(pin);
-	float3 finalLig = spotLig + amCol;
+	float3 pointLig = CalcLightFromPointLight(pin); float3 spotLig = CalcLightFromSpotLight(pin);
+	float3 finalLig = pointLig + spotLig + amCol;
 	finalColor.rgb *= finalLig;
 	return tex.Sample(samp, pin.uv) * finalColor;
 }
@@ -38,6 +42,15 @@ float3 CalcLambertFromLight(float3 Direction, float3 Color, float3 Pixelnormal) 
 float3 CalcPhongSpecularFromLight(float3 Direction, float3 Color, float3 wPos, float3 Pixelnormal) {
 	float3 refVec = reflect(Direction, Pixelnormal); float3 toEye = eyePos - wPos; toEye = normalize(toEye);
 	float t = dot(refVec, toEye); t = max(0.0f, t); t = pow(t, 3.0f); return Color * t;
+}
+float3 CalcLightFromPointLight(PS_IN pin)
+{
+	float3 ptIncidentVec = pin.wPos - ptPos; ptIncidentVec = normalize(ptIncidentVec);
+	float3 diffusePtLig = CalcLambertFromLight(ptIncidentVec, ptCol, pin.normal); float3 specularPtLig = CalcPhongSpecularFromLight(ptIncidentVec, ptCol, pin.wPos, pin.normal);
+	float3 distance = length(pin.wPos - ptPos); float affect = 1.0f - 1.0f / ptRange * distance;
+	if (affect < 0.0f) affect = 0.0f;
+	affect = pow(affect, 0.5f); diffusePtLig *= affect; specularPtLig *= affect;
+	return diffusePtLig + specularPtLig;
 }
 float3 CalcLightFromSpotLight(PS_IN pin)
 {

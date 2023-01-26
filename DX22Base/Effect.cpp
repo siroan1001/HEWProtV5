@@ -8,7 +8,7 @@ Effekseer::ManagerRef EffectManager::m_efkManager;
 EffekseerRendererDX11::RendererRef EffectManager::m_efkRenderer;
 Effekseer::Handle EffectManager::m_efkHandle;
 CameraBase* EffectManager::m_pCamera;
-Effekseer::EffectRef EffectManager::m_effect1;
+Effekseer::EffectRef EffectManager::m_effect[];
 
 EffectManager::EffectManager()
 //:efkPos(0.0f,0.0f,0.0f)
@@ -36,7 +36,7 @@ EffectManager::EffectManager()
 	//--- effect読み込み
 	// ↓ここでエフェクトのデータ読み込み
 	//m_effect1 = Effekseer::Effect::Create(m_efkManager, u"Assets/effect/charge.efkefc");
-	m_effect1 = Effekseer::Effect::Create(m_efkManager, u"Assets/effect/bakuhatu.efkefc");
+	m_effect[E_EFFECT_KIND_ATK] = Effekseer::Effect::Create(m_efkManager, u"Assets/effect/bakuhatu.efkefc");
 	//m_effect1 = Effekseer::Effect::Create(m_efkManager, u"Assets/effect/bakuhatu.efkefc");
 	//m_effect2 = Effekseer::Effect::Create(m_efkManager, u"Assets/Effect/atk.efkefc");
 }
@@ -44,7 +44,10 @@ EffectManager::EffectManager()
 EffectManager::~EffectManager()
 {
 	//m_effect2.Reset();
-	m_effect1.Reset();
+	for (int i = 0; i < E_EFFECT_KIND_MAX; i++)
+	{
+		m_effect[i].Reset();
+	}
 	m_efkRenderer.Reset();
 	m_efkManager.Reset();
 }
@@ -73,7 +76,8 @@ void EffectManager::Init()
 	//--- effect読み込み
 	// ↓ここでエフェクトのデータ読み込み
 	//m_effect1 = Effekseer::Effect::Create(m_efkManager, u"Assets/effect/charge.efkefc");
-	m_effect1 = Effekseer::Effect::Create(m_efkManager, u"Assets/effect/bakuhatu.efkefc");
+	m_effect[E_EFFECT_KIND_ATK] = Effekseer::Effect::Create(m_efkManager, u"Assets/effect/bakuhatu.efkefc");
+	m_effect[E_EFFECT_KIND_RAIN] = Effekseer::Effect::Create(m_efkManager, u"Assets/effect/rain.efkefc");
 	//m_effect1 = Effekseer::Effect::Create(m_efkManager, u"Assets/effect/bakuhatu.efkefc");
 	//m_effect2 = Effekseer::Effect::Create(m_efkManager, u"Assets/Effect/atk.efkefc");
 
@@ -83,7 +87,10 @@ void EffectManager::Init()
 void EffectManager::Uninit()
 {
 	//m_effect2.Reset();
-	m_effect1.Reset();
+	for (int i = 0; i < E_EFFECT_KIND_MAX; i++)
+	{
+		m_effect[i].Reset();
+	}
 	m_efkRenderer.Reset();
 	m_efkManager.Reset();
 }
@@ -150,8 +157,8 @@ void EffectManager::Draw()
 }
 void EffectManager::SetEffect(EffectKind effect, float x, float y, float z)
 {
-	m_efkHandle = m_efkManager->Play(m_effect1, x, y, z);//0.0.0が座標
-	m_efkManager->SetScale(m_efkHandle, 0.1f, 0.1f, 0.1f);	//サイズ変換
+	m_efkHandle = m_efkManager->Play(m_effect[effect], x, y, z);//0.0.0が座標
+	m_efkManager->SetScale(m_efkHandle, 0.03f, 0.03f, 0.005f);	//サイズ変換
 	//EffectManager::Draw();
 }
 void EffectManager::SetCamera(CameraBase* pCamera)

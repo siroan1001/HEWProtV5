@@ -188,7 +188,7 @@ void LayerGame::Draw()
 	m_pStartObj->Draw();
 
 	//追ってくる影の描画
-	m_pChasingShadow->Draw();
+	//m_pChasingShadow->Draw();
 	
 	m_pGoalObj->Draw();
 

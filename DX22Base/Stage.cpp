@@ -152,13 +152,13 @@ Stage::Stage()
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Info.push_back(info);
 
-	info.pos = { 6.5f, 4.25f, 0.0f };
-	info.size = { 0.2f, 0.2f, 0.5f };
+	info.pos = { 6.5f, 4.275f, 0.0f };
+	info.size = { 0.2f, 0.25f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Info.push_back(info);
 
-	info.pos = { 6.5f, 5.05f, 0.0f };
-	info.size = { 0.2f, 0.2f, 0.5f };
+	info.pos = { 6.5f, 5.075f, 0.0f };
+	info.size = { 0.2f, 0.25f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Info.push_back(info);
 	

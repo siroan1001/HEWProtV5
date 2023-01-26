@@ -3,7 +3,7 @@
 #include "controller.h"
 
 Light::Light()
-	:m_Info{ {-3.8f, 4.25f, -0.20f}, {0.45f, 0.0001f, 0.45f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
+	:m_Info{ {-3.8f, 4.25f, 0.2f}, {0.55f, 0.01f, 0.55f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
 	,m_Power(30.0f)
 {
 
@@ -16,8 +16,8 @@ Light::~Light()
 void Light::Update()
 {
 	XMFLOAT3 CameraPos = m_pCamera->GetPos();
-	float right = CameraPos.x + 2.0f;
-	float left = CameraPos.x - 2.0f;
+	float right = CameraPos.x + 2.75f;
+	float left = CameraPos.x - 2.75f;
 	float ceiling = CameraPos.y + 1.0f;
 	float floor = CameraPos.y - 1.0f;
 
@@ -57,8 +57,8 @@ void Light::Draw()
 	SetGeometoryRotation(m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
 	XMFLOAT3 LigPos = m_Info.pos; LigPos.z += 10.0f;
 	SetGeometorySpLigPos(LigPos);
-	//SetGeometoryColor(DirectX::XMFLOAT4(246.0f / 255.0f, 139.0f / 255.0f, 30.0f / 255.0f, 0.5f));
-	SetGeometoryColor(DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 0.6f));
+	SetGeometoryPtLigPos(m_Info.pos);
+	SetGeometoryColor(DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 0.75f));
 	DrawCylinder();
 }
 

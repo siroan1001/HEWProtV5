@@ -69,13 +69,15 @@ void Player::Update()
 	m_OldInfo = m_Info;
 
 	//ˆÚ“®ˆ—
-	if (IsKeyPress('D'))
+	float x = GetRStick().x;
+
+	if (IsKeyPress('D') || x >= 0.8f)
 	{
 		m_Direction = Collision::E_DIRECTION_R;
 		m_Info.rot.y = -90.0f;
 	}
 		
-	if (IsKeyPress('A'))
+	if (IsKeyPress('A') || x <= -0.8f)
 	{
 		m_Direction = Collision::E_DIRECTION_L;
 		m_Info.rot.y = 90.0f;
@@ -138,7 +140,7 @@ void Player::Update()
 	}
 	if (IsKeyTrigger('F'))
 	{
-		EffectManager::SetEffect(EffectManager::E_EFFECT_KIND_ATK, m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
+		EffectManager::SetEffect(EffectManager::E_EFFECT_KIND_RAIN, m_Info.pos.x, m_Info.pos.y - 0.0f, m_Info.pos.z - 0.0f);
 	}
 
 	//—Ž‰ºŒãˆ—
