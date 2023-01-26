@@ -190,7 +190,7 @@ void LayerGame::Draw()
 	//追ってくる影の描画
 	m_pChasingShadow->Draw();
 	
-	//m_pGoalObj->Draw();
+	m_pGoalObj->Draw();
 
 	//m_pObstacle->Draw();
 
@@ -412,7 +412,7 @@ void LayerGame::CheckCollision()
 							bool bBot = Collision::RectAndRect(PlayerBot, shadow);		//足元がブロックと当たっているか
 							if (bBot)		//足元は当たっていて体は当たっていない場合段差を無視する
 							{//上
-								init->life += 2.0f;
+								init->life += 1.5f;
 								if (init->life >= 30.0f)
 								{
 									init->life = 30.0f;

@@ -146,6 +146,21 @@ Stage::Stage()
 	info.size = { 0.2f, 1.0f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Info.push_back(info);
+
+	info.pos = { 6.5f, 4.05f, 0.0f };
+	info.size = { 1.5f, 0.2f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
+
+	info.pos = { 6.5f, 4.25f, 0.0f };
+	info.size = { 0.2f, 0.2f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
+
+	info.pos = { 6.5f, 5.05f, 0.0f };
+	info.size = { 0.2f, 0.2f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
 	
 	//シャドウブロック1
 	info.pos = { -2.3f, 3.95f, 0.0f };
@@ -162,6 +177,24 @@ Stage::Stage()
 	//シャドウブロック3
 	info.pos = { 4.5f, 4.55f, 0.0f };
 	info.size = { 2.3f, 1.3f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック4
+	info.pos = { 5.75f, 4.15f, 0.0f };
+	info.size = { 1.5f, 0.2f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック4
+	info.pos = { 7.0f, 4.95f, 0.0f };
+	info.size = { 1.0f, 0.8f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック4
+	info.pos = { 7.0f, 3.95f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Shadow.push_back(new ShadowBlock(info));
 }

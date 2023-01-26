@@ -68,7 +68,7 @@ void EnemyDefault::Update()
 	//}
 
 	//d—Í‰ÁZ
-	//m_Move.y -= 0.01f;
+	m_Move.y -= 0.01f;
 
 	//ˆÚ“®—Ê”½‰f
 	m_Info.pos.x += m_Move.x;
