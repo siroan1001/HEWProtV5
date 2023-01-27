@@ -2,7 +2,7 @@
 #include "DirectXTex/Texture.h"
 #include "Sprite.h"
 #include "SceneGame.h"
-
+#include "Game3D.h"
 
 ResultBillboard::ResultBillboard()
 {

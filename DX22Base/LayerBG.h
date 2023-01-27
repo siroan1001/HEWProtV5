@@ -13,6 +13,8 @@ public:
 	void Update();
 	void Draw();
 
+	void Reset();
+
 private:
 	BG* m_pBG;
 

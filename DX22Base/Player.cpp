@@ -21,27 +21,11 @@ Player::Player(Collision::Direction dire)
 	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
 
 	//モデル読み込み
-	//m_pModel = new Model;
-	//if (!m_pModel->Load("Assets/もこ田めめめ/MokotaMememe.pmx", 1.0f))
-	//{
-	//	MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
-	//}
 	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_PLAYER);
-	//if (!m_pModel->Load("Assets/character01.fbx", 1.0f))
-	//{
-	//	MessageBox(NULL, "モデルの生成に失敗", "エラー", MB_OK);
-	//}
 
 	//頂点シェーダをモデルに設定
 	m_pModel->SetVertexShader(m_pVS);
 	m_pModel->SetPixelShader(m_pPS);
-
-	//WVP生成
-	//m_pWVP = new ConstantBuffer;
-	//if (FAILED(m_pWVP->Create(sizeof(DirectX::XMFLOAT4X4) * 3)))
-	//{
-	//	MessageBox(NULL, "pWVP作成失敗", "エラー", MB_OK);
-	//}
 
 	switch (m_Direction)
 	{
@@ -88,10 +72,10 @@ void Player::Update()
 
 	m_IsColEnemy = false;
 
-	if (pScene->GetGameStatus() == SceneGame::E_GAME_STATUS_GOAL)
-	{
-		m_Spead = 0.0f;
-	}
+	//if (pScene->GetGameStatus() == SceneGame::E_GAME_STATUS_GOAL)
+	//{
+	//	m_Spead = 0.0f;
+	//}
 
 	// 自動移動
 	switch (m_Direction)
@@ -170,6 +154,16 @@ void Player::InitDirection(int num)
 void Player::ResetMove()
 {
 	m_Move.y = 0.0f;
+}
+
+void Player::Reset()
+{
+	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.35f, 0.3f}, {0.0f, 90.0f, 0.0f} };
+	m_OldInfo = m_Info;
+	m_Ground = true;
+	m_Move = { 0.0f, 0.0f, 0.0f };
+	m_Direction = Collision::E_DIRECTION_L;
+	m_IsColEnemy = false;
 }
 
 Def::Info Player::GetOldInfo()

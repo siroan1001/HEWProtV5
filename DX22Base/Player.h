@@ -41,6 +41,7 @@ public:
 
 	void ResetMove();
 
+	void Reset();
 
 	Def::Info GetOldInfo();
 	Collision::Direction GetDirection();

@@ -74,3 +74,7 @@ void LayerResult::Draw()
 		break;
 	}
 }
+
+void LayerResult::Reset()
+{
+}

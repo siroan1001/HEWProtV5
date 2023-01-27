@@ -22,6 +22,8 @@ public:
 	void Update();
 	void Draw();
 
+	void SetInfo(XMFLOAT3);
+
 private:
 	BGKind m_bgKind;
 };

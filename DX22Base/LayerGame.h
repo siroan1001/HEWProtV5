@@ -10,7 +10,7 @@
 #include "BobbingEnemy.h"
 #include "Light.h"
 //#include "ShadowBlock.h"
-#include "ReverseBlock.h"
+//#include "ReverseBlock.h"
 #include "StartObj.h"
 #include "ChasingShadow.h"
 #include "Goal.h"
@@ -35,6 +35,8 @@ public:
 	void Update();
 	void Draw();
 
+	void Reset();
+
 	void CheckCollision();
 
 	Player* GetPlayer();
@@ -50,7 +52,7 @@ private:
 	Light* m_pLight;
 	//ShadowBlock* m_pShadowBlock;
 	CameraBase* m_pCamera;
-	ReverseBlock* m_pRvsBlock;
+	//ReverseBlock* m_pRvsBlock;
 	StartObj* m_pStartObj;
 	ChasingShadow* m_pChasingShadow;
 	GoalObj* m_pGoalObj;

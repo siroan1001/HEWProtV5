@@ -159,9 +159,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル\DX22\3DObject</Filter>
     </ClCompile>
-    <ClCompile Include="ReverseBlock.cpp">
-      <Filter>ソース ファイル\DX22\3DObject</Filter>
-    </ClCompile>
     <ClCompile Include="ShadowBlock.cpp">
       <Filter>ソース ファイル\DX22\3DObject</Filter>
     </ClCompile>
@@ -224,6 +221,9 @@
     </ClCompile>
     <ClCompile Include="LayerResult.cpp">
       <Filter>ソース ファイル\DX22\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="StageSelectCursor.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -341,9 +341,6 @@
     <ClInclude Include="Player.h">
       <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
     </ClInclude>
-    <ClInclude Include="ReverseBlock.h">
-      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
-    </ClInclude>
     <ClInclude Include="SceneBace.h">
       <Filter>ヘッダー ファイル\DX22\Scene</Filter>
     </ClInclude>
@@ -406,6 +403,9 @@
     </ClInclude>
     <ClInclude Include="LayerResult.h">
       <Filter>ヘッダー ファイル\DX22\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="StageSelectCursor.h">
+      <Filter>ヘッダー ファイル\DX22\2DObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

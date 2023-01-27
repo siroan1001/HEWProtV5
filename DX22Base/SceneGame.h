@@ -5,13 +5,8 @@
 
 #include "SceneBace.h"
 #include "BlendState.h"
-#include "CameraBase.h"
-#include "Stage.h"
-#include "Player.h"
-#include "ShadowBlock.h"
-#include "Light.h"
 #include "Layer.h"
-#include "Effect.h"
+
 
 class SceneGame : public SceneBace
 {
@@ -48,11 +43,9 @@ public:
 	};
 	enum StageNumber
 	{
-		E_STAGE_NUMBER_STAGE_TUTORIAL = 0,
-		E_STAGE_NUMBER_STAGE_1,
+		E_STAGE_NUMBER_STAGE_1 = 0,
 		E_STAGE_NUMBER_STAGE_2,
 		E_STAGE_NUMBER_STAGE_3,
-		E_STAGE_NUMBER_STAGE_4,
 
 		E_STAGE_NUMBER_STAGE_MAX
 	};
@@ -68,7 +61,7 @@ public:
 	//static CameraBase* GetCamera();
 	static GameStatus GetGameStatus();
 	static void SetGameStatus(GameStatus);
-	static StageNumber GetStageNum();
+	static StageNumber* GetStageNum();
 
 	//void CameraReset();
 

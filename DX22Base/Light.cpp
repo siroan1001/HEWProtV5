@@ -62,6 +62,11 @@ void Light::Draw()
 	DrawCylinder();
 }
 
+void Light::Reset()
+{
+	m_Info = { {-3.8f, 4.25f, 0.2f}, {0.45f, 0.0001f, 0.45f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} };
+}
+
 float Light::GetRadius()
 {
 	return GetCylinderRadius() * m_Info.size.x;

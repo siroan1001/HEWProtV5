@@ -15,21 +15,10 @@ LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status, SceneGam
 	m_pCamera = camera;
 
 	//ステージの生成(他のステージの読み込みどうしよう)
-	m_pStage = new Stage;
+	m_pStage = new Stage();
 
 	//プレイヤーの生成
 	m_pPlayer = new Player(Collision::E_DIRECTION_L);
-
-	//敵の生成
-	//m_pEnemy = new Enemy(Collision::E_DIRECTION_L, XMFLOAT3(-2.2f, 3.25f, 0.0f ));
-
-	//m_pBobbingEnemy = new BobbingEnemy(Collision::E_DIRECTION_L, { -7.0f,3.0f,0.0f }, { -4.0f, 5.0f, 0.0f }, 300);
-
-	//---------------
-
-	//m_pEnemyBase[E_ENEMY_KIND_DEF_1] = new EnemyDefault(Collision::E_DIRECTION_L, XMFLOAT3(-2.2f, 3.25f, 0.0f));
-	//m_pEnemyBase[E_ENEMY_KIND_ROUND_TRIP_1] =
-	//	new EnemyRoundTrip(Collision::E_DIRECTION_L, { -7.0f,3.0f,0.0f }, { -4.0f, 5.0f, 0.0f }, 300);
 
 	EnemyDefault* EnemeyD = new EnemyDefault(Collision::E_DIRECTION_L, XMFLOAT3(-2.0f, 3.25f, 0.0f));
 	EnemeyD->SetCamera(camera);
@@ -38,22 +27,7 @@ LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status, SceneGam
 
 	EnemyRoundTrip* EnemyRT = new EnemyRoundTrip(Collision::E_DIRECTION_L, { -7.0f,3.0f,0.0f }, { -4.0f, 5.0f, 0.0f }, 300);
 	EnemyRT->SetCamera(camera);
-	//m_pEnemy.push_back(EnemyRT);
 
-	//if (m_pEnemys[0] is EnemyDefault s)
-	//{
-
-	//}
-
-	//assert(typeid(m_pEnemys[0]) == typeid(EnemyDefault));
-
-
-	//-----------------
-
-	/*m_pEnemys.push_back(new Enemy(Collision::E_DIRECTION_L, { -7.0f, 5.25f, 0.0f }));
-	m_pEnemys.push_back(new Enemy(Collision::E_DIRECTION_L, { -7.0f, 5.25f, 0.0f }));
-	m_pEnemys.push_back(new Enemy(Collision::E_DIRECTION_L, { -7.0f, 5.25f, 0.0f }));
-	m_pEnemys.push_back(new Enemy(Collision::E_DIRECTION_L, { -7.0f, 5.25f, 0.0f }));*/
 
 	m_pLight = new Light;
 	m_pLight->SetCamera(camera);
@@ -71,7 +45,7 @@ LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status, SceneGam
 	//}
 
 
-	m_pRvsBlock = new ReverseBlock;
+	//m_pRvsBlock = new ReverseBlock;
 
 	m_pStartObj = new StartObj;
 	m_pStartObj->SetCamera(camera);
@@ -97,7 +71,7 @@ LayerGame::~LayerGame()
 	delete m_pObstacle;
 	delete m_pGoalObj;
 	delete m_pStartObj;
-	delete m_pRvsBlock;
+	//delete m_pRvsBlock;
 	delete m_pLight;
 	//delete m_pShadowBlock;
 	/*m_pEnemys.clear();*/
@@ -138,25 +112,9 @@ void LayerGame::Update()
 		m_pEnemy[i]->Update();
 	}
 
-	//for (int i = 0; i < m_pEnemy.size(); i++)
-	//{
-	//	m_pEnemy[i]->Update();
-	//}
-
-	//for (int i = 0; i < m_pEnemys.size(); i++)
-	//{
-	//	m_pEnemys[i]->Update();
-	//}
-
 	m_pStage->Update();
 
 	CheckCollision();
-
-	//m_pEnemy[0]->SetPos(m_pPlayer->GetInfo().pos);
-
-
-
-
 
 }
 
@@ -180,7 +138,7 @@ void LayerGame::Draw()
 	//シャドウブロックの描画
 	//m_pShadowBlock->Draw();
 
-	m_pRvsBlock->Draw();
+	//m_pRvsBlock->Draw();
 
 	//ライトの描画
 	m_pLight->Draw();
@@ -194,6 +152,13 @@ void LayerGame::Draw()
 	
 	m_pGoalObj->Draw();
 
+}
+
+void LayerGame::Reset()
+{
+	m_pPlayer->Reset();
+	m_pChasingShadow->Reset();
+	m_pLight->Reset();
 }
 
 Player * LayerGame::GetPlayer()
@@ -433,13 +398,13 @@ void LayerGame::CheckCollision()
 	}
 
 	//プレイヤーと反射板
-	for (int i = 0; i < m_pRvsBlock->GetStageNum(); i++)
-	{
-		if (Collision::RectAndRect(m_pPlayer->GetInfo(), m_pRvsBlock->GetInfo(i)))
-		{
-			m_pPlayer->SetDirection(m_pRvsBlock->GetDirection(i));
-		}
-	}
+	//for (int i = 0; i < m_pRvsBlock->GetStageNum(); i++)
+	//{
+	//	if (Collision::RectAndRect(m_pPlayer->GetInfo(), m_pRvsBlock->GetInfo(i)))
+	//	{
+	//		m_pPlayer->SetDirection(m_pRvsBlock->GetDirection(i));
+	//	}
+	//}
 
 	//プレイヤーと追ってくる影
 	if (*m_GameStatus == SceneGame::E_GAME_STATUS_NORMAL)

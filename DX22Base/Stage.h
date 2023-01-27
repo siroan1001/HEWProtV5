@@ -8,6 +8,7 @@
 #include <vector>
 #include "ShadowBlock.h"
 #include "Object.h"
+#include "SceneGame.h"
 
 using namespace DirectX;
 using namespace std;
@@ -23,6 +24,11 @@ struct StageInfo
 {
 	Def::Info info;
 	bool flag;
+};
+struct StageDate
+{
+	vector<ShadowBlock*> m_Shadow;
+	vector<Def::Info> m_Info;
 };
 
 class Stage
@@ -40,10 +46,12 @@ public:
 
 protected:
 	//Info* m_pBlocks;
-	vector<ShadowBlock*> m_Shadow;
+	//vector<ShadowBlock*> m_Shadow;
 	int m_blockNum;
-	vector<Def::Info> m_Info;
+	//vector<Def::Info> m_Info;
+	StageDate m_Date[SceneGame::E_STAGE_NUMBER_STAGE_MAX];
 	vector<Def::Info> m_CameraStageInfo;
+	SceneGame::StageNumber* m_pStageNum;
 };
 
 #endif // !_____STAGE_H____

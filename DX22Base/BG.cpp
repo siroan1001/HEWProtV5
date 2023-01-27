@@ -2,6 +2,7 @@
 #include "DirectXTex/Texture.h"
 #include "Sprite.h"
 #include "SceneGame.h"
+#include "Game3D.h"
 
 using namespace DirectX;
 
@@ -54,4 +55,9 @@ void BG::Draw()
 	}
 
 	Billboard::Draw();
+}
+
+void BG::SetInfo(XMFLOAT3 pos)
+{
+	m_Info.Pos = pos;
 }

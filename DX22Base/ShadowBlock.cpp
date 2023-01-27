@@ -3,6 +3,7 @@
 #include "Geometory.h"
 #include "SceneGame.h"
 #include "CameraBase.h"
+#include "Game3D.h"
 
 using namespace std;
 

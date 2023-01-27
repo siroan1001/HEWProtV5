@@ -185,7 +185,6 @@
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResultBillboard.cpp" />
-    <ClCompile Include="ReverseBlock.cpp" />
     <ClCompile Include="SamplerState.cpp" />
     <ClCompile Include="SceneBace.cpp" />
     <ClCompile Include="SceneClear.cpp" />
@@ -198,6 +197,7 @@
     <ClCompile Include="ShadowBlock.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="StageSelectCursor.cpp" />
     <ClCompile Include="StartObj.cpp" />
     <ClCompile Include="Startup.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -248,7 +248,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="ResultBillboard.h" />
-    <ClInclude Include="ReverseBlock.h" />
     <ClInclude Include="SamplerState.h" />
     <ClInclude Include="SceneBace.h" />
     <ClInclude Include="SceneClear.h" />
@@ -261,6 +260,7 @@
     <ClInclude Include="ShadowBlock.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="StageSelectCursor.h" />
     <ClInclude Include="StartObj.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WinUtil.h" />

@@ -15,9 +15,8 @@
 #include "LayerBG.h"
 #include "controller.h"
 #include "LayerResult.h"
+#include "Effect.h"
 
-//SceneGame::CameraKind SceneGame::m_mainCamera;
-//CameraBase* SceneGame::m_pCamera[];
 SceneGame::GameStatus SceneGame::m_GameStatus;
 SceneGame::StageNumber SceneGame::m_StageNuber;
 
@@ -39,29 +38,7 @@ SceneGame::SceneGame(StageNumber stagenum)
 	m_pBlend->Create(blend);
 	m_pBlend->Bind();
 
-	//m_pEffect = new EffectManager;
 
-	//CameraMain* pMain = new CameraMain;
-	//pMain->SetLook(XMFLOAT3(-5.0f, 4.05f, 0.0f));
-	//m_pCamera[E_CAM_MAIN] = pMain;
-	//CameraEvent* pEvent = new CameraEvent();
-	//pEvent->SetEvent(XMFLOAT3(-3.0f, 4.25f, 3.0f), XMFLOAT3(-3.0f, 4.25f, 3.0f), 3.0f);
-	//m_pCamera[E_CAM_EVENT] = pEvent;
-	//CameraDelay* pDelay = new CameraDelay;
-	//pDelay->SetCamera(XMFLOAT3(-4.3f, 4.25f, 0.0f), 3.0f, 1.0f);
-	//m_pCamera[E_CAM_DELAY] = pDelay;
-	//m_pCamera[E_CAM_DEBUG] = new CameraDebug;
-
-	//m_pLayer[E_LAYER_BG] = new LayerBG;		//これ
-	//m_pLayer[E_LAYER_BUCK_OBJECT] = NULL;
-	//m_pLayer[E_LAYER_GAME] = new LayerGame(m_pCamera[m_mainCamera], &m_GameStatus);		//これ
-	//m_pLayer[E_LAYER_UI] = NULL;
-
-	//EffectManager::SetCamera(m_pCamera[m_mainCamera]);
-
-	//LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
-	//CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
-	//camera->SetPlayer(layer->GetPlayer());
 
 	switch (stagenum)
 	{
@@ -85,48 +62,12 @@ SceneGame::~SceneGame()
 		delete m_pLayer[i];
 	}
 
-	//カメラの終了
-	//for (int i = 0; i < E_CAM_MAX; i++)
-	//{
-	//	delete m_pCamera[i];
-	//}
 
-	//delete m_pEffect;
 }
 
 void SceneGame::Update()
 {
-	//m_pEffect->Update();
 
-	//if (m_mainCamera == E_CAM_EVENT)
-	//{
-	//	CameraEvent* pEvent = reinterpret_cast<CameraEvent*>(m_pCamera[m_mainCamera]);
-	//	if (!pEvent->IsEvent())
-	//	{
-	//		m_mainCamera = E_CAM_MAIN;
-	//		LayerGame* game = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
-	//		game->SetCamera(m_pCamera[m_mainCamera]);
-	//		m_pLayer[E_LAYER_GAME] = game;
-	//	}
-	//}
-	//else if (m_mainCamera == E_CAM_DELAY)
-	//{
-	//	CameraDelay* pDelay = reinterpret_cast<CameraDelay*>(m_pCamera[m_mainCamera]);
-	//	if (!pDelay->IsDelay())
-	//	{
-	//		m_mainCamera = E_CAM_MAIN;
-	//		CameraMain* cam = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
-	//		cam->SetLook(pDelay->GetLook());
-	//		m_pCamera[E_CAM_MAIN] = cam;
-	//		LayerGame* game = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
-	//		game->SetCamera(m_pCamera[m_mainCamera]);
-	//		m_pLayer[E_LAYER_GAME] = game;
-	//	}
-	//}
-
-	////カメラの更新
-	//if (m_GameStatus == E_GAME_STATUS_NORMAL)
-	//	m_pCamera[m_mainCamera]->Update();
 
 	switch (m_GameStatus)
 	{
@@ -147,37 +88,6 @@ void SceneGame::Update()
 		break;
 	}
 	
-	//カメラの切り替え
-	//CameraKind camera = m_mainCamera;
-	//if (IsKeyPress('C'))
-	//{
-	//	if (IsKeyTrigger('1'))	camera = E_CAM_DEBUG;
-	//	if (IsKeyTrigger('2'))	camera = E_CAM_MAIN;
-	//}
-	//if (m_mainCamera != camera)
-	//{
-	//	m_mainCamera = camera;
-	//	LayerGame* temp = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
-	//	temp->SetCamera(m_pCamera[m_mainCamera]);
-	//	m_pLayer[E_LAYER_GAME] = temp;
-	//}
-
-	//if (IsKeyPress('Z'))
-	//{
-	//	m_pEffect->AtkEffect(EffectManager::E_EFFECT_KIND_ATK, -7.6f, 3.25f, 0.0f);
-	//}
-
-	//ゴールならフラグをtrueにする
-	//if (m_GameStatus == E_GAME_STATUS_GOAL)
-	//{
-	//	if (IsKeyPress('R'))
-	//	{
-	//		//次のステージが作られたら下を書き換える
-	//		//今は次のステージがないのでNORMALになっている
-	//		m_GameStatus = E_GAME_STATUS_NORMAL;
-	//		CameraReset();//カメラリセット関数
-	//	}
-	//}
 
 
 	if (m_GameStatus == E_GAME_STATUS_GAMEOVER)
@@ -210,11 +120,16 @@ void SceneGame::Draw()
 		m_pLayer[i]->Draw();
 	}
 
-	//m_pEffect->Draw();
 }
 
 void SceneGame::ReStart()
 {
+	Game3D::GetCamera()->SetLook(XMFLOAT3(-5.48f, 4.05f, 0.0f));
+
+	m_GameStatus = E_GAME_STATUS_START;
+
+	m_pLayer[E_LAYER_BG]->Reset();
+	m_pLayer[E_LAYER_GAME]->Reset();
 }
 
 
@@ -228,22 +143,10 @@ void SceneGame::SetGameStatus(GameStatus status)
 {
 	m_GameStatus = status;
 }
-SceneGame::StageNumber SceneGame::GetStageNum()
+SceneGame::StageNumber* SceneGame::GetStageNum()
 {
-	return m_StageNuber;
+	return &m_StageNuber;
 }
-
-//void SceneGame::CameraReset()
-//{
-//	CameraMain* pMain = new CameraMain;
-//	pMain->SetLook(XMFLOAT3(-5.0f, 4.25f, 0.0f));
-//	m_pCamera[E_CAM_MAIN] = pMain;
-//
-//	LayerGame* layer = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
-//	CameraMain* camera = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
-//	camera->SetPlayer(layer->GetPlayer());
-//
-//}
 
 void SceneGame::StageTutoRial()
 {

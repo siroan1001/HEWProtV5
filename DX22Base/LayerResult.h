@@ -14,6 +14,8 @@ public:
 	void Update();
 	void Draw();
 
+	void Reset();
+
 private:
 	ResultBillboard* m_pResultBill;
 	ClearBillboard* m_pClearBill;

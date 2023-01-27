@@ -32,8 +32,6 @@ Game3D::Game3D()
 
 	m_pScene[E_SCENE_KIND_TITLE] = new SceneTitle;
 	m_pScene[E_SCENE_KIND_GAME] = new SceneGame(SceneGame::E_STAGE_NUMBER_STAGE_1);
-	/*m_pScene[E_SCENE_KIND_RESULT] = new SceneResult;
-	m_pScene[E_SCENE_KIND_CLEAR] = new SceneClear;*/
 	m_pScene[E_SCENE_KIND_STAGESELECT] = new SceneStageSelect(Game3D::GetCamera(), SceneGame::E_STAGE_NUMBER_STAGE_1);
 	
 	m_SceneKind = E_SCENE_KIND_TITLE;
@@ -55,31 +53,7 @@ Game3D::~Game3D()
 
 void Game3D::Update()
 {
-	//if (m_mainCamera == E_CAM_EVENT)
-	//{
-	//	CameraEvent* pEvent = reinterpret_cast<CameraEvent*>(m_pCamera[m_mainCamera]);
-	//	if (!pEvent->IsEvent())
-	//	{
-	//		m_mainCamera = E_CAM_MAIN;
-	//		LayerGame* game = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
-	//		game->SetCamera(m_pCamera[m_mainCamera]);
-	//		m_pLayer[E_LAYER_GAME] = game;
-	//	}
-	//}
-	//else if (m_mainCamera == E_CAM_DELAY)
-	//{
-	//	CameraDelay* pDelay = reinterpret_cast<CameraDelay*>(m_pCamera[m_mainCamera]);
-	//	if (!pDelay->IsDelay())
-	//	{
-	//		m_mainCamera = E_CAM_MAIN;
-	//		CameraMain* cam = reinterpret_cast<CameraMain*>(m_pCamera[E_CAM_MAIN]);
-	//		cam->SetLook(pDelay->GetLook());
-	//		m_pCamera[E_CAM_MAIN] = cam;
-	//		LayerGame* game = reinterpret_cast<LayerGame*>(m_pLayer[E_LAYER_GAME]);
-	//		game->SetCamera(m_pCamera[m_mainCamera]);
-	//		m_pLayer[E_LAYER_GAME] = game;
-	//	}
-	//}
+
 
 	//ƒJƒƒ‰‚ÌXV
 	m_pCamera[m_mainCamera]->Update();

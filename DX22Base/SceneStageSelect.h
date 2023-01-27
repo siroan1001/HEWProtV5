@@ -8,6 +8,7 @@
 #include "BG.h"
 #include "DirectX.h"
 #include "Sprite.h" 
+#include "StageSelectCursor.h"
 
 class SceneStageSelect : public SceneBace
 {
@@ -18,9 +19,10 @@ public:
 	void Draw();
 	void ReStart();
 	void SetCamera(CameraBase* camera);
-	static SceneGame::StageNumber GetStageNumber();
+	static SceneGame::StageNumber* GetStageNumber();
 private:
 	BG* m_pBG;
+	StageSelectCursor* m_pCursor;
 	CameraBase* m_pCamera;
 	static SceneGame::StageNumber m_StageNumber;
 };

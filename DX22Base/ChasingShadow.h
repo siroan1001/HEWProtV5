@@ -35,7 +35,10 @@ public:
 	ChasingShadow();
 	void Update();
 
+	void Reset();
+
 	void SetPlayer(Player* pPlayer);
+	void SetPos(XMFLOAT3 pos);
 
 	float GetRadius();
 

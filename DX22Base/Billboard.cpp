@@ -1,6 +1,7 @@
 #include "Billboard.h"
 #include "SceneGame.h"
 #include "Sprite.h"
+#include "Game3D.h"
 
 
 Billboard::Billboard()
