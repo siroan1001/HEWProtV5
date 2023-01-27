@@ -43,6 +43,7 @@ protected:
 	vector<ShadowBlock*> m_Shadow;
 	int m_blockNum;
 	vector<Def::Info> m_Info;
+	vector<Def::Info> m_CameraStageInfo;
 };
 
 #endif // !_____STAGE_H____

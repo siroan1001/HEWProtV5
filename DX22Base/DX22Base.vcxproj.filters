@@ -201,6 +201,27 @@
     <ClCompile Include="SceneTitle.cpp">
       <Filter>ソース ファイル\DX22\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="SceneClear.cpp">
+      <Filter>ソース ファイル\DX22\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneResult.cpp">
+      <Filter>ソース ファイル\DX22\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationBillboard.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="ClearBillboard.cpp">
+      <Filter>ソース ファイル\DX22\2DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultBillboard.cpp">
+      <Filter>ソース ファイル\DX22\2DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneStageSelect.cpp">
+      <Filter>ソース ファイル\DX22\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -359,12 +380,36 @@
     <ClInclude Include="SceneTitle.h">
       <Filter>ヘッダー ファイル\DX22\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="SceneResult.h">
+      <Filter>ヘッダー ファイル\DX22\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneClear.h">
+      <Filter>ヘッダー ファイル\DX22\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationBillboard.h">
+      <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ClearBillboard.h">
+      <Filter>ヘッダー ファイル\DX22\2DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultBillboard.h">
+      <Filter>ヘッダー ファイル\DX22\2DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneStageSelect.h">
+      <Filter>ヘッダー ファイル\DX22\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ModelVS.hlsl">
       <Filter>リソース ファイル</Filter>
     </FxCompile>
     <FxCompile Include="ModelPS.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="FadePS.hlsl">
       <Filter>リソース ファイル</Filter>
     </FxCompile>
   </ItemGroup>

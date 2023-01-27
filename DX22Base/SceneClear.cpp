@@ -8,9 +8,9 @@ SceneClear::SceneClear()
 	:m_flame(0)
 {
 	m_pClearBill = new ClearBillboard;
-	m_pBG = new BG;
+	m_pBG = new BG(BG::E_BG_KIND_FOREST);
 
-	m_ClearStatus = E_RESULT_STATUS_START;
+	m_ClearStatus = E_CLEAR_STATUS_START;
 }
 
 SceneClear::~SceneClear()
@@ -23,32 +23,32 @@ void SceneClear::Update()
 {
 	switch (m_ClearStatus)
 	{
-	case SceneClear::E_RESULT_STATUS_NOME:
+	case SceneClear::E_CLEAR_STATUS_NOME:
 		break;
 	case SceneClear::E_RESULT_STATUS_START:
 		m_pClearBill->Update(/*m_flame*/);
 		m_flame++;
 		if (m_flame == m_pClearBill->GetMaxFlame())
 		{
-			m_ClearStatus = E_RESULT_STATUS_NORMAL;
+			m_ClearStatus = E_CLEAR_STATUS_NORMAL;
 			m_flame = 0;
 		}
 		break;
-	case SceneClear::E_RESULT_STATUS_NORMAL:
+	case SceneClear::E_CLEAR_STATUS_NORMAL:
 		if (IsKeyTrigger(VK_SPACE))
 		{
-			//ƒXƒy[ƒXƒL[‚ð‰Ÿ‚µ‚½‚çƒQ[ƒ€‚Ö(ŽÀ‘•ŒãŽŸ‚ÌƒXƒe[ƒW‚Ö)
+			//ã‚¹ãƒšãƒ¼ã‚¹ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰ã‚²ãƒ¼ãƒ ã¸(å®Ÿè£…å¾Œæ¬¡ã®ã‚¹ãƒ†ãƒ¼ã‚¸ã¸)
 			Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
-			m_ClearStatus = E_RESULT_STATUS_START;
+			m_ClearStatus = E_CLEAR_STATUS_START;
 		}
 		if (IsKeyTrigger(VK_RETURN))
 		{
-			//ƒGƒ“ƒ^[‚ð‰Ÿ‚µ‚½‚çƒ^ƒCƒgƒ‹‚Ö(ŽÀ‘•ŒãƒXƒe[ƒWƒZƒŒƒNƒg‚Ö)
+			//ã‚¨ãƒ³ã‚¿ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰ã‚¿ã‚¤ãƒˆãƒ«ã¸(å®Ÿè£…å¾Œã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆã¸)
 			Game3D::SetScene(Game3D::E_SCENE_KIND_TITLE);
-			m_ClearStatus = E_RESULT_STATUS_START;
+			m_ClearStatus = E_CLEAR_STATUS_START;
 		}
 		break;
-	case SceneClear::E_GAME_STATUS_MAX:
+	case SceneClear::E_CLEAR_STATUS_MAX:
 		break;
 	default:
 		break;

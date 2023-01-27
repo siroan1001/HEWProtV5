@@ -8,7 +8,7 @@ SceneResult::SceneResult()
 	:m_flame(0)
 {
 	m_pResultBill = new ResultBillboard;
-	m_pBG = new BG;
+	m_pBG = new BG(BG::E_BG_KIND_FOREST);
 
 	m_ResultStatus = E_RESULT_STATUS_START;
 }
@@ -48,7 +48,7 @@ void SceneResult::Update()
 			m_ResultStatus = E_RESULT_STATUS_START;
 		}
 		break;
-	case SceneResult::E_GAME_STATUS_MAX:
+	case SceneResult::E_RESULT_STATUS_MAX:
 		break;
 	default:
 		break;

@@ -7,17 +7,17 @@
 
 //using namespace DirectX;
 
-
+bool g_Playerflag = true;
 
 Player::Player(Collision::Direction dire)
 	:m_Ground(true)
 	,m_Move{0.0f, 0.0f, 0.0f}
-	,m_OldInfo{{2.0f, 1.0f, -0.0f}, {0.3f, 1.0f, 1.0f}, {0.0f, -90.0f, 0.0f}}
+	,m_OldInfo{ {-7.6f, 3.25f, 0.0f}, {0.3f, 0.35f, 0.3f}, {0.0f, -90.0f, 0.0f} }
 	,m_Direction(dire)
 	,m_Spead(PLAYER_MOVE_NORMAL)
 	,m_IsColEnemy(false)
 {
-	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.4f, 0.3f}, {0.0f, -90.0f, 0.0f} };
+	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.35f, 0.3f}, {0.0f, -90.0f, 0.0f} };
 	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
 
 	//モデル読み込み
@@ -58,6 +58,10 @@ Player::Player(Collision::Direction dire)
 
 void Player::Update()
 {
+	// シーンゲームの情報取得
+	SceneGame* pScene = static_cast<SceneGame*>(Game3D::GetScene());
+	pScene->GetGameStatus();
+
 	//移動量カット
 	m_Move = { 0.0f, m_Move.y, 0.0f };
 
@@ -65,13 +69,15 @@ void Player::Update()
 	m_OldInfo = m_Info;
 
 	//移動処理
-	if (IsKeyPress('D'))
+	float x = GetRStick().x;
+
+	if (IsKeyPress('D') || x >= 0.8f)
 	{
 		m_Direction = Collision::E_DIRECTION_R;
 		m_Info.rot.y = -90.0f;
 	}
 		
-	if (IsKeyPress('A'))
+	if (IsKeyPress('A') || x <= -0.8f)
 	{
 		m_Direction = Collision::E_DIRECTION_L;
 		m_Info.rot.y = 90.0f;
@@ -81,6 +87,11 @@ void Player::Update()
 	else m_Spead = PLAYER_MOVE_NORMAL;
 
 	m_IsColEnemy = false;
+
+	if (pScene->GetGameStatus() == SceneGame::E_GAME_STATUS_GOAL)
+	{
+		m_Spead = 0.0f;
+	}
 
 	// 自動移動
 	switch (m_Direction)
@@ -117,14 +128,19 @@ void Player::Update()
 	//重力加算
 	m_Move.y -= 0.01f;
 
-	//移動量反映
-	m_Info.pos.x += m_Move.x;
-	m_Info.pos.y += m_Move.y;
-	m_Info.pos.z += m_Move.z;
+	if (IsKeyTrigger('Z'))	
+		g_Playerflag ^= 1;
 
+	//移動量反映
+	if (g_Playerflag)
+	{
+		m_Info.pos.x += m_Move.x;
+		m_Info.pos.y += m_Move.y;
+		m_Info.pos.z += m_Move.z;
+	}
 	if (IsKeyTrigger('F'))
 	{
-		EffectManager::SetEffect(EffectManager::E_EFFECT_KIND_ATK, m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
+		EffectManager::SetEffect(EffectManager::E_EFFECT_KIND_RAIN, m_Info.pos.x, m_Info.pos.y - 0.0f, m_Info.pos.z - 0.0f);
 	}
 
 	//落下後処理
@@ -133,6 +149,7 @@ void Player::Update()
 		m_Info.pos.y = 5.0f;
 		m_Move.y = 0.0f;
 	}
+
 }
 
 void Player::SetPos(XMFLOAT3 pos)

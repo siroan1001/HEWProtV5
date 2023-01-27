@@ -11,6 +11,8 @@
 #include "Collision.h"
 #include <vector>
 #include "Object.h"
+#include "Game3D.h"
+#include "SceneGame.h"
 
 using namespace DirectX;
 using namespace std;
@@ -45,7 +47,6 @@ public:
 	Collision::Direction GetStageCollistonDirection(int num);
 	void SetStageCollisionDirection(Collision::Direction dire, int num);
 	void SetDirection(Collision::Direction);
-
 	void SetCollisionEnemy();
 
 

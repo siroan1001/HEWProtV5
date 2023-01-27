@@ -17,6 +17,7 @@ public:
 
 	void SetStageCollisionDirection(Collision::Direction dire, int num);
 	void SetDirection(Collision::Direction);
+	void SetPos(XMFLOAT3 pos);
 
 	void InitDirectin(int);
 

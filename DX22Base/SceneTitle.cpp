@@ -1,11 +1,12 @@
 #include "SceneTitle.h"
 #include "Input.h"
 #include "DirectXTex/Texture.h"
+#include "controller.h"
 
 SceneTitle::SceneTitle()
 {
 	//m_TitleUI = new TitleUI;
-	m_pBG = new BG;
+	m_pBG = new BG(BG::E_BG_KIND_TITLE);
 }
 
 SceneTitle::~SceneTitle()
@@ -20,7 +21,7 @@ void SceneTitle::Update()
 {
 	m_pBG;
 
-	if (IsKeyPress(VK_SPACE))
+	if (IsKeyPress(VK_SPACE) || IsButtonPress(BUTTON_B))
 	{
 		//ƒGƒ“ƒ^[‚ğ‰Ÿ‚µ‚½‚çØ‚è‘Ö‚¦
 		Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);

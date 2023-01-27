@@ -14,10 +14,10 @@ class SceneClear : public SceneBace
 private:
 	enum ClearStatus
 	{
-		E_RESULT_STATUS_NOME = 0,
-		E_RESULT_STATUS_START,
-		E_RESULT_STATUS_NORMAL,
-		E_GAME_STATUS_MAX
+		E_CLEAR_STATUS_NOME = 0,
+		E_CLEAR_STATUS_START,
+		E_CLEAR_STATUS_NORMAL,
+		E_CLEAR_STATUS_MAX
 	};
 public:
 	SceneClear();

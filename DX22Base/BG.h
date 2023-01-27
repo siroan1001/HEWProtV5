@@ -8,7 +8,15 @@
 class BG : public Billboard
 {
 public:
-	BG();
+	enum BGKind
+	{
+		E_BG_KIND_TITLE = 0,
+		E_BG_KIND_FOREST,
+
+		E_BG_KIND_MAX
+	};
+public:
+	BG(BGKind);
 	void Update();
 	void Draw();
 

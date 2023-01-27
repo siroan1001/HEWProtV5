@@ -137,8 +137,28 @@ Stage::Stage()
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Info.push_back(info);
 
+	info.pos = { 0.4f, 3.55f, 0.0f };
+	info.size = { 0.2f, 0.8f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
+
 	info.pos = { 3.35f, 3.75f, 0.0f };
 	info.size = { 0.2f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
+
+	info.pos = { 6.5f, 4.05f, 0.0f };
+	info.size = { 1.5f, 0.2f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
+
+	info.pos = { 6.5f, 4.275f, 0.0f };
+	info.size = { 0.2f, 0.25f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Info.push_back(info);
+
+	info.pos = { 6.5f, 5.075f, 0.0f };
+	info.size = { 0.2f, 0.25f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Info.push_back(info);
 	
@@ -157,6 +177,24 @@ Stage::Stage()
 	//シャドウブロック3
 	info.pos = { 4.5f, 4.55f, 0.0f };
 	info.size = { 2.3f, 1.3f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック4
+	info.pos = { 5.75f, 4.15f, 0.0f };
+	info.size = { 1.5f, 0.2f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック4
+	info.pos = { 7.0f, 4.95f, 0.0f };
+	info.size = { 1.0f, 0.8f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック4
+	info.pos = { 7.0f, 3.95f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Shadow.push_back(new ShadowBlock(info));
 }
@@ -184,7 +222,7 @@ void Stage::Draw()
 		SetGeometoryTranslate(m_Info[i].pos.x, m_Info[i].pos.y, m_Info[i].pos.z);
 		SetGeometoryScaling(m_Info[i].size.x, m_Info[i].size.y, m_Info[i].size.z);
 		SetGeometoryRotation(m_Info[i].rot.x, m_Info[i].rot.y, m_Info[i].rot.z);
-		SetGeometoryColor(XMFLOAT3(10.0f, 10.0f, 10.0f));
+		SetGeometoryColor(XMFLOAT4(10.0f, 10.0f, 10.0f, 1.0f));
 		DrawBox();
 	}
 

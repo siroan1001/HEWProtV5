@@ -31,6 +31,8 @@ public:
 	~Game3D();
 	void Update();
 	void Draw();
+	static SceneBace* GetScene();
+	static SceneKind GetSceneKind();
 	static void SetScene(SceneKind nextScene);
 	static CameraBase* GetCamera();
 

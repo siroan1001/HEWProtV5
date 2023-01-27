@@ -123,6 +123,7 @@ void LayerGame::Update()
 
 	//プレイヤーの更新
 	//カメラがPlayerCameraの場合のみ処理する
+	//m_pPlayer->SetStatus(m_GameStatus);
 	m_pPlayer->Update();
 
 	//敵の更新
@@ -149,6 +150,13 @@ void LayerGame::Update()
 	m_pStage->Update();
 
 	CheckCollision();
+
+	//m_pEnemy[0]->SetPos(m_pPlayer->GetInfo().pos);
+
+
+
+
+
 }
 
 void LayerGame::Draw()
@@ -157,12 +165,14 @@ void LayerGame::Draw()
 	m_pStage->Draw();
 
 	//プレイヤーの描画
+	Object::SetObjColor(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 	m_pPlayer->Draw();
 
 	//敵の描画
 	for (int i = 0; i < m_pEnemy.size(); i++)
 	{
 		if (!m_pEnemy[i]->GetUse())	continue;
+		Object::SetObjColor(XMFLOAT4(50.0f, 50.0f, 50.0f, 1.0f));
 		m_pEnemy[i]->Draw();
 	}
 
@@ -177,7 +187,7 @@ void LayerGame::Draw()
 	//スタートの描画
 	m_pStartObj->Draw();
 
-  //追ってくる影の描画
+	//追ってくる影の描画
 	m_pChasingShadow->Draw();
 	
 	m_pGoalObj->Draw();
@@ -402,7 +412,7 @@ void LayerGame::CheckCollision()
 							bool bBot = Collision::RectAndRect(PlayerBot, shadow);		//足元がブロックと当たっているか
 							if (bBot)		//足元は当たっていて体は当たっていない場合段差を無視する
 							{//上
-								init->life += 2.0f;
+								init->life += 1.5f;
 								if (init->life >= 30.0f)
 								{
 									init->life = 30.0f;
@@ -479,7 +489,6 @@ void LayerGame::CheckCollision()
 		num = 0;		//敵用にリセット
 		EnemyDefault* enemy = reinterpret_cast<EnemyDefault*>(m_pEnemy[i]);
 
-
 		//敵とStageの当たり判定
 		for (num = 0; num < m_pStage->GetStageNum(); num++)
 		{
@@ -487,8 +496,8 @@ void LayerGame::CheckCollision()
 			Def::Info stage = m_pStage->GetInfo(num);		//ステージブロックの情報
 			enemyinfo = m_pEnemy[i]->GetInfo();				//敵の情報（プレイヤーの中心をposとする）
 			Def::Info Oenemy = enemy->GetOldInfo();			//プレイヤーの前フレームの情報
-			enemyinfo.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
-			Oenemy.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
+			//enemyinfo.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
+			//Oenemy.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
 			//どの方向に当たったかを確認する
 			if (Collision::Direction dire = Collision::RectAndRectDirection(enemyinfo, Oenemy, stage, enemy->GetStageCollistonDirection(num)))

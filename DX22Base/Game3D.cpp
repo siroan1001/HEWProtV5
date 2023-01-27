@@ -88,6 +88,16 @@ void Game3D::Draw()
 	m_pScene[m_SceneKind]->Draw();
 }
 
+SceneBace * Game3D::GetScene()
+{
+	return m_pScene[m_SceneKind];
+}
+
+Game3D::SceneKind Game3D::GetSceneKind()
+{
+	return m_SceneKind;
+}
+
 void Game3D::SetScene(SceneKind nextScene)
 {
 	m_SceneKind = nextScene;

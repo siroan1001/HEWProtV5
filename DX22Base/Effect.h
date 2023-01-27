@@ -10,6 +10,7 @@ public:
 	enum EffectKind
 	{
 		E_EFFECT_KIND_ATK = 0,
+		E_EFFECT_KIND_RAIN,
 
 		E_EFFECT_KIND_MAX
 	};
@@ -30,7 +31,7 @@ private:
 
 	static CameraBase* m_pCamera;
 
-	static Effekseer::EffectRef m_effect1;
+	static Effekseer::EffectRef m_effect[E_EFFECT_KIND_MAX];
 };
 
 
