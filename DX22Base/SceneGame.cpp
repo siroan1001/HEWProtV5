@@ -13,6 +13,7 @@
 #include "Layer.h"
 #include "LayerGame.h"
 #include "LayerBG.h"
+#include "LayerResult.h"
 
 //SceneGame::CameraKind SceneGame::m_mainCamera;
 //CameraBase* SceneGame::m_pCamera[];
@@ -126,12 +127,25 @@ void SceneGame::Update()
 	//if (m_GameStatus == E_GAME_STATUS_NORMAL)
 	//	m_pCamera[m_mainCamera]->Update();
 
-	for (int i = 0; i < E_LAYER_MAX; i++)
+	switch (m_GameStatus)
 	{
-		if (!m_pLayer[i])	continue;
-		m_pLayer[i]->Update();
+	case SceneGame::E_GAME_STATUS_GAMEOVER:
+		if (!m_pLayer[E_LAYER_RESULT]) break;
+		m_pLayer[E_LAYER_RESULT]->Update();
+		break;
+	case SceneGame::E_GAME_STATUS_GOAL:
+		if (!m_pLayer[E_LAYER_RESULT]) break;
+		m_pLayer[E_LAYER_RESULT]->Update();
+		break;
+	default:
+		for (int i = 0; i < E_LAYER_MAX; i++)
+		{
+			if (!m_pLayer[i])	continue;
+			m_pLayer[i]->Update();
+		}
+		break;
 	}
-
+	
 	//カメラの切り替え
 	//CameraKind camera = m_mainCamera;
 	//if (IsKeyPress('C'))
@@ -163,14 +177,16 @@ void SceneGame::Update()
 	//		CameraReset();//カメラリセット関数
 	//	}
 	//}
-	if (m_GameStatus == E_GAME_STATUS_GAMEOVER)
+
+
+	/*if (m_GameStatus == E_GAME_STATUS_GAMEOVER)
 	{
 		Game3D::SetScene(Game3D::E_SCENE_KIND_RESULT);
 	}
 	if (m_GameStatus == E_GAME_STATUS_GOAL)
 	{
 		Game3D::SetScene(Game3D::E_SCENE_KIND_CLEAR);
-	}
+	}*/
 }
 
 void SceneGame::Draw()
@@ -237,6 +253,7 @@ void SceneGame::Stage1()
 	m_pLayer[E_LAYER_BUCK_OBJECT] = NULL;
 	m_pLayer[E_LAYER_GAME] = new LayerGame(Game3D::GetCamera(), &m_GameStatus, E_STAGE_NUMBER_STAGE_1);		//これ
 	m_pLayer[E_LAYER_UI] = NULL;
+	m_pLayer[E_LAYER_RESULT] = new LayerResult;
 
 	EffectManager::SetCamera(Game3D::GetCamera());
 

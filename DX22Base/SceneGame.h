@@ -31,6 +31,7 @@ public:
 		E_LAYER_BUCK_OBJECT,
 		E_LAYER_GAME,
 		E_LAYER_UI,
+		E_LAYER_RESULT,
 
 		E_LAYER_MAX
 	};

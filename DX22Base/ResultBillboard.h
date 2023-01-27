@@ -12,7 +12,7 @@ public:
 		XMFLOAT3 Pos;
 		XMFLOAT2 Size;
 	};
-	struct UV
+	struct Division
 	{
 		int U;
 		int V;
@@ -20,14 +20,16 @@ public:
 
 public:
 	ResultBillboard();
-	void Update(int Animflame);
+	void Update();
 	void Draw();
-	int GetMaxFlame();
+
+	bool GetFlag();
+
+	void ResetAnim();
 
 private:
-	UV m_uv = { 4,4 }; //ï™äÑêî
-	//UV m_uv = { 5,6 }; //ï™äÑêî
-	int AnimFlame;
+	int m_AnimFlame;
+	bool m_IsAnimFin;
 };
 
 #endif // !_____RESULT_BILLBOARD_H____

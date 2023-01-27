@@ -21,4 +21,14 @@ void AnimationBillboard::Update()
 {
 }
 
+int AnimationBillboard::GetMaxFlame()
+{
+	return m_div.U * m_div.V;
+}
+
+AnimationBillboard::Division AnimationBillboard::GetDivision()
+{
+	return m_div;
+}
+
 

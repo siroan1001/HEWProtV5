@@ -6,31 +6,41 @@
 
 ResultBillboard::ResultBillboard()
 {
+	m_div = { 4,4 };
 	LoadTextureFromFile("Assets/FailedSprite.png", &m_pTex);
 	/*LoadTextureFromFile("Assets/1SecondFailedSprite.png", &m_pTex);*/
 
 	CameraBase* cam = Game3D::GetCamera();
 	m_Info.Pos = XMFLOAT3(cam->GetPos().x, cam->GetPos().y, 1.0f);
-	m_Info.Size = XMFLOAT2(5.2f, 3.9f);
-	m_uvScale = { 1.0f / m_uv.U, 1.0f / m_uv.V };
-	AnimFlame = 0;
+	m_Info.Size = XMFLOAT2(1.2f, 1.2f);
+	m_uvScale = { 1.0f / m_div.U, 1.0f / m_div.V };
+	m_AnimFlame = 0;
+	m_IsAnimFin = false;
 }
 
-void ResultBillboard::Update(int flame)
+void ResultBillboard::Update()
 {
 	CameraBase* cam = Game3D::GetCamera();
-	m_Info.Pos = XMFLOAT3(cam->GetPos().x, cam->GetPos().y, -1.0f);
-	AnimFlame = flame;
+	m_Info.Pos = XMFLOAT3(cam->GetPos().x, cam->GetPos().y, 1.0f);
+	if (!m_IsAnimFin)m_AnimFlame++;
+	if(m_AnimFlame >= m_div.U * m_div.V - 1)m_IsAnimFin = true;
 }
 
 void ResultBillboard::Draw()
 {
-	Sprite::SetUVPos({ 1.0f / m_uv.U * (AnimFlame % m_uv.U), 1.0f / m_uv.V * (AnimFlame / m_uv.U) });
+	Sprite::SetUVPos({ 1.0f / m_div.U * (m_AnimFlame % m_div.U), 1.0f / m_div.V * (m_AnimFlame / m_div.U) });
 	Sprite::SetUVScale(m_uvScale);
 	AnimationBillboard::Draw();
 }
 
-int ResultBillboard::GetMaxFlame()
+bool ResultBillboard::GetFlag()
 {
-	return m_uv.U * m_uv.V;
+	return m_IsAnimFin;
 }
+
+void ResultBillboard::ResetAnim()
+{
+	m_AnimFlame = 0;
+	m_IsAnimFin = false;
+}
+
