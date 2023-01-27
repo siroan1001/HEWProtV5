@@ -31,6 +31,7 @@ public:
 		E_LAYER_BUCK_OBJECT,
 		E_LAYER_GAME,
 		E_LAYER_UI,
+		E_LAYER_RESULT,
 
 		E_LAYER_MAX
 	};
@@ -71,9 +72,11 @@ public:
 
 	//void CameraReset();
 
+	void SetStageNumber(StageNumber stagenumber);
 private:
 	void StageTutoRial();
 	void Stage1();
+	void UninitStage1();
 	void Stage2();
 	void Stage3();
 	void Stage4();

@@ -222,6 +222,9 @@
     <ClCompile Include="SceneStageSelect.cpp">
       <Filter>ソース ファイル\DX22\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="LayerResult.cpp">
+      <Filter>ソース ファイル\DX22\Layer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -400,6 +403,9 @@
     </ClInclude>
     <ClInclude Include="SceneStageSelect.h">
       <Filter>ヘッダー ファイル\DX22\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerResult.h">
+      <Filter>ヘッダー ファイル\DX22\Layer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

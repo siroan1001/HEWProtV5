@@ -24,7 +24,7 @@ void SceneTitle::Update()
 	if (IsKeyPress(VK_SPACE) || IsButtonTrigger(BUTTON_B))
 	{
 		//ƒGƒ“ƒ^[‚ğ‰Ÿ‚µ‚½‚çØ‚è‘Ö‚¦
-		Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
+		Game3D::SetScene(Game3D::E_SCENE_KIND_STAGESELECT);
 	}
 }
 

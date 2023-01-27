@@ -11,6 +11,8 @@ public:
 	enum BGKind
 	{
 		E_BG_KIND_TITLE = 0,
+		E_BG_KIND_STAGESELECT,
+
 		E_BG_KIND_FOREST,
 
 		E_BG_KIND_MAX
@@ -21,7 +23,7 @@ public:
 	void Draw();
 
 private:
-
+	BGKind m_bgKind;
 };
 
 #endif // !_____BG_H____

@@ -1,6 +1,5 @@
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\vc141.pdb
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\vc141.idb
-c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\goal.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\geometory.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\game3d.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\fade.obj
@@ -10,6 +9,7 @@ c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x6
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\effect.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\texture.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\directx.obj
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\controller.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\constantbuffer.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\collision.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\clearbillboard.obj
@@ -20,7 +20,6 @@ c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x6
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\billboard.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\bg.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\animationbillboard.obj
-c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\scenegame.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\sceneclear.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\scenebace.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\samplerstate.obj
@@ -40,7 +39,7 @@ c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x6
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\layerbg.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\layer.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\input.obj
-c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\controller.obj
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\goal.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\winutil.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\timer.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\startup.obj
@@ -53,13 +52,14 @@ c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x6
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\scenetitle.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\scenestageselect.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\sceneresult.obj
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\scenegame.obj
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\layerresult.obj
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\assets\shader\fadeps.cso
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\assets\shader\modelps.cso
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\assets\shader\modelvs.cso
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\x64\debug\dx22base.exe
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\x64\debug\dx22base.ilk
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\x64\debug\dx22base.pdb
-c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\enemydefault.obj.enc
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\dx22base.tlog\cl.command.1.tlog
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\dx22base.tlog\cl.read.1.tlog
 c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\x64\debug\dx22base.tlog\cl.write.1.tlog
