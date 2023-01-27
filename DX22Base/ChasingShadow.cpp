@@ -109,14 +109,14 @@
 ChasingShadow::ChasingShadow()
 	:m_PlDirection(Collision::E_DIRECTION_L)
 {
-	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
+	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 1.0f;
 	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_GHOST);
 
 	//頂点シェーダをモデルに設定
 	m_pModel->SetVertexShader(m_pVS);
 	m_pModel->SetPixelShader(m_pPS);
 
-	m_Info = { {-10.0f, 5.0f, 0.0f}, {2.0f, 0.5f, 2.0f}, {0.0f, -90.0f, 0.0f} };
+	m_Info = { {-10.0f, 5.0f, 0.0f}, {2.0f, 0.5f, 2.0f}, {0.0f, 0.0f, 0.0f} };
 
 
 }
@@ -129,6 +129,8 @@ void ChasingShadow::Update()
 	if (m_PosLog.size() >= cn_MaxFlame)
 	{
 		m_Info.pos = *m_PosLog.begin();
+		m_Info.pos.y += 0.9f;
+
 		m_PosLog.pop_front();
 	}
 	/*const float SHADOW_MOVE = 0.01f;
@@ -200,5 +202,5 @@ void ChasingShadow::SetPlayer(Player * pPlayer)
 
 float ChasingShadow::GetRadius()
 {
-	return 2.0f;
+	return 1.0f;
 }

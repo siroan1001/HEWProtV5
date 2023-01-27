@@ -3,7 +3,7 @@
 #include "controller.h"
 
 Light::Light()
-	:m_Info{ {-3.8f, 4.25f, 0.2f}, {0.45f, 0.01f, 0.45f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
+	:m_Info{ {-3.8f, 4.25f, 0.2f}, {0.45f, 0.0001f, 0.45f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
 	,m_Power(30.0f)
 {
 

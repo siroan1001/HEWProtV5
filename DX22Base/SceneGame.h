@@ -62,6 +62,8 @@ public:
 	void Update();
 	void Draw();
 
+	void ReStart();
+
 	//static CameraBase* GetCamera();
 	static GameStatus GetGameStatus();
 	static void SetGameStatus(GameStatus);

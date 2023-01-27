@@ -21,7 +21,7 @@ void SceneTitle::Update()
 {
 	m_pBG;
 
-	if (IsKeyPress(VK_SPACE) || IsButtonPress(BUTTON_B))
+	if (IsKeyPress(VK_SPACE) || IsButtonTrigger(BUTTON_B))
 	{
 		//ƒGƒ“ƒ^[‚ð‰Ÿ‚µ‚½‚çØ‚è‘Ö‚¦
 		Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
@@ -35,4 +35,9 @@ void SceneTitle::Draw()
 	//EnableDepth(true);
 
 	m_pBG->Draw();
+}
+
+void SceneTitle::ReStart()
+{
+	Game3D::GetCamera()->SetLook(XMFLOAT3(-5.48f, 4.05f, 0.0f));
 }

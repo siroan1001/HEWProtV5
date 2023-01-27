@@ -62,3 +62,7 @@ void SceneClear::Draw()
 	m_pClearBill->Draw();
 	m_pBG->Draw();
 }
+
+void SceneClear::ReStart()
+{
+}

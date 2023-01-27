@@ -10,6 +10,8 @@ public:
 	virtual ~SceneBace() {};
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
+
+	virtual void ReStart() = 0;
 };
 
 #endif // !_____SCENE_BACE_H____

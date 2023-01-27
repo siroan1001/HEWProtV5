@@ -15,3 +15,7 @@ void SceneStageSelect::Update()
 void SceneStageSelect::Draw()
 {
 }
+
+void SceneStageSelect::ReStart()
+{
+}

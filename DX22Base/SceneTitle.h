@@ -18,6 +18,8 @@ public:
 	void Update();
 	void Draw();
 
+	void ReStart();
+
 private:
 
 	//TitleUI* m_TitleUI;	//?

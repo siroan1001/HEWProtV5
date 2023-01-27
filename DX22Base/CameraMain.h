@@ -16,7 +16,7 @@ public:
 	{
 		//if (SceneGame::GetGameStatus() != SceneGame::E_GAME_STATUS_NORMAL)	return;
 
-		const float LIMIT = 1.2f;
+		const float LIMIT = 1.0f;
 		XMFLOAT3 Playerpos = m_pPlayer->GetInfo().pos;
 
 		if (SceneGame::GetGameStatus() == SceneGame::E_GAME_STATUS_NORMAL)

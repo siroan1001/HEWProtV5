@@ -30,7 +30,7 @@ public:
 	virtual ~CameraBase() {};
 	virtual void Update() = 0;
 
-	
+	void SetLook(XMFLOAT3 pod) { m_look = pod; }
 
 	XMFLOAT3 GetPos() { return m_pos; }
 	XMFLOAT3 GetLook() { return m_look; }

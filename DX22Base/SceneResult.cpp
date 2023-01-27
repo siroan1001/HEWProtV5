@@ -62,3 +62,7 @@ void SceneResult::Draw()
 	m_pResultBill->Draw();
 	m_pBG->Draw();
 }
+
+void SceneResult::ReStart()
+{
+}

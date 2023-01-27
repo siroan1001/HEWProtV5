@@ -13,6 +13,7 @@
 #include "Layer.h"
 #include "LayerGame.h"
 #include "LayerBG.h"
+#include "controller.h"
 
 //SceneGame::CameraKind SceneGame::m_mainCamera;
 //CameraBase* SceneGame::m_pCamera[];
@@ -165,11 +166,18 @@ void SceneGame::Update()
 	//}
 	if (m_GameStatus == E_GAME_STATUS_GAMEOVER)
 	{
-		Game3D::SetScene(Game3D::E_SCENE_KIND_RESULT);
+		//Game3D::SetScene(Game3D::E_SCENE_KIND_RESULT);
+		if (IsButtonTrigger(BUTTON_B))
+		{
+			Game3D::SetScene(Game3D::E_SCENE_KIND_TITLE);
+		}
 	}
 	if (m_GameStatus == E_GAME_STATUS_GOAL)
 	{
-		Game3D::SetScene(Game3D::E_SCENE_KIND_CLEAR);
+		if (IsButtonTrigger(BUTTON_B))
+		{
+			Game3D::SetScene(Game3D::E_SCENE_KIND_TITLE);
+		}
 	}
 }
 
@@ -186,6 +194,10 @@ void SceneGame::Draw()
 	}
 
 	//m_pEffect->Draw();
+}
+
+void SceneGame::ReStart()
+{
 }
 
 

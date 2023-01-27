@@ -26,6 +26,8 @@ public:
 	void Update();
 	void Draw();
 
+	void ReStart();
+
 private:
 	static ResultStatus m_ResultStatus;
 	ResultBillboard* m_pResultBill;

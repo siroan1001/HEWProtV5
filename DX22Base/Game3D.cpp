@@ -16,7 +16,7 @@ Game3D::CameraKind Game3D::m_mainCamera;
 Game3D::Game3D()
 {
 	CameraMain* pMain = new CameraMain;
-	pMain->SetLook(XMFLOAT3(-5.0f, 4.05f, 0.0f));
+	pMain->SetLook(XMFLOAT3(-5.48f, 4.05f, 0.0f));
 	m_pCamera[E_CAM_MAIN] = pMain;
 	CameraEvent* pEvent = new CameraEvent();
 	pEvent->SetEvent(XMFLOAT3(-3.0f, 4.25f, 3.0f), XMFLOAT3(-3.0f, 4.25f, 3.0f), 3.0f);
@@ -101,6 +101,7 @@ Game3D::SceneKind Game3D::GetSceneKind()
 void Game3D::SetScene(SceneKind nextScene)
 {
 	m_SceneKind = nextScene;
+	m_pScene[m_SceneKind]->ReStart();
 }
 
 CameraBase * Game3D::GetCamera()

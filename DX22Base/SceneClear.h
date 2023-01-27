@@ -26,6 +26,8 @@ public:
 	void Update();
 	void Draw();
 
+	void ReStart();
+
 private:
 	static ClearStatus m_ClearStatus;
 	ClearBillboard* m_pClearBill;

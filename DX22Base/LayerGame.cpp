@@ -84,6 +84,7 @@ LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status, SceneGam
 
 	m_pChasingShadow = new ChasingShadow;
 	m_pChasingShadow->SetPlayer(m_pPlayer);
+	m_pChasingShadow->SetCamera(camera);
 
 	m_GameStatus = status;
 	g_flag = false;
@@ -188,6 +189,7 @@ void LayerGame::Draw()
 	m_pStartObj->Draw();
 
 	//追ってくる影の描画
+	Object::SetObjColor(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
 	m_pChasingShadow->Draw();
 	
 	m_pGoalObj->Draw();
