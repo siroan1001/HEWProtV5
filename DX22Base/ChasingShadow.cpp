@@ -11,9 +11,9 @@ ChasingShadow::ChasingShadow()
 	m_pModel->SetVertexShader(m_pVS);
 	m_pModel->SetPixelShader(m_pPS);
 
-	m_Info = { {-10.0f, 5.0f, 0.0f}, {2.0f, 0.5f, 2.0f}, {0.0f, 0.0f, 0.0f} };
+	m_Info = { {-10.0f, 5.0f, 0.0f}, {1.3f, 0.5f, 1.3f}, {0.0f, 0.0f, 0.0f} };
 
-
+	m_EndFlag = false;
 }
 
 void ChasingShadow::Update()
@@ -21,12 +21,15 @@ void ChasingShadow::Update()
 	const int cn_MaxFlame = 150;
 	m_PosLog.push_back(m_pPlayer->GetInfo().pos);
 
-	if (m_PosLog.size() >= cn_MaxFlame)
+	if (!m_EndFlag)
 	{
-		m_Info.pos = *m_PosLog.begin();
-		m_Info.pos.y += 0.9f;
+		if (m_PosLog.size() >= cn_MaxFlame)
+		{
+			m_Info.pos = *m_PosLog.begin();
+			m_Info.pos.y += 0.9f;
 
-		m_PosLog.pop_front();
+			m_PosLog.pop_front();
+		}
 	}
 }
 
@@ -37,6 +40,11 @@ void ChasingShadow::Reset()
 	m_PosLog.clear();
 }
 
+bool ChasingShadow::GetEndFlag()
+{
+	return m_EndFlag;
+}
+
 void ChasingShadow::SetPlayer(Player * pPlayer)
 {
 	m_pPlayer = pPlayer;
@@ -45,6 +53,11 @@ void ChasingShadow::SetPlayer(Player * pPlayer)
 void ChasingShadow::SetPos(XMFLOAT3 pos)
 {
 	m_Info.pos = pos;
+}
+
+void ChasingShadow::SetEndFlag(bool flag)
+{
+	m_EndFlag = flag;
 }
 
 float ChasingShadow::GetRadius()

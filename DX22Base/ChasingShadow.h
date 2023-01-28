@@ -37,8 +37,11 @@ public:
 
 	void Reset();
 
+	bool GetEndFlag();
+
 	void SetPlayer(Player* pPlayer);
 	void SetPos(XMFLOAT3 pos);
+	void SetEndFlag(bool);
 
 	float GetRadius();
 
@@ -46,6 +49,7 @@ private:
 	Player * m_pPlayer;
 	Collision::Direction m_PlDirection;
 	std::list<XMFLOAT3> m_PosLog;
+	bool m_EndFlag;
 };
 
 #endif // !_____CHASING_SHADOW_H____

@@ -69,26 +69,35 @@ void SceneGame::Update()
 {
 
 
-	switch (m_GameStatus)
-	{
-	case SceneGame::E_GAME_STATUS_GAMEOVER:
-		if (!m_pLayer[E_LAYER_RESULT]) break;
-		m_pLayer[E_LAYER_RESULT]->Update();
-		break;
-	case SceneGame::E_GAME_STATUS_GOAL:
-		if (!m_pLayer[E_LAYER_RESULT]) break;
-		m_pLayer[E_LAYER_RESULT]->Update();
-		break;
-	default:
-		for (int i = 0; i < E_LAYER_MAX; i++)
-		{
-			if (!m_pLayer[i])	continue;
-			m_pLayer[i]->Update();
-		}
-		break;
-	}
+	//switch (m_GameStatus)
+	//{
+	//case SceneGame::E_GAME_STATUS_GAMEOVER:
+	//	if (!m_pLayer[E_LAYER_RESULT]) break;
+	//	m_pLayer[E_LAYER_RESULT]->Update();
+	//	break;
+	//case SceneGame::E_GAME_STATUS_GOAL:
+	//	if (!m_pLayer[E_LAYER_RESULT]) break;
+	//	m_pLayer[E_LAYER_RESULT]->Update();
+	//	break;
+	//default:
+	//	for (int i = 0; i < E_LAYER_MAX; i++)
+	//	{
+	//		if (!m_pLayer[i])	continue;
+	//		m_pLayer[i]->Update();
+	//	}
+	//	break;
+	//}
 	
+	for (int i = 0; i < E_LAYER_MAX; i++)
+	{
+		if (!m_pLayer[i])	continue;
+		m_pLayer[i]->Update();
+	}
 
+	if (m_GameStatus == E_GAME_STATUS_GAMEOVER || m_GameStatus == E_GAME_STATUS_GOAL)
+	{
+		m_pLayer[E_LAYER_RESULT]->Update();
+	}
 
 	if (m_GameStatus == E_GAME_STATUS_GAMEOVER)
 	{

@@ -50,9 +50,11 @@ public:
 			default:
 				break;
 			}
-		}
 
-		m_look.y = Playerpos.y + 0.8f;
+
+			m_look.y = Playerpos.y + 0.8f;
+
+		}
 
 		m_pos.x = m_look.x;
 		m_pos.y = m_look.y;

@@ -415,6 +415,14 @@ void LayerGame::CheckCollision()
 		}
 	}
 
+	//おってくる影とゴール
+	if (!m_pChasingShadow->GetEndFlag())
+	{
+		if (Collision::RectAndRect(m_pGoalObj->GetInfo(), m_pChasingShadow->GetInfo()))
+		{
+			m_pChasingShadow->SetEndFlag(true);
+		}
+	}
 	//プレイヤーとスタート板
 	if (*m_GameStatus == SceneGame::E_GAME_STATUS_START)
 	{
