@@ -11,9 +11,11 @@ ChasingShadow::ChasingShadow()
 	m_pModel->SetVertexShader(m_pVS);
 	m_pModel->SetPixelShader(m_pPS);
 
-	m_Info = { {-10.0f, 5.0f, 0.0f}, {1.3f, 0.5f, 1.3f}, {0.0f, 0.0f, 0.0f} };
+	m_Info = { {-10.0f, 5.0f, 0.0f}, {1.5f, 1.5f, 0.5f}, {0.0f, 0.0f, 0.0f} };
 
 	m_EndFlag = false;
+
+	m_Color = XMFLOAT4(50.0f, 50.0f, 50.0f, 1.0f);
 }
 
 void ChasingShadow::Update()
@@ -31,11 +33,19 @@ void ChasingShadow::Update()
 			m_PosLog.pop_front();
 		}
 	}
+	else
+	{
+		m_Color.w -= 0.02f;
+		if (m_Color.w <= 0.0f)
+		{
+			m_Color.w = 0.0f;
+		}
+	}
 }
 
 void ChasingShadow::Reset()
 {
-	m_Info = { {-10.0f, 5.0f, 0.0f}, {2.0f, 0.5f, 2.0f}, {0.0f, 0.0f, 0.0f} };
+	m_Info = { {-10.0f, 5.0f, 0.0f}, {1.5f, 1.5f, 0.5f}, {0.0f, 0.0f, 0.0f} };
 	m_PlDirection = Collision::E_DIRECTION_L;
 	m_PosLog.clear();
 }

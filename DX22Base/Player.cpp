@@ -38,6 +38,8 @@ Player::Player(Collision::Direction dire)
 	default:
 		break;
 	}
+
+	m_Color = XMFLOAT4(50.0f, 50.0f, 50.0f, 1.0f);
 }
 
 void Player::Update()

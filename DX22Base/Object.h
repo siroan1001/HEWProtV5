@@ -21,6 +21,7 @@ public:
 	static void Uninit();
 	void Draw();
 	static void SetObjColor(XMFLOAT4 color);
+	XMFLOAT4 GetColor();
 
 	Def::Info GetInfo();
 
@@ -43,6 +44,7 @@ protected:
 	static Lig* m_pObjLight;
 	static ConstantBuffer* m_pObjColor;
 	static ObjCol m_ObjColor;
+	XMFLOAT4 m_Color;
 };
 
 #endif // !_____OBJECT_H____

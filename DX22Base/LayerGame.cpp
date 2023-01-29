@@ -124,14 +124,14 @@ void LayerGame::Draw()
 	m_pStage->Draw();
 
 	//プレイヤーの描画
-	Object::SetObjColor(XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
+	Object::SetObjColor(m_pPlayer->GetColor());
 	m_pPlayer->Draw();
 
 	//敵の描画
 	for (int i = 0; i < m_pEnemy.size(); i++)
 	{
 		if (!m_pEnemy[i]->GetUse())	continue;
-		Object::SetObjColor(XMFLOAT4(50.0f, 50.0f, 50.0f, 1.0f));
+		Object::SetObjColor(m_pEnemy[i]->GetColor());
 		m_pEnemy[i]->Draw();
 	}
 
@@ -147,7 +147,7 @@ void LayerGame::Draw()
 	m_pStartObj->Draw();
 
 	//追ってくる影の描画
-	Object::SetObjColor(XMFLOAT4(100.0f, 100.0f, 100.0f, 1.0f));
+	Object::SetObjColor(m_pChasingShadow->GetColor());
 	m_pChasingShadow->Draw();
 	
 	m_pGoalObj->Draw();

@@ -1,9 +1,2 @@
-﻿  ChasingShadow.cpp
-  LayerGame.cpp
-c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\layergame.cpp : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  SceneGame.cpp
-c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\cameradebug.h(129): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\cameradebug.h(130): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\cameradebug.h(131): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-  コードを生成中...
-  DX22Base.vcxproj -> C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DX22Base.exe
+﻿  Object.cpp
+  DX22Base.vcxproj -> C:\Users\User\Documents\HEWProtV5\x64\Debug\DX22Base.exe

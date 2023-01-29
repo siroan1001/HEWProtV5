@@ -1,6 +1,8 @@
 #include "Object.h"
 #include "Geometory.h"
 
+//#define ___COLLICION_BOX__
+
 VertexShader* Object::m_pVS = NULL;
 ConstantBuffer* Object::m_pWVP = NULL;
 PixelShader* Object::m_pPS = NULL;
@@ -90,17 +92,25 @@ void Object::Draw()
 	m_pObjColor->BindPS(1);
 	m_pModel->Draw();
 
+#ifdef ___COLLICION_BOX__
+	SetGeometoryRotation(0.0f, 0.0f, 0.0f);
+	SetGeometoryScaling(m_Info.size.x, m_Info.size.y, m_Info.size.z);
+	SetGeometoryTranslate(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
+	SetGeometoryColor(XMFLOAT4(1.0f, 0.0f, 0.0f, 0.5f));
+	DrawBox();
+#endif // ___COLLICION_BOX__
 
-	//SetGeometoryRotation(0.0f, 0.0f, 0.0f);
-	//SetGeometoryScaling(0.1f, 0.1f, 0.5f);
-	//SetGeometoryTranslate(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
-	//SetGeometoryColor(XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
-	//DrawBox();
+
 }
 
 void Object::SetObjColor(XMFLOAT4 color)
 {
 	m_ObjColor.color = color;
+}
+
+XMFLOAT4 Object::GetColor()
+{
+	return m_Color;
 }
 
 Def::Info Object::GetInfo()
