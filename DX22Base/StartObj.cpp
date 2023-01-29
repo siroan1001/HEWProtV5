@@ -19,6 +19,8 @@ StartObj::StartObj()
 
 	m_Info = { {-6.3f, 3.25f, 0.0f}, {0.3f, 1.0f, 0.3f}, {0.0f, 0.0f, 0.0f} };
 	m_ModelSize = { 0.3f, 1.0f, 0.3f };
+
+	m_Color = XMFLOAT4(50.0f, 50.0f, 50.0f, 1.0f);
 }
 
 Def::Info StartObj::GetInfo()

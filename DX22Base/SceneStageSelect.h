@@ -20,6 +20,7 @@ public:
 	void ReStart();
 	void SetCamera(CameraBase* camera);
 	static SceneGame::StageNumber* GetStageNumber();
+	static void SetNextStage();
 private:
 	BG* m_pBG;
 	StageSelectCursor* m_pCursor;

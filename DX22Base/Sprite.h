@@ -21,6 +21,7 @@ public:
 	static void SetUVScale(DirectX::XMFLOAT2 scale);
 	static void SetColor(DirectX::XMFLOAT4 color);
 	static void SetLig(Lig::Light lig);
+	static void SetPtRange(float PtRange);
 	static void SetTexture(ID3D11ShaderResourceView* pTex);
 
 	static void SetWorld(DirectX::XMFLOAT4X4 world);

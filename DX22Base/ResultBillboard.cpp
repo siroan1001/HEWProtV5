@@ -30,6 +30,7 @@ void ResultBillboard::Draw()
 {
 	Sprite::SetUVPos({ 1.0f / m_div.U * (m_AnimFlame % m_div.U), 1.0f / m_div.V * (m_AnimFlame / m_div.U) });
 	Sprite::SetUVScale(m_uvScale);
+	Sprite::SetPtRange(0.0f);
 	AnimationBillboard::Draw();
 }
 

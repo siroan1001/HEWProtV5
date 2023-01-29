@@ -20,7 +20,7 @@ ChasingShadow::ChasingShadow()
 
 void ChasingShadow::Update()
 {
-	const int cn_MaxFlame = 150;
+	const int cn_MaxFlame = 350;
 	m_PosLog.push_back(m_pPlayer->GetInfo().pos);
 
 	if (!m_EndFlag)
@@ -35,10 +35,13 @@ void ChasingShadow::Update()
 	}
 	else
 	{
-		m_Color.w -= 0.02f;
-		if (m_Color.w <= 0.0f)
+		if (SceneGame::GetGameStatus() == SceneGame::E_GAME_STATUS_GOAL)
 		{
-			m_Color.w = 0.0f;
+			m_Color.w -= 0.02f;
+			if (m_Color.w <= 0.0f)
+			{
+				m_Color.w = 0.0f;
+			}
 		}
 	}
 }
@@ -48,6 +51,8 @@ void ChasingShadow::Reset()
 	m_Info = { {-10.0f, 5.0f, 0.0f}, {1.5f, 1.5f, 0.5f}, {0.0f, 0.0f, 0.0f} };
 	m_PlDirection = Collision::E_DIRECTION_L;
 	m_PosLog.clear();
+	m_EndFlag = false;
+	m_Color = XMFLOAT4(50.0f, 50.0f, 50.0f, 1.0f);
 }
 
 bool ChasingShadow::GetEndFlag()

@@ -227,6 +227,10 @@ void Sprite::SetLig(Lig::Light lig)
 	m_ConBufLig.amCol.y = 1.0f;
 	m_ConBufLig.amCol.z = 1.0f;
 }
+void Sprite::SetPtRange(float PtRange)
+{
+	m_ConBufLig.ptRange = PtRange;
+}
 void Sprite::SetTexture(ID3D11ShaderResourceView* pTex)
 {
 	m_pTexture = pTex;

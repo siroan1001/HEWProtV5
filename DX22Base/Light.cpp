@@ -58,7 +58,7 @@ void Light::Draw()
 	XMFLOAT3 LigPos = m_Info.pos; LigPos.z += 10.0f;
 	SetGeometorySpLigPos(LigPos);
 	SetGeometoryPtLigPos(m_Info.pos);
-	SetGeometoryColor(DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 0.75f));
+	SetGeometoryColor(DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 0.6f));
 	DrawCylinder();
 }
 

@@ -232,6 +232,15 @@ void Stage::Draw()
 	}
 }
 
+void Stage::Reset()
+{
+	for (int i = 0; i < m_Date[*m_pStageNum].m_Shadow.size(); i++)
+	{
+		m_Date[*m_pStageNum].m_Shadow[i]->Reset();
+	}
+	
+}
+
 Def::Info Stage::GetInfo(int num)
 {
 	return m_Date[*m_pStageNum].m_Info[num];

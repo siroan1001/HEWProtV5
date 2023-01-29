@@ -35,6 +35,8 @@ public:
 	void Update();
 	void Draw();
 
+	void Reset();
+
 	void SetShadowBlock(Def::Info info);
 	void SetUse(XMFLOAT2 num, bool flag);
 	std::vector<std::vector<SmallBlockTemp>>* GetSmallBlockInfo();

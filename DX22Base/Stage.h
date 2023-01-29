@@ -39,6 +39,8 @@ public:
 	void Update();
 	void Draw();
 
+	void Reset();
+
 	Def::Info GetInfo(int num);
 	int GetStageNum();
 	int GetShadowNum();

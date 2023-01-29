@@ -16,6 +16,7 @@
 #include "controller.h"
 #include "LayerResult.h"
 #include "Effect.h"
+#include "SceneStageSelect.h"
 
 SceneGame::GameStatus SceneGame::m_GameStatus;
 SceneGame::StageNumber SceneGame::m_StageNuber;
@@ -102,16 +103,25 @@ void SceneGame::Update()
 	if (m_GameStatus == E_GAME_STATUS_GAMEOVER)
 	{
 		//Game3D::SetScene(Game3D::E_SCENE_KIND_RESULT);
-		if (IsButtonTrigger(BUTTON_B))
+		if (IsButtonTrigger(BUTTON_A) || IsKeyTrigger(VK_SPACE))
 		{
-			Game3D::SetScene(Game3D::E_SCENE_KIND_TITLE);
+			Game3D::SetScene(Game3D::E_SCENE_KIND_STAGESELECT);
+		}
+		if (IsButtonTrigger(BUTTON_B) || IsKeyTrigger(VK_SHIFT))
+		{
+			ReStart();
 		}
 	}
 	if (m_GameStatus == E_GAME_STATUS_GOAL)
 	{
-		if (IsButtonTrigger(BUTTON_B))
+		if (IsButtonTrigger(BUTTON_A) || IsKeyTrigger(VK_SPACE))
 		{
-			Game3D::SetScene(Game3D::E_SCENE_KIND_TITLE);
+			Game3D::SetScene(Game3D::E_SCENE_KIND_STAGESELECT);
+		}
+		if (IsButtonTrigger(BUTTON_B) || IsKeyTrigger(VK_SHIFT))
+		{
+			SceneStageSelect::SetNextStage();
+			ReStart();
 		}
 	}
 	

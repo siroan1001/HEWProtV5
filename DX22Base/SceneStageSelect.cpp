@@ -21,30 +21,30 @@ SceneStageSelect::~SceneStageSelect()
 
 void SceneStageSelect::Update()
 {
-	if (IsKeyTrigger(VK_SPACE))
-	{
-		Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
-		m_StageNumber = SceneGame::E_STAGE_NUMBER_STAGE_1;
-	}
-	if (IsButtonTrigger(BUTTON_A))
-	{
-		Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
-		m_StageNumber = SceneGame::E_STAGE_NUMBER_STAGE_1;
-	}
-	if (IsButtonTrigger(BUTTON_X))
-	{
-		Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
-		m_StageNumber = SceneGame::E_STAGE_NUMBER_STAGE_2;
-	}
-	if (IsButtonTrigger(BUTTON_Y))
-	{
-		Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
-		m_StageNumber = SceneGame::E_STAGE_NUMBER_STAGE_3;
-	}
+	//if (IsKeyTrigger(VK_SPACE))
+	//{
+	//	Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
+	//	m_StageNumber = SceneGame::E_STAGE_NUMBER_STAGE_1;
+	//}
+	//if (IsButtonTrigger(BUTTON_A))
+	//{
+	//	Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
+	//	m_StageNumber = SceneGame::E_STAGE_NUMBER_STAGE_1;
+	//}
+	//if (IsButtonTrigger(BUTTON_X))
+	//{
+	//	Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
+	//	m_StageNumber = SceneGame::E_STAGE_NUMBER_STAGE_2;
+	//}
+	//if (IsButtonTrigger(BUTTON_Y))
+	//{
+	//	Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
+	//	m_StageNumber = SceneGame::E_STAGE_NUMBER_STAGE_3;
+	//}
 
 	m_pCursor->Update();
 
-	if (IsButtonTrigger(BUTTON_B))
+	if (IsButtonTrigger(BUTTON_B) || IsKeyTrigger(VK_SPACE))
 	{
 		m_StageNumber = m_pCursor->GetStageNum();
 		Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
@@ -59,6 +59,7 @@ void SceneStageSelect::Draw()
 
 void SceneStageSelect::ReStart()
 {
+	m_pCamera->SetLook(XMFLOAT3(-5.48f, 4.05f, 0.0f));
 }
 
 void SceneStageSelect::SetCamera(CameraBase * camera)
@@ -69,6 +70,25 @@ void SceneStageSelect::SetCamera(CameraBase * camera)
 SceneGame::StageNumber* SceneStageSelect::GetStageNumber()
 {
 	return &m_StageNumber;
+}
+
+void SceneStageSelect::SetNextStage()
+{
+	switch (m_StageNumber)
+	{
+	case SceneGame::E_STAGE_NUMBER_STAGE_1:
+		m_StageNumber = SceneGame::E_STAGE_NUMBER_STAGE_2;
+		break;
+	case SceneGame::E_STAGE_NUMBER_STAGE_2:
+		m_StageNumber = SceneGame::E_STAGE_NUMBER_STAGE_3;
+		break;
+	case SceneGame::E_STAGE_NUMBER_STAGE_3:
+		m_StageNumber = SceneGame::E_STAGE_NUMBER_STAGE_3;
+		break;
+	default:
+		break;
+	}
+	
 }
 
 

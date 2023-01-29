@@ -20,15 +20,6 @@
 
 class LayerGame	: public Layer
 {
-//public:
-//	enum EnemyKind
-//	{
-//		E_ENEMY_KIND_DEF_1 = 0,
-//		E_ENEMY_KIND_ROUND_TRIP_1,
-//
-//		E_ENEMY_KIND_MAX,
-//	};
-
 public:
 	LayerGame(CameraBase*, SceneGame::GameStatus*, SceneGame::StageNumber);
 	~LayerGame();

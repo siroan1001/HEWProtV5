@@ -135,21 +135,18 @@ void LayerGame::Draw()
 		m_pEnemy[i]->Draw();
 	}
 
-	//シャドウブロックの描画
-	//m_pShadowBlock->Draw();
-
-	//m_pRvsBlock->Draw();
-
 	//ライトの描画
 	m_pLight->Draw();
-
-	//スタートの描画
-	m_pStartObj->Draw();
 
 	//追ってくる影の描画
 	Object::SetObjColor(m_pChasingShadow->GetColor());
 	m_pChasingShadow->Draw();
-	
+		
+	//スタートの描画
+	Object::SetObjColor(m_pStartObj->GetColor());
+	m_pStartObj->Draw();
+
+	Object::SetObjColor(m_pGoalObj->GetColor());
 	m_pGoalObj->Draw();
 
 }
@@ -159,6 +156,7 @@ void LayerGame::Reset()
 	m_pPlayer->Reset();
 	m_pChasingShadow->Reset();
 	m_pLight->Reset();
+	m_pStage->Reset();
 }
 
 Player * LayerGame::GetPlayer()
@@ -409,9 +407,11 @@ void LayerGame::CheckCollision()
 	//プレイヤーと追ってくる影
 	if (*m_GameStatus == SceneGame::E_GAME_STATUS_NORMAL)
 	{
-		if (Collision::RectAndCircle(m_pPlayer->GetInfo(), m_pChasingShadow->GetInfo(), m_pChasingShadow->GetRadius()))
+		if (Collision::RectAndRect(m_pPlayer->GetInfo(), m_pChasingShadow->GetInfo()))
 		{
 			SceneGame::SetGameStatus(SceneGame::E_GAME_STATUS_GAMEOVER);
+			m_pPlayer->SetEndFlag(true);
+			m_pChasingShadow->SetEndFlag(true);
 		}
 	}
 

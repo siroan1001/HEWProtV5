@@ -122,6 +122,18 @@ void ShadowBlock::Draw()
 	//}
 }
 
+void ShadowBlock::Reset()
+{
+	for (auto it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	{
+		for (auto init = it->begin(); init != it->end(); ++init)
+		{
+			init->life = 30.0f;
+			init->use = true;
+		}
+	}
+}
+
 void ShadowBlock::SetShadowBlock(Def::Info info)
 {
 	m_BlockInfo.Info = info;

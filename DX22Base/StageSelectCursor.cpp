@@ -1,5 +1,6 @@
 #include "StageSelectCursor.h"
 #include "controller.h"
+#include "Input.h"
 
 StageSelectCursor::StageSelectCursor()
 {
@@ -18,7 +19,7 @@ StageSelectCursor::StageSelectCursor()
 
 void StageSelectCursor::Update()
 {
-	if (GetLStick().x >= 0.8f)
+	if (GetLStick().x >= 0.8f || IsKeyTrigger('D'))
 	{
 		if (!m_MoveFlag)
 		{
@@ -38,7 +39,7 @@ void StageSelectCursor::Update()
 			m_MoveFlag = true;
 		}
 	}
-	else if (GetLStick().x <= -0.8f)
+	else if (GetLStick().x <= -0.8f || IsKeyTrigger('A'))
 	{
 		if (!m_MoveFlag)
 		{
