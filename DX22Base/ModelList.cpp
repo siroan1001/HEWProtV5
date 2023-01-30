@@ -7,7 +7,11 @@ void ModelList::Init()
 	m_ModelList[E_MODEL_LIST_CONST_BOX] = new Model;
 	m_ModelList[E_MODEL_LIST_CONST_BOX]->Load("Assets/box/box.fbx", 1.0f);
 	m_ModelList[E_MODEL_LIST_CONST_PLAYER] = new Model;
-	m_ModelList[E_MODEL_LIST_CONST_PLAYER]->Load("Assets/player_fi/player.fbx", 1.0f);
+	//m_ModelList[E_MODEL_LIST_CONST_PLAYER]->Load("Assets/player_fi/player.fbx", 1.0f);
+	m_ModelList[E_MODEL_LIST_CONST_PLAYER]->Load("Assets/unitychan/unitychan.fbx", 0.1f);
+	//m_ModelList[E_MODEL_LIST_CONST_PLAYER]->Load("Assets/player_fi/player_animation_fin.fbx", 1.0f);
+
+
 	m_ModelList[E_MODEL_LIST_CONST_ENEMY] = new Model;
 	m_ModelList[E_MODEL_LIST_CONST_ENEMY]->Load("Assets/Enemy/Enemy.fbx", 1.0f);
 	m_ModelList[E_MODEL_LIST_CONST_GHOST] = new Model;
