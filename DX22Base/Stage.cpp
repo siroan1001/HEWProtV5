@@ -228,7 +228,7 @@ void Stage::Draw()
 	for (int i = 0; i < m_Date[*m_pStageNum].m_Shadow.size(); i++)
 	{
 		if (!Collision::RectAndRect(m_Date[*m_pStageNum].m_Shadow[i]->GetInfo(), cam->GetInfo()))	continue;
-		m_Date[*m_pStageNum].m_Shadow[i]->Draw();
+		m_Date[*m_pStageNum].m_Shadow[i]->Draw(i);
 	}
 }
 

@@ -1,9 +1,20 @@
-﻿  Game3D.cpp
+﻿  ChasingShadow.cpp
+  Collision.cpp
+  EnemyDefault.cpp
+  EnemyRoundTrip.cpp
+  Game3D.cpp
+  LayerGame.cpp
+c:\users\user\documents\hewprotv5\dx22base\layergame.cpp : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  Light.cpp
+  Object.cpp
+  Player.cpp
   SceneGame.cpp
 c:\users\user\documents\hewprotv5\dx22base\cameradebug.h(129): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
 c:\users\user\documents\hewprotv5\dx22base\cameradebug.h(130): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
 c:\users\user\documents\hewprotv5\dx22base\cameradebug.h(131): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-  SceneStageSelect.cpp
+  ShadowBlock.cpp
+c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(206): warning C4244: '引数': 'float' から 'const unsigned __int64' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(220): warning C4267: '+=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
   Stage.cpp
 c:\users\user\documents\hewprotv5\dx22base\stage.cpp(251): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
   コードを生成中...

@@ -6,6 +6,7 @@
 #include <assert.h>
 #include "Input.h"
 #include "controller.h"
+#include "SmallShadowBlock.h"
 
 Def::Info g_temp;
 bool g_flag;
@@ -164,6 +165,11 @@ Player * LayerGame::GetPlayer()
 	return m_pPlayer;
 }
 
+Stage * LayerGame::GetStage()
+{
+	return m_pStage;
+}
+
 void LayerGame::SetCamera(CameraBase * camera)
 {
 	m_pCamera = camera;
@@ -176,7 +182,7 @@ void LayerGame::CheckCollision()
 {
 	//ShadowBlockとLigthの判定
 	vector<ShadowBlock*> shadow = m_pStage->GetShadowBlock();	//シャドウブロックの情報
-	vector<vector<ShadowBlock::SmallBlockTemp>>* block;
+	vector<vector<SmallShadowBlock*>> block;
 	Def::Info cam = m_pCamera->GetInfo();
 
 	for (int i = 0; i < shadow.size(); i++)
@@ -188,18 +194,22 @@ void LayerGame::CheckCollision()
 		if (!Collision::RectAndCircle(shadow[i]->GetInfo(), lightinfo, lightradius))	continue;
 
 		block = shadow[i]->GetSmallBlockInfo();
-		for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
+		
+		for(int i = 0; i < block.size(); i++)
 		{
-			for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
+			for (int j = 0; j < block[i].size(); j++)
 			{
-				if (Collision::RectAndCircle(init->Info, lightinfo, lightradius))
+				if (Collision::RectAndCircle(block[i][j]->GetInfo(), lightinfo, lightradius))
 				{
-					init->life -= m_pLight->GetPower();		//シャドウブロックのライフを削る
-					if (init->life <= 0.0f)
+					float life = block[i][j]->GetLife();
+					life -= m_pLight->GetPower();	//シャドウブロックのライフを削る
+					
+					if (life <= 0.0f)
 					{//ライフが０を下回ったら
-						init->life = 0.0f;	//０以下にならないように補正
-						init->use = false;	//使用してない状態にする
+						life = 0.0f;	//０以下にならないように補正
+						block[i][j]->SetUse(false);	//使用してない状態にする
 					}
+					block[i][j]->SetLife(life);
 				}
 			}
 		}
@@ -265,22 +275,15 @@ void LayerGame::CheckCollision()
 
 		block = shadow[i]->GetSmallBlockInfo();
 
-		for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
+		for (int i = 0; i < block.size(); i++)
 		{
-			for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init, num++)
+			for(int j = 0; j < block[i].size(); j++)
 			{
-				Def::Info shadow = init->Info;		//シャドウブロックの情報
-
-
-
-
+				Def::Info shadow = block[i][j]->GetInfo();		//シャドウブロックの情報
 				Def::Info player = m_pPlayer->GetInfo();		//プレイヤーの情報
 				player.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
-
-
-
-				if (init->use)
+				if (block[i][j]->GetUse())
 				{//存在する（引き戻しの処理）
 					Def::Info Oplayer = m_pPlayer->GetOldInfo();		//前フレームの情報
 					Oplayer.pos.y += player.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
@@ -337,7 +340,7 @@ void LayerGame::CheckCollision()
 						m_pPlayer->SetStageCollisionDirection(dire, num);		//当たった方向を保持
 					}
 				}
-				else if (!init->use)
+				else if (!block[i][j]->GetUse())
 				{//存在しない（消し続ける処理）
 					if (Collision::RectAndRect(player, shadow))		//プレイヤーとブロックが当たっているか
 					{
@@ -365,28 +368,29 @@ void LayerGame::CheckCollision()
 						{
 							//bool bTop = Collision::RectAndRect(PlayerTop, shadow);		//体がブロックと当たっているか
 							bool bBot = Collision::RectAndRect(PlayerBot, shadow);		//足元がブロックと当たっているか
+							float life = block[i][j]->GetLife();
+							Def::Info info = block[i][j]->GetInfo();
 							if (bBot)		//足元は当たっていて体は当たっていない場合段差を無視する
 							{//上
-								init->life += 1.5f;
-								if (init->life >= 30.0f)
+								life += 1.5f;
+								if (life >= 30.0f)
 								{
-									init->life = 30.0f;
-									init->use = true;
-									pos.y += init->Info.size.y / 2.0f;
+									life = 30.0f;
+									block[i][j]->SetUse(true);
+									pos.y += info.pos.y / 2.0f;
 									m_pPlayer->SetPos(pos);
 								}
 							}
 							else
 							{//横
-								init->life -= m_pLight->GetPower();
-								if (init->life <= 0.0f)
+								life -= m_pLight->GetPower();
+								if (life <= 0.0f)
 								{
-									init->life = 0.0f;
-									init->use = false;
+									life = 0.0f;
+									block[i][j]->SetUse(false);
 								}
-								
-								
 							}
+							block[i][j]->SetLife(life);
 						}
 					}
 				}
@@ -394,15 +398,6 @@ void LayerGame::CheckCollision()
 
 		}
 	}
-
-	//プレイヤーと反射板
-	//for (int i = 0; i < m_pRvsBlock->GetStageNum(); i++)
-	//{
-	//	if (Collision::RectAndRect(m_pPlayer->GetInfo(), m_pRvsBlock->GetInfo(i)))
-	//	{
-	//		m_pPlayer->SetDirection(m_pRvsBlock->GetDirection(i));
-	//	}
-	//}
 
 	//プレイヤーと追ってくる影
 	if (*m_GameStatus == SceneGame::E_GAME_STATUS_NORMAL)
@@ -511,18 +506,18 @@ void LayerGame::CheckCollision()
 
 			block = shadow[j]->GetSmallBlockInfo();
 
-			for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
+			for (int k = 0; k < block.size(); k++)
 			{
-				for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init, num++)
+				for (int l = 0; l < block[k].size(); l++)
 				{
-					Def::Info shadowInfo = init->Info;		//シャドウブロックの情報
+					Def::Info shadowInfo = shadow[j]->GetInfo();		//シャドウブロックの情報
 
 					enemyinfo = m_pEnemy[i]->GetInfo();
 					enemyinfo.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
 					EnemyDefault* enemy = reinterpret_cast<EnemyDefault*>(m_pEnemy[i]);
 
-					if (init->use)
+					if (block[k][l]->GetUse())
 					{//存在する（引き戻しの処理）
 						Def::Info Oenemy = enemy->GetOldInfo();		//前フレームの情報
 						Oenemy.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
@@ -582,15 +577,16 @@ void LayerGame::CheckCollision()
 							m_pEnemy[i] = enemy;
 						}
 					}
-					else if (!init->use)
+					else if (!block[k][l]->GetUse())
 					{//存在しない（消し続ける処理）
 						if (Collision::RectAndRect(enemyinfo, shadowInfo))		//プレイヤーとブロックが当たっているか
 						{
-							init->life -= m_pLight->GetPower();
-							if (init->life <= 0.0f)
+							float life = block[k][l]->GetLife();
+							life -= m_pLight->GetPower();
+							if (life <= 0.0f)
 							{
-								init->life = 0.0f;
-								init->use = false;
+								life = 0.0f;
+								block[k][l]->SetUse(false);
 							}
 						}
 					}

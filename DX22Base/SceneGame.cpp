@@ -20,6 +20,7 @@
 
 SceneGame::GameStatus SceneGame::m_GameStatus;
 SceneGame::StageNumber SceneGame::m_StageNuber;
+Layer* SceneGame::m_pLayer[E_LAYER_MAX];
 
 SceneGame::SceneGame(StageNumber stagenum)
 {
@@ -165,6 +166,11 @@ void SceneGame::SetGameStatus(GameStatus status)
 SceneGame::StageNumber* SceneGame::GetStageNum()
 {
 	return &m_StageNuber;
+}
+
+Layer * SceneGame::GetLayer(LayerKind kind)
+{
+	return m_pLayer[kind];
 }
 
 void SceneGame::StageTutoRial()

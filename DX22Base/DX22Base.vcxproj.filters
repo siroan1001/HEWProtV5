@@ -222,8 +222,11 @@
     <ClCompile Include="LayerResult.cpp">
       <Filter>ソース ファイル\DX22\Layer</Filter>
     </ClCompile>
+    <ClCompile Include="SmallShadowBlock.cpp">
+      <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
     <ClCompile Include="StageSelectCursor.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\DX22\2DObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -406,6 +409,9 @@
     </ClInclude>
     <ClInclude Include="StageSelectCursor.h">
       <Filter>ヘッダー ファイル\DX22\2DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallShadowBlock.h">
+      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,9 @@
 #include "Def.h"
 #include "Lig.h"
 
+
 using namespace DirectX;
+using namespace std;
 
 class Object
 {
@@ -20,6 +22,7 @@ public:
 	static void Init();
 	static void Uninit();
 	void Draw();
+	void ShadowDraw(int);
 	static void SetObjColor(XMFLOAT4 color);
 	XMFLOAT4 GetColor();
 

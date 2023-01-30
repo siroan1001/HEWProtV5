@@ -62,6 +62,8 @@ public:
 	static GameStatus GetGameStatus();
 	static void SetGameStatus(GameStatus);
 	static StageNumber* GetStageNum();
+	static Layer* GetLayer(LayerKind);
+
 
 	//void CameraReset();
 
@@ -78,7 +80,7 @@ private:
 	BlendState* m_pBlend;
 	//static CameraBase* m_pCamera[E_CAM_MAX];
 	//static CameraKind m_mainCamera;
-	Layer* m_pLayer[E_LAYER_MAX];
+	static Layer* m_pLayer[E_LAYER_MAX];
 	static GameStatus m_GameStatus;
 	//EffectManager* m_pEffect;
 	static StageNumber m_StageNuber;

@@ -2,6 +2,8 @@
 #ifndef _____DEF_H____
 #define _____DEF_H____
 
+#include <DirectXMath.h>
+
 using namespace DirectX;
 
 class Def

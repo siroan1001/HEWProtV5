@@ -22,9 +22,11 @@ ShadowBlock::ShadowBlock(Def::Info info)
 	m_pModel->SetVertexShader(m_pVS);
 	m_pModel->SetPixelShader(m_pPS);
 
-
+	m_Color = XMFLOAT4(50.0f, 50.0f, 50.0f, 1.0f);
 
 	SetShadowBlock(info);
+
+	m_pCamera = Game3D::GetCamera();
 }
 
 ShadowBlock::~ShadowBlock()
@@ -34,94 +36,117 @@ ShadowBlock::~ShadowBlock()
 
 void ShadowBlock::Update()
 {
-	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	//for (auto it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	//{
+	//	for (auto init = it->begin(); init != it->end(); ++init)
+	//	{
+	//		init
+	//	}
+	//}
+
+	for (int i = 0; i < m_SmallBlockInfo.size(); i++)
 	{
-		for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
+		for (int j = 0; j < m_SmallBlockInfo[i].size(); j++)
 		{
-			if (init->life >= 30.0f)	continue;
-
-			init->life += 0.1f;
-			if (init->life >= 30.0f)
-			{
-				init->life = 30.0f;
-				init->use = true;
-			}
-
+			m_SmallBlockInfo[i][j]->Update();
 		}
 	}
 }
 
-void ShadowBlock::Draw()
+void ShadowBlock::Draw(int i)
 {
-	vector<Def::Info>	block;		//描画用のデータを格納
-	Def::Info info;		//計算用
-	float PosL;		//ブロックの左端を示す
-	int count;
-	CameraBase* cam = Game3D::GetCamera();
 
-	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
-	{
-		
+	//for (auto it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	//{
+	//	for (auto init = it->begin(); init != it->end(); ++init)
+	//	{
+	//		Object::SetObjColor(m_Color);
+	//		initDraw();
+	//	}
+	//}
 
-		info = m_BlockBase;
-		info.pos.y = it->begin()->Info.pos.y;
-		count = 0;
-		//info.size.x = 0.0f;
-		PosL = it->begin()->Info.pos.x + it->begin()->Info.size.x / 2.0f;
-		std::vector<ShadowBlock::SmallBlockTemp>::iterator end = it->end();		//横列の最後の要素を指す
-		end--;
-		for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
-		{
-			//if (!Collision::RectAndRect(init->Info, cam->GetInfo()))	continue;
+	//for (int i = 0; i < m_SmallBlockInfo.size(); i++)
+	//{
+	//	for (int j = 0; j < m_SmallBlockInfo[i].size(); j++)
+	//	{
+	//		m_SmallBlockInfo[i][j]->ShadowDraw();
+	//	}
+	//}
 
-			if (init == end)
-			{
-				if (count <= 0)
-				{
-					continue;
-				}
-				info.size.x *= count;
-				info.pos.x = PosL - info.size.x / 2.0f;
-				block.push_back(info);
-			}
-			else if (init->use)
-			{
-				count++;
-			}
-			else if(!init->use)
-			{
-				if (count <= 0)
-				{
-					vector<ShadowBlock::SmallBlockTemp>::iterator next = init;
-					next++;
-					PosL = next->Info.pos.x + next->Info.size.x / 2.0f;
-					continue;
-				}
-				else
-				{
-					info.size.x *= count;
-					info.pos.x = PosL - info.size.x / 2.0f;
-					block.push_back(info);
-					info = m_BlockBase;
-					//infoの次を示した場所の左端をposLに入れる
-					vector<ShadowBlock::SmallBlockTemp>::iterator next = init;
-					info.pos.y = it->begin()->Info.pos.y;
-					next++;
-					PosL = next->Info.pos.x + next->Info.size.x / 2.0f;
-					count = 0;
-				}
-			}
-		}
-	}
+	m_SmallBlockInfo[0][0]->ShadowDraw(i);
 
-	for (vector<Def::Info>::iterator it = block.begin(); it != block.end(); ++it)
-	{
-		SetGeometoryTranslate(it->pos.x, it->pos.y, it->pos.z);
-		SetGeometoryScaling(it->size.x, it->size.y, it->size.z);
-		SetGeometoryRotation(it->rot.x, it->rot.y, it->rot.z);
-		SetGeometoryColor(XMFLOAT4(0.0f, 0.0f, 10.0f, 1.0f));
-		DrawBox();
-	}
+	//for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	//{
+	//	
+
+	//	info = m_BlockBase;
+	//	info.pos.y = it->begin()->Info.pos.y;
+	//	count = 0;
+	//	//info.size.x = 0.0f;
+	//	PosL = it->begin()->Info.pos.x + it->begin()->Info.size.x / 2.0f;
+	//	std::vector<ShadowBlock::SmallBlockTemp>::iterator end = it->end();		//横列の最後の要素を指す
+	//	end--;
+	//	for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init)
+	//	{
+	//		//if (!Collision::RectAndRect(init->Info, cam->GetInfo()))	continue;
+
+	//		if (init == end)
+	//		{
+	//			if (count <= 0)
+	//			{
+	//				continue;
+	//			}
+	//			info.size.x *= count;
+	//			info.pos.x = PosL - info.size.x / 2.0f;
+	//			block.push_back(info);
+	//		}
+	//		else if (init->use)
+	//		{
+	//			count++;
+	//		}
+	//		else if(!init->use)
+	//		{
+	//			if (count <= 0)
+	//			{
+	//				vector<ShadowBlock::SmallBlockTemp>::iterator next = init;
+	//				next++;
+	//				PosL = next->Info.pos.x + next->Info.size.x / 2.0f;
+	//				continue;
+	//			}
+	//			else
+	//			{
+	//				info.size.x *= count;
+	//				info.pos.x = PosL - info.size.x / 2.0f;
+	//				block.push_back(info);
+	//				info = m_BlockBase;
+	//				//infoの次を示した場所の左端をposLに入れる
+	//				vector<ShadowBlock::SmallBlockTemp>::iterator next = init;
+	//				info.pos.y = it->begin()->Info.pos.y;
+	//				next++;
+	//				PosL = next->Info.pos.x + next->Info.size.x / 2.0f;
+	//				count = 0;
+	//			}
+	//		}
+	//	}
+	//}
+
+	//for (vector<Def::Info>::iterator it = block.begin(); it != block.end(); ++it)
+	//{
+	//	SetGeometoryTranslate(it->pos.x, it->pos.y, it->pos.z);
+	//	SetGeometoryScaling(it->size.x, it->size.y, it->size.z);
+	//	SetGeometoryRotation(it->rot.x, it->rot.y, it->rot.z);
+	//	SetGeometoryColor(XMFLOAT4(0.0f, 0.0f, 10.0f, 1.0f));
+	//	DrawBox();
+	//}
+
+	//for (auto it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	//{
+	//	for (auto init = it->begin(); init != it->end(); ++init)
+	//	{
+	//		Object::SetObjColor(m_Color);
+	//		Object::Draw();
+	//	}
+	//}
 
 	//for (int i = 0; i < m_BillBoard.size(); i++)
 	//{
@@ -134,12 +159,11 @@ void ShadowBlock::Draw()
 
 void ShadowBlock::Reset()
 {
-	for (auto it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	for (int i = 0; i < m_SmallBlockInfo.size(); i++)
 	{
-		for (auto init = it->begin(); init != it->end(); ++init)
+		for (int j = 0; j < m_SmallBlockInfo[i].size(); j++)
 		{
-			init->life = 30.0f;
-			init->use = true;
+			m_SmallBlockInfo[i][j]->Reset();
 		}
 	}
 }
@@ -152,15 +176,19 @@ void ShadowBlock::SetShadowBlock(Def::Info info)
 
 	for (int i = 0; i < m_BlockInfo.xy.y; i++)
 	{
-		std::vector<ShadowBlock::SmallBlockTemp> tempVec;
+		std::vector<SmallShadowBlock*> tempVec;
 		//vector<ShadowBillBoard*> tempb;
 
 		for (int j = 0; j < m_BlockInfo.xy.x; j++)
 		{
-			ShadowBlock::SmallBlockTemp temp = { m_BlockBase, true, 30.0f};
-			temp.Info.pos = { m_BlockInfo.Info.pos.x - m_BlockBase.size.x * j, m_BlockInfo.Info.pos.y - m_BlockBase.size.y * i, m_BlockInfo.Info.pos.z };//ブロックのサイズ分ずらす
+			SmallShadowBlock* temp;
+			Def::Info info = m_BlockBase;
+			
+			info.pos = { m_BlockInfo.Info.pos.x - m_BlockBase.size.x * j, m_BlockInfo.Info.pos.y - m_BlockBase.size.y * i, m_BlockInfo.Info.pos.z };//ブロックのサイズ分ずらす
+			temp = new SmallShadowBlock(info);
 
 			tempVec.push_back(temp);
+
 		}
 		m_SmallBlockInfo.push_back(tempVec);
 	}
@@ -175,19 +203,19 @@ void ShadowBlock::SetShadowBlock(Def::Info info)
 
 void ShadowBlock::SetUse(XMFLOAT2 num, bool flag)
 {
-	m_SmallBlockInfo[num.y][num.x].use = flag;
+	m_SmallBlockInfo[num.y][num.x]->SetUse(flag);
 }
 
-std::vector<std::vector<ShadowBlock::SmallBlockTemp>>* ShadowBlock::GetSmallBlockInfo()
+std::vector<std::vector<SmallShadowBlock*>> ShadowBlock::GetSmallBlockInfo()
 {
-	return &m_SmallBlockInfo;
+	return m_SmallBlockInfo;
 }
 
 int ShadowBlock::GetNum()
 {
 	int num = 0;
 
-	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	for (auto it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
 	{
 		num += it->size();
 	}
