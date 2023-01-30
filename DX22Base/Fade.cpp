@@ -1,10 +1,14 @@
 #include "Fade.h"
-#include "Sprite.h"
 #include "DirectXTex/Texture.h"
+#include "Game3D.h"
+#include "DirectX.h"
+#include "SpriteDefault.h"
 
-Fade::Fade():
+Fade::Fade() :
 	m_color{ 0.0f, 0.0f ,0.0f, 0.0f }
-	,m_state (FADE_NONE)
+	, m_state(FADE_NONE)
+	, m_frame(60.0f)
+	, m_skipflag(false)
 {
 	m_pFadePS = new PixelShader;
 	m_pFadePS->Load("Assets/Shader/FadePS.cso");
@@ -16,10 +20,11 @@ Fade::~Fade()
 
 void Fade::Update()
 {
+
 	switch (m_state)
 	{
 	case (FADE_IN):
-		m_color.w -= 0.005f;
+		m_color.w -= 1.0f / m_frame;
 		if (m_color.w <= 0.0f)
 		{
 			m_color.w = 0.0f;
@@ -27,17 +32,23 @@ void Fade::Update()
 		}
 		break;
 	case (FADE_OUT):
-		m_color.w += 0.01f;
+		m_color.w += 1.0f / m_frame;
 		if (m_color.w >= 1.0f)
 		{
 			m_color.w = 1.0f;
 			m_state = FADE_IN;
+			Game3D::StartSceneChange();
 		}
+		break;
+	case (FADE_SKIP):
+		m_skipflag = false;
+		m_state = FADE_NONE;
+		Game3D::StartSceneChange();
 		break;
 	default:
 		break;
 	}
-	
+
 }
 
 void Fade::Draw()
@@ -67,21 +78,37 @@ void Fade::Draw()
 		DirectX::XMMatrixTranspose(T));
 
 	// スプライトの設定
-	Sprite::SetWorld(fWorld);
-	Sprite::SetView(fView);
-	Sprite::SetProjection(fProj);
-	Sprite::SetPixelShader(m_pFadePS);
-	Sprite::SetSize(DirectX::XMFLOAT2(1280.0f, -720.0f));
-	Sprite::SetColor(m_color);
-	Sprite::Draw();
+	SpriteDefault::SetWorld(fWorld);
+	SpriteDefault::SetView(fView);
+	SpriteDefault::SetProjection(fProj);
+	SpriteDefault::SetPixelShader(m_pFadePS);
+	SpriteDefault::SetSize(DirectX::XMFLOAT2(1280.0f, -720.0f));
+	SpriteDefault::SetColor(m_color);
+	EnableDepth(false);
+	SpriteDefault::Draw();
+	EnableDepth(true);
 
 }
 
 void Fade::StartOut()
 {
-	if (FADE_NONE != m_state){
+	if (FADE_NONE != m_state) {
+		return;
+	}
+	if (m_skipflag == true) {
+		m_state = FADE_SKIP;
 		return;
 	}
 	m_state = FADE_OUT;
 }
 
+void Fade::SetFrame(float frame)
+{
+	m_frame = frame;
+}
+
+// フェードをスキップする
+void Fade::Skip()
+{
+	m_skipflag = true;
+}
