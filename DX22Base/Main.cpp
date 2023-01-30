@@ -6,6 +6,7 @@
 #include "Game3D.h"
 #include "Geometory.h"
 #include "Sprite.h"
+#include "SpriteDefault.h"
 #include "Object.h"
 #include "ModelList.h"
 #include "Quadtree.h"
@@ -50,6 +51,7 @@ void Init()
 	}
 	//SetGeometoryColor(XMFLOAT3(1.0f, 1.0f, 1.0f));
 	Object::Init();
+	SpriteDefault::Init();
 	Sprite::Init();
 	ModelList::Init();
 	EffectManager::Init();
@@ -72,6 +74,7 @@ void Uninit()
 	ModelList::Uninit();
 	Object::Uninit();
 	Sprite::Uninit();
+	SpriteDefault::Uninit();
 	UninitGeometory();
 	UninitInput();
 	UninitTexture();
