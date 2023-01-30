@@ -15,7 +15,6 @@ public:
 		FADE_NONE,
 		FADE_IN,
 		FADE_OUT,
-		FADE_SKIP,
 
 		FADE_MAX
 	};
@@ -25,15 +24,11 @@ public:
 	void Update();
 	void Draw();
 	void StartOut();
-	void SetFrame(float frame);
-	void Skip();
 
 private:
 	DirectX::XMFLOAT4 m_color;
 	PixelShader* m_pFadePS;
 	FADESTATE m_state;
-	float m_frame;
-	bool m_skipflag;
 
 };
 

@@ -128,7 +128,6 @@
     </Link>
     <FxCompile>
       <ObjectFileOutput>$(ProjectDir)Assets\Shader\%(Filename).cso</ObjectFileOutput>
-      <ShaderModel>4.0</ShaderModel>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -197,7 +196,6 @@
     <ClCompile Include="ShadowBillBoard.cpp" />
     <ClCompile Include="ShadowBlock.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="SpriteDefault.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StageSelectCursor.cpp" />
     <ClCompile Include="StartObj.cpp" />
@@ -261,7 +259,6 @@
     <ClInclude Include="ShadowBillBoard.h" />
     <ClInclude Include="ShadowBlock.h" />
     <ClInclude Include="Sprite.h" />
-    <ClInclude Include="SpriteDefault.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StageSelectCursor.h" />
     <ClInclude Include="StartObj.h" />

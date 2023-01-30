@@ -164,11 +164,6 @@ Player * LayerGame::GetPlayer()
 	return m_pPlayer;
 }
 
-Stage * LayerGame::GetStage()
-{
-	return m_pStage;
-}
-
 void LayerGame::SetCamera(CameraBase * camera)
 {
 	m_pCamera = camera;

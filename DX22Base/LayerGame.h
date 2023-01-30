@@ -31,7 +31,6 @@ public:
 	void CheckCollision();
 
 	Player* GetPlayer();
-	Stage* GetStage();
 
 	void SetCamera(CameraBase* camera);
 
