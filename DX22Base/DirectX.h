@@ -13,6 +13,5 @@ HRESULT InitDX(HWND hWnd, UINT width, UINT height, bool fullscreen);
 void UninitDX();
 void BeginDrawDX();
 void EndDrawDX();
-void EnableDepth(bool enable);
 
 #endif // __DIRECTX_H__
