@@ -13,7 +13,7 @@
 using namespace DirectX;
 using namespace std;
 
-class ShadowBlock
+class ShadowBlock : public Object
 {
 public:
 	struct BlockTemp
@@ -35,6 +35,8 @@ public:
 	void Update();
 	void Draw();
 
+	void Reset();
+
 	void SetShadowBlock(Def::Info info);
 	void SetUse(XMFLOAT2 num, bool flag);
 	std::vector<std::vector<SmallBlockTemp>>* GetSmallBlockInfo();
@@ -43,6 +45,8 @@ public:
 
 
 private:
+	Model* m_pModel;
+	XMFLOAT3 m_ModelSize;
 	const Def::Info m_BlockBase = { { 999.0f, 999.0f, 0.0f }, { 0.02f, 0.02f, 0.5f }, { 0.0f, 0.0f, 0.0f } };
 	//const Billboard::Info m_Billboard = { { 999.0f, 999.0f, 1.0f }, { 0.04f, 0.04f } };
 		//×‚©‚­•À‚×‚ç‚ê‚éƒuƒƒbƒN‚Ìî•ñ

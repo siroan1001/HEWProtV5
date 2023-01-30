@@ -5,31 +5,28 @@
 
 #include "SceneBace.h"
 #include "BlendState.h"
-#include "CameraBase.h"
-#include "Stage.h"
-#include "Player.h"
-#include "ShadowBlock.h"
-#include "Light.h"
 #include "Layer.h"
+
 
 class SceneGame : public SceneBace
 {
 public:
-	enum CameraKind
-	{
-		E_CAM_MAIN = 0,
-		E_CAM_EVENT,
-		E_CAM_DELAY,
-		E_CAM_DEBUG,
+	//enum CameraKind
+	//{
+	//	E_CAM_MAIN = 0,
+	//	E_CAM_EVENT,
+	//	E_CAM_DELAY,
+	//	E_CAM_DEBUG,
 
-		E_CAM_MAX
-	};
+	//	E_CAM_MAX
+	//};
 	enum LayerKind
 	{
 		E_LAYER_BG = 0,
 		E_LAYER_BUCK_OBJECT,
 		E_LAYER_GAME,
 		E_LAYER_UI,
+		E_LAYER_RESULT,
 
 		E_LAYER_MAX
 	};
@@ -44,25 +41,47 @@ public:
 
 		E_GAME_STATUS_MAX
 	};
+	enum StageNumber
+	{
+		E_STAGE_NUMBER_STAGE_1 = 0,
+		E_STAGE_NUMBER_STAGE_2,
+		E_STAGE_NUMBER_STAGE_3,
+
+		E_STAGE_NUMBER_STAGE_MAX
+	};
 
 public:
-	SceneGame();
+	SceneGame(StageNumber);
 	~SceneGame();
 	void Update();
 	void Draw();
 
-	static CameraBase* GetCamera();
+	void ReStart();
+
+	//static CameraBase* GetCamera();
 	static GameStatus GetGameStatus();
 	static void SetGameStatus(GameStatus);
+	static StageNumber* GetStageNum();
 
-	void CameraReset();
+	//void CameraReset();
+
+	void SetStageNumber(StageNumber stagenumber);
+private:
+	void StageTutoRial();
+	void Stage1();
+	void UninitStage1();
+	void Stage2();
+	void Stage3();
+	void Stage4();
 
 private:
 	BlendState* m_pBlend;
-	static CameraBase* m_pCamera[E_CAM_MAX];
-	static CameraKind m_mainCamera;
+	//static CameraBase* m_pCamera[E_CAM_MAX];
+	//static CameraKind m_mainCamera;
 	Layer* m_pLayer[E_LAYER_MAX];
 	static GameStatus m_GameStatus;
+	//EffectManager* m_pEffect;
+	static StageNumber m_StageNuber;
 
 };
 

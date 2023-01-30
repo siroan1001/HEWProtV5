@@ -10,6 +10,7 @@
 #include "ModelList.h"
 #include "Quadtree.h"
 #include "controller.h"
+#include "Effect.h"
 
 using namespace IKD;
 
@@ -51,6 +52,7 @@ void Init()
 	Object::Init();
 	Sprite::Init();
 	ModelList::Init();
+	EffectManager::Init();
 
 	InitCtrl();
 
@@ -63,8 +65,10 @@ void Init()
 }
 void Uninit()
 {
-	UninitCtrl();
+	
 	delete g_pGame;
+	UninitCtrl();
+	EffectManager::Uninit();
 	ModelList::Uninit();
 	Object::Uninit();
 	Sprite::Uninit();
@@ -77,11 +81,13 @@ void Update(float deltaTime)
 {
 	UpdateInput();
 	UpdateCtrl();
+	EffectManager::Update();
 	g_pGame->Update();
 }
 void Draw()
 {
 	BeginDrawDX();
 	g_pGame->Draw();
+	EffectManager::Draw();
 	EndDrawDX();
 }

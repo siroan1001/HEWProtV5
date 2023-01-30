@@ -7,26 +7,18 @@
 #include "Input.h"
 #include "controller.h"
 
-LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status)
+Def::Info g_temp;
+bool g_flag;
+
+LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status, SceneGame::StageNumber stagenum)
 {
 	m_pCamera = camera;
 
-	//ステージの生成
-	m_pStage = new Stage;
+	//ステージの生成(他のステージの読み込みどうしよう)
+	m_pStage = new Stage();
 
 	//プレイヤーの生成
 	m_pPlayer = new Player(Collision::E_DIRECTION_L);
-
-	//敵の生成
-	//m_pEnemy = new Enemy(Collision::E_DIRECTION_L, XMFLOAT3(-2.2f, 3.25f, 0.0f ));
-
-	//m_pBobbingEnemy = new BobbingEnemy(Collision::E_DIRECTION_L, { -7.0f,3.0f,0.0f }, { -4.0f, 5.0f, 0.0f }, 300);
-
-	//---------------
-
-	//m_pEnemyBase[E_ENEMY_KIND_DEF_1] = new EnemyDefault(Collision::E_DIRECTION_L, XMFLOAT3(-2.2f, 3.25f, 0.0f));
-	//m_pEnemyBase[E_ENEMY_KIND_ROUND_TRIP_1] =
-	//	new EnemyRoundTrip(Collision::E_DIRECTION_L, { -7.0f,3.0f,0.0f }, { -4.0f, 5.0f, 0.0f }, 300);
 
 	EnemyDefault* EnemeyD = new EnemyDefault(Collision::E_DIRECTION_L, XMFLOAT3(-2.0f, 3.25f, 0.0f));
 	EnemeyD->SetCamera(camera);
@@ -35,22 +27,7 @@ LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status)
 
 	EnemyRoundTrip* EnemyRT = new EnemyRoundTrip(Collision::E_DIRECTION_L, { -7.0f,3.0f,0.0f }, { -4.0f, 5.0f, 0.0f }, 300);
 	EnemyRT->SetCamera(camera);
-	//m_pEnemy.push_back(EnemyRT);
 
-	//if (m_pEnemys[0] is EnemyDefault s)
-	//{
-
-	//}
-
-	//assert(typeid(m_pEnemys[0]) == typeid(EnemyDefault));
-
-
-	//-----------------
-
-	/*m_pEnemys.push_back(new Enemy(Collision::E_DIRECTION_L, { -7.0f, 5.25f, 0.0f }));
-	m_pEnemys.push_back(new Enemy(Collision::E_DIRECTION_L, { -7.0f, 5.25f, 0.0f }));
-	m_pEnemys.push_back(new Enemy(Collision::E_DIRECTION_L, { -7.0f, 5.25f, 0.0f }));
-	m_pEnemys.push_back(new Enemy(Collision::E_DIRECTION_L, { -7.0f, 5.25f, 0.0f }));*/
 
 	m_pLight = new Light;
 	m_pLight->SetCamera(camera);
@@ -68,7 +45,7 @@ LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status)
 	//}
 
 
-	m_pRvsBlock = new ReverseBlock;
+	//m_pRvsBlock = new ReverseBlock;
 
 	m_pStartObj = new StartObj;
 	m_pStartObj->SetCamera(camera);
@@ -81,8 +58,11 @@ LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status)
 
 	m_pChasingShadow = new ChasingShadow;
 	m_pChasingShadow->SetPlayer(m_pPlayer);
+	m_pChasingShadow->SetCamera(camera);
 
 	m_GameStatus = status;
+	g_flag = false;
+	g_temp = {};
 }
 
 LayerGame::~LayerGame()
@@ -91,7 +71,7 @@ LayerGame::~LayerGame()
 	delete m_pObstacle;
 	delete m_pGoalObj;
 	delete m_pStartObj;
-	delete m_pRvsBlock;
+	//delete m_pRvsBlock;
 	delete m_pLight;
 	//delete m_pShadowBlock;
 	/*m_pEnemys.clear();*/
@@ -109,6 +89,8 @@ LayerGame::~LayerGame()
 
 void LayerGame::Update()
 {
+	g_flag = false;
+
 	//m_pShadowBlock->Update();
 	m_pLight->Update();
 
@@ -116,6 +98,7 @@ void LayerGame::Update()
 
 	//プレイヤーの更新
 	//カメラがPlayerCameraの場合のみ処理する
+	//m_pPlayer->SetStatus(m_GameStatus);
 	m_pPlayer->Update();
 
 	//敵の更新
@@ -129,18 +112,10 @@ void LayerGame::Update()
 		m_pEnemy[i]->Update();
 	}
 
-	//for (int i = 0; i < m_pEnemy.size(); i++)
-	//{
-	//	m_pEnemy[i]->Update();
-	//}
-
-	//for (int i = 0; i < m_pEnemys.size(); i++)
-	//{
-	//	m_pEnemys[i]->Update();
-	//}
-
+	m_pStage->Update();
 
 	CheckCollision();
+
 }
 
 void LayerGame::Draw()
@@ -149,32 +124,39 @@ void LayerGame::Draw()
 	m_pStage->Draw();
 
 	//プレイヤーの描画
+	Object::SetObjColor(m_pPlayer->GetColor());
 	m_pPlayer->Draw();
 
 	//敵の描画
 	for (int i = 0; i < m_pEnemy.size(); i++)
 	{
 		if (!m_pEnemy[i]->GetUse())	continue;
+		Object::SetObjColor(m_pEnemy[i]->GetColor());
 		m_pEnemy[i]->Draw();
 	}
-
-	//シャドウブロックの描画
-	//m_pShadowBlock->Draw();
-
-	m_pRvsBlock->Draw();
 
 	//ライトの描画
 	m_pLight->Draw();
 
+	//追ってくる影の描画
+	Object::SetObjColor(m_pChasingShadow->GetColor());
+	m_pChasingShadow->Draw();
+		
 	//スタートの描画
+	Object::SetObjColor(m_pStartObj->GetColor());
 	m_pStartObj->Draw();
 
-  //追ってくる影の描画
-	//m_pChasingShadow->Draw();
-	
+	Object::SetObjColor(m_pGoalObj->GetColor());
 	m_pGoalObj->Draw();
 
-	m_pObstacle->Draw();
+}
+
+void LayerGame::Reset()
+{
+	m_pPlayer->Reset();
+	m_pChasingShadow->Reset();
+	m_pLight->Reset();
+	m_pStage->Reset();
 }
 
 Player * LayerGame::GetPlayer()
@@ -302,6 +284,7 @@ void LayerGame::CheckCollision()
 
 
 
+
 				if (init->use)
 				{//存在する（引き戻しの処理）
 					Def::Info Oplayer = m_pPlayer->GetOldInfo();		//前フレームの情報
@@ -318,7 +301,7 @@ void LayerGame::CheckCollision()
 							Def::Info PlayerBot;
 							Def::Info PlayerTop;
 							PlayerBot = PlayerTop = m_pPlayer->GetInfo();
-							PlayerBot.size.y = 0.08f;		//足元の大きさ
+							PlayerBot.size.y = 0.06f;		//足元の大きさ
 							PlayerBot.pos.y += PlayerBot.size.y / 2.0f;		//プレイヤーの元の座標から足元の大きさ分ずらす
 							PlayerTop.size.y -= PlayerBot.size.y;		//体の大きさ（プレイヤー全体から足元の大きさを引いた大きさ）
 							PlayerTop.pos.y += PlayerBot.size.y + PlayerTop.size.y / 2.0f;	//プレイヤーの元の座標から足元の大きさ分と体の半分ずらす
@@ -327,7 +310,7 @@ void LayerGame::CheckCollision()
 								bool bBot = Collision::RectAndRect(PlayerBot, shadow);		//足元がブロックと当たっているか
 								if (bBot && !bTop)		//足元は当たっていて体は当たっていない場合段差を無視する
 								{//上
-									pos.y = shadow.pos.y + shadow.size.y / 2.0f;		//ブロックの上に補正
+									pos.y = shadow.pos.y + shadow.size.y / 2.0f;		//ブロックの上に補正		//ここ滑らかに上がるように修正
 									m_pPlayer->ResetMove();		//重力をリセット
 								}
 								else
@@ -363,11 +346,52 @@ void LayerGame::CheckCollision()
 				{//存在しない（消し続ける処理）
 					if (Collision::RectAndRect(player, shadow))		//プレイヤーとブロックが当たっているか
 					{
-						init->life -= m_pLight->GetPower();
-						if (init->life <= 0.0f)
+						//init->life -= m_pLight->GetPower();
+						//if (init->life <= 0.0f)
+						//{
+						//	init->life = 0.0f;
+						//	init->use = false;
+						//}
+
+						XMFLOAT3 pos = m_pPlayer->GetInfo().pos;
+						Def::Info PlayerBot;
+						//Def::Info PlayerTop;
+						g_flag = true;
+						PlayerBot  = m_pPlayer->GetInfo();
+						PlayerBot.size.y = 0.04f;		//足元の大きさ
+						//PlayerBot.pos.y -= 0f;
+						g_temp = PlayerBot;
+						//PlayerBot.pos.y += PlayerBot.size.y / 2.0f;		//プレイヤーの元の座標から足元の大きさ分ずらす
+						//PlayerTop.size.y -= PlayerBot.size.y + 0.02f;		//体の大きさ（プレイヤー全体から足元の大きさを引いた大きさ）
+						//PlayerTop.pos.y += PlayerBot.size.y + PlayerTop.size.y / 2.0f;	//プレイヤーの元の座標から足元の大きさ分と体の半分ずらす
+
+	
+
 						{
-							init->life = 0.0f;
-							init->use = false;
+							//bool bTop = Collision::RectAndRect(PlayerTop, shadow);		//体がブロックと当たっているか
+							bool bBot = Collision::RectAndRect(PlayerBot, shadow);		//足元がブロックと当たっているか
+							if (bBot)		//足元は当たっていて体は当たっていない場合段差を無視する
+							{//上
+								init->life += 1.5f;
+								if (init->life >= 30.0f)
+								{
+									init->life = 30.0f;
+									init->use = true;
+									pos.y += init->Info.size.y / 2.0f;
+									m_pPlayer->SetPos(pos);
+								}
+							}
+							else
+							{//横
+								init->life -= m_pLight->GetPower();
+								if (init->life <= 0.0f)
+								{
+									init->life = 0.0f;
+									init->use = false;
+								}
+								
+								
+							}
 						}
 					}
 				}
@@ -377,14 +401,33 @@ void LayerGame::CheckCollision()
 	}
 
 	//プレイヤーと反射板
-	for (int i = 0; i < m_pRvsBlock->GetStageNum(); i++)
+	//for (int i = 0; i < m_pRvsBlock->GetStageNum(); i++)
+	//{
+	//	if (Collision::RectAndRect(m_pPlayer->GetInfo(), m_pRvsBlock->GetInfo(i)))
+	//	{
+	//		m_pPlayer->SetDirection(m_pRvsBlock->GetDirection(i));
+	//	}
+	//}
+
+	//プレイヤーと追ってくる影
+	if (*m_GameStatus == SceneGame::E_GAME_STATUS_NORMAL)
 	{
-		if (Collision::RectAndRect(m_pPlayer->GetInfo(), m_pRvsBlock->GetInfo(i)))
+		if (Collision::RectAndRect(m_pPlayer->GetInfo(), m_pChasingShadow->GetInfo()))
 		{
-			m_pPlayer->SetDirection(m_pRvsBlock->GetDirection(i));
+			SceneGame::SetGameStatus(SceneGame::E_GAME_STATUS_GAMEOVER);
+			m_pPlayer->SetEndFlag(true);
+			m_pChasingShadow->SetEndFlag(true);
 		}
 	}
 
+	//おってくる影とゴール
+	if (!m_pChasingShadow->GetEndFlag())
+	{
+		if (Collision::RectAndRect(m_pGoalObj->GetInfo(), m_pChasingShadow->GetInfo()))
+		{
+			m_pChasingShadow->SetEndFlag(true);
+		}
+	}
 	//プレイヤーとスタート板
 	if (*m_GameStatus == SceneGame::E_GAME_STATUS_START)
 	{
@@ -407,6 +450,7 @@ void LayerGame::CheckCollision()
 	}
 
 	
+	
 	//てきとステージ・シャドウブロックの実装
 	for (int i = 0; i < m_pEnemy.size(); i++)
 	{
@@ -415,7 +459,6 @@ void LayerGame::CheckCollision()
 		num = 0;		//敵用にリセット
 		EnemyDefault* enemy = reinterpret_cast<EnemyDefault*>(m_pEnemy[i]);
 
-
 		//敵とStageの当たり判定
 		for (num = 0; num < m_pStage->GetStageNum(); num++)
 		{
@@ -423,8 +466,8 @@ void LayerGame::CheckCollision()
 			Def::Info stage = m_pStage->GetInfo(num);		//ステージブロックの情報
 			enemyinfo = m_pEnemy[i]->GetInfo();				//敵の情報（プレイヤーの中心をposとする）
 			Def::Info Oenemy = enemy->GetOldInfo();			//プレイヤーの前フレームの情報
-			enemyinfo.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
-			Oenemy.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
+			//enemyinfo.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
+			//Oenemy.pos.y += enemyinfo.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
 
 			//どの方向に当たったかを確認する
 			if (Collision::Direction dire = Collision::RectAndRectDirection(enemyinfo, Oenemy, stage, enemy->GetStageCollistonDirection(num)))
@@ -557,376 +600,7 @@ void LayerGame::CheckCollision()
 						}
 					}
 				}
-
 			}
 		}
 	}
-
-	////EnemyとStageの当たり判定
-	//for (num = 0; num < m_pStage->GetStageNum(); num++)
-	//{
-	//	//当たり判定に使う要素
-	//	Def::Info stage = m_pStage->GetInfo(num);		//ステージブロックの情報
-	//	Def::Info Enemy = m_pEnemy->GetInfo();		//プレイヤーの情報（プレイヤーの中心をposとする）
-	//	Def::Info OEnemy = m_pEnemy->GetOldInfo();	//プレイヤーの前フレームの情報
-	//	Enemy.pos.y += Enemy.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
-	//	OEnemy.pos.y += Enemy.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
-
-
-	//	//どの方向に当たったかを確認する
-	//	if (Collision::Direction dire = Collision::RectAndRectDirection(Enemy, OEnemy, stage, m_pEnemy->GetStageCollistonDirection(num)))
-	//	{
-	//		//補正用pos(足元)
-	//		XMFLOAT3 pos = m_pEnemy->GetInfo().pos;
-
-	//		switch (dire)
-	//		{//当たった方向に応じての処理
-	//		case Collision::E_DIRECTION_L:	//左
-	//			pos.x = stage.pos.x + stage.size.x / 2.0f + Enemy.size.x / 2.0f;
-	//			m_pEnemy->SetDirection(Collision::E_DIRECTION_R);
-	//			break;
-	//		case Collision::E_DIRECTION_R:	//右
-	//			pos.x = stage.pos.x - stage.size.x / 2.0f - Enemy.size.x / 2.0f;
-	//			m_pEnemy->SetDirection(Collision::E_DIRECTION_L);
-	//			break;
-	//		case Collision::E_DIRECTION_U:	//上
-	//			pos.y = stage.pos.y + stage.size.y / 2.0f;
-	//			m_pEnemy->ResetMove();		//重力をリセットする
-	//			break;
-	//		case Collision::E_DIRECTION_D:	//下
-	//			pos.y = stage.pos.y - stage.size.y / 2.0f - Enemy.size.y;
-	//			m_pEnemy->ResetMove();
-	//			break;
-	//		default:
-	//			break;
-	//		}
-	//		m_pEnemy->SetPos(pos);		//補正した値をプレイヤーに反映
-	//		m_pEnemy->SetStageCollisionDirection(dire, num);		//どの方向に当たったかを保持する
-
-	//	}
-	//}
-
-	//num--;
-
-	//if (m_pEnemy->m_use)
-	//{
-	//	//EnemyとShadowBloackの当たり判定
-	//	for (int i = 0; i < shadow.size(); i++)
-	//	{
-	//		if (!Collision::RectAndRect(shadow[i]->GetInfo(), cam))	continue;
-	//		block = shadow[i]->GetSmallBlockInfo();
-
-	//		for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
-	//		{
-	//			for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init, num++)
-	//			{
-	//				Def::Info shadow = init->Info;		//シャドウブロックの情報
-
-
-
-
-	//				Def::Info Enemy = m_pEnemy->GetInfo();		//エネミーの情報
-	//				Enemy.pos.y += Enemy.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
-
-
-
-	//				if (init->use)
-	//				{//存在する（引き戻しの処理）
-	//					Def::Info OEnemy = m_pEnemy->GetOldInfo();		//前フレームの情報
-	//					OEnemy.pos.y += Enemy.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
-
-	//					if (Collision::Direction dire = Collision::RectAndRectDirection(Enemy, OEnemy, shadow, m_pEnemy->GetStageCollistonDirection(num)))
-	//					{
-	//						//補正用pos
-	//						XMFLOAT3 pos = m_pEnemy->GetInfo().pos;
-	//						switch (dire)
-	//						{
-	//						case Collision::E_DIRECTION_L:		//左
-	//						case Collision::E_DIRECTION_R:		//右
-	//							//横
-	//							if (Enemy.pos.x < shadow.pos.x)
-	//							{//右
-	//								pos.x = shadow.pos.x - shadow.size.x / 2.0f - Enemy.size.x / 2.0f;
-	//								m_pEnemy->SetDirection(Collision::E_DIRECTION_R);
-	//							}
-	//							else if (Enemy.pos.x >= shadow.pos.x)
-	//							{//左
-	//								pos.x = shadow.pos.x + shadow.size.x / 2.0f + Enemy.size.x / 2.0f;
-	//								m_pEnemy->SetDirection(Collision::E_DIRECTION_L);
-	//							}
-	//							break;
-	//						case Collision::E_DIRECTION_U:		//上
-	//							pos.y = shadow.pos.y + shadow.size.y / 2.0f;
-	//							m_pEnemy->ResetMove();
-	//							break;
-	//						case Collision::E_DIRECTION_D:		//下
-	//							pos.y = shadow.pos.y - shadow.size.y / 2.0f - Enemy.size.y;
-	//							m_pEnemy->ResetMove();
-	//							break;
-	//						default:
-	//							continue;
-	//							break;
-	//						}
-	//						m_pEnemy->SetPos(pos);		//エネミーに反映
-	//						m_pEnemy->SetStageCollisionDirection(dire, num);		//当たった方向を保持
-	//					}
-	//				}
-	//				else if (!init->use)
-	//				{//存在しない（消し続ける処理）
-	//					if (Collision::RectAndRect(Enemy, shadow))		//エネミーとブロックが当たっているか
-	//					{
-	//						init->life -= m_pLight->GetPower();
-	//						if (init->life <= 0.0f)
-	//						{
-	//							init->life = 0.0f;
-	//							init->use = false;
-	//						}
-	//					}
-	//				}
-	//			}
-
-	//		}
-
-	//	}
-
-	//	//エネミーと反射板
-	//	for (int i = 0; i < m_pRvsBlock->GetStageNum(); i++)
-	//	{
-	//		if (Collision::RectAndRect(m_pEnemy->GetInfo(), m_pRvsBlock->GetInfo(i)))
-	//		{
-	//			m_pEnemy->SetDirection(m_pRvsBlock->GetDirection(i));
-	//		}
-	//	}
-
-	//	//プレイヤーとエネミー
-	//	Def::Info player = m_pPlayer->GetInfo();
-	//	float playerT = player.pos.y - player.size.y / 2.0f;
-	//	float playerB = player.pos.y + player.size.y / 2.0f;
-	//	float playerR = player.pos.x - player.size.x / 2.0f;
-	//	float playerL = player.pos.x + player.size.x / 2.0f;
-	//	Def::Info Enemy = m_pEnemy->GetInfo();
-	//	float EnemyT = Enemy.pos.y - Enemy.size.y / 2.0f;
-	//	float EnemyB = Enemy.pos.y + Enemy.size.y / 2.0f;
-	//	float EnemyR = Enemy.pos.x - Enemy.size.x / 2.0f;
-	//	float EnemyL = Enemy.pos.x + Enemy.size.x / 2.0f;
-	//	if (playerT < EnemyB && playerB > EnemyT &&
-	//		playerR < EnemyL && playerL > EnemyR)
-	//	{
-	//		m_pPlayer->SetCollisionEnemy();
-	//		m_pEnemy->SetCollisionPlayer();
-	//	}
-
-	//	Def::Info BobEnemy = m_pBobbingEnemy->GetInfo();
-	//	float BobEnemyT = BobEnemy.pos.y - BobEnemy.size.y / 2.0f;
-	//	float BobEnemyB = BobEnemy.pos.y + BobEnemy.size.y / 2.0f;
-	//	float BobEnemyR = BobEnemy.pos.x - BobEnemy.size.x / 2.0f;
-	//	float BobEnemyL = BobEnemy.pos.x + BobEnemy.size.x / 2.0f;
-	//	if (playerT < BobEnemyB && playerB > BobEnemyT &&
-	//		playerR < BobEnemyL && playerL > BobEnemyR)
-	//	{
-	//		m_pPlayer->SetCollisionEnemy();
-	//		m_pBobbingEnemy->SetCollisionPlayer();
-	//	}
-	//	
-
-	//	//エネミーとライト
-	//	Def::Info light = m_pLight->GetInfo();
-	//	float Radius = m_pLight->GetRadius();
-	//	if ((light.pos.x > EnemyL - Radius) &&
-	//		(light.pos.x < EnemyR + Radius) &&
-	//		(light.pos.y > EnemyT - Radius) &&
-	//		(light.pos.y < EnemyB + Radius))
-	//	{
-	//		if(m_pEnemy->m_life > 0.0f)m_pEnemy->m_life -= m_pLight->GetPower();
-	//		else m_pEnemy->m_use = false;
-	//	}
-
-	//	if ((light.pos.x > BobEnemyL - Radius) &&
-	//		(light.pos.x < BobEnemyR + Radius) &&
-	//		(light.pos.y > BobEnemyT - Radius) &&
-	//		(light.pos.y < BobEnemyB + Radius))
-	//	{
-	//		if(m_pBobbingEnemy->m_life > 0.0f)m_pBobbingEnemy->m_life -= m_pLight->GetPower();
-	//		else m_pBobbingEnemy->m_use = false;
-	//	}
-	//}
-
-
-
-	//for (int i = 0; i < m_pEnemys.size(); i++)
-	//{
-	//	//EnemyとStageの当たり判定
-	//	for (num = 0; num < m_pStage->GetStageNum(); num++)
-	//	{
-	//		//当たり判定に使う要素
-	//		Def::Info stage = m_pStage->GetInfo(num);		//ステージブロックの情報
-	//		Def::Info Enemy = m_pEnemys[i]->GetInfo();		//プレイヤーの情報（プレイヤーの中心をposとする）
-	//		Def::Info OEnemy = m_pEnemys[i]->GetOldInfo();	//プレイヤーの前フレームの情報
-	//		Enemy.pos.y += Enemy.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
-	//		OEnemy.pos.y += Enemy.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
-
-
-	//		//どの方向に当たったかを確認する
-	//		if (Collision::Direction dire = Collision::RectAndRectDirection(Enemy, OEnemy, stage, m_pEnemys[i]->GetStageCollistonDirection(num)))
-	//		{
-	//			//補正用pos(足元)
-	//			XMFLOAT3 pos = m_pEnemys[i]->GetInfo().pos;
-
-	//			switch (dire)
-	//			{//当たった方向に応じての処理
-	//			case Collision::E_DIRECTION_L:	//左
-	//				pos.x = stage.pos.x + stage.size.x / 2.0f + Enemy.size.x / 2.0f;
-	//				m_pEnemys[i]->SetDirection(Collision::E_DIRECTION_L);
-	//				break;
-	//			case Collision::E_DIRECTION_R:	//右
-	//				pos.x = stage.pos.x - stage.size.x / 2.0f - Enemy.size.x / 2.0f;
-	//				m_pEnemys[i]->SetDirection(Collision::E_DIRECTION_R);
-	//				break;
-	//			case Collision::E_DIRECTION_U:	//上
-	//				pos.y = stage.pos.y + stage.size.y / 2.0f;
-	//				m_pEnemys[i]->ResetMove();		//重力をリセットする
-	//				break;
-	//			case Collision::E_DIRECTION_D:	//下
-	//				pos.y = stage.pos.y - stage.size.y / 2.0f - Enemy.size.y;
-	//				m_pEnemys[i]->ResetMove();
-	//				break;
-	//			default:
-	//				break;
-	//			}
-	//			m_pEnemys[i]->SetPos(pos);		//補正した値をプレイヤーに反映
-	//			m_pEnemys[i]->SetStageCollisionDirection(dire, num);		//どの方向に当たったかを保持する
-
-	//		}
-	//	}
-
-	//	num--;
-
-	//	//EnemyとShadowBloackの当たり判定
-	//	for (int j = 0; j < shadow.size(); j++)
-	//	{
-	//		if (!Collision::RectAndRect(shadow[j]->GetInfo(), cam))	continue;
-	//		block = shadow[i]->GetSmallBlockInfo();
-
-	//		for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = block->begin(); it != block->end(); ++it)
-	//		{
-	//			for (std::vector<ShadowBlock::SmallBlockTemp>::iterator init = it->begin(); init != it->end(); ++init, num++)
-	//			{
-	//				Def::Info shadow = init->Info;		//シャドウブロックの情報
-
-
-
-
-	//				Def::Info Enemy = m_pEnemys[i]->GetInfo();		//エネミーの情報
-	//				Enemy.pos.y += Enemy.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
-
-
-
-	//				if (init->use)
-	//				{//存在する（引き戻しの処理）
-	//					Def::Info OEnemy = m_pEnemys[i]->GetOldInfo();		//前フレームの情報
-	//					OEnemy.pos.y += Enemy.size.y / 2.0f;		//座標が足元にあるため中心になるように補正
-
-	//					if (Collision::Direction dire = Collision::RectAndRectDirection(Enemy, OEnemy, shadow, m_pEnemys[i]->GetStageCollistonDirection(num)))
-	//					{
-	//						//補正用pos
-	//						XMFLOAT3 pos = m_pEnemys[i]->GetInfo().pos;
-	//						switch (dire)
-	//						{
-	//						case Collision::E_DIRECTION_L:		//左
-	//						case Collision::E_DIRECTION_R:		//右
-	//							//横
-	//							if (Enemy.pos.x < shadow.pos.x)
-	//							{//右
-	//								pos.x = shadow.pos.x - shadow.size.x / 2.0f - Enemy.size.x / 2.0f;
-	//								m_pEnemys[i]->SetDirection(Collision::E_DIRECTION_R);
-	//							}
-	//							else if (Enemy.pos.x >= shadow.pos.x)
-	//							{//左
-	//								pos.x = shadow.pos.x + shadow.size.x / 2.0f + Enemy.size.x / 2.0f;
-	//								m_pEnemys[i]->SetDirection(Collision::E_DIRECTION_L);
-	//							}
-	//							break;
-	//						case Collision::E_DIRECTION_U:		//上
-	//							pos.y = shadow.pos.y + shadow.size.y / 2.0f;
-	//							m_pEnemys[i]->ResetMove();
-	//							break;
-	//						case Collision::E_DIRECTION_D:		//下
-	//							pos.y = shadow.pos.y - shadow.size.y / 2.0f - Enemy.size.y;
-	//							m_pEnemys[i]->ResetMove();
-	//							break;
-	//						default:
-	//							continue;
-	//							break;
-	//						}
-	//						m_pEnemys[i]->SetPos(pos);		//エネミーに反映
-	//						m_pEnemys[i]->SetStageCollisionDirection(dire, num);		//当たった方向を保持
-	//					}
-	//				}
-	//				else if (!init->use)
-	//				{//存在しない（消し続ける処理）
-	//					if (Collision::RectAndRect(Enemy, shadow))		//エネミーとブロックが当たっているか
-	//					{
-	//						init->life -= m_pLight->GetPower();
-	//						if (init->life <= 0.0f)
-	//						{
-	//							init->life = 0.0f;
-	//							init->use = false;
-	//						}
-	//					}
-	//				}
-	//			}
-
-	//		}
-
-	//	}
-
-	//	//エネミーと反射板
-	//	for (int j = 0; j < m_pRvsBlock->GetStageNum(); j++)
-	//	{
-	//		if (Collision::RectAndRect(m_pEnemys[i]->GetInfo(), m_pRvsBlock->GetInfo(j)))
-	//		{
-	//			m_pEnemys[i]->SetDirection(m_pRvsBlock->GetDirection(j));
-	//		}
-	//	}
-
-	//	//プレイヤーとエネミー
-	//	Def::Info player = m_pPlayer->GetInfo();
-	//	float playerT = player.pos.y - player.size.y / 2.0f;
-	//	float playerB = player.pos.y + player.size.y / 2.0f;
-	//	float playerR = player.pos.x - player.size.x / 2.0f;
-	//	float playerL = player.pos.x + player.size.x / 2.0f;
-	//	Def::Info Enemy = m_pEnemys[i]->GetInfo();
-	//	float EnemyT = Enemy.pos.y - Enemy.size.y / 2.0f;
-	//	float EnemyB = Enemy.pos.y + Enemy.size.y / 2.0f;
-	//	float EnemyR = Enemy.pos.x - Enemy.size.x / 2.0f;
-	//	float EnemyL = Enemy.pos.x + Enemy.size.x / 2.0f;
-	//	if (playerT < EnemyB && playerB > EnemyT &&
-	//		playerR < EnemyL && playerL > EnemyR)
-	//	{
-	//		m_pPlayer->SetCollisionEnemy();
-	//		m_pEnemys[i]->SetCollisionPlayer();
-	//	}
-
-	//	//エネミーとライト
-	//	Def::Info light = m_pLight->GetInfo();
-	//	float Radius = m_pLight->GetRadius();
-	//	if ((light.pos.x > EnemyL - Radius) &&
-	//		(light.pos.x < EnemyR + Radius) &&
-	//		(light.pos.y > EnemyT - Radius) &&
-	//		(light.pos.y < EnemyB + Radius))
-	//	{
-	//		m_pEnemys[i]->m_life -= m_pLight->GetPower();
-	//		if (m_pEnemys[i]->m_life <= 0.0f)
-	//		{
-	//			m_pEnemys.erase(m_pEnemys.begin() + i);
-	//		}
-	//	}
-	//	
-
-	//}
-
-
-
-
-	//if(*m_GameStatus == Sc)
 }

@@ -3,7 +3,7 @@
 #include "controller.h"
 
 Light::Light()
-	:m_Info{ {-3.8f, 4.25f, 0.0f}, {0.55f, 0.6f, 0.55f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
+	:m_Info{ {-3.8f, 4.25f, 0.2f}, {0.45f, 0.0001f, 0.45f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} }
 	,m_Power(30.0f)
 {
 
@@ -16,10 +16,10 @@ Light::~Light()
 void Light::Update()
 {
 	XMFLOAT3 CameraPos = m_pCamera->GetPos();
-	float right = CameraPos.x + 2.75f;
-	float left = CameraPos.x - 2.75f;
-	float ceiling = CameraPos.y + 1.0f;
-	float floor = CameraPos.y - 1.0f;
+	float right = CameraPos.x + 1.6f;
+	float left = CameraPos.x - 1.6f;
+	float ceiling = CameraPos.y + 0.8f;
+	float floor = CameraPos.y - 0.8f;
 
 	const float LIGHT_MOVE = 0.05f;
 
@@ -57,7 +57,14 @@ void Light::Draw()
 	SetGeometoryRotation(m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
 	XMFLOAT3 LigPos = m_Info.pos; LigPos.z += 10.0f;
 	SetGeometorySpLigPos(LigPos);
-	//DrawCylinder();
+	SetGeometoryPtLigPos(m_Info.pos);
+	SetGeometoryColor(DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 0.6f));
+	DrawCylinder();
+}
+
+void Light::Reset()
+{
+	m_Info = { {-3.8f, 4.25f, 0.2f}, {0.45f, 0.0001f, 0.45f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f} };
 }
 
 float Light::GetRadius()

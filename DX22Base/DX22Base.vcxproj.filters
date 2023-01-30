@@ -159,9 +159,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル\DX22\3DObject</Filter>
     </ClCompile>
-    <ClCompile Include="ReverseBlock.cpp">
-      <Filter>ソース ファイル\DX22\3DObject</Filter>
-    </ClCompile>
     <ClCompile Include="ShadowBlock.cpp">
       <Filter>ソース ファイル\DX22\3DObject</Filter>
     </ClCompile>
@@ -194,6 +191,39 @@
     </ClCompile>
     <ClCompile Include="EnemyRoundTrip.cpp">
       <Filter>ソース ファイル\DX22\3DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTitle.cpp">
+      <Filter>ソース ファイル\DX22\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneClear.cpp">
+      <Filter>ソース ファイル\DX22\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneResult.cpp">
+      <Filter>ソース ファイル\DX22\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationBillboard.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="ClearBillboard.cpp">
+      <Filter>ソース ファイル\DX22\2DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultBillboard.cpp">
+      <Filter>ソース ファイル\DX22\2DObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneStageSelect.cpp">
+      <Filter>ソース ファイル\DX22\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerResult.cpp">
+      <Filter>ソース ファイル\DX22\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="StageSelectCursor.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -311,9 +341,6 @@
     <ClInclude Include="Player.h">
       <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
     </ClInclude>
-    <ClInclude Include="ReverseBlock.h">
-      <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
-    </ClInclude>
     <ClInclude Include="SceneBace.h">
       <Filter>ヘッダー ファイル\DX22\Scene</Filter>
     </ClInclude>
@@ -347,9 +374,48 @@
     <ClInclude Include="EnemyDefault.h">
       <Filter>ヘッダー ファイル\DX22\3DObject</Filter>
     </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneTitle.h">
+      <Filter>ヘッダー ファイル\DX22\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneResult.h">
+      <Filter>ヘッダー ファイル\DX22\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneClear.h">
+      <Filter>ヘッダー ファイル\DX22\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationBillboard.h">
+      <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ClearBillboard.h">
+      <Filter>ヘッダー ファイル\DX22\2DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultBillboard.h">
+      <Filter>ヘッダー ファイル\DX22\2DObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneStageSelect.h">
+      <Filter>ヘッダー ファイル\DX22\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerResult.h">
+      <Filter>ヘッダー ファイル\DX22\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="StageSelectCursor.h">
+      <Filter>ヘッダー ファイル\DX22\2DObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ModelVS.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="ModelPS.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="FadePS.hlsl">
       <Filter>リソース ファイル</Filter>
     </FxCompile>
   </ItemGroup>

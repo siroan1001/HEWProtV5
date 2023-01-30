@@ -1,88 +1,81 @@
 #include "ChasingShadow.h"
+#include "ModelList.h"
 
-ChasingShadow::ChasingShadow() 
-	:m_Info{ {-10.0f, 5.0f, 0.0f}, {3.0f, 0.5f, 3.0f}, {XMConvertToRadians(90.0f), 0.0f, 0.0f}}
-	,m_PlDirection(Collision::E_DIRECTION_L)
+ChasingShadow::ChasingShadow()
+	:m_PlDirection(Collision::E_DIRECTION_L)
 {
-}
+	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 1.0f;
+	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_GHOST);
 
-ChasingShadow::~ChasingShadow()
-{
+	//頂点シェーダをモデルに設定
+	m_pModel->SetVertexShader(m_pVS);
+	m_pModel->SetPixelShader(m_pPS);
+
+	m_Info = { {-10.0f, 5.0f, 0.0f}, {1.5f, 1.5f, 0.5f}, {0.0f, 0.0f, 0.0f} };
+
+	m_EndFlag = false;
+
+	m_Color = XMFLOAT4(50.0f, 50.0f, 50.0f, 1.0f);
 }
 
 void ChasingShadow::Update()
 {
-	const float SHADOW_MOVE = 0.01f;
-	const float LIMIT = 3.0f;
+	const int cn_MaxFlame = 350;
+	m_PosLog.push_back(m_pPlayer->GetInfo().pos);
 
-Collision::Direction PlOldDirection = m_PlDirection;
-	m_PlDirection = m_pPlayer->GetDirection();
-
-	XMFLOAT3 PlayerPos = m_pPlayer->GetInfo().pos;
-
-	if (PlOldDirection != m_PlDirection)
+	if (!m_EndFlag)
 	{
-		switch (m_PlDirection)
+		if (m_PosLog.size() >= cn_MaxFlame)
 		{
-		case Collision::E_DIRECTION_NULL:
-			break;
-		case Collision::E_DIRECTION_L:
-			m_Info.pos.x = PlayerPos.x - LIMIT;
-			m_Info.pos.y = PlayerPos.y;
-			break;
-		case Collision::E_DIRECTION_R:
-			m_Info.pos.x = PlayerPos.x + LIMIT;
-			m_Info.pos.y = PlayerPos.y;
-			break;
-		case Collision::E_DIRECTION_U:
-			break;
-		case Collision::E_DIRECTION_D:
-			break;
-		case Collision::E_DIRECTION_MAX:
-			break;
-		default:
-			break;
+			m_Info.pos = *m_PosLog.begin();
+			m_Info.pos.y += 0.9f;
+
+			m_PosLog.pop_front();
 		}
 	}
-	
-
-	
-
-	if (PlayerPos.x > m_Info.pos.x)
+	else
 	{
-		m_Info.pos.x += SHADOW_MOVE;
-	}
-	if (PlayerPos.x < m_Info.pos.x)
-	{
-		m_Info.pos.x -= SHADOW_MOVE;
-	}
-	if (PlayerPos.y > m_Info.pos.y)
-	{
-		m_Info.pos.y += SHADOW_MOVE * 0.5f;
-	}
-	if (PlayerPos.y < m_Info.pos.y)
-	{
-		m_Info.pos.y -= SHADOW_MOVE * 0.5f;
-	}
-	if (m_Info.pos.x < PlayerPos.x - LIMIT)
-	{
-		m_Info.pos.x  = PlayerPos.x - LIMIT;
-	}
-	if (m_Info.pos.x > PlayerPos.x + LIMIT)
-	{
-		m_Info.pos.x = PlayerPos.x + LIMIT;
+		if (SceneGame::GetGameStatus() == SceneGame::E_GAME_STATUS_GOAL)
+		{
+			m_Color.w -= 0.02f;
+			if (m_Color.w <= 0.0f)
+			{
+				m_Color.w = 0.0f;
+			}
+		}
 	}
 }
 
-void ChasingShadow::Draw()
+void ChasingShadow::Reset()
 {
-	SetGeometoryTranslate(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
-	SetGeometoryScaling(m_Info.size.x, m_Info.size.y, m_Info.size.z);
-	SetGeometoryRotation(m_Info.rot.x, m_Info.rot.y, m_Info.rot.z);
-	DrawCylinder();
+	m_Info = { {-10.0f, 5.0f, 0.0f}, {1.5f, 1.5f, 0.5f}, {0.0f, 0.0f, 0.0f} };
+	m_PlDirection = Collision::E_DIRECTION_L;
+	m_PosLog.clear();
+	m_EndFlag = false;
+	m_Color = XMFLOAT4(50.0f, 50.0f, 50.0f, 1.0f);
+}
+
+bool ChasingShadow::GetEndFlag()
+{
+	return m_EndFlag;
 }
 
 void ChasingShadow::SetPlayer(Player * pPlayer)
 {
 	m_pPlayer = pPlayer;
+}
+
+void ChasingShadow::SetPos(XMFLOAT3 pos)
+{
+	m_Info.pos = pos;
+}
+
+void ChasingShadow::SetEndFlag(bool flag)
+{
+	m_EndFlag = flag;
+}
+
+float ChasingShadow::GetRadius()
+{
+	return 1.0f;
 }

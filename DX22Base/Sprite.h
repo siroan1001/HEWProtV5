@@ -5,9 +5,7 @@
 #include "MeshBuffer.h"
 #include "ConstantBuffer.h"
 #include "Shader.h"
-//--- ライト(定数バッファ用)
 #include "Lig.h"
-//--- ライトの情報を持ってくる
 #include "Geometory.h"
 
 class Sprite
@@ -22,8 +20,8 @@ public:
 	static void SetUVPos(DirectX::XMFLOAT2 pos);
 	static void SetUVScale(DirectX::XMFLOAT2 scale);
 	static void SetColor(DirectX::XMFLOAT4 color);
-	//--- ライトを定数バッファに設定
 	static void SetLig(Lig::Light lig);
+	static void SetPtRange(float PtRange);
 	static void SetTexture(ID3D11ShaderResourceView* pTex);
 
 	static void SetWorld(DirectX::XMFLOAT4X4 world);
@@ -45,11 +43,8 @@ private:
 	static PixelShader* m_pPS;
 	static VertexShader* m_pDefVS;
 	static PixelShader* m_pDefPS;
-	//--- ライト用のConstantBuffer
 	static ConstantBuffer* m_pBufLig;
-	//--- ライトの定数バッファ
 	static Lig::Light m_ConBufLig;
-	//--- ライトの情報の初期化
 	static Lig* m_pLight;
 };
 

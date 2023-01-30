@@ -1,2 +1,10 @@
-﻿  SceneGame.cpp
-  DX22Base.vcxproj -> C:\Users\naoto\Desktop\hew\x64\Debug\DX22Base.exe
+﻿  Game3D.cpp
+  SceneGame.cpp
+c:\users\user\documents\hewprotv5\dx22base\cameradebug.h(129): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\cameradebug.h(130): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\cameradebug.h(131): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+  SceneStageSelect.cpp
+  Stage.cpp
+c:\users\user\documents\hewprotv5\dx22base\stage.cpp(251): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  コードを生成中...
+  DX22Base.vcxproj -> C:\Users\User\Documents\HEWProtV5\x64\Debug\DX22Base.exe

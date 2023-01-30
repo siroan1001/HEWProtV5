@@ -10,7 +10,7 @@
 #include "BobbingEnemy.h"
 #include "Light.h"
 //#include "ShadowBlock.h"
-#include "ReverseBlock.h"
+//#include "ReverseBlock.h"
 #include "StartObj.h"
 #include "ChasingShadow.h"
 #include "Goal.h"
@@ -20,20 +20,13 @@
 
 class LayerGame	: public Layer
 {
-//public:
-//	enum EnemyKind
-//	{
-//		E_ENEMY_KIND_DEF_1 = 0,
-//		E_ENEMY_KIND_ROUND_TRIP_1,
-//
-//		E_ENEMY_KIND_MAX,
-//	};
-
 public:
-	LayerGame(CameraBase*, SceneGame::GameStatus*);
+	LayerGame(CameraBase*, SceneGame::GameStatus*, SceneGame::StageNumber);
 	~LayerGame();
 	void Update();
 	void Draw();
+
+	void Reset();
 
 	void CheckCollision();
 
@@ -51,7 +44,7 @@ private:
 	Light* m_pLight;
 	//ShadowBlock* m_pShadowBlock;
 	CameraBase* m_pCamera;
-	ReverseBlock* m_pRvsBlock;
+	//ReverseBlock* m_pRvsBlock;
 	StartObj* m_pStartObj;
 	ChasingShadow* m_pChasingShadow;
 	GoalObj* m_pGoalObj;

@@ -14,6 +14,8 @@ public:
 	void Update();
 	void Draw();
 
+	void Reset();
+
 	float GetRadius();
 	Def::Info GetInfo();
 	float GetPower();

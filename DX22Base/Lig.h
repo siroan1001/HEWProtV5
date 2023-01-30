@@ -7,6 +7,10 @@ class Lig
 public:
 	struct Light
 	{
+		DirectX::XMFLOAT3 ptPos;
+		float pad2;
+		DirectX::XMFLOAT3 ptCol;
+		float ptRange;        
 		XMFLOAT3 spPos;
 		float pad3;
 		XMFLOAT3 spCol;
@@ -18,6 +22,7 @@ public:
 		XMFLOAT3 amCol;
 		float pad5;
 	};
+	void InitPtLig(Light& light);
 	void InitSpLig(Light& light);
 	void InitAmLig(Light& light);
 };

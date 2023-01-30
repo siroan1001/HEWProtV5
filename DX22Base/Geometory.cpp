@@ -58,7 +58,7 @@ ConstantBuffer* g_pGeometoryWVP;
 ConstantBuffer* g_pGeometoryColor;
 ConstantBuffer* g_pGeometoryLight;
 DirectX::XMFLOAT4X4 g_geometoryMat[E_GEOMETOR_MAT_NUM_MAX];
-struct GeometoryColor { DirectX::XMFLOAT3 Color; float pad; };
+struct GeometoryColor { DirectX::XMFLOAT4 Color; };
 GeometoryColor g_geometoryColor;
 Lig::Light g_geometoryLight;
 Lig* g_pLight;
@@ -80,6 +80,7 @@ HRESULT InitGeometory()
 }
 void UninitGeometory()
 {
+	delete g_pLight;
 	GEOMETORY_SAFE_DELETE(g_pGeometoryCone);
 	GEOMETORY_SAFE_DELETE(g_pGeometoryCapsule);
 	GEOMETORY_SAFE_DELETE(g_pGeometoryCylinder);
@@ -106,9 +107,13 @@ void SetGeometoryVPMatrix(DirectX::XMFLOAT4X4 view, DirectX::XMFLOAT4X4 proj, Di
 	g_geometoryMat[2] = proj;
 	g_geometoryLight.eyePos = eyePos;
 }
-void SetGeometoryColor(DirectX::XMFLOAT3 color)
+void SetGeometoryColor(DirectX::XMFLOAT4 color)
 {
 	g_geometoryColor.Color = color;
+}
+void SetGeometoryPtLigPos(DirectX::XMFLOAT3 PtLigPos)
+{
+	g_geometoryLight.ptPos = PtLigPos;
 }
 void SetGeometorySpLigPos(DirectX::XMFLOAT3 pos)
 {
@@ -141,9 +146,13 @@ void DrawSphere()
 void DrawCylinder()
 {
 	UpdateGeometoryMatrix();
+	UpdateGeometoryColor();
+	UpdateGeometoryLight();
 	g_pGeometoryVS->Bind();
 	g_pGeometoryPS->Bind();
 	g_pGeometoryWVP->BindVS(0);
+	g_pGeometoryColor->BindVS(1);
+	g_pGeometoryLight->BindPS(0);
 	g_pGeometoryCylinder->Draw();
 }
 void DrawCone()
@@ -379,6 +388,10 @@ void CreateGeometoryCylinder()
 		tempVtx[1].pos = { 0.5f * cosf(XMConvertToRadians(Angle)), 0.5f, 0.5f * sinf(XMConvertToRadians(Angle)) };
 		tempVtx[2].pos = { 0.0f, 0.5f, 0.0f };
 
+		tempVtx[0].normal = { 0.0f, 1.0f, 0.0f };
+		tempVtx[1].normal = { 0.0f, 1.0f, 0.0f };
+		tempVtx[2].normal = { 0.0f, 1.0f, 0.0f };
+
 		tempVtx[0].uv = { tempVtx[0].pos.x + 0.5f, tempVtx[0].pos.z + 0.5f };
 		tempVtx[1].uv = { tempVtx[1].pos.x + 0.5f, tempVtx[1].pos.z + 0.5f };
 		tempVtx[2].uv = { tempVtx[2].pos.x + 0.5f, tempVtx[2].pos.z + 0.5f };
@@ -397,6 +410,10 @@ void CreateGeometoryCylinder()
 		tempVtx[0].pos = { 0.5f * cosf(XMConvertToRadians(Angle)), -0.5f, 0.5f * sinf(XMConvertToRadians(Angle)) };
 		tempVtx[1].pos = { 0.5f * cosf(XMConvertToRadians(Angle + 24)), -0.5f, 0.5f * sinf(XMConvertToRadians(Angle + 24)) };
 		tempVtx[2].pos = { 0.0f, -0.5f, 0.0f };
+
+		tempVtx[0].normal = { 0.0f, -1.0f, 0.0f };
+		tempVtx[1].normal = { 0.0f, -1.0f, 0.0f };
+		tempVtx[2].normal = { 0.0f, -1.0f, 0.0f };
 
 		tempVtx[0].uv = { tempVtx[0].pos.x + 0.5f, tempVtx[0].pos.z + 0.5f };
 		tempVtx[1].uv = { tempVtx[1].pos.x + 0.5f, tempVtx[1].pos.z + 0.5f };
@@ -417,6 +434,11 @@ void CreateGeometoryCylinder()
 		tempVtx[1].pos = { 0.5f * cosf(XMConvertToRadians(Angle + 24))	, 0.5f	, 0.5f * sinf(XMConvertToRadians(Angle + 24)) };
 		tempVtx[2].pos = { 0.5f * cosf(XMConvertToRadians(Angle))		, -0.5f	, 0.5f * sinf(XMConvertToRadians(Angle)) };
 		tempVtx[3].pos = { 0.5f * cosf(XMConvertToRadians(Angle + 24))	, -0.5f	, 0.5f * sinf(XMConvertToRadians(Angle + 24)) };
+
+		tempVtx[0].normal = { 1.0f, 0.0f, 0.0f };
+		tempVtx[1].normal = { 1.0f, 0.0f, 0.0f };
+		tempVtx[2].normal = { 1.0f, 0.0f, 0.0f };
+		tempVtx[3].normal = { 1.0f, 0.0f, 0.0f };
 
 		tempVtx[0].uv = { 0.0f, 0.0f };
 		tempVtx[1].uv = { 1.0f, 0.0f };
@@ -485,7 +507,7 @@ struct VS_OUT {
 	float4 pos    : SV_POSITION;
     float3 normal : NORMAL;
 	float2 uv     : TEXCOORD0;
-    float3 color  : COLOR;
+    float4 color  : COLOR;
 	float4 wPos   : TEXCOORD1;
 };
 cbuffer WVP : register(b0) {
@@ -494,7 +516,7 @@ cbuffer WVP : register(b0) {
 	float4x4 proj;
 };
 cbuffer COLOR : register(b1) {
-    float3 geometoryColor;
+    float4 geometoryColor;
 };
 VS_OUT main(VS_IN vin) {
 	VS_OUT vout;
@@ -513,10 +535,13 @@ struct PS_IN {
 	float4 pos    : SV_POSITION;
     float3 normal : NORMAL;
 	float2 uv     : TEXCOORD0;
-    float3 color  : COLOR;
+    float4 color  : COLOR;
 	float4 wPos   : TEXCOORD1;	
 };
 cbuffer LIGHT : register(b0) {
+    float3 ptPos;
+    float3 ptCol;
+	float ptRange;        
     float3 spPos;
     float3 spCol;
     float spRange;
@@ -527,12 +552,14 @@ cbuffer LIGHT : register(b0) {
 };
 float3 CalcLambertFromLight(float3 Direction, float3 Color, float3 Pixelnormal);
 float3 CalcPhongSpecularFromLight(float3 Direction, float3 Color, float3 wPos, float3 Pixelnormal);
+float3 CalcLightFromPointLight(PS_IN pin);
 float3 CalcLightFromSpotLight(PS_IN pin);
 float4 main(PS_IN pin) : SV_TARGET
 {
-	float4 color = float4(pin.color, 1.0f);
+	float4 color = pin.color;
     pin.normal = normalize(pin.normal);
-    float3 spotLig = CalcLightFromSpotLight(pin); float3 finalLig = spotLig + amCol;
+    float3 pointLig = CalcLightFromPointLight(pin); float3 spotLig = CalcLightFromSpotLight(pin); 
+    float3 finalLig = pointLig + spotLig + amCol;
     color.rgb *= finalLig; 
 	//float2 mGrid = floor(abs(pin.uv) * 2.0f);
 	//float2 sGrid = floor(abs(pin.uv) * 8.0f);
@@ -548,6 +575,15 @@ float3 CalcPhongSpecularFromLight(float3 Direction, float3 Color, float3 wPos, f
    float3 refVec = reflect(Direction, Pixelnormal); float3 toEye = eyePos - wPos; toEye = normalize(toEye);
    float t = dot(refVec, toEye); t = max(0.0f, t); t = pow(t, 3.0f); return Color * t;
 }
+float3 CalcLightFromPointLight(PS_IN pin)
+{
+    float3 ptIncidentVec = pin.wPos - ptPos; ptIncidentVec = normalize(ptIncidentVec);    
+    float3 diffusePtLig = CalcLambertFromLight(ptIncidentVec, ptCol, pin.normal); float3 specularPtLig = CalcPhongSpecularFromLight(ptIncidentVec, ptCol, pin.wPos, pin.normal);
+    float3 distance = length(pin.wPos - ptPos); float affect = 1.0f - 1.0f / ptRange * distance;
+    if (affect < 0.0f) affect = 0.0f;
+    affect = pow(affect, 0.5f); diffusePtLig *= affect; specularPtLig *= affect;
+    return diffusePtLig + specularPtLig;
+}
 float3 CalcLightFromSpotLight(PS_IN pin)
 {
    float3 spIncidentVec = pin.wPos - spPos; spIncidentVec = normalize(spIncidentVec);
@@ -558,7 +594,7 @@ float3 CalcLightFromSpotLight(PS_IN pin)
    float angle = dot(spIncidentVec, spDir); angle = abs(acos(angle)); affect = 1.0f - 1.0f / spAng * angle; 
    if (affect < 0.0f) affect = 0.0f;
    affect = pow(affect, 0.5f); diffuseSpLig *= affect; specularSpLig *= affect; 
-   return diffuseSpLig * specularSpLig;
+   return diffuseSpLig + specularSpLig;
 }
 )EOT";
 
@@ -574,11 +610,9 @@ void CreateGeometoryConstantBuffer()
 {
 	g_pGeometoryWVP = new ConstantBuffer();
 	g_pGeometoryWVP->Create(sizeof(g_geometoryMat));
-
 	g_geometoryTransform[0] = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 	g_geometoryTransform[1] = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 	g_geometoryTransform[2] = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
-
 	UpdateGeometoryMatrix();
 
 	g_geometoryMat[0]._11 = 1.0f;
@@ -587,11 +621,12 @@ void CreateGeometoryConstantBuffer()
 	g_geometoryMat[0]._44 = 1.0f;
 	g_pGeometoryColor = new ConstantBuffer();
 	g_pGeometoryColor->Create(sizeof(g_geometoryColor));
-	g_geometoryColor.Color = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+	g_geometoryColor.Color = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	UpdateGeometoryColor();
 	g_pGeometoryLight = new ConstantBuffer();
 	g_pGeometoryLight->Create(sizeof(g_geometoryLight));
 	g_geometoryLight.eyePos = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	g_pLight->InitPtLig(g_geometoryLight);
 	g_pLight->InitSpLig(g_geometoryLight);
 	g_pLight->InitAmLig(g_geometoryLight);
 	UpdateGeometoryLight();

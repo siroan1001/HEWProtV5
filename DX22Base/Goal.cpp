@@ -20,6 +20,7 @@ GoalObj::GoalObj()
 
 	m_Info = { {10.0f, 3.25f, 0.0f}, {0.3f, 1.0f, 0.3f}, {0.0f, 0.0f, 0.0f} };
 	m_ModelSize = { 0.3f, 1.0f, 0.3f };
+	m_Color = XMFLOAT4(50.0f, 50.0f, 50.0f, 1.0f);
 }
 
 Def::Info GoalObj::GetInfo2()

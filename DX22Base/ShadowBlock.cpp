@@ -1,8 +1,10 @@
 #include "ShadowBlock.h"
 #include "ShadowBillBoard.h"
 #include "Geometory.h"
+#include "Modellist.h"
 #include "SceneGame.h"
 #include "CameraBase.h"
+#include "Game3D.h"
 
 using namespace std;
 
@@ -12,6 +14,15 @@ ShadowBlock::ShadowBlock(Def::Info info)
 	m_BlockInfo.Info.size = { 0.5f, 0.5f, 0.5f };
 	m_BlockInfo.Info.rot = { 0.0f, 0.0f, 0.0f };
 	m_BlockInfo.xy = { 0.0f, 0.0f };
+
+	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.1f;
+	//モデル読み込み
+	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_SHADOWBLOCK);
+
+	m_pModel->SetVertexShader(m_pVS);
+	m_pModel->SetPixelShader(m_pPS);
+
+
 
 	SetShadowBlock(info);
 }
@@ -46,7 +57,7 @@ void ShadowBlock::Draw()
 	Def::Info info;		//計算用
 	float PosL;		//ブロックの左端を示す
 	int count;
-	CameraBase* cam = SceneGame::GetCamera();
+	CameraBase* cam = Game3D::GetCamera();
 
 	for (std::vector<std::vector<ShadowBlock::SmallBlockTemp>>::iterator it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
 	{
@@ -108,6 +119,7 @@ void ShadowBlock::Draw()
 		SetGeometoryTranslate(it->pos.x, it->pos.y, it->pos.z);
 		SetGeometoryScaling(it->size.x, it->size.y, it->size.z);
 		SetGeometoryRotation(it->rot.x, it->rot.y, it->rot.z);
+		SetGeometoryColor(XMFLOAT4(0.0f, 0.0f, 10.0f, 1.0f));
 		DrawBox();
 	}
 
@@ -118,6 +130,18 @@ void ShadowBlock::Draw()
 	//		m_BillBoard[i][j]->Draw();
 	//	}
 	//}
+}
+
+void ShadowBlock::Reset()
+{
+	for (auto it = m_SmallBlockInfo.begin(); it != m_SmallBlockInfo.end(); ++it)
+	{
+		for (auto init = it->begin(); init != it->end(); ++init)
+		{
+			init->life = 30.0f;
+			init->use = true;
+		}
+	}
 }
 
 void ShadowBlock::SetShadowBlock(Def::Info info)

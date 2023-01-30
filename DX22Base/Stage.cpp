@@ -3,221 +3,261 @@
 #include "Input.h"
 #include "Collision.h"
 #include "SceneGame.h"
+#include "SceneStageSelect.h"
 #include "CameraBase.h"
 #include "Geometory.h"
-
-const float CAMERA_AREA_MARGIN_VERTICAL = 0.75f;
-const float CAMERA_AREA_MARGIN_HORIZONTAL = 0.5f;
+#include "Game3D.h"
 
 Stage::Stage()
 	:m_blockNum(11)
 {
 	Def::Info info;
 
-	////床(下)
-	//info.pos = { 3.8f, -2.5f, 0.0f };
-	//info.size = { 20.5f, 0.5f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Info.push_back(info);
-
-	////床(真ん中)
-	//info.pos = { 1.7f, 0.2f, 0.0f };
-	//info.size = { 10.9f, 0.5f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Info.push_back(info);
-
-	////床(上)
-	//info.pos = { -2.2f, 3.0f, 0.0f };
-	//info.size = { 13.5f, 0.5f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Info.push_back(info);
-
-	////壁(左)
-	//info.pos = { -6.2f, 0.35f, 0.0f };
-	//info.size = { 0.5f, 5.7f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Info.push_back(info);
-
-	////壁(右)
-	//info.pos = { 6.9f, 2.9f, 0.0f };
-	//info.size = { 0.5f, 5.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Info.push_back(info);
-
-	////オブジェクト1(上)
-	//info.pos = { -2.0f, 3.75f, 0.0f };
-	//info.size = { 1.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Info.push_back(info);
-
-	////オブジェクト2(上)
-	//info.pos = { 0.7f, 3.75f, 0.0f };
-	//info.size = { 1.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Info.push_back(info);
-
-	////オブジェクト3(真ん中)
-	//info.pos = { 0.0f, 0.95f, 0.0f };
-	//info.size = { 3.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Info.push_back(info);
-
-	////オブジェクト4(下)
-	//info.pos = { -0.7f, -1.75f, 0.0f };
-	//info.size = { 3.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Info.push_back(info);
-
-	////オブジェクト5(下)
-	//info.pos = { 5.0f, -1.75f, 0.0f };
-	//info.size = { 2.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Info.push_back(info);
-
-	////オブジェクト6(下)
-	//info.pos = { 9.5f, -1.55f, 0.0f };
-	//info.size = { 2.0f, 1.5f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Info.push_back(info);
-
-	////シャドウブロック1(上)
-	//info.pos = { -2.5f, 4.25f, 0.0f };
-	//info.size = { 1.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Shadow.push_back(new ShadowBlock(info));
-
-	////シャドウブロック2(上)
-	//info.pos = { 0.2f, 5.25f, 0.0f };
-	//info.size = { 1.7f, 2.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Shadow.push_back(new ShadowBlock(info));
-
-	////シャドウブロック3(上)
-	//info.pos = { 2.2f, 4.25f, 0.0f };
-	//info.size = { 1.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Shadow.push_back(new ShadowBlock(info));
-
-	////シャドウブロック4(真ん中)
-	//info.pos = { -1.5f, 1.44f, 0.0f };
-	//info.size = { 1.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Shadow.push_back(new ShadowBlock(info));
-
-	////シャドウブロック5(真ん中)
-	//info.pos = { 2.48f, 1.44f, 0.0f };
-	//info.size = { 1.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Shadow.push_back(new ShadowBlock(info));
-
-	////シャドウブロック6(下)
-	//info.pos = { -2.2f, -1.26f, 0.0f };
-	//info.size = { 1.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Shadow.push_back(new ShadowBlock(info));
-
-	////シャドウブロック7(下)
-	//info.pos = { 1.79f, -1.26f, 0.0f };
-	//info.size = { 1.0f, 1.0f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Shadow.push_back(new ShadowBlock(info));
-
-	////シャドウブロック8(下)
-	//info.pos = { 4.0f, -0.76f, 0.0f };
-	//info.size = { 1.0f, 1.5f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Shadow.push_back(new ShadowBlock(info));
-
-	////シャドウブロック9(下)
-	//info.pos = { 8.5f, -0.76f, 0.0f };
-	//info.size = { 2.51f, 1.2f, 0.5f };
-	//info.rot = { 0.0f, 0.0f, 0.0f };
-	//m_Shadow.push_back(new ShadowBlock(info));
-
+	m_pStageNum = SceneStageSelect::GetStageNumber();
+	
+	//ステージ１
 	//床
 	info.pos = { 1.6f, 3.0f, 0.0f };
 	info.size = { 22.0f, 0.5f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
-	m_Info.push_back(info);
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Info.push_back(info);
+
+	info.pos = { 0.4f, 3.55f, 0.0f };
+	info.size = { 0.2f, 0.8f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Info.push_back(info);
 
 	info.pos = { 3.35f, 3.75f, 0.0f };
 	info.size = { 0.2f, 1.0f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
-	m_Info.push_back(info);
-	
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Info.push_back(info);
+
+	info.pos = { 6.5f, 4.05f, 0.0f };
+	info.size = { 1.5f, 0.2f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Info.push_back(info);
+
+	info.pos = { 6.5f, 4.275f, 0.0f };
+	info.size = { 0.2f, 0.25f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Info.push_back(info);
+
+	info.pos = { 6.5f, 5.075f, 0.0f };
+	info.size = { 0.2f, 0.25f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Info.push_back(info);
+
 	//シャドウブロック1
 	info.pos = { -2.3f, 3.95f, 0.0f };
 	info.size = { 1.3f, 0.8f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
-	m_Shadow.push_back(new ShadowBlock(info));
-	
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Shadow.push_back(new ShadowBlock(info));
+
 	//シャドウブロック2
 	info.pos = { 0.3f, 3.95f, 0.0f };
 	info.size = { 1.3f, 0.8f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
-	m_Shadow.push_back(new ShadowBlock(info));
-	
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Shadow.push_back(new ShadowBlock(info));
+
 	//シャドウブロック3
 	info.pos = { 4.5f, 4.55f, 0.0f };
 	info.size = { 2.3f, 1.3f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
-	m_Shadow.push_back(new ShadowBlock(info));
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Shadow.push_back(new ShadowBlock(info));
 
-	// カメラ範囲 1
-	info.pos = { 1.6f - 5.5f, 3.0f + CAMERA_AREA_MARGIN_VERTICAL, 0.0f };
-	info.size = { 11.0f, 0.5f + CAMERA_AREA_MARGIN_VERTICAL * 2.0f, 0.5f };
+	//シャドウブロック4
+	info.pos = { 5.75f, 4.15f, 0.0f };
+	info.size = { 1.5f, 0.2f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
-	m_CameraArea.push_back(new Def::Info(info));
-	// カメラ範囲 2 
-	info.pos = { 1.6f + 5.5f, 3.0f + CAMERA_AREA_MARGIN_VERTICAL, 0.0f };
-	info.size = { 11.0f, 0.5f + CAMERA_AREA_MARGIN_VERTICAL * 2.0f, 0.5f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック4
+	info.pos = { 7.0f, 4.95f, 0.0f };
+	info.size = { 1.0f, 0.8f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
-	m_CameraArea.push_back(new Def::Info(info));
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Shadow.push_back(new ShadowBlock(info));
+
+	//シャドウブロック4
+	info.pos = { 7.0f, 3.95f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Shadow.push_back(new ShadowBlock(info));
+
+	//ステージ２
+	//地面
+	info.pos = { 1.6f, 3.0f, 0.0f };
+	info.size = { 22.0f, 0.5f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_2].m_Info.push_back(info);
+
+	//一番最初のシャドウブロック
+	info.pos = { -3.7f, 3.95f, 0.0f };
+	info.size = { 0.5f, 3.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_2].m_Shadow.push_back(new ShadowBlock(info));
+
+	//1つ目の台
+	info.pos = { -3.0f, 3.3f, 0.0f };
+	info.size = { 2.3f, 0.1f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_2].m_Info.push_back(info);
+
+	//二番目のシャドウブロック
+	info.pos = { -1.45f, 3.95f, 0.0f };
+	info.size = { 0.5f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_2].m_Shadow.push_back(new ShadowBlock(info));
+
+	//三番目のシャドウブロック
+	info.pos = { 2.5f, 4.25f, 0.0f };
+	info.size = { 0.8f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_2].m_Shadow.push_back(new ShadowBlock(info));
+
+	//2つ目の台
+	info.pos = { 3.5f, 3.3f, 0.0f };
+	info.size = { 2.0f, 0.1f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_2].m_Info.push_back(info);
+
+	//四番目のシャドウブロック
+	info.pos = { 5.4f, 4.25f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_2].m_Shadow.push_back(new ShadowBlock(info));
+
+	//3つ目の台
+	info.pos = { 6.2f, 3.4f, 0.0f };
+	info.size = { 3.5f, 0.12f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_2].m_Info.push_back(info);
+
+	//五番目のシャドウブロック
+	info.pos = { 8.7f, 4.25f, 0.0f };
+	info.size = { 0.8f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_2].m_Shadow.push_back(new ShadowBlock(info));
+
+	//ステージ３
+	//地面
+	info.pos = { 1.6f, 3.0f, 0.0f };
+	info.size = { 22.0f, 0.5f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_3].m_Info.push_back(info);
+
+	//一番最初のシャドウブロック
+	info.pos = { -3.7f, 3.95f, 0.0f };
+	info.size = { 0.5f, 3.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_3].m_Shadow.push_back(new ShadowBlock(info));
+
+	//1つ目の台
+	info.pos = { -3.0f, 3.3f, 0.0f };
+	info.size = { 2.3f, 0.1f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_3].m_Info.push_back(info);
+
+	//二番目のシャドウブロック
+	info.pos = { -1.45f, 3.95f, 0.0f };
+	info.size = { 0.5f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_3].m_Shadow.push_back(new ShadowBlock(info));
+
+	//三番目のシャドウブロック
+	info.pos = { 2.5f, 4.25f, 0.0f };
+	info.size = { 0.8f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_3].m_Shadow.push_back(new ShadowBlock(info));
+
+	//2つ目の台
+	info.pos = { 3.5f, 3.3f, 0.0f };
+	info.size = { 2.0f, 0.1f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_3].m_Info.push_back(info);
+
+	//四番目のシャドウブロック
+	info.pos = { 5.4f, 4.25f, 0.0f };
+	info.size = { 1.0f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_3].m_Shadow.push_back(new ShadowBlock(info));
+
+	//3つ目の台
+	info.pos = { 6.2f, 3.4f, 0.0f };
+	info.size = { 3.5f, 0.12f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_3].m_Info.push_back(info);
+
+	//五番目のシャドウブロック
+	info.pos = { 8.7f, 4.25f, 0.0f };
+	info.size = { 0.8f, 1.0f, 0.5f };
+	info.rot = { 0.0f, 0.0f, 0.0f };
+	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_3].m_Shadow.push_back(new ShadowBlock(info));
 }
 
 Stage::~Stage()
 {
-	m_Info.clear();
+	for (int i = 0; i < SceneGame::E_STAGE_NUMBER_STAGE_MAX; i++)
+	{
+		m_Date[i].m_Info.clear();
+		m_Date[i].m_Shadow.clear();
+	}
+}
+
+void Stage::Update()
+{
+	for (int i = 0; i < m_Date[*m_pStageNum].m_Shadow.size(); i++)
+	{
+		m_Date[*m_pStageNum].m_Shadow[i]->Update();
+	}
 }
 
 void Stage::Draw()
 {
-	CameraBase* cam = SceneGame::GetCamera();
+	CameraBase* cam = Game3D::GetCamera();
 
-	for (int i = 0; i < m_Info.size(); i++)
+	for (int i = 0; i < m_Date[*m_pStageNum].m_Info.size(); i++)
 	{
-		if (!Collision::RectAndRect(m_Info[i], cam->GetInfo()))	continue;
-		SetGeometoryTranslate(m_Info[i].pos.x, m_Info[i].pos.y, m_Info[i].pos.z);
-		SetGeometoryScaling(m_Info[i].size.x, m_Info[i].size.y, m_Info[i].size.z);
-		SetGeometoryRotation(m_Info[i].rot.x, m_Info[i].rot.y, m_Info[i].rot.z);
-		SetGeometoryColor(XMFLOAT3(10.0f, 10.0f, 10.0f));
+		if (!Collision::RectAndRect(m_Date[*m_pStageNum].m_Info[i], cam->GetInfo()))	continue;
+		SetGeometoryTranslate(m_Date[*m_pStageNum].m_Info[i].pos.x, m_Date[*m_pStageNum].m_Info[i].pos.y, m_Date[*m_pStageNum].m_Info[i].pos.z);
+		SetGeometoryScaling(m_Date[*m_pStageNum].m_Info[i].size.x, m_Date[*m_pStageNum].m_Info[i].size.y, m_Date[*m_pStageNum].m_Info[i].size.z);
+		SetGeometoryRotation(m_Date[*m_pStageNum].m_Info[i].rot.x, m_Date[*m_pStageNum].m_Info[i].rot.y, m_Date[*m_pStageNum].m_Info[i].rot.z);
+		SetGeometoryColor(XMFLOAT4(10.0f, 10.0f, 10.0f, 1.0f));
 		DrawBox();
 	}
 
-	for (int i = 0; i < m_Shadow.size(); i++)
+	for (int i = 0; i < m_Date[*m_pStageNum].m_Shadow.size(); i++)
 	{
-		if (!Collision::RectAndRect(m_Shadow[i]->GetInfo(), cam->GetInfo()))	continue;
-		m_Shadow[i]->Draw();
+		if (!Collision::RectAndRect(m_Date[*m_pStageNum].m_Shadow[i]->GetInfo(), cam->GetInfo()))	continue;
+		m_Date[*m_pStageNum].m_Shadow[i]->Draw();
 	}
+}
+
+void Stage::Reset()
+{
+	for (int i = 0; i < m_Date[*m_pStageNum].m_Shadow.size(); i++)
+	{
+		m_Date[*m_pStageNum].m_Shadow[i]->Reset();
+	}
+	
 }
 
 Def::Info Stage::GetInfo(int num)
 {
-	return m_Info[num];
+	return m_Date[*m_pStageNum].m_Info[num];
 }
 
 int Stage::GetStageNum()
 {
-	return m_Info.size();
+	return m_Date[*m_pStageNum].m_Info.size();
 }
 
 int Stage::GetShadowNum()
 {
 	int num = 0;
 
-	for (int i = 0; i < m_Shadow.size(); i++)
+	for (int i = 0; i < m_Date[*m_pStageNum].m_Shadow.size(); i++)
 	{
-		num += m_Shadow[i]->GetNum();
+		num += m_Date[*m_pStageNum].m_Shadow[i]->GetNum();
 	}
 
 	return num;
@@ -225,10 +265,5 @@ int Stage::GetShadowNum()
 
 vector<ShadowBlock*> Stage::GetShadowBlock()
 {
-	return m_Shadow;
-}
-
-vector<Def::Info*> Stage::GetCameraArea()
-{
-	return m_CameraArea;
+	return m_Date[*m_pStageNum].m_Shadow;
 }
