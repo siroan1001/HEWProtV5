@@ -34,7 +34,7 @@ class ChasingShadow : public Object
 public:
 	ChasingShadow();
 	void Update();
-
+	void InvDraw();
 	void Reset();
 
 	bool GetEndFlag();

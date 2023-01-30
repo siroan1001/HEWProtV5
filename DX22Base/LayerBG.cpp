@@ -24,5 +24,5 @@ void LayerBG::Draw()
 void LayerBG::Reset()
 {
 	XMFLOAT3 cam = Game3D::GetCamera()->GetInfo().pos;
-	m_pBG->SetInfo(XMFLOAT3(cam.x, cam.y, -0.25f));
+	m_pBG->SetPos(XMFLOAT3(cam.x, cam.y, -0.25f));
 }

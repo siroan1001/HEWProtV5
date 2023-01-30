@@ -169,9 +169,12 @@
     <ClCompile Include="Game3D.cpp" />
     <ClCompile Include="Geometory.cpp" />
     <ClCompile Include="Goal.cpp" />
+    <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LayerBG.cpp" />
+    <ClCompile Include="LayerBGObject.cpp" />
     <ClCompile Include="LayerGame.cpp" />
     <ClCompile Include="LayerResult.cpp" />
     <ClCompile Include="Lig.cpp" />
@@ -201,6 +204,7 @@
     <ClCompile Include="StartObj.cpp" />
     <ClCompile Include="Startup.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Tree.cpp" />
     <ClCompile Include="WinUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -232,9 +236,12 @@
     <ClInclude Include="Game3D.h" />
     <ClInclude Include="Geometory.h" />
     <ClInclude Include="Goal.h" />
+    <ClInclude Include="Grass.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="LayerBG.h" />
+    <ClInclude Include="LayerBGObject.h" />
     <ClInclude Include="LayerGame.h" />
     <ClInclude Include="LayerResult.h" />
     <ClInclude Include="Lig.h" />
@@ -263,6 +270,7 @@
     <ClInclude Include="StageSelectCursor.h" />
     <ClInclude Include="StartObj.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Tree.h" />
     <ClInclude Include="WinUtil.h" />
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,8 @@
 #include "ShadowBlock.h"
 #include "Object.h"
 #include "SceneGame.h"
+#include "Ground.h"
+#include "Grass.h"
 
 using namespace DirectX;
 using namespace std;
@@ -54,6 +56,8 @@ protected:
 	StageDate m_Date[SceneGame::E_STAGE_NUMBER_STAGE_MAX];
 	vector<Def::Info> m_CameraStageInfo;
 	SceneGame::StageNumber* m_pStageNum;
+	Ground* m_pGround;
+	Grass* m_pGrass;
 };
 
 #endif // !_____STAGE_H____

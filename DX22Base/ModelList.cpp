@@ -13,7 +13,15 @@ void ModelList::Init()
 	m_ModelList[E_MODEL_LIST_CONST_GHOST] = new Model;
 	m_ModelList[E_MODEL_LIST_CONST_GHOST]->Load("Assets/ghost_v3/ghost.fbx", 1.0f);
 	m_ModelList[E_MODEL_LIST_CONST_SHADOWBLOCK] = new Model;
-	m_ModelList[E_MODEL_LIST_CONST_SHADOWBLOCK]->Load("Assets/shadowblock/shadow.fbx", 1.0f);
+	m_ModelList[E_MODEL_LIST_CONST_SHADOWBLOCK]->Load("Assets/shadowblock/shadowblock.fbx", 1.0f);
+	m_ModelList[E_MODEL_LIST_CONST_GROUND] = new Model;
+	m_ModelList[E_MODEL_LIST_CONST_GROUND]->Load("Assets/stage1/stage.fbx", 1.0f);
+	m_ModelList[E_MODEL_LIST_CONST_GRASS] = new Model;
+	m_ModelList[E_MODEL_LIST_CONST_GRASS]->Load("Assets/grass/grass.fbx", 1.0f);
+	m_ModelList[E_MODEL_LIST_CONST_FLAG] = new Model;
+	m_ModelList[E_MODEL_LIST_CONST_FLAG]->Load("Assets/flag/flag.fbx", 1.0f);
+	m_ModelList[E_MODEL_LIST_CONST_TREE] = new Model;
+	m_ModelList[E_MODEL_LIST_CONST_TREE]->Load("Assets/tree/tree.fbx", 1.0f);
 }
 
 void ModelList::Uninit()

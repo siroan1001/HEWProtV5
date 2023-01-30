@@ -22,7 +22,7 @@ public:
 	void Update();
 	void Draw();
 
-	void SetInfo(XMFLOAT3);
+	void SetPos(XMFLOAT3);
 
 private:
 	BGKind m_bgKind;

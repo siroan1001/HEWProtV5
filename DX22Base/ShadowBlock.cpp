@@ -119,7 +119,7 @@ void ShadowBlock::Draw()
 		SetGeometoryTranslate(it->pos.x, it->pos.y, it->pos.z);
 		SetGeometoryScaling(it->size.x, it->size.y, it->size.z);
 		SetGeometoryRotation(it->rot.x, it->rot.y, it->rot.z);
-		SetGeometoryColor(XMFLOAT4(0.0f, 0.0f, 10.0f, 1.0f));
+		SetGeometoryColor(XMFLOAT4(10.0f, 10.0f, 10.0f, 1.0f));
 		DrawBox();
 	}
 

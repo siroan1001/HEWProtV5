@@ -12,16 +12,16 @@ BG::BG(BG::BGKind bg)
 	switch (m_bgKind)
 	{
 	case E_BG_KIND_TITLE:
-		LoadTextureFromFile("Assets/TitleBG.jpg", &m_pTex);
-		m_Info.Size = XMFLOAT2(7.0f, 3.938f);
+		LoadTextureFromFile("Assets/fin.png", &m_pTex);
+		m_Info.Size = XMFLOAT2(5.0f, 2.813f);
 		break;
 	case E_BG_KIND_STAGESELECT:
 		LoadTextureFromFile("Assets/StageSelect.png", &m_pTex);
 		m_Info.Size = XMFLOAT2(5.1f, 2.618f);
 		break;
 	case E_BG_KIND_FOREST:
-		LoadTextureFromFile("Assets/ForestBG.jpg", &m_pTex);
-		m_Info.Size = XMFLOAT2(7.0f, 3.938f);
+		LoadTextureFromFile("Assets/GameBG.png", &m_pTex);
+		m_Info.Size = XMFLOAT2(6.2f, 3.488f);
 		break;
 	default:
 		break;
@@ -57,7 +57,7 @@ void BG::Draw()
 	Billboard::Draw();
 }
 
-void BG::SetInfo(XMFLOAT3 pos)
+void BG::SetPos(XMFLOAT3 pos)
 {
 	m_Info.Pos = pos;
 }

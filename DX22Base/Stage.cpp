@@ -42,7 +42,7 @@ Stage::Stage()
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Info.push_back(info);
 
-	info.pos = { 6.5f, 5.075f, 0.0f };
+	info.pos = { 6.5f, 5.275f, 0.0f };
 	info.size = { 0.2f, 0.25f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_1].m_Info.push_back(info);
@@ -192,10 +192,16 @@ Stage::Stage()
 	info.size = { 0.8f, 1.0f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_3].m_Shadow.push_back(new ShadowBlock(info));
+
+	m_pGround = new Ground;
+	m_pGrass = new Grass;
 }
 
 Stage::~Stage()
 {
+	delete m_pGrass;
+	delete m_pGround;
+
 	for (int i = 0; i < SceneGame::E_STAGE_NUMBER_STAGE_MAX; i++)
 	{
 		m_Date[i].m_Info.clear();
@@ -209,21 +215,31 @@ void Stage::Update()
 	{
 		m_Date[*m_pStageNum].m_Shadow[i]->Update();
 	}
+
+	m_pGround->Update();
 }
 
 void Stage::Draw()
 {
 	CameraBase* cam = Game3D::GetCamera();
 
-	for (int i = 0; i < m_Date[*m_pStageNum].m_Info.size(); i++)
+	for (int i = 1; i < m_Date[*m_pStageNum].m_Info.size(); i++)
 	{
 		if (!Collision::RectAndRect(m_Date[*m_pStageNum].m_Info[i], cam->GetInfo()))	continue;
 		SetGeometoryTranslate(m_Date[*m_pStageNum].m_Info[i].pos.x, m_Date[*m_pStageNum].m_Info[i].pos.y, m_Date[*m_pStageNum].m_Info[i].pos.z);
 		SetGeometoryScaling(m_Date[*m_pStageNum].m_Info[i].size.x, m_Date[*m_pStageNum].m_Info[i].size.y, m_Date[*m_pStageNum].m_Info[i].size.z);
 		SetGeometoryRotation(m_Date[*m_pStageNum].m_Info[i].rot.x, m_Date[*m_pStageNum].m_Info[i].rot.y, m_Date[*m_pStageNum].m_Info[i].rot.z);
-		SetGeometoryColor(XMFLOAT4(10.0f, 10.0f, 10.0f, 1.0f));
+		SetGeometoryColor(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 		DrawBox();
+
+		
 	}
+
+	Object::SetObjColor(m_pGround->GetColor());
+	m_pGround->Draw();
+
+	//Object::SetObjColor(m_pGrass->GetColor());
+	//m_pGrass->Draw();
 
 	for (int i = 0; i < m_Date[*m_pStageNum].m_Shadow.size(); i++)
 	{

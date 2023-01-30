@@ -17,6 +17,7 @@
 #include "LayerResult.h"
 #include "Effect.h"
 #include "SceneStageSelect.h"
+#include "LayerBGObject.h"
 
 SceneGame::GameStatus SceneGame::m_GameStatus;
 SceneGame::StageNumber SceneGame::m_StageNuber;
@@ -185,7 +186,7 @@ void SceneGame::Stage1()
 	//m_pCamera[E_CAM_DEBUG] = new CameraDebug;
 
 	m_pLayer[E_LAYER_BG] = new LayerBG;		//‚±‚ê
-	m_pLayer[E_LAYER_BUCK_OBJECT] = NULL;
+	m_pLayer[E_LAYER_BUCK_OBJECT] = new LayerBGObject;
 	m_pLayer[E_LAYER_GAME] = new LayerGame(Game3D::GetCamera(), &m_GameStatus, E_STAGE_NUMBER_STAGE_1);		//‚±‚ê
 	m_pLayer[E_LAYER_UI] = NULL;
 	m_pLayer[E_LAYER_RESULT] = new LayerResult;
