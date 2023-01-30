@@ -24,8 +24,8 @@ Player::Player(Collision::Direction dire)
 	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_PLAYER);
 	
 	// アニメーション読み込み
-	Model::AnimeNo no = m_pModel->AddAnimation("Assets/player_fi/player_animation_fin.fbx");	
-	//Model::AnimeNo no = m_pModel->AddAnimation("Assets/unitychan/walk.fbx");
+	//Model::AnimeNo no = m_pModel->AddAnimation("Assets/player_fi/player_animation_fin.fbx");	
+	Model::AnimeNo no = m_pModel->AddAnimation("Assets/unitychan/walk.fbx");
 
 	if (no == Model::ANIME_NONE) {
 		(MessageBox(nullptr, "AnimeError", "Error", MB_OK));
