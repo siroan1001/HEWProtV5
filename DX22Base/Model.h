@@ -34,7 +34,7 @@ public:
 	Model();
 	~Model();
 
-	bool Load(const char* file, float scale = 1.0f, bool flip = false);
+	bool Load(const char* file, float scale = 1.0f, bool flip = false, bool anime = false);
 	void Draw();
 
 	void SetVertexShader(VertexShader* vs);

@@ -150,6 +150,9 @@ void SceneGame::ReStart()
 
 	m_pLayer[E_LAYER_BG]->Reset();
 	m_pLayer[E_LAYER_GAME]->Reset();
+
+	m_pBGMSource = Sound::Start(Sound::E_SOUND_KIND_BGM_STAGESELECT);
+	m_pBGMSource->SetVolume(0.5f);
 }
 
 

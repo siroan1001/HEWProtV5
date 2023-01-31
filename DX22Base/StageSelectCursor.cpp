@@ -1,6 +1,7 @@
 #include "StageSelectCursor.h"
 #include "controller.h"
 #include "Input.h"
+#include "Sound.h"
 
 StageSelectCursor::StageSelectCursor()
 {
@@ -38,6 +39,8 @@ void StageSelectCursor::Update()
 			}
 			m_MoveFlag = true;
 		}
+
+		Sound::Start(Sound::E_SOUND_KIND_SE_SELECT);
 	}
 	else if (GetLStick().x <= -0.8f || IsKeyTrigger('A'))
 	{
@@ -58,6 +61,8 @@ void StageSelectCursor::Update()
 			}
 			m_MoveFlag = true;
 		}
+
+		Sound::Start(Sound::E_SOUND_KIND_SE_SELECT);
 	}
 	else
 	{

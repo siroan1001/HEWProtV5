@@ -13,6 +13,7 @@
 #include "controller.h"
 #include "Effect.h"
 #include "ShadowBlock.h"
+#include "Sound.h"
 
 using namespace IKD;
 
@@ -57,6 +58,7 @@ void Init()
 	ModelList::Init();
 	EffectManager::Init();
 	ShadowBlock::Init();
+	Sound::Init();
 
 	InitCtrl();
 
@@ -72,6 +74,7 @@ void Uninit()
 	
 	delete g_pGame;
 	UninitCtrl();
+	Sound::Unitit();
 	ShadowBlock::Uninit();
 	EffectManager::Uninit();
 	ModelList::Uninit();

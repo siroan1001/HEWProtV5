@@ -20,7 +20,12 @@ LayerGame::LayerGame(CameraBase* camera, SceneGame::GameStatus* status, SceneGam
 	//プレイヤーの生成
 	m_pPlayer = new Player(Collision::E_DIRECTION_L);
 
-	EnemyDefault* EnemeyD = new EnemyDefault(Collision::E_DIRECTION_L, XMFLOAT3(-2.0f, 3.25f, 0.0f));
+	EnemyDefault* EnemeyD = new EnemyDefault(Collision::E_DIRECTION_L, XMFLOAT3(-3.5f, 3.25f, 0.0f));
+	EnemeyD->SetCamera(camera);
+	EnemeyD->InitDirectin(m_pStage->GetStageNum() + m_pStage->GetShadowNum());
+	m_pEnemy.push_back(EnemeyD);
+
+	EnemeyD = new EnemyDefault(Collision::E_DIRECTION_L, XMFLOAT3(-3.2f, 3.25f, 0.0f));
 	EnemeyD->SetCamera(camera);
 	EnemeyD->InitDirectin(m_pStage->GetStageNum() + m_pStage->GetShadowNum());
 	m_pEnemy.push_back(EnemeyD);
@@ -412,6 +417,10 @@ void LayerGame::CheckCollision()
 			SceneGame::SetGameStatus(SceneGame::E_GAME_STATUS_GAMEOVER);
 			m_pPlayer->SetEndFlag(true);
 			m_pChasingShadow->SetEndFlag(true);
+
+			IXAudio2SourceVoice* source = SceneBace::GetBGMSource();
+			source->Stop();
+			source = Sound::Start(Sound::E_SOUND_KIND_BGM_GAMEOVER);
 		}
 	}
 
@@ -441,6 +450,10 @@ void LayerGame::CheckCollision()
 		{
 			//SceneGame::SetGameStatus(SceneGame::E_GAME_STATUS_GOAL);
 			*m_GameStatus = SceneGame::E_GAME_STATUS_GOAL;
+			IXAudio2SourceVoice* source = SceneBace::GetBGMSource();
+			source->Stop();
+			source = Sound::Start(Sound::E_SOUND_KIND_BGM_CLEAR);
+			
 		}
 	}
 
@@ -450,7 +463,7 @@ void LayerGame::CheckCollision()
 	for (int i = 0; i < m_pEnemy.size(); i++)
 	{
 		Def::Info enemyinfo = m_pEnemy[i]->GetInfo();
-		if (!Collision::RectAndRect(enemyinfo, cam))	continue;
+		//if (!Collision::RectAndRect(enemyinfo, cam))	continue;
 		num = 0;		//敵用にリセット
 		EnemyDefault* enemy = reinterpret_cast<EnemyDefault*>(m_pEnemy[i]);
 

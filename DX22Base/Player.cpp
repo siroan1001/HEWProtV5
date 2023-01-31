@@ -18,7 +18,7 @@ Player::Player(Collision::Direction dire)
 	,m_IsColEnemy(false)
 {
 	m_Info = { {-7.6f, 3.25f, 0.0f}, {0.3f, 0.35f, 0.3f}, {0.0f, -90.0f, 0.0f} };
-	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.03f;
+	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.01f;
 
 	//ÉÇÉfÉãì«Ç›çûÇ›
 	m_pModel = ModelList::GetModel(ModelList::E_MODEL_LIST_CONST_PLAYER);
@@ -101,16 +101,16 @@ void Player::Update()
 
 
 		//ÉWÉÉÉìÉv
-		if (IsKeyTrigger(VK_SPACE))
-		{
-			m_Move.y += 0.05f;
-			m_Ground = false;
-		}
-		if (IsButtonTrigger(BUTTON_A))
-		{
-			m_Move.y += 0.05f;
-			m_Ground = false;
-		}
+		//if (IsKeyTrigger(VK_SPACE))
+		//{
+		//	m_Move.y += 0.05f;
+		//	m_Ground = false;
+		//}
+		//if (IsButtonTrigger(BUTTON_A))
+		//{
+		//	m_Move.y += 0.05f;
+		//	m_Ground = false;
+		//}
 	}
 	else
 	{

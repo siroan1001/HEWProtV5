@@ -1,0 +1,37 @@
+(任意)と書かれているもの以外は外部へ出す場合
+ｸﾚｼﾞｯﾄの作成または規約等のが書いているメモの記載
+が必要になります。
+
+規約一覧
+Springin’ Sound Stock
+https://www.springin.org/sound-stock/guideline/
+効果音：Springin’ Sound Stock
+BGM：Springin’ Sound Stock
+BGM・効果音：Springin’ Sound Stock
+音源提供：Springin’ Sound Stock
+
+ポケットサウンド
+<a href="https://pocket-se.info/">ポケットサウンド/効果音素材</a>
+
+OtoLogic
+当サイトの素材を使って、あなたが制作した作品を公開するときに、
+「OtoLogicの素材を使用している」ことが伝わる表示（権利者表記）
+を一緒につけてください。
+
+効果音ラボ(任意)
+https://soundeffect-lab.info/agreement/
+
+VSQplus+(任意)
+https://vsq.co.jp/plus/
+
+無料効果音で遊ぼう!(任意)
+サイトおよび素材製作者
+小森 平（福岡在住）　YOUTUBE ：管理人の趣味動画。川辺の野鳥や猫など
+制作機材
+Roland Recorder R-09 / Win11 / Ryzen9 5900X / RTX2070 super
+主要使用フリーソフト
+Audacity（音声編集・加工）　GIMP（画像加工）
+参考
+音を作る―TV・映画の音の秘密　その他、アニメ・ゲーム・映画・時代劇など。身の回りの音を一番良く聴いてます
+リンクフリー
+https://taira-komori.jpn.org/

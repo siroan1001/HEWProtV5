@@ -1,7 +1,8 @@
 #include "ShadowBillBoard.h"
+#include "ModelList.h"
 
-ShadowBillBoard::ShadowBillBoard(XMFLOAT3 pos)
+ShadowBillBoard::ShadowBillBoard(Billboard::Info info)
 {
-	LoadTextureFromFile("Assets/ShadowBlock.png", &m_pTex);
-	m_Info.Pos = pos;
+	m_pTex = ModelList::GetTexture();
+	m_Info = info;
 }
