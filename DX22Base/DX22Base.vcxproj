@@ -200,6 +200,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShadowBillBoard.cpp" />
     <ClCompile Include="ShadowBlock.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StageSelectCursor.cpp" />
@@ -267,6 +268,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShadowBillBoard.h" />
     <ClInclude Include="ShadowBlock.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StageSelectCursor.h" />
