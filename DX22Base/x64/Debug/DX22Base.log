@@ -1,2 +1,143 @@
-﻿  Game3D.cpp
+﻿  AnimationBillboard.cpp
+  BG.cpp
+  Billboard.cpp
+  BlendState.cpp
+  ClearBillboard.cpp
+  Collision.cpp
+  ConstantBuffer.cpp
+  DirectX.cpp
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\directx.cpp(133): warning C4244: '=': 'UINT' から 'FLOAT' への変換です。データが失われる可能性があります。
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\directx.cpp(134): warning C4244: '=': 'UINT' から 'FLOAT' への変換です。データが失われる可能性があります。
+  Effect.cpp
+  EnemyDefault.cpp
+  EnemyRoundTrip.cpp
+  Fade.cpp
+  Geometory.cpp
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\geometory.cpp(387): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\geometory.cpp(388): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\geometory.cpp(410): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\geometory.cpp(411): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\geometory.cpp(433): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\geometory.cpp(434): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\geometory.cpp(435): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\geometory.cpp(436): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\geometory.cpp(478): warning C4267: '=': 'size_t' から 'UINT' に変換しました。データが失われているかもしれません。
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\geometory.cpp(481): warning C4267: '=': 'size_t' から 'UINT' に変換しました。データが失われているかもしれません。
+  Goal.cpp
+  Grass.cpp
+  Ground.cpp
+  LayerBG.cpp
+  LayerGame.cpp
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\layergame.cpp : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  LayerResult.cpp
+  Light.cpp
+  コードを生成中...
+  コンパイル中...
+  MeshBuffer.cpp
+  Model.cpp
+  ModelList.cpp
+  Model_Contents.cpp
+  Object.cpp
+  Obstacle.cpp
+  Player.cpp
+  ResultBillboard.cpp
+  SamplerState.cpp
+  SceneClear.cpp
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\sceneclear.cpp : warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  SceneResult.cpp
+  SceneStageSelect.cpp
+  SceneTitle.cpp
+  Shader.cpp
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\shader.cpp(21): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: 'fopen' の宣言を確認してください
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\shader.cpp(59): warning C4244: '引数': 'SIZE_T' から 'UINT' への変換です。データが失われる可能性があります。
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\shader.cpp(149): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  ShadowBlock.cpp
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\shadowblock.cpp(190): warning C4244: '引数': 'float' から 'const unsigned __int64' への変換です。データが失われる可能性があります。
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\shadowblock.cpp(204): warning C4267: '+=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  Sprite.cpp
+  Stage.cpp
+c:\users\yukku\onedrive\デスクトップ\hal\hal2年\hew\hewprotv5\dx22base\stage.cpp(401): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  StageSelectCursor.cpp
+  StartObj.cpp
+  コードを生成中...
+  LINK : 前回のインクリメンタル リンクで C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DX22Base.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
+Effekseerd.lib(Effekseer.Color.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.Color.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.CurveLoader.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.CurveLoader.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.DefaultEffectLoader.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.DefaultEffectLoader.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.DefaultFile.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.DefaultFile.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.Effect.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.Effect.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.EffectNode.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.EffectNode.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.EffectNodeModel.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.EffectNodeModel.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.EffectNodeRibbon.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.EffectNodeRibbon.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.EffectNodeRing.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.EffectNodeRing.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.EffectNodeSprite.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.EffectNodeSprite.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.EffectNodeTrack.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.EffectNodeTrack.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.FCurves.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.FCurves.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.Instance.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.Instance.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.InstanceChunk.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.InstanceChunk.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.InstanceContainer.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.InstanceContainer.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.InstanceGlobal.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.InstanceGlobal.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.InstanceGroup.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.InstanceGroup.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.InternalScript.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.InternalScript.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.Manager.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.Manager.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.Matrix43.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.Matrix43.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.Matrix44.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.Matrix44.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.Random.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.Random.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.RectF.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.RectF.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.ResourceManager.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.ResourceManager.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.Setting.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.Setting.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.Vector2D.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.Vector2D.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.Vector3D.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.Vector3D.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.WorkerThread.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.WorkerThread.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.MaterialFile.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.MaterialFile.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.CompiledMaterial.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.CompiledMaterial.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.EfkEfcFactory.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.EfkEfcFactory.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Easing.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Easing.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.Parameters.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.Parameters.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Rotation.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Rotation.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Effekseer.CustomAllocator.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.CustomAllocator.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Mat43f.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Mat43f.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Mat44f.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Mat44f.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Utils.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Utils.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(CurlNoise.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(CurlNoise.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(ForceFields.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(ForceFields.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(ProceduralModelGenerator.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(ProceduralModelGenerator.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(Model.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Model.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(ModelLoader.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(ModelLoader.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+Effekseerd.lib(SplineGenerator.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(SplineGenerator.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRenderer.CommonUtils.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRenderer.CommonUtils.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRenderer.DDSTextureLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRenderer.DDSTextureLoader.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRenderer.IndexBufferBase.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRenderer.IndexBufferBase.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRenderer.PngTextureLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRenderer.PngTextureLoader.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRenderer.RenderStateBase.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRenderer.RenderStateBase.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRenderer.Renderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRenderer.Renderer.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRenderer.Renderer_Impl.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRenderer.Renderer_Impl.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRenderer.TGATextureLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRenderer.TGATextureLoader.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRenderer.VertexBufferBase.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRenderer.VertexBufferBase.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(ModelLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(ModelLoader.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(TextureLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(TextureLoader.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRendererDX11.DeviceObject.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRendererDX11.DeviceObject.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRendererDX11.IndexBuffer.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRendererDX11.IndexBuffer.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRendererDX11.MaterialLoader.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRendererDX11.MaterialLoader.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRendererDX11.ModelRenderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRendererDX11.ModelRenderer.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRendererDX11.RenderState.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRendererDX11.RenderState.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRendererDX11.Renderer.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRendererDX11.Renderer.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRendererDX11.Shader.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRendererDX11.Shader.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerRendererDX11.VertexBuffer.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerRendererDX11.VertexBuffer.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(GraphicsDevice.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(GraphicsDevice.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(EffekseerMaterialCompilerDX11.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(EffekseerMaterialCompilerDX11.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(ShaderGenerator.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(ShaderGenerator.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+EffekseerRendererDX11d.lib(ShaderGeneratorCommon.obj) : warning LNK4099: PDB 'EffekseerRendererDX11.pdb' が 'EffekseerRendererDX11d.lib(ShaderGeneratorCommon.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\EffekseerRendererDX11.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(BC.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(BC.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(BC4BC5.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(BC4BC5.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(BC6HBC7.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(BC6HBC7.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexCompress.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexCompress.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexConvert.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexConvert.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexD3D11.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexD3D11.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexImage.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexImage.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexMipMaps.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexMipMaps.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexTGA.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexTGA.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexUtil.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexUtil.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+DirectXTex_vs2017_x64D.lib(DirectXTexWIC.obj) : warning LNK4099: PDB 'DirectXTex.pdb' が 'DirectXTex_vs2017_x64D.lib(DirectXTexWIC.obj)' で、または 'C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DirectXTex.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
   DX22Base.vcxproj -> C:\Users\yukku\OneDrive\デスクトップ\HAL\HAL2年\HEW\HEWProtV5\x64\Debug\DX22Base.exe
