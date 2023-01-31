@@ -3,6 +3,7 @@
 
 #include "SceneBace.h"
 #include "CameraBase.h"
+#include "Fade.h"
 
 class Game3D
 {
@@ -35,6 +36,7 @@ public:
 	static SceneKind GetSceneKind();
 	static void SetScene(SceneKind nextScene);
 	static CameraBase* GetCamera();
+	static void StartSceneChange();
 
 private:
 	static SceneBace* m_pScene[E_SCENE_KIND_MAX];
@@ -42,6 +44,7 @@ private:
 	static CameraBase* m_pCamera[E_CAM_MAX];
 	static CameraKind m_mainCamera;
 
+	
 };
 
 #endif // __GAME_3D_H__

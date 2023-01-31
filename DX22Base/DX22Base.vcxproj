@@ -202,6 +202,7 @@
     <ClCompile Include="ShadowBlock.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteDefault.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="StageSelectCursor.cpp" />
     <ClCompile Include="StartObj.cpp" />
@@ -270,6 +271,7 @@
     <ClInclude Include="ShadowBlock.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteDefault.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StageSelectCursor.h" />
     <ClInclude Include="StartObj.h" />

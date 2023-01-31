@@ -14,6 +14,6 @@ public:
 	void Reset();
 
 private:
-	Tree* m_pTree;
+	Tree* m_pTree[30];
 
 };

@@ -5,7 +5,7 @@
 class Tree: public Object
 {
 public:
-	Tree();
+	Tree(XMFLOAT3, float);
 	void Update();
 
 private:

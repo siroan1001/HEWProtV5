@@ -240,6 +240,9 @@
     <ClCompile Include="Sound.cpp">
       <Filter>ソース ファイル\System</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteDefault.cpp">
+      <Filter>ソース ファイル\DX22\2DObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -436,6 +439,9 @@
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteDefault.h">
+      <Filter>ヘッダー ファイル\DX22\2DObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

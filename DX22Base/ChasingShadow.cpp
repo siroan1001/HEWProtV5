@@ -1,6 +1,10 @@
 #include "ChasingShadow.h"
 #include "ModelList.h"
 
+const float DirRight = -180.0f;
+const float DirLeft = 0.0f;
+const float GraduallyRight = -1.0f;
+const float GraduallyLeft = 1.0f;
 ChasingShadow::ChasingShadow()
 	:m_PlDirection(Collision::E_DIRECTION_L)
 {
@@ -61,8 +65,24 @@ void ChasingShadow::Update()
 void ChasingShadow::InvDraw()
 {
 	if (!m_pCamera)	return;		//カメラが設定されてなければ処理しない
-	if (m_pPlayer->GetInfo().pos.x >= m_Info.pos.x) m_Info.rot.y = 0.0f;
-	if (m_pPlayer->GetInfo().pos.x < m_Info.pos.x) m_Info.rot.y = 180.0f;
+	//--- プレイヤーがより左にいるとき
+	if (m_pPlayer->GetInfo().pos.x >= m_Info.pos.x)
+	{
+		m_Info.rot.y += GraduallyLeft;
+		if (m_Info.rot.y >= DirLeft)
+		{
+			m_Info.rot.y = DirLeft;
+		}
+	}
+	//--- プレイヤーがより右にいるとき
+	if (m_pPlayer->GetInfo().pos.x < m_Info.pos.x)
+	{
+		m_Info.rot.y += GraduallyRight;
+		if (m_Info.rot.y <= DirRight)
+		{
+			m_Info.rot.y = DirRight;
+		}
+	}
 	XMFLOAT3 ConvertRot = { XMConvertToRadians(m_Info.rot.x), XMConvertToRadians(m_Info.rot.y), XMConvertToRadians(m_Info.rot.z) };
 	XMFLOAT4X4 mat[3];
 	XMMATRIX temp = XMMatrixScaling(m_ModelSize.x, m_ModelSize.y, m_ModelSize.z) * XMMatrixRotationX(ConvertRot.x) * XMMatrixRotationY(ConvertRot.y) * XMMatrixRotationZ(ConvertRot.z)	* XMMatrixTranslation(m_Info.pos.x, m_Info.pos.y, m_Info.pos.z);
