@@ -30,6 +30,8 @@ public:
 	};
 
 public:
+	static void Init();
+	static void Uninit();
 	ShadowBlock(Def::Info info);
 	~ShadowBlock();
 	void Update();
@@ -52,6 +54,7 @@ private:
 		//細かく並べられるブロックの情報
 	BlockTemp m_BlockInfo;		//全体の情報
 	vector<vector<ShadowBlock::SmallBlockTemp>> m_SmallBlockInfo;		//並び順や場所の情報を動的に確保
+	static ID3D11ShaderResourceView* m_pTex;
 };
 
 #endif // !_____SHADOW_BLOCK_H____

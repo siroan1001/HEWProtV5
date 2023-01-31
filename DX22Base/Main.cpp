@@ -11,6 +11,7 @@
 #include "Quadtree.h"
 #include "controller.h"
 #include "Effect.h"
+#include "ShadowBlock.h"
 
 using namespace IKD;
 
@@ -53,6 +54,7 @@ void Init()
 	Sprite::Init();
 	ModelList::Init();
 	EffectManager::Init();
+	ShadowBlock::Init();
 
 	InitCtrl();
 
@@ -68,6 +70,7 @@ void Uninit()
 	
 	delete g_pGame;
 	UninitCtrl();
+	ShadowBlock::Uninit();
 	EffectManager::Uninit();
 	ModelList::Uninit();
 	Object::Uninit();

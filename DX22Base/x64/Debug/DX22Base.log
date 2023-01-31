@@ -1,6 +1,6 @@
-﻿  Stage.cpp
-c:\users\user\documents\hewprotv5\dx22base\stage.cpp(401): warning C4267: 'return': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-  LINK : 前回のインクリメンタル リンクで C:\Users\User\Documents\HEWProtV5\x64\Debug\DX22Base.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
+﻿  ShadowBlock.cpp
+c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(190): warning C4244: '引数': 'float' から 'const unsigned __int64' への変換です。データが失われる可能性があります。
+c:\users\user\documents\hewprotv5\dx22base\shadowblock.cpp(204): warning C4267: '+=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
 Effekseerd.lib(Effekseer.Color.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.Color.obj)' で、または 'C:\Users\User\Documents\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 Effekseerd.lib(Effekseer.CurveLoader.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.CurveLoader.obj)' で、または 'C:\Users\User\Documents\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 Effekseerd.lib(Effekseer.DefaultEffectLoader.obj) : warning LNK4099: PDB 'Effekseer.pdb' が 'Effekseerd.lib(Effekseer.DefaultEffectLoader.obj)' で、または 'C:\Users\User\Documents\HEWProtV5\x64\Debug\Effekseer.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。

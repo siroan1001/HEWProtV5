@@ -101,16 +101,16 @@ void Player::Update()
 
 
 		//ƒWƒƒƒ“ƒv
-		//if (IsKeyTrigger(VK_SPACE))
-		//{
-		//	m_Move.y += 0.07f;
-		//	m_Ground = false;
-		//}
-		//if (IsButtonTrigger(BUTTON_A))
-		//{
-		//	m_Move.y += 0.07f;
-		//	m_Ground = false;
-		//}
+		if (IsKeyTrigger(VK_SPACE))
+		{
+			m_Move.y += 0.05f;
+			m_Ground = false;
+		}
+		if (IsButtonTrigger(BUTTON_A))
+		{
+			m_Move.y += 0.05f;
+			m_Ground = false;
+		}
 	}
 	else
 	{

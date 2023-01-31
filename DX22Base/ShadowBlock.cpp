@@ -8,6 +8,18 @@
 
 using namespace std;
 
+ID3D11ShaderResourceView* ShadowBlock::m_pTex;
+
+void ShadowBlock::Init()
+{
+	LoadTextureFromFile("Assets/fin.png", &m_pTex);
+}
+
+void ShadowBlock::Uninit()
+{
+	m_pTex->Release();
+}
+
 ShadowBlock::ShadowBlock(Def::Info info)
 {
 	m_BlockInfo.Info.pos = { 999.0f, 999.0f, 0.0f };

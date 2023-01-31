@@ -5,7 +5,7 @@
 
 
 //--- 定数定義
-const char* APP_TITLE = "DX2D";
+const char* APP_TITLE = "シャグライト";
 const Frame DEFAULT_FPS = 60;
 
 /*
