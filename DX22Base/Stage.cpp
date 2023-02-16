@@ -98,7 +98,7 @@ Stage::Stage()
 	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_2].m_Info.push_back(info);
 
 	//2
-	info.pos = { 1.6f, 3.78f, 0.0f };
+	info.pos = { 1.6f, 3.77f, 0.0f };
 	info.size = { 0.2f, 1.0f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_2].m_Info.push_back(info);
@@ -152,8 +152,8 @@ Stage::Stage()
 	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_2].m_Shadow.push_back(new ShadowBlock(info));
 
 	//シャドウブロック3
-	info.pos = { 1.47f, 4.25f, 0.0f };
-	info.size = { 1.0f, 1.0f, 0.5f };
+	info.pos = { 1.47f, 4.35f, 0.0f };
+	info.size = { 1.0f, 1.1f, 0.5f };
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_2].m_Shadow.push_back(new ShadowBlock(info));
 
@@ -327,6 +327,7 @@ Stage::Stage()
 	info.rot = { 0.0f, 0.0f, 0.0f };
 	m_Date[SceneGame::E_STAGE_NUMBER_STAGE_3].m_Shadow.push_back(new ShadowBlock(info));
 
+
 	m_pGround = new Ground;
 	m_pGrass = new Grass;
 }
@@ -363,7 +364,7 @@ void Stage::Draw()
 		SetGeometoryTranslate(m_Date[*m_pStageNum].m_Info[i].pos.x, m_Date[*m_pStageNum].m_Info[i].pos.y, m_Date[*m_pStageNum].m_Info[i].pos.z);
 		SetGeometoryScaling(m_Date[*m_pStageNum].m_Info[i].size.x, m_Date[*m_pStageNum].m_Info[i].size.y, m_Date[*m_pStageNum].m_Info[i].size.z);
 		SetGeometoryRotation(m_Date[*m_pStageNum].m_Info[i].rot.x, m_Date[*m_pStageNum].m_Info[i].rot.y, m_Date[*m_pStageNum].m_Info[i].rot.z);
-		SetGeometoryColor(XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+		SetGeometoryColor(XMFLOAT4(10.0f, 10.0f, 10.0f, 1.0f));
 		DrawBox();
 
 		

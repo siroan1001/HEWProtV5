@@ -8,6 +8,7 @@
 #include "BG.h"
 #include "DirectX.h"
 #include "Sprite.h"
+#include "Sound.h"
 
 class SceneTitle : public SceneBace
 {
@@ -24,6 +25,8 @@ private:
 
 	//TitleUI* m_TitleUI;	//?
 	BG* m_pBG;
+
+
 };
 
 #endif//__SCENE_TITLE__

@@ -1,6 +1,8 @@
 #include "ModelList.h"
+#include "DirectXTex/Texture.h"
 
-Model* ModelList::m_ModelList[E_MODEL_LIST_CONST_MAX];
+Model* ModelList::m_ModelList[E_MODEL_LIST_CONST_MAX]; 
+ID3D11ShaderResourceView* ModelList::m_pTex;
 
 void ModelList::Init()
 {
@@ -22,6 +24,8 @@ void ModelList::Init()
 	m_ModelList[E_MODEL_LIST_CONST_FLAG]->Load("Assets/flag/flag.fbx", 1.0f);
 	m_ModelList[E_MODEL_LIST_CONST_TREE] = new Model;
 	m_ModelList[E_MODEL_LIST_CONST_TREE]->Load("Assets/tree/tree.fbx", 1.0f);
+
+	LoadTextureFromFile("Assets/0d99778f81248d9d.png", &m_pTex);
 }
 
 void ModelList::Uninit()
@@ -36,4 +40,9 @@ void ModelList::Uninit()
 Model * ModelList::GetModel(ModelListConst listconst)
 {
 	return m_ModelList[listconst];
+}
+
+ID3D11ShaderResourceView * ModelList::GetTexture()
+{
+	return m_pTex;
 }

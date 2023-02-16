@@ -65,7 +65,8 @@ void ShadowBlock::Update()
 
 void ShadowBlock::Draw()
 {
-	vector<Def::Info>	block;		//描画用のデータを格納
+	//vector<Def::Info>	block;		//描画用のデータを格納
+	m_DrawBlock.clear();
 	Def::Info info;		//計算用
 	float PosL;		//ブロックの左端を示す
 	int count;
@@ -94,7 +95,7 @@ void ShadowBlock::Draw()
 				}
 				info.size.x *= count;
 				info.pos.x = PosL - info.size.x / 2.0f;
-				block.push_back(info);
+				m_DrawBlock.push_back(info);
 			}
 			else if (init->use)
 			{
@@ -113,7 +114,7 @@ void ShadowBlock::Draw()
 				{
 					info.size.x *= count;
 					info.pos.x = PosL - info.size.x / 2.0f;
-					block.push_back(info);
+					m_DrawBlock.push_back(info);
 					info = m_BlockBase;
 					//infoの次を示した場所の左端をposLに入れる
 					vector<ShadowBlock::SmallBlockTemp>::iterator next = init;
@@ -126,14 +127,21 @@ void ShadowBlock::Draw()
 		}
 	}
 
-	for (vector<Def::Info>::iterator it = block.begin(); it != block.end(); ++it)
+	for (vector<Def::Info>::iterator it = m_DrawBlock.begin(); it != m_DrawBlock.end(); ++it)
 	{
 		SetGeometoryTranslate(it->pos.x, it->pos.y, it->pos.z);
 		SetGeometoryScaling(it->size.x, it->size.y, it->size.z);
 		SetGeometoryRotation(it->rot.x, it->rot.y, it->rot.z);
-		SetGeometoryColor(XMFLOAT4(10.0f, 10.0f, 10.0f, 1.0f));
+		SetGeometoryColor(XMFLOAT4(1.0f, 1.0f, 1.0f, 0.75f));
 		DrawBox();
+
+		//Billboard::Info info = { {it->pos.x, it->pos.y, 0.75f},{it->size.x, it->size.y} };
+		//ShadowBillBoard* sbill = new ShadowBillBoard(info);
+		//sbill->Draw();
+		//delete sbill;
 	}
+
+	
 
 	//for (int i = 0; i < m_BillBoard.size(); i++)
 	//{
@@ -209,5 +217,10 @@ int ShadowBlock::GetNum()
 Def::Info ShadowBlock::GetInfo()
 {
 	return m_BlockInfo.Info;
+}
+
+vector<Def::Info> ShadowBlock::GetDrawBlock()
+{
+	return m_DrawBlock;
 }
 

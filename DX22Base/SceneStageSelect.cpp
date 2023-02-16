@@ -9,6 +9,7 @@ SceneStageSelect::SceneStageSelect(CameraBase * camera, SceneGame::StageNumber s
 	m_pCamera = camera;
 	m_StageNumber = stagenumber;
 	m_pBG = new BG(BG::E_BG_KIND_STAGESELECT);
+	m_pBGMSource->SetVolume(0.5f);
 	m_pCursor = new StageSelectCursor;
 }
 
@@ -40,7 +41,7 @@ void SceneStageSelect::Update()
 	//{
 	//	Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
 	//	m_StageNumber = SceneGame::E_STAGE_NUMBER_STAGE_3;
-	//}
+	//
 
 	m_pCursor->Update();
 
@@ -48,6 +49,8 @@ void SceneStageSelect::Update()
 	{
 		m_StageNumber = m_pCursor->GetStageNum();
 		Game3D::SetScene(Game3D::E_SCENE_KIND_GAME);
+		m_pBGMSource->Stop();
+		Sound::Start(Sound::E_SOUND_KIND_SE_SELECT);
 	}
 }
 
@@ -60,6 +63,7 @@ void SceneStageSelect::Draw()
 void SceneStageSelect::ReStart()
 {
 	m_pCamera->SetLook(XMFLOAT3(-5.48f, 4.05f, 0.0f));
+	m_pBGMSource = Sound::Start(Sound::E_SOUND_KIND_BGM_STAGESELECT);
 }
 
 void SceneStageSelect::SetCamera(CameraBase * camera)

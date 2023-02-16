@@ -8,7 +8,7 @@
 #include "Object.h"
 #include <vector>
 #include "Def.h"
-//#include "ShadowBillBoard.h"
+#include "ShadowBillBoard.h"
 
 using namespace DirectX;
 using namespace std;
@@ -44,6 +44,7 @@ public:
 	std::vector<std::vector<SmallBlockTemp>>* GetSmallBlockInfo();
 	int GetNum();
 	Def::Info GetInfo();
+	vector<Def::Info> GetDrawBlock();
 
 
 private:
@@ -55,6 +56,8 @@ private:
 	BlockTemp m_BlockInfo;		//‘S‘Ì‚Ìî•ñ
 	vector<vector<ShadowBlock::SmallBlockTemp>> m_SmallBlockInfo;		//•À‚Ñ‡‚âêŠ‚Ìî•ñ‚ğ“®“I‚ÉŠm•Û
 	static ID3D11ShaderResourceView* m_pTex;
+	vector<Def::Info> m_DrawBlock;
+	vector<ShadowBillBoard*> m_shadowBill;
 };
 
 #endif // !_____SHADOW_BLOCK_H____

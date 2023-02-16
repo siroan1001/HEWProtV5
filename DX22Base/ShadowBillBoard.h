@@ -7,7 +7,8 @@
 class ShadowBillBoard : public Billboard
 {
 public:
-	ShadowBillBoard(XMFLOAT3 pos);
+	ShadowBillBoard(Billboard::Info info);
+	static void Init();
 	//void ();
 
 private:

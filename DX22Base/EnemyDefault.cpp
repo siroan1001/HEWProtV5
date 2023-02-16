@@ -8,7 +8,7 @@ EnemyDefault::EnemyDefault(Collision::Direction dire, XMFLOAT3 pos)
 	,m_Move{0.0f, 0.0f, 0.0f}
 	,m_Spead(0.001f)
 {
-	m_Info = { {-3.5f, 4.5f, 0.0f}, { 0.3f, 0.2f, 0.3f }, { 0.0f, -90.0f, 0.0f } };
+	m_Info = { pos, { 0.3f, 0.2f, 0.3f }, { 0.0f, -90.0f, 0.0f } };
 	m_OldInfo = m_Info;
 	m_ModelSize.x = m_ModelSize.y = m_ModelSize.z = 0.1f;
 

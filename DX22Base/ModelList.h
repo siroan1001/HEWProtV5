@@ -25,8 +25,10 @@ public:
 	static void Uninit();
 
 	static Model* GetModel(ModelListConst);
+	static ID3D11ShaderResourceView* GetTexture();
 
 private:
 	static Model* m_ModelList[E_MODEL_LIST_CONST_MAX];
+	static ID3D11ShaderResourceView* m_pTex;
 
 };
